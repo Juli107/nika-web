@@ -1,0 +1,1352 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="NIKA, agencia de marketing digital en Argentina: web, redes, newsletter, contenido e IA a medida en un solo plan mensual. Probá 10 días gratis.">
+<meta property="og:title" content="NIKA · Liberá tu marca">
+<meta property="og:description" content="Web, redes, newsletter, contenido e IA a medida en un solo plan mensual. Probá 10 días gratis.">
+<meta name="theme-color" content="#0B0C10">
+<title>NIKA Inmersiva</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=JetBrains+Mono:wght@400;500&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap">
+<style>
+/* Concepto: el cielo antes del amanecer. Un fondo WebGL vivo (olas seigaiha + aurora) detrás,
+   R-bot 3D flotando delante como guía, y el contenido en capas de vidrio oscuro.
+   Look único oscuro por decisión de marca: todos los colores son explícitos. */
+:root{
+  --tinta:#0B0C10; --tinta-2:rgba(17,19,25,.72); --tinta-3:#171A22;
+  --nube:#F6F4EF; --gris:#B4B8C1; --gris-2:#8A909C;
+  --linea:rgba(246,244,239,.10); --linea-2:rgba(246,244,239,.2);
+  --sol:#FFC83D; --amanecer:#FF7A1A; --lila:#9B8CFF; --faja:#D12E36;
+  --degradado:linear-gradient(135deg,#FFC83D,#FF7A1A);
+  --f-titulo:"Chakra Petch","Arial Narrow",sans-serif;
+  --f-texto:"Zen Kaku Gothic New",system-ui,sans-serif;
+  --f-datos:"JetBrains Mono",ui-monospace,monospace;
+  --ease:cubic-bezier(.77,0,.18,1); --ease-out:cubic-bezier(.16,1,.3,1);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-padding-top:80px}
+body{background:var(--tinta);color:var(--nube);font-family:var(--f-texto);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body.lock{overflow:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:95;background:var(--tinta)}
+a{color:inherit}
+img{max-width:100%;height:auto;display:block}
+::selection{background:var(--sol);color:var(--tinta)}
+:focus-visible{outline:2px solid var(--sol);outline-offset:3px;border-radius:6px}
+p{margin:0}
+h1,h2,h3{font-family:var(--f-titulo);font-weight:600;text-transform:uppercase;line-height:1;letter-spacing:-.01em;margin:0;text-wrap:balance}
+h2{font-size:clamp(38px,6vw,84px)}
+h3{font-size:clamp(19px,1.8vw,23px);line-height:1.15}
+
+/* Capas 3D */
+#bg,#fx{position:fixed;inset:0;width:100%;height:100%;display:block;pointer-events:none}
+#bg{z-index:0}
+#fx{z-index:40}
+.zona-bot{position:fixed;left:0;top:0;z-index:41;display:none;touch-action:none;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;border-radius:40%}
+body.tactil .zona-bot.on{display:block}
+main,footer{position:relative;z-index:2}
+main{overflow-x:clip}
+body.menu-abierto #fx{z-index:91}
+.grano{position:fixed;inset:-50%;z-index:41;pointer-events:none;opacity:.06;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:grano 1s steps(4) infinite}
+@keyframes grano{0%{transform:translate(0,0)}25%{transform:translate(-3%,2%)}50%{transform:translate(2%,-3%)}75%{transform:translate(-2%,-1%)}}
+
+.wrap{max-width:1240px;margin-inline:auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+.bloque{padding-block:clamp(90px,12vw,160px);position:relative}
+.eyebrow{font-family:var(--f-datos);font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--sol);display:flex;flex-wrap:wrap;gap:.9em;align-items:center}
+.eyebrow .jp{font-family:var(--f-texto);letter-spacing:.1em;color:var(--gris-2);font-weight:500}
+.lead{font-size:clamp(17px,1.6vw,20px);color:var(--gris);max-width:52ch}
+.grad{background:linear-gradient(100deg,#FFC83D 0%,#FF7A1A 40%,#FFC83D 60%,#FF7A1A 100%);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:brillo 6s linear infinite}
+@keyframes brillo{to{background-position:-250% 0}}
+.cabecera{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:24px 48px;margin-bottom:clamp(40px,6vw,72px)}
+.cabecera>div{display:flex;flex-direction:column;gap:20px;min-width:0}
+.kanji-bg{position:absolute;right:-2vw;top:40px;font-family:var(--f-texto);font-weight:900;font-size:clamp(160px,26vw,380px);line-height:.9;color:transparent;-webkit-text-stroke:1px rgba(246,244,239,.07);pointer-events:none;user-select:none;z-index:-1;will-change:transform}
+
+/* Revelados */
+.rv{opacity:0;transform:translateY(40px);transition:opacity 1s var(--ease-out),transform 1s var(--ease-out)}
+.rv.in{opacity:1;transform:none}
+.split .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.06em;margin-bottom:-.06em}
+.split .w>span{display:inline-block;transform:translateY(105%) rotate(4deg);transition:transform 1.1s var(--ease-out);transition-delay:calc(var(--i)*55ms)}
+.split.in .w>span{transform:none}
+
+/* Botones */
+.btn{position:relative;display:inline-flex;align-items:center;gap:10px;font-family:var(--f-titulo);font-weight:600;font-size:15px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border-radius:999px;padding:16px 26px;border:0;cursor:pointer;overflow:hidden;isolation:isolate;transition:box-shadow .3s}
+.btn-sol{background:var(--degradado);color:var(--tinta);box-shadow:0 10px 40px -10px rgba(255,140,30,.7)}
+.btn-sol::after{content:"";position:absolute;inset:0;z-index:-1;background:var(--nube);transform:translateY(101%);border-radius:inherit;transition:transform .5s var(--ease)}
+.btn-sol:hover::after{transform:none}
+.btn-linea{color:var(--nube);box-shadow:inset 0 0 0 1px var(--linea-2);background:rgba(11,12,16,.4);backdrop-filter:blur(8px)}
+.btn-linea::after{content:"";position:absolute;inset:0;z-index:-1;background:var(--lila);transform:scale(0);border-radius:inherit;transition:transform .5s var(--ease);opacity:.25}
+.btn-linea:hover::after{transform:scale(1)}
+.btn .fl{display:inline-block;transition:transform .3s var(--ease-out)}
+.btn:hover .fl{transform:translateX(4px) rotate(-45deg)}
+.mag{will-change:transform;transition:transform .5s var(--ease-out)}
+
+/* Cursor */
+.cursor,.cursor-dot{position:fixed;left:0;top:0;z-index:99;pointer-events:none;border-radius:50%;transform:translate(-50%,-50%)}
+.cursor{width:26px;height:26px;border:1px solid rgba(255,200,61,.32);transition:width .35s var(--ease-out),height .35s var(--ease-out),background .35s,border-color .35s;display:grid;place-items:center;font-family:var(--f-datos);font-size:10px;letter-spacing:.14em;color:var(--tinta)}
+.cursor.hover{width:42px;height:42px;border-color:rgba(255,200,61,.45);background:transparent}
+.cursor.link{width:38px;height:38px;background:rgba(255,200,61,.12);border-color:rgba(255,200,61,.5)}
+.cursor-dot{width:4px;height:4px;background:var(--sol);opacity:.75}
+@media (hover:none),(pointer:coarse){.cursor,.cursor-dot{display:none}}
+
+/* Precarga */
+.pre{position:fixed;inset:0;z-index:100;background:var(--tinta);display:grid;place-items:center;transition:clip-path 1.1s var(--ease);clip-path:inset(0 0 0 0)}
+.pre.out{clip-path:inset(0 0 100% 0)}
+.pre svg{width:min(340px,64vw);overflow:visible}
+.pre path{stroke-dasharray:160;stroke-dashoffset:160;animation:traza 1s var(--ease) forwards}
+.pre g:nth-of-type(2) path{animation-delay:.12s}.pre g:nth-of-type(3) path{animation-delay:.24s}.pre g:nth-of-type(4) path{animation-delay:.36s}
+.pre circle{transform-origin:253px 44px;transform:scale(0);animation:sale .7s var(--ease-out) .9s forwards}
+.pre .cnt{position:absolute;bottom:max(32px,env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);font-family:var(--f-datos);font-size:12px;letter-spacing:.3em;color:var(--gris-2)}
+@keyframes traza{to{stroke-dashoffset:0}}
+@keyframes sale{0%{transform:scale(0)}70%{transform:scale(1.5)}100%{transform:scale(1)}}
+
+/* Barra superior */
+.top{position:fixed;left:0;right:0;top:env(safe-area-inset-top,0px);z-index:80;transition:transform .6s var(--ease)}
+.top.hide{transform:none}
+.top::before{content:"";position:absolute;inset:calc(-1 * env(safe-area-inset-top,0px)) 0 0;background:rgba(11,12,16,.93);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--linea);opacity:0;transition:opacity .35s;pointer-events:none}
+.top.solida::before{opacity:1}
+.top>.wrap{position:relative}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:76px}
+.progreso{position:fixed;left:0;top:env(safe-area-inset-top,0px);height:2px;width:100%;background:var(--degradado);transform-origin:0 50%;transform:scaleX(0);z-index:81}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;mix-blend-mode:difference}
+.logo svg{height:22px;width:auto}
+.logo .jp{font-size:12px;color:var(--sol);letter-spacing:.1em;border-left:1px solid var(--linea-2);padding-left:12px}
+.top .acciones{display:flex;gap:10px;align-items:center}
+.top .btn{padding:12px 20px;font-size:13px}
+.toggle-menu{all:unset;cursor:pointer;display:flex;align-items:center;gap:14px;height:46px;padding:0 8px 0 20px;border-radius:999px;background:rgba(17,19,25,.6);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:inset 0 0 0 1px var(--linea-2);position:relative;z-index:92}
+.toggle-menu:focus-visible{outline:2px solid var(--sol)}
+.toggle-menu .lbl{height:16px;overflow:hidden;font-family:var(--f-datos);font-size:12px;letter-spacing:.2em;line-height:16px}
+.toggle-menu .lbl span{display:block;transition:transform .6s var(--ease)}
+.toggle-menu .ico{width:32px;height:32px;border-radius:50%;background:var(--degradado);display:grid;place-items:center;position:relative;transition:transform .6s var(--ease)}
+.toggle-menu .ico i{position:absolute;width:12px;height:1.6px;background:var(--tinta);transition:transform .6s var(--ease)}
+.toggle-menu .ico i:first-child{transform:translateY(-3px)}
+.toggle-menu .ico i:last-child{transform:translateY(3px)}
+.menu-abierto .toggle-menu .lbl span{transform:translateY(-100%)}
+.menu-abierto .toggle-menu .ico{transform:rotate(180deg)}
+.menu-abierto .toggle-menu .ico i:first-child{transform:rotate(45deg)}
+.menu-abierto .toggle-menu .ico i:last-child{transform:rotate(-45deg)}
+.menu-abierto .top .btn-cta{opacity:0;pointer-events:none}
+.top .btn-cta{transition:opacity .4s}
+@media (max-width:640px){.top .btn-cta{display:none}.top .wrap{height:64px}.toggle-menu{height:42px;padding-left:16px}.toggle-menu .ico{width:30px;height:30px}}
+@media (max-width:520px){
+  body .hero-ctas{flex-direction:column}body .hero-ctas .btn{justify-content:center;width:100%}
+  body .hero .chips span{font-size:10.5px;padding:6px 10px}
+  body .planes-top{flex-direction:column;align-items:stretch}
+  body .pago{align-self:stretch}body .pago button{flex:1;text-align:center;padding:10px 8px;font-size:11px;white-space:nowrap}
+  body .cambio{flex-wrap:wrap}body .cambio input{flex:1;min-width:0;width:auto}
+  body .precio .v{font-size:46px}
+  body .menu li a{font-size:clamp(34px,11vw,48px);padding-block:4px}
+  body .menu .dentro{gap:28px;padding-top:calc(96px + env(safe-area-inset-top,0px))}
+  body .srv{border-radius:24px}body .srv .kata{font-size:110px}
+  body .libre{min-height:0}body .libre .k{font-size:84px}
+  body .contactos span{font-size:12px}
+  footer .fila{flex-direction:column}
+}
+
+/* Burbuja de R-bot */
+.burbuja{position:fixed;left:0;top:0;z-index:46;pointer-events:none;max-width:min(240px,60vw);font-family:var(--f-datos);font-size:12.5px;letter-spacing:.04em;line-height:1.4;color:var(--nube);background:rgba(17,19,25,.82);border:1px solid var(--linea-2);border-radius:16px 16px 16px 4px;padding:10px 14px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);opacity:0;transform:translate(-9999px,0);transition:opacity .35s}
+.burbuja.on{opacity:1}
+.burbuja b{color:var(--sol);font-weight:500}
+body.sobre-bot{cursor:grab}
+/* Menú */
+.menu{position:fixed;inset:0;z-index:90;visibility:hidden;pointer-events:none;opacity:0;transition:opacity .25s ease,visibility 0s linear .25s}
+.menu.abierto{visibility:visible;pointer-events:auto;opacity:1;transition:opacity .25s ease,visibility 0s}
+.menu .capa{position:absolute;inset:0}
+.menu .capa.c1{display:none}
+.menu .capa.c2{background:rgba(13,14,20,.97)}
+.menu .olas{position:absolute;inset:0;background:url(img/seigaiha.svg) 0 0/200px;opacity:.35;-webkit-mask-image:radial-gradient(80% 80% at 100% 100%,#000,transparent 70%);mask-image:radial-gradient(80% 80% at 100% 100%,#000,transparent 70%)}
+.cerrar-menu{all:unset;box-sizing:border-box;position:absolute;z-index:3;top:calc(15px + env(safe-area-inset-top,0px));right:max(20px,calc((100vw - 1240px)/2 + 20px));width:46px;height:46px;border-radius:50%;background:var(--degradado);display:grid;place-items:center;cursor:pointer;box-shadow:0 10px 30px -10px rgba(255,140,30,.7);transform:scale(.4) rotate(-180deg);opacity:0;transition:transform .45s var(--ease-out),opacity .25s}
+.cerrar-menu i{position:absolute;width:16px;height:2px;border-radius:2px;background:var(--tinta);transform:rotate(45deg)}
+.cerrar-menu i+i{transform:rotate(-45deg)}
+.menu.abierto .cerrar-menu{transform:none;opacity:1;transition-delay:.08s}
+.menu.abierto .cerrar-menu:hover{transform:rotate(90deg) scale(1.06)}
+.menu.abierto .cerrar-menu.cerrando{transform:rotate(270deg) scale(.4);opacity:0;transition:transform .28s ease-in,opacity .28s ease-in;transition-delay:0s}
+.cerrar-menu:focus-visible{outline:2px solid var(--nube);outline-offset:3px}
+@media (max-width:640px){.cerrar-menu{top:calc(10px + env(safe-area-inset-top,0px));width:42px;height:42px}}
+.menu .dentro{position:relative;height:100%;display:grid;grid-template-columns:1.3fr .7fr;gap:40px;padding-top:calc(110px + env(safe-area-inset-top,0px));padding-bottom:calc(40px + env(safe-area-inset-bottom,0px));overflow-y:auto}
+.menu ol{list-style:none;margin:0;padding:0;counter-reset:m;display:flex;flex-direction:column;gap:2px}
+.menu li{overflow:hidden}
+.menu li a{display:flex;align-items:baseline;gap:18px;text-decoration:none;font-family:var(--f-titulo);font-weight:600;text-transform:uppercase;font-size:clamp(36px,6.4vw,84px);line-height:1.04;opacity:0;transform:translateY(14px);transition:opacity .3s ease,transform .35s var(--ease-out),color .2s;color:var(--nube)}
+.menu li a small{font-family:var(--f-datos);font-size:12px;letter-spacing:.14em;color:var(--sol);font-weight:400;transform:translateY(-1.6em)}
+.menu li a em{font-style:normal;font-family:var(--f-texto);font-size:.22em;color:var(--gris-2);letter-spacing:.1em;opacity:0;transform:translateX(-10px);transition:opacity .3s,transform .3s}
+.menu li a:hover,.menu li a:focus-visible{color:var(--sol)}
+.menu li a:hover em,.menu li a:focus-visible em{opacity:1;transform:none}
+.menu.abierto li a{opacity:1;transform:none;transition-delay:calc(var(--i)*.025s),calc(var(--i)*.025s),0s}
+.menu:not(.abierto) li a{transition-duration:.15s}
+.menu .lado{display:flex;flex-direction:column;justify-content:space-between;gap:28px;min-width:0;opacity:0;transform:translateY(10px);transition:opacity .3s,transform .35s var(--ease-out)}
+.menu.abierto .lado{opacity:1;transform:none;transition-delay:.08s}
+.menu .kanji-menu{font-family:var(--f-texto);font-weight:900;font-size:clamp(140px,18vw,260px);line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(255,200,61,.55);transition:opacity .3s,transform .5s var(--ease-out)}
+.menu .kanji-menu.cambia{opacity:0;transform:translateY(20px) scale(.95)}
+.menu .datos{display:flex;flex-direction:column;gap:10px;font-family:var(--f-datos);font-size:13px;color:var(--gris)}
+.menu .datos b{color:var(--nube);font-weight:500}
+.menu .lado .kanji-menu{font-size:clamp(90px,min(11vw,19vh),190px)}
+.menu .cabeza-menu{width:170px;height:170px;flex:none;margin-bottom:-18px;position:relative}
+.menu .cabeza-menu::after{content:"";position:absolute;left:12%;right:12%;bottom:-4px;height:14px;border-radius:50%;background:radial-gradient(closest-side,rgba(255,200,61,.28),transparent);opacity:0;transition:opacity .5s .3s}
+.menu.abierto .cabeza-menu::after{opacity:1}
+@media (max-width:860px){.menu .dentro{grid-template-columns:1fr}.menu .kanji-menu{display:none}.menu .lado{display:contents}.menu .cabeza-menu{order:-1;width:104px;height:104px;margin:-14px 0 -10px}}
+
+/* Hero */
+.hero{min-height:min(100svh,980px);display:flex;align-items:center;padding-block:120px 80px;position:relative}
+.hero .wrap{width:100%;display:grid;grid-template-columns:1.15fr .85fr;align-items:center}
+.hero-txt{display:flex;flex-direction:column;gap:30px;min-width:0}
+.hero h1{font-size:clamp(54px,8.6vw,136px);line-height:.88;letter-spacing:-.025em}
+.hero h1 .ln{display:block;white-space:nowrap}
+.hero .lead{font-size:clamp(18px,1.7vw,21px)}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:14px}
+.hero .chips{display:flex;flex-wrap:wrap;gap:8px}
+.hero .chips span{font-family:var(--f-datos);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--linea-2);border-radius:999px;padding:7px 13px;background:rgba(11,12,16,.35);backdrop-filter:blur(6px)}
+.hero .chips b{color:var(--sol);font-weight:500}
+.hero .chips .vivo{display:inline-flex;align-items:center;gap:8px;border-color:rgba(255,200,61,.35)}
+.hero .chips .vivo i{width:6px;height:6px;border-radius:50%;background:var(--sol);box-shadow:0 0 0 0 rgba(255,200,61,.6);animation:vivo 2s infinite}
+@keyframes vivo{0%{box-shadow:0 0 0 0 rgba(255,200,61,.55)}70%{box-shadow:0 0 0 7px rgba(255,200,61,0)}100%{box-shadow:0 0 0 0 rgba(255,200,61,0)}}
+.hero .scroll{position:absolute;left:50%;bottom:28px;transform:translateX(-50%);font-family:var(--f-datos);font-size:11px;letter-spacing:.3em;color:var(--gris-2);display:flex;flex-direction:column;align-items:center;gap:10px}
+.hero .scroll i{width:1px;height:46px;background:linear-gradient(var(--sol),transparent);animation:baja 2s var(--ease) infinite;transform-origin:top}
+@keyframes baja{0%{transform:scaleY(0)}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+.hero .tag3d{position:absolute;font-family:var(--f-datos);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;background:rgba(17,19,25,.7);border:1px solid var(--linea-2);border-radius:999px;padding:8px 14px;backdrop-filter:blur(8px);white-space:nowrap;z-index:45;pointer-events:none;will-change:transform}
+.hero .tag3d i{font-style:normal;color:var(--sol)}
+.hero .t2{position:fixed;left:0;top:0;opacity:0;transition:opacity .4s}
+.hero .t2.on{opacity:1}
+.niko-fallback{display:none}
+body.sin-3d .niko-fallback{display:block;width:min(360px,80%);justify-self:center;filter:drop-shadow(0 30px 40px rgba(0,0,0,.55))}
+@media (max-width:900px){
+  .hero{align-items:flex-end;padding-top:calc(52svh + 30px);min-height:0}
+  .hero .wrap{grid-template-columns:1fr}
+  .hero .tag3d{display:none}
+  .hero-txt{gap:22px}
+  .kanji-bg{font-size:42vw;top:24px}
+  .bloque{padding-block:72px}
+  .cabecera{margin-bottom:32px}
+  .hero .scroll{display:none}
+  body.sin-3d .hero{padding-top:120px}
+  body.sin-3d .niko-fallback{order:-1;width:220px}
+}
+
+/* Cinta */
+.cinta{position:relative;z-index:2;border-block:1px solid var(--linea);background:rgba(13,14,20,.75);backdrop-filter:blur(10px);overflow:hidden;transform:rotate(-2deg) scale(1.04);margin-block:10px}
+.cinta .pista{display:flex;width:max-content;will-change:transform}
+.cinta span{font-family:var(--f-titulo);font-weight:600;text-transform:uppercase;font-size:clamp(22px,3vw,40px);padding:22px 30px;white-space:nowrap;display:flex;gap:16px;align-items:center}
+.cinta span em{font-style:normal;font-family:var(--f-texto);font-weight:500;font-size:.5em;color:var(--gris-2)}
+.cinta span::after{content:"✦";color:var(--sol);font-size:.6em;margin-left:30px}
+.cinta span.o{color:transparent;-webkit-text-stroke:1px var(--nube)}
+
+/* Tarjetas con inclinación */
+[data-tilt]{transform-style:preserve-3d;transition:transform .6s var(--ease-out),border-color .3s;will-change:transform;--mx:50%;--my:50%}
+[data-tilt]::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(360px circle at var(--mx) var(--my),rgba(255,200,61,.14),transparent 45%);opacity:0;transition:opacity .4s;z-index:0}
+[data-tilt]:hover::before{opacity:1}
+[data-tilt]>*{position:relative;z-index:1}
+.vidrio{background:var(--tinta-2);border:1px solid var(--linea);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+
+/* Problemas */
+.grilla-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;perspective:1200px}
+@media (max-width:980px){.grilla-3{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:620px){.grilla-3{grid-template-columns:1fr}}
+.problema{position:relative;border-radius:24px;padding:22px 24px 24px;display:flex;flex-direction:column;gap:10px;overflow:hidden}
+.problema:hover{border-color:rgba(255,90,98,.45)}
+body.con-3d .problema img[data-bot]{opacity:0}
+.problema img{width:118px;height:150px;object-fit:contain;margin:-6px 0 4px -8px;transform:translateZ(50px);transition:transform .6s var(--ease-out)}
+.problema:hover img{transform:translateZ(70px) translateY(-6px) rotate(-4deg)}
+.problema p{font-size:15px;color:var(--gris)}
+.problema .s{font-family:var(--f-datos);font-size:12.5px;color:var(--sol);margin-top:6px}
+.problema .n{position:absolute;right:20px;top:18px;font-family:var(--f-datos);font-size:12px;color:#FF5A62;letter-spacing:.1em}
+
+/* Libertades */
+.tres{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;perspective:1200px}
+@media (max-width:900px){.tres{grid-template-columns:1fr}}
+.libre{position:relative;border-radius:28px;padding:34px;min-height:340px;display:flex;flex-direction:column;justify-content:space-between;gap:24px;overflow:hidden}
+.libre .k{font-family:var(--f-texto);font-weight:900;font-size:120px;line-height:.9;background:var(--degradado);-webkit-background-clip:text;background-clip:text;color:transparent;transform:translateZ(60px)}
+.libre div{display:flex;flex-direction:column;gap:10px}
+.libre p{color:var(--gris);font-size:15.5px}
+.manifiesto{font-family:var(--f-titulo);font-weight:600;text-transform:uppercase;font-size:clamp(26px,3.6vw,48px);line-height:1.08;max-width:22ch;margin-top:clamp(56px,8vw,96px)}
+.manifiesto .dim{color:rgba(246,244,239,.22);transition:color .2s}
+
+/* Servicios horizontales */
+.hs{position:relative;z-index:2}
+.hs .pin{position:sticky;top:0;height:100svh;overflow:hidden;display:flex;flex-direction:column;justify-content:center;gap:clamp(20px,3vh,36px)}
+.hs .pista{display:flex;gap:24px;padding-left:max(20px,calc((100vw - 1240px)/2 + 20px));will-change:transform;width:max-content}
+.hs .cab{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap}
+.hs .cuenta{font-family:var(--f-datos);font-size:13px;letter-spacing:.2em;color:var(--gris-2)}
+.hs .cuenta b{color:var(--sol);font-weight:500}
+.srv{width:min(560px,78vw);flex:0 0 auto;border-radius:30px;padding:clamp(24px,3vw,38px);display:flex;flex-direction:column;gap:18px;position:relative;overflow:hidden;min-height:min(560px,64svh)}
+.srv .num{display:flex;justify-content:space-between;font-family:var(--f-datos);font-size:12.5px;letter-spacing:.14em;color:var(--sol)}
+.srv .kata{position:absolute;right:-10px;bottom:-30px;font-family:var(--f-texto);font-weight:900;font-size:150px;line-height:1;color:transparent;-webkit-text-stroke:1px rgba(246,244,239,.09);pointer-events:none;white-space:nowrap}
+.srv h3{font-size:clamp(28px,3vw,40px)}
+.srv>p{color:var(--gris);font-size:15.5px}
+.srv ul{list-style:none;margin:auto 0 0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:10px 18px}
+.srv li{font-size:14.5px;display:flex;gap:10px}
+.srv li::before{content:"";flex:0 0 6px;height:6px;margin-top:9px;border-radius:50%;background:var(--sol)}
+.srv .chip{align-self:flex-start;font-family:var(--f-datos);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--linea-2);border-radius:999px;padding:6px 12px}
+.srv.ia{background:linear-gradient(150deg,rgba(255,200,61,.95),rgba(255,122,26,.95));color:var(--tinta);border-color:transparent}
+.srv.ia>p,.srv.ia li{color:#2A2416}
+.srv.ia li::before{background:var(--tinta)}
+.srv.ia .num{color:var(--tinta)}
+.srv.ia .chip{border-color:rgba(11,12,16,.35)}
+.srv.ia .kata{-webkit-text-stroke:1px rgba(11,12,16,.18)}
+.hs[data-dir=der] .pista{flex-direction:row-reverse;padding-inline:max(20px,calc((100vw - 1240px)/2 + 20px))}
+.hs[data-dir=der] .barra i{transform-origin:100% 0}
+.hs .cab .lead{max-width:44ch}
+.hs .kanji-bg{top:auto;bottom:-4vh;right:auto;left:-2vw;z-index:0}
+.hs .libre{width:min(460px,74vw);flex:0 0 auto;min-height:min(400px,50svh)}
+.hs .panel-man{width:min(760px,82vw);flex:0 0 auto;display:flex;align-items:center}
+.hs .panel-man .manifiesto{margin-top:0}
+.hs .caso{width:min(380px,76vw);flex:0 0 auto}
+.hs .marcas{width:min(620px,82vw);flex:0 0 auto;margin-top:0;justify-content:center}
+.hs .marcas .fila{grid-template-columns:repeat(3,minmax(0,1fr))}
+.hs .barra{height:2px;background:var(--linea);border-radius:2px;overflow:hidden}
+.hs .barra i{display:block;height:100%;background:var(--degradado);transform-origin:0;transform:scaleX(0)}
+@media (max-width:900px){
+  .hs{height:auto!important}
+  .hs .pin{position:relative;height:auto;padding-block:90px}
+  .hs .pista{flex-direction:column;width:auto;padding-inline:max(20px,env(safe-area-inset-left,0px)) max(20px,env(safe-area-inset-right,0px));transform:none!important}
+  .hs[data-dir=der] .pista{flex-direction:column;padding-inline:max(20px,env(safe-area-inset-left,0px)) max(20px,env(safe-area-inset-right,0px))}
+  .srv,.hs .libre,.hs .caso,.hs .panel-man,.hs .marcas{width:100%;min-height:0}
+  .hs .libre{min-height:280px}
+  .hs .kanji-bg{top:24px;bottom:auto;right:-2vw;left:auto}
+  .srv ul{grid-template-columns:1fr}
+  .hs .barra{display:none}
+}
+
+/* Método */
+.pasos{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));position:relative}
+.pasos .linea{position:absolute;left:0;right:0;top:0;height:2px;background:var(--linea-2)}
+.pasos .linea i{display:block;height:100%;background:var(--degradado);transform-origin:0;transform:scaleX(var(--p,0))}
+.paso{display:flex;flex-direction:column;gap:10px;padding:34px 22px 0 0;position:relative}
+.paso::before{content:"";position:absolute;top:-6px;left:0;width:14px;height:14px;border-radius:50%;background:var(--tinta);border:2px solid var(--sol);transition:background .4s,box-shadow .4s}
+.paso.on::before{background:var(--sol);box-shadow:0 0 24px var(--sol)}
+.paso .cuando{font-family:var(--f-datos);font-size:12px;letter-spacing:.14em;color:var(--sol);text-transform:uppercase}
+.paso p{font-size:15px;color:var(--gris)}
+@media (max-width:900px){
+  .pasos{grid-template-columns:1fr;padding-left:26px}
+  .pasos .linea{left:6px;right:auto;top:0;bottom:0;width:2px;height:auto}
+  .pasos .linea i{transform-origin:top;transform:scaleY(var(--p,0));width:100%;height:100%}
+  .paso{padding:0 0 32px 0}
+  .paso::before{left:-26px;top:4px}
+}
+.alcance{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:clamp(56px,7vw,88px);perspective:1200px}
+@media (max-width:760px){.alcance{grid-template-columns:1fr}}
+.alcance .col{position:relative;border-radius:24px;padding:30px;display:flex;flex-direction:column;gap:16px;overflow:hidden}
+.alcance .col.nika{border-color:rgba(255,200,61,.4)}
+.alcance ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:11px}
+.alcance li{display:flex;gap:12px;font-size:15.5px;color:var(--gris)}
+.alcance li::before{content:"";flex:0 0 7px;height:7px;margin-top:9px;border-radius:50%;background:var(--sol)}
+.alcance .vos li::before{background:transparent;border:1.5px solid var(--gris-2)}
+
+/* Planes */
+.planes-top{display:flex;flex-wrap:wrap;gap:16px 24px;align-items:center;justify-content:space-between;margin-bottom:28px}
+.pago{display:inline-flex;position:relative;background:var(--tinta-2);border:1px solid var(--linea);border-radius:999px;padding:4px;backdrop-filter:blur(10px)}
+.pago .pill{position:absolute;top:4px;bottom:4px;left:4px;border-radius:999px;background:var(--nube);transition:transform .5s var(--ease),width .5s var(--ease)}
+.pago button{all:unset;position:relative;cursor:pointer;font-family:var(--f-datos);font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;padding:10px 18px;border-radius:999px;color:var(--gris);transition:color .4s}
+.pago button[aria-pressed="true"]{color:var(--tinta)}
+.pago button:focus-visible{outline:2px solid var(--sol)}
+.pago .off{color:var(--amanecer)}
+.pago button[aria-pressed="true"] .off{color:#B5480A}
+.cambio{display:flex;align-items:center;gap:10px;font-family:var(--f-datos);font-size:12.5px;color:var(--gris)}
+.cambio input{width:124px;background:var(--tinta-2);border:1px solid var(--linea-2);color:var(--nube);border-radius:10px;padding:9px 12px;font:inherit;font-variant-numeric:tabular-nums}
+.cambio input:focus{outline:none;border-color:var(--sol)}
+.planes{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;perspective:1400px}
+@media (max-width:1080px){.planes{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:620px){.planes{grid-template-columns:1fr}}
+.plan{position:relative;border-radius:26px;padding:28px 24px;display:flex;flex-direction:column;gap:16px;min-width:0}
+.plan .nivel{display:flex;justify-content:space-between;align-items:center;font-family:var(--f-datos);font-size:12px;letter-spacing:.14em;color:var(--gris-2)}
+.plan h3{font-size:32px}
+.plan .para{font-size:14.5px;color:var(--gris);min-height:3em}
+.precio{display:flex;align-items:baseline;gap:6px;font-family:var(--f-titulo);font-variant-numeric:tabular-nums;transform:translateZ(40px)}
+.precio .u{font-size:18px;color:var(--gris)}
+.precio .v{font-size:52px;font-weight:600;line-height:1}
+.precio .m{font-family:var(--f-datos);font-size:12px;color:var(--gris-2)}
+.ars{font-family:var(--f-datos);font-size:12.5px;color:var(--gris);min-height:1.2em;font-variant-numeric:tabular-nums}
+.alta{font-family:var(--f-datos);font-size:12.5px;color:var(--gris);padding:10px 12px;border:1px dashed var(--linea-2);border-radius:10px}
+.alta s{color:var(--gris-2)}.alta b{color:var(--nube);font-weight:500}
+.plan ul{list-style:none;margin:0;padding:16px 0 0;border-top:1px solid var(--linea);display:flex;flex-direction:column;gap:9px;flex:1}
+.plan li{display:flex;gap:10px;font-size:14.5px}
+.plan li::before{content:"";flex:0 0 14px;height:14px;margin-top:5px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M2 7.5l3.2 3L12 3.5' fill='none' stroke='%23FFC83D' stroke-width='2'/%3E%3C/svg%3E") center/contain no-repeat}
+.plan li.ia{color:var(--sol)}
+.plan .btn{justify-content:center}
+.plan.ancla{border-color:transparent;background:linear-gradient(#15151D,#15151D) padding-box,conic-gradient(from var(--ang,0deg),#FFC83D,#FF7A1A,#9B8CFF,#FFC83D) border-box;border:1.5px solid transparent;box-shadow:0 40px 90px -40px rgba(255,140,30,.6);animation:gira-borde 6s linear infinite}
+@property --ang{syntax:"<angle>";inherits:false;initial-value:0deg}
+@keyframes gira-borde{to{--ang:360deg}}
+.plan .badge{background:var(--degradado);color:var(--tinta);border-radius:999px;padding:5px 10px;letter-spacing:.1em}
+.letra{font-size:14px;color:var(--gris-2);margin-top:20px;max-width:84ch}
+details.comparar{margin-top:28px;border-radius:22px}
+details.comparar summary{cursor:pointer;list-style:none;padding:20px 24px;display:flex;justify-content:space-between;align-items:center;font-family:var(--f-titulo);font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+details.comparar summary::-webkit-details-marker{display:none}
+details.comparar summary span{font-family:var(--f-datos);color:var(--sol);transition:transform .3s}
+details.comparar[open] summary span{transform:rotate(45deg)}
+.tabla-wrap{overflow-x:auto;padding:0 24px 24px}
+table{width:100%;border-collapse:collapse;min-width:640px;font-size:14.5px;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:12px 10px;border-bottom:1px solid var(--linea)}
+th{font-family:var(--f-datos);font-weight:500;font-size:12px;letter-spacing:.12em;color:var(--gris-2);text-transform:uppercase}
+td:first-child{color:var(--gris)}
+.pro{background:rgba(255,200,61,.07)}
+tr.fia td{color:var(--sol)}
+.extras{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:28px;margin-top:20px}
+.extras div{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid var(--linea);font-size:15px}
+.extras div span:last-child{font-family:var(--f-datos);color:var(--sol);white-space:nowrap}
+@media (max-width:900px){.extras{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.extras{grid-template-columns:1fr}}
+.sub{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin-top:80px}
+.sub h3{font-size:clamp(24px,2.6vw,32px)}
+
+/* Bonos y condiciones */
+.dos-col{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,5vw,72px)}
+@media (max-width:900px){.dos-col{grid-template-columns:1fr}}
+.lista-bonos{display:flex;flex-direction:column}
+.bono{display:grid;grid-template-columns:56px 1fr;gap:18px;padding:20px 0;border-top:1px solid var(--linea);transition:padding .4s var(--ease-out)}
+.bono:hover{padding-left:10px}
+.bono .k{font-family:var(--f-texto);font-weight:900;font-size:34px;line-height:1;color:var(--lila)}
+.bono p{color:var(--gris);font-size:15px}
+.cond details{border-top:1px solid var(--linea)}
+.cond summary{cursor:pointer;list-style:none;padding:20px 0;display:flex;justify-content:space-between;gap:16px;font-family:var(--f-titulo);font-weight:600;font-size:19px;text-transform:uppercase}
+.cond summary::-webkit-details-marker{display:none}
+.cond summary span{font-family:var(--f-datos);color:var(--sol);transition:transform .3s}
+.cond details[open] summary span{transform:rotate(45deg)}
+.cond details p{padding:0 0 20px;color:var(--gris);font-size:15.5px}
+
+/* Casos */
+.casos{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;perspective:1400px}
+@media (max-width:980px){.casos{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:620px){.casos{grid-template-columns:1fr}}
+.caso{position:relative;border-radius:24px;overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.caso .portada{aspect-ratio:16/10;position:relative;display:grid;place-items:center;overflow:hidden;background:repeating-linear-gradient(135deg,rgba(246,244,239,.04) 0 10px,transparent 10px 20px),#14161D;border-bottom:1px solid var(--linea)}
+.caso .portada img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease-out)}
+.caso:hover .portada img{transform:scale(1.06)}
+.caso .vacio{font-family:var(--f-datos);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--gris-2)}
+.caso .pend{position:absolute;top:12px;left:12px;font-family:var(--f-datos);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--sol);background:rgba(11,12,16,.8);border:1px dashed rgba(255,200,61,.5);border-radius:999px;padding:5px 10px}
+.caso .cuerpo{padding:20px 22px 22px;display:flex;flex-direction:column;gap:10px;flex:1}
+.caso .rubro{font-family:var(--f-datos);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--gris-2)}
+.caso .res{font-size:15px;color:var(--gris);flex:1}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tags span{font-family:var(--f-datos);font-size:11.5px;border:1px solid var(--linea-2);border-radius:999px;padding:4px 10px;color:var(--gris)}
+.caso .ver{font-family:var(--f-titulo);font-weight:600;font-size:14px;text-transform:uppercase;letter-spacing:.06em;color:var(--sol);text-decoration:none}
+.caso .ver[aria-disabled="true"]{color:var(--gris-2)}
+.marcas{margin-top:56px;display:flex;flex-direction:column;gap:18px}
+.marcas .fila{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px}
+@media (max-width:900px){.marcas .fila{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.marcas .slot{height:80px;border:1px dashed var(--linea-2);border-radius:16px;display:grid;place-items:center;font-family:var(--f-datos);font-size:11.5px;letter-spacing:.12em;color:var(--gris-2);text-transform:uppercase;background:rgba(11,12,16,.35);transition:border-color .3s,color .3s}
+.marcas .slot:hover{border-color:var(--sol);color:var(--sol)}
+
+/* Contacto */
+.cierre .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center}
+.cierre .txt{display:flex;flex-direction:column;gap:26px;min-width:0}
+.cierre h2{font-size:clamp(44px,7vw,104px);line-height:.92}
+.contactos{display:flex;flex-wrap:wrap;gap:10px}
+.contactos span{font-family:var(--f-datos);font-size:13px;border:1px solid var(--linea-2);border-radius:999px;padding:9px 16px;user-select:all;background:rgba(11,12,16,.4)}
+form{position:relative;border-radius:28px;padding:clamp(24px,3vw,36px);display:flex;flex-direction:column;gap:16px;min-width:0}
+form h3{font-size:24px}
+label{display:flex;flex-direction:column;gap:7px;font-family:var(--f-datos);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--gris)}
+input,select,textarea{font:inherit;font-family:var(--f-texto);font-size:16px;letter-spacing:0;text-transform:none;color:var(--nube);background:rgba(11,12,16,.7);border:1px solid var(--linea-2);border-radius:12px;padding:12px 14px;width:100%}
+textarea{min-height:96px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--sol);box-shadow:0 0 0 3px rgba(255,200,61,.15)}
+.par{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:520px){.par{grid-template-columns:1fr}}
+form .btn{justify-content:center}
+.ok{font-size:14.5px;color:var(--sol);border:1px solid rgba(255,200,61,.35);border-radius:12px;padding:12px 14px}
+@media (max-width:900px){.cierre .wrap{grid-template-columns:1fr}}
+
+/* Pie */
+footer{padding-block:60px calc(36px + env(safe-area-inset-bottom,0px));overflow:hidden}
+footer .gigante{width:100%;height:auto;display:block;margin-bottom:36px}
+footer .gigante path{stroke-dasharray:160;stroke-dashoffset:160;transition:stroke-dashoffset 1.6s var(--ease)}
+footer .gigante.in path{stroke-dashoffset:0}
+footer .gigante circle{transform-origin:253px 44px;transform:scale(0);transition:transform 1s var(--ease-out) 1.2s}
+footer .gigante.in.sol-on circle,body.sin-3d footer .gigante.in circle{transform:scale(1)}
+footer .gigante circle{transition:transform .9s cubic-bezier(.34,1.56,.64,1)!important;filter:drop-shadow(0 0 6px rgba(255,200,61,.9))}
+footer .gigante.sol-on circle{animation:solFlash 1.4s ease-out}
+@keyframes solFlash{0%{filter:drop-shadow(0 0 0 rgba(255,200,61,1)) brightness(2.2)}40%{filter:drop-shadow(0 0 22px rgba(255,200,61,1)) brightness(1.6)}100%{filter:drop-shadow(0 0 6px rgba(255,200,61,.9))}}
+footer .fila{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;font-family:var(--f-datos);font-size:12px;letter-spacing:.1em;color:var(--gris-2);border-top:1px solid var(--linea);padding-top:24px}
+footer nav{display:flex;gap:18px;flex-wrap:wrap}
+footer nav a{text-decoration:none;text-transform:uppercase;color:var(--gris)}
+footer nav a:hover{color:var(--sol)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .rv,.split .w>span,.menu li a{opacity:1!important;transform:none!important}
+  .pre{display:none}
+  .grano{display:none}
+}
+</style>
+
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="solG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFC83D"/><stop offset="1" stop-color="#FF7A1A"/></linearGradient>
+    <clipPath id="cwn"><rect x="-2" y="0" width="300" height="60"/></clipPath>
+    <symbol id="wordmark" viewBox="-12 -12 312 84">
+      <g clip-path="url(#cwn)" fill="none" stroke="#F6F4EF" stroke-width="12"><path d="M6 -4V64 M64 -4V64 M3 -6 L67 66"/><path d="M98 -4V64"/><path d="M132 -4V64 M134 36 L196 -2 M152 25 L198 64"/><path d="M218 66 L253 -4 L288 66"/></g>
+      <circle cx="253" cy="44" r="7.5" fill="url(#solG)"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="pre" id="pre" aria-hidden="true">
+  <svg viewBox="-12 -12 312 84">
+    <g clip-path="url(#cwn)" fill="none" stroke="#F6F4EF" stroke-width="12"><g><path d="M6 -4V64 M64 -4V64 M3 -6 L67 66"/></g><g><path d="M98 -4V64"/></g><g><path d="M132 -4V64 M134 36 L196 -2 M152 25 L198 64"/></g><g><path d="M218 66 L253 -4 L288 66"/></g></g>
+    <circle cx="253" cy="44" r="7.5" fill="url(#solG)"/>
+  </svg>
+  <span class="cnt" id="cnt">自由 · 000</span>
+</div>
+
+<canvas id="bg" aria-hidden="true"></canvas>
+<canvas id="fx" aria-hidden="true"></canvas>
+<div class="grano" aria-hidden="true"></div>
+<div class="cursor" id="cursor" aria-hidden="true"></div>
+<div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+<div class="progreso" id="progreso" aria-hidden="true"></div>
+<div class="zona-bot" id="zonaBot" aria-hidden="true"></div>
+<div class="burbuja" id="burbuja" role="status" aria-live="polite"></div>
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="logo" href="#inicio" aria-label="NIKA, inicio"><svg viewBox="-12 -12 312 84"><use href="#wordmark"/></svg><span class="jp">ニカ</span></a>
+    <div class="acciones">
+      <a class="btn btn-sol btn-cta mag" href="#contacto">10 días gratis</a>
+      <button class="toggle-menu" id="toggleMenu" aria-expanded="false" aria-controls="menu">
+        <span class="lbl"><span>MENÚ</span><span>CERRAR</span></span>
+        <span class="ico" aria-hidden="true"><i></i><i></i></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<nav class="menu" id="menu" aria-label="Menú principal" aria-hidden="true">
+  <div class="capa c1"></div>
+  <div class="capa c2"><div class="olas"></div></div>
+  <button type="button" class="cerrar-menu" id="cerrarMenu" aria-label="Cerrar menú"><i></i><i></i></button>
+  <div class="wrap dentro">
+    <ol id="menuLista">
+      <li><a href="#inicio" data-k="始" style="--i:0"><small>01</small>Inicio<em>はじめ</em></a></li>
+      <li><a href="#problemas" data-k="問" style="--i:1"><small>02</small>Problemas<em>もんだい</em></a></li>
+      <li><a href="#servicios" data-k="技" style="--i:2"><small>03</small>Servicios<em>サービス</em></a></li>
+      <li><a href="#metodo" data-k="法" style="--i:3"><small>04</small>Método<em>ほうほう</em></a></li>
+      <li><a href="#planes" data-k="価" style="--i:4"><small>05</small>Planes<em>プラン</em></a></li>
+      <li><a href="#casos" data-k="実" style="--i:5"><small>06</small>Casos<em>じっせき</em></a></li>
+      <li><a href="#contacto" data-k="話" style="--i:6"><small>07</small>Contacto<em>はなし</em></a></li>
+    </ol>
+    <div class="lado">
+      <div class="cabeza-menu" id="cabezaMenu" aria-hidden="true"></div>
+      <span class="kanji-menu" id="kanjiMenu" aria-hidden="true">自由</span>
+      <div class="datos">
+        <span>Agencia digital · Argentina</span>
+        <span><b>hola@nika.studio</b></span>
+        <span>@nika.studio</span>
+        <a class="btn btn-sol mag" href="#contacto" style="align-self:flex-start;margin-top:10px">Probá 10 días gratis <span class="fl">→</span></a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<main>
+<section class="hero" id="inicio" data-niko="saludo-feliz" data-modo="hero">
+  <div class="wrap">
+    <div class="hero-txt">
+      <p class="eyebrow scramble">Agencia digital · Argentina <span class="jp">自由 = libertad</span></p>
+      <h1><span class="ln split" data-split>Liberá</span><span class="ln grad split" data-split>tu marca.</span></h1>
+      <p class="lead rv">Web, redes, newsletter, contenido e IA a medida en un solo plan mensual. Vos te enfocás en vender; nosotros hacemos que te encuentren, te recuerden y te elijan.</p>
+      <div class="hero-ctas rv">
+        <a class="btn btn-sol mag" href="#contacto">Probá 10 días gratis <span class="fl">→</span></a>
+        <a class="btn btn-linea mag" href="#planes">Ver planes</a>
+      </div>
+      <div class="chips rv"><span><b>6</b> servicios</span><span><b>1</b> solo equipo</span><span><b>1</b> alta + cuota fija</span><span>Todo a <b>tu nombre</b></span><span class="vivo"><i></i>Reporte del mes <b>listo</b></span></div>
+    </div>
+    <img class="niko-fallback" src="img/niko-saludo-feliz.webp" alt="R-bot saludando" width="505" height="700">
+  </div>
+</section>
+
+<div class="cinta" aria-hidden="true"><div class="pista" id="pista">
+  <span>Web <em>ウェブ</em></span><span class="o">Redes sociales</span><span>Newsletter <em>メール</em></span><span class="o">Marca y contenido</span><span>Crecimiento <em>成長</em></span><span class="o">IA a medida</span>
+</div></div>
+
+<section class="bloque" id="problemas" data-niko="frente-sorpresa">
+  <span class="kanji-bg" data-speed=".15" aria-hidden="true">問題</span>
+  <div class="wrap">
+    <div class="cabecera">
+      <div><p class="eyebrow scramble" style="color:#FF5A62">Lo que hoy te frena <span class="jp">問題</span></p><h2 class="split" data-split>Lo que te quita libertad</h2></div>
+      <p class="lead rv">Si te pasa alguno, R-bot también lo sufre. Y cada uno tiene una solución concreta.</p>
+    </div>
+    <div class="grilla-3">
+      <article class="problema vidrio rv" data-tilt><span class="n">01</span><img data-bot="enojado" src="img/niko-enojado.webp" alt="R-bot enojado" loading="lazy"><h3>Nadie responde los mensajes</h3><p>Consultas de noche o el finde que se enfrían.</p><span class="s">→ Asistente de IA 24 h</span></article>
+      <article class="problema vidrio rv" data-tilt><span class="n">02</span><img data-bot="frustrado" src="img/niko-frustrado.webp" alt="R-bot frustrado" loading="lazy"><h3>Publicar me consume</h3><p>Vendés, atendés y encima tenés que crear todos los días.</p><span class="s">→ Redes y contenido delegados</span></article>
+      <article class="problema vidrio rv" data-tilt><span class="n">03</span><img data-bot="confundido" src="img/niko-confundido.webp" alt="R-bot confundido" loading="lazy"><h3>No sé qué funciona</h3><p>Pagás anuncios o agencias y nunca ves números claros.</p><span class="s">→ Reportes y anuncios medidos</span></article>
+      <article class="problema vidrio rv" data-tilt><span class="n">04</span><img data-bot="triste" src="img/niko-triste.webp" alt="R-bot triste" loading="lazy"><h3>La web no trae clientes</h3><p>Nadie la encuentra en Google y no convierte.</p><span class="s">→ Web nueva con SEO</span></article>
+      <article class="problema vidrio rv" data-tilt><span class="n">05</span><img data-bot="sin-energia" src="img/niko-sin-energia.webp" alt="R-bot sin energía" loading="lazy"><h3>Todo está desactualizado</h3><p>La página se cae, carga lento o quedó vieja.</p><span class="s">→ Mantenimiento mensual</span></article>
+      <article class="problema vidrio rv" data-tilt><span class="n">06</span><img data-bot="error" src="img/niko-error.webp" alt="R-bot con un error" loading="lazy"><h3>Herramientas sueltas</h3><p>Web, redes, mails y planillas que no se hablan.</p><span class="s">→ Automatización e IA a medida</span></article>
+    </div>
+  </div>
+</section>
+
+<section class="hs" id="libertad" data-dir="der" data-niko="abierto-sol">
+  <div class="pin">
+    <span class="kanji-bg" aria-hidden="true">自由</span>
+    <div class="wrap cab">
+      <div style="display:flex;flex-direction:column;gap:18px"><p class="eyebrow scramble">Por qué NIKA <span class="jp">自由</span></p><h2 class="split" data-split>Tres libertades que te devolvemos</h2></div>
+      <p class="lead rv">Nika es el dios del sol, el guerrero de la liberación: el que rompe las cadenas y trae alegría. De ahí nace nuestro nombre.</p>
+    </div>
+    <div class="pista">
+      <article class="libre vidrio" data-tilt><span class="k" aria-hidden="true">財</span><div><h3>Libertad económica</h3><p>Un equipo digital completo por una cuota fija, sin sueldos, cargas ni estructura propia.</p></div></article>
+      <article class="libre vidrio" data-tilt><span class="k" aria-hidden="true">知</span><div><h3>Libertad intelectual</h3><p>Tu cabeza vuelve a estar en tu negocio y tus ideas, no en algoritmos ni tendencias.</p></div></article>
+      <article class="libre vidrio" data-tilt><span class="k" aria-hidden="true">任</span><div><h3>Libertad de delegar</h3><p>Dejás toda la operación digital en manos expertas, con reglas claras y resultados a la vista.</p></div></article>
+      <div class="panel-man"><p class="manifiesto" id="manifiesto">Vos te enfocás en tu negocio y en vender. Nosotros nos ocupamos de que te encuentren, te recuerden y te elijan.</p></div>
+    </div>
+    <div class="wrap"><div class="barra"><i></i></div></div>
+  </div>
+</section>
+
+<section class="hs" id="servicios" data-dir="izq" data-niko="frente-destello">
+  <div class="pin">
+    <div class="wrap cab">
+      <div style="display:flex;flex-direction:column;gap:18px"><p class="eyebrow scramble">Servicios <span class="jp">サービス</span></p><h2 class="split" data-split>Todo lo digital, un solo equipo</h2></div>
+      <span class="cuenta" id="cuenta"><b>01</b> / 06</span>
+    </div>
+    <div class="pista" id="hsPista"></div>
+    <div class="wrap"><div class="barra"><i></i></div></div>
+  </div>
+</section>
+
+<section class="bloque" id="metodo" data-niko="pensando">
+  <span class="kanji-bg" data-speed=".15" aria-hidden="true">方法</span>
+  <div class="wrap">
+    <div class="cabecera">
+      <div><p class="eyebrow scramble">Método <span class="jp">方法</span></p><h2 class="split" data-split>Del diagnóstico al primer reporte</h2></div>
+      <p class="lead rv">En un mes tu marca pasa de estar suelta a operar sola, con un calendario fijo y números claros.</p>
+    </div>
+    <div class="pasos" id="pasos">
+      <div class="linea"><i></i></div>
+      <div class="paso"><span class="cuando">Días 1–10</span><h3>Prueba gratis</h3><p>Diagnóstico, plan y primeras piezas publicadas, sin costo.</p></div>
+      <div class="paso"><span class="cuando">Semana 1</span><h3>Propuesta</h3><p>Plan recomendado, cronograma y presupuesto por escrito.</p></div>
+      <div class="paso"><span class="cuando">Semanas 2–4</span><h3>Alta</h3><p>Marca, cuentas, web, plantillas e IA listas para operar.</p></div>
+      <div class="paso"><span class="cuando">Cada mes</span><h3>Operación</h3><p>Calendario, producción, publicación y mantenimiento.</p></div>
+      <div class="paso"><span class="cuando">Fin de mes</span><h3>Reporte</h3><p>Resultados, aprendizajes y el plan del mes siguiente.</p></div>
+    </div>
+    <div class="alcance">
+      <div class="col nika vidrio rv" data-tilt><p class="eyebrow">NIKA se ocupa de</p><ul><li>Construir y cuidar tu presencia digital</li><li>Atraer visitas, seguidores y suscriptores</li><li>Llevar las consultas a tu WhatsApp, formulario o tienda</li><li>Automatizar tareas repetitivas con IA</li><li>Medir y contarte qué funcionó cada mes</li></ul></div>
+      <div class="col vos vidrio rv" data-tilt><p class="eyebrow" style="color:var(--gris)">Tu equipo se ocupa de</p><ul><li>Atender y cerrar las ventas</li><li>Responder las consultas que te derivamos</li><li>Definir precios, stock y logística</li><li>Aprobar el calendario de contenidos</li><li>La inversión en anuncios, que se paga aparte</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section class="bloque" id="planes" data-niko="senala-guino">
+  <span class="kanji-bg" data-speed=".15" aria-hidden="true">価値</span>
+  <div class="wrap">
+    <div class="cabecera">
+      <div><p class="eyebrow scramble">Inversión <span class="jp">プラン</span></p><h2 class="split" data-split>Elegí tu nivel</h2></div>
+      <p class="lead rv">Un alta única para dejar todo listo y una mensualidad fija para operarlo. Subís de plan cuando quieras pagando solo la diferencia del alta.</p>
+    </div>
+    <div class="planes-top rv">
+      <div class="pago" role="group" aria-label="Forma de pago"><span class="pill" id="pill"></span>
+        <button type="button" id="pMensual" aria-pressed="true">Pago mensual</button>
+        <button type="button" id="pAnual" aria-pressed="false">Pago anual <span class="off">alta −50%</span></button>
+      </div>
+      <label class="cambio" for="tc">Ver en pesos · cotización del día <input id="tc" type="text" inputmode="decimal" placeholder="ARS por USD" autocomplete="off"></label>
+    </div>
+    <div class="planes" id="planesGrid"></div>
+    <p class="letra">Precios en dólares estadounidenses, sin impuestos. Se abonan en pesos al tipo de cambio del día de pago. El alta se paga mitad al arrancar y mitad al entregar. Anuncios e IA de uso intensivo se pagan aparte, al costo.</p>
+    <details class="comparar vidrio">
+      <summary>Comparar los cuatro planes <span>+</span></summary>
+      <div class="tabla-wrap"><table>
+        <thead><tr><th>Por mes</th><th>Básico</th><th>Medium</th><th class="pro">Pro</th><th>Diamante</th></tr></thead>
+        <tbody>
+          <tr><td>Redes</td><td>1</td><td>2</td><td class="pro">3</td><td>4</td></tr>
+          <tr><td>Posts / reels</td><td>8 / 0</td><td>12 / 4</td><td class="pro">16 / 8</td><td>24 / 12</td></tr>
+          <tr><td>Historias</td><td>—</td><td>3 por semana</td><td class="pro">5 por semana</td><td>Diarias</td></tr>
+          <tr><td>Comentarios</td><td>—</td><td>Días hábiles</td><td class="pro">Días hábiles</td><td>Diario</td></tr>
+          <tr><td>Web</td><td>Landing</td><td>5 páginas</td><td class="pro">10 + blog</td><td>Web o tienda</td></tr>
+          <tr><td>Cambios web</td><td>1 h</td><td>3 h</td><td class="pro">6 h</td><td>12 h</td></tr>
+          <tr><td>Newsletters</td><td>—</td><td>1</td><td class="pro">2</td><td>4</td></tr>
+          <tr><td>Blog y SEO</td><td>Google Business</td><td>SEO de base</td><td class="pro">2 artículos</td><td>4 artículos</td></tr>
+          <tr><td>Anuncios</td><td>—</td><td>—</td><td class="pro">1 plataforma</td><td>2 plataformas</td></tr>
+          <tr><td>Fotos y video</td><td>—</td><td>—</td><td class="pro">Trimestral</td><td>Mensual</td></tr>
+          <tr class="fia"><td>Inteligencia artificial</td><td>Kit de inicio</td><td>Asistente web</td><td class="pro">Multicanal</td><td>Agente a medida</td></tr>
+          <tr><td>Seguimiento</td><td>Reporte</td><td>Mensual</td><td class="pro">Quincenal</td><td>Semanal</td></tr>
+        </tbody>
+      </table></div>
+    </details>
+    <div class="sub"><div style="display:flex;flex-direction:column;gap:12px"><p class="eyebrow">Extras <span class="jp">追加</span></p><h3>Sumá cuando lo necesites</h3></div><p style="font-family:var(--f-datos);font-size:12.5px;color:var(--gris-2);letter-spacing:.1em">USD · PRECIO DESDE</p></div>
+    <div class="extras">
+      <div><span>Sesión de fotos</span><span>$250</span></div><div><span>Video de 60 segundos</span><span>$400</span></div><div><span>Landing de campaña</span><span>$350</span></div>
+      <div><span>Rediseño de identidad</span><span>$600</span></div><div><span>Asistente IA o integración extra</span><span>$300</span></div><div><span>Taller de IA de 3 horas</span><span>$200</span></div>
+      <div><span>Newsletter adicional</span><span>$60</span></div><div><span>Hora web adicional</span><span>$35</span></div><div><span>Automatización a medida</span><span>$200</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="bloque" id="bonos" data-niko="senala-curioso" style="padding-top:0">
+  <div class="wrap dos-col">
+    <div>
+      <div class="cabecera" style="margin-bottom:28px"><div><p class="eyebrow scramble">Incluido en todos los planes <span class="jp">特典</span></p><h2 class="split" data-split style="font-size:clamp(34px,4.4vw,60px)">Sin letra chica</h2></div></div>
+      <div class="lista-bonos">
+        <div class="bono rv"><span class="k">診</span><div><h3>10 días de prueba</h3><p>Trabajamos tu marca 10 días sin costo antes de que decidas.</p></div></div>
+        <div class="bono rv"><span class="k">約</span><div><h3>Garantía de arranque</h3><p>Si la línea visual del primer mes no te convence, la rehacemos sin costo.</p></div></div>
+        <div class="bono rv"><span class="k">数</span><div><h3>Panel de resultados</h3><p>Un tablero simple con tus números al día.</p></div></div>
+        <div class="bono rv"><span class="k">話</span><div><h3>Canal directo</h3><p>Un WhatsApp con el equipo y respuesta en menos de 24 h hábiles.</p></div></div>
+        <div class="bono rv"><span class="k">蔵</span><div><h3>Banco de contenidos</h3><p>Todas tus piezas ordenadas en una carpeta que es tuya.</p></div></div>
+        <div class="bono rv"><span class="k">友</span><div><h3>Referidos</h3><p>Por cada cliente que nos recomiendes, 50% off en tu próximo mes.</p></div></div>
+      </div>
+    </div>
+    <div>
+      <div class="cabecera" style="margin-bottom:28px"><div><p class="eyebrow scramble">Condiciones <span class="jp">約束</span></p><h2 class="split" data-split style="font-size:clamp(34px,4.4vw,60px)">Reglas claras</h2></div></div>
+      <div class="cond">
+        <details open><summary>Permanencia <span>+</span></summary><p>Mínimo 3 meses. Después, aviso con 30 días y listo.</p></details>
+        <details><summary>Precios en dólares <span>+</span></summary><p>Pagás en pesos al cambio del día. El alta, mitad al arrancar y mitad al entregar.</p></details>
+        <details><summary>Pago anual <span>+</span></summary><p>Si pagás el año por adelantado, el alta tiene 50% off.</p></details>
+        <details><summary>Revisiones <span>+</span></summary><p>2 rondas de cambios por pieza incluidas.</p></details>
+        <details><summary>Todo es tuyo <span>+</span></summary><p>Cuentas, diseños, web y asistentes de IA quedan a tu nombre.</p></details>
+        <details><summary>Costos de terceros <span>+</span></summary><p>Anuncios e IA de uso intensivo se pagan aparte, al costo.</p></details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hs" id="casos" data-dir="der" data-niko="ok-corazones">
+  <div class="pin">
+    <span class="kanji-bg" aria-hidden="true">実績</span>
+    <div class="wrap cab">
+      <div style="display:flex;flex-direction:column;gap:18px"><p class="eyebrow scramble">Casos de éxito · Portfolio <span class="jp">実績</span></p><h2 class="split" data-split>Marcas que ya se liberaron</h2></div>
+      <p class="lead rv">Proyectos reales, con lo que hicimos y el resultado. Entrá a cada uno para ver el trabajo completo.</p>
+    </div>
+    <div class="pista" id="casosGrid"></div>
+    <div class="wrap"><div class="barra"><i></i></div></div>
+  </div>
+</section>
+
+<section class="bloque cierre" id="contacto" data-niko="celebra-estrellas">
+  <div class="wrap">
+    <div class="txt">
+      <p class="eyebrow scramble">Empecemos <span class="jp">ハジメマショウ</span></p>
+      <h2><span class="split" data-split>Liberá tu marca.</span> <span class="grad split" data-split>Nosotros la hacemos volar.</span></h2>
+      <p class="lead rv">Empezá con 10 días de prueba gratis: diagnóstico, plan y primeras piezas, sin tarjeta y sin compromiso.</p>
+      <div class="contactos rv"><span>hola@nika.studio</span><span>@nika.studio</span><span>WhatsApp +54 9 [número]</span></div>
+    </div>
+    <form id="form" class="vidrio rv" data-tilt novalidate>
+      <h3>Empezá tu prueba gratis</h3>
+      <div class="par">
+        <label for="fNombre">Nombre<input id="fNombre" autocomplete="name"></label>
+        <label for="fMarca">Marca o negocio<input id="fMarca" autocomplete="organization"></label>
+      </div>
+      <div class="par">
+        <label for="fContacto">WhatsApp o email<input id="fContacto"></label>
+        <label for="fPlan">Plan que te interesa<select id="fPlan"><option>Todavía no sé</option><option>Básico</option><option>Medium</option><option>Pro</option><option>Diamante</option></select></label>
+      </div>
+      <label for="fMsg">¿Qué te gustaría liberar primero?<textarea id="fMsg" placeholder="Ej.: no llego a publicar, la web no trae consultas…"></textarea></label>
+      <button class="btn btn-sol mag" type="submit">Quiero mis 10 días gratis <span class="fl">→</span></button>
+      <p class="ok" id="ok" hidden></p>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <svg class="gigante" id="gigante" viewBox="-12 -12 312 84" role="img" aria-label="NIKA">
+      <g clip-path="url(#cwn)" fill="none" stroke="#F6F4EF" stroke-width="12"><path d="M6 -4V64 M64 -4V64 M3 -6 L67 66"/><path d="M98 -4V64"/><path d="M132 -4V64 M134 36 L196 -2 M152 25 L198 64"/><path d="M218 66 L253 -4 L288 66"/></g>
+      <circle cx="253" cy="44" r="7.5" fill="url(#solG)"/>
+    </svg>
+    <div class="fila">
+      <span>© <span id="anio">2026</span> NIKA ニカ · Liberá tu marca</span>
+      <nav aria-label="Pie"><a href="#servicios">Servicios</a><a href="#planes">Planes</a><a href="#casos">Casos</a><a href="#contacto">Contacto</a></nav>
+      <span>Hecho en Argentina</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ===================== Interfaz (sin dependencias) ===================== */
+(function(){
+  var RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var FINO=matchMedia('(hover:hover) and (pointer:fine)').matches;
+  window.NIKA={mouse:{x:0,y:0,nx:0,ny:0},scrollV:0,menu:false,look:'saludo-feliz',modo:'hero',reduce:RM};
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+
+  /* Precarga */
+  var pre=document.getElementById('pre'),cnt=document.getElementById('cnt'),n=0;
+  var timer=setInterval(function(){n=Math.min(100,n+Math.ceil(Math.random()*9));cnt.textContent='自由 · '+('00'+n).slice(-3);if(n>=100)clearInterval(timer)},40);
+  function salir(){if(pre.classList.contains('out'))return;clearInterval(timer);cnt.textContent='自由 · 100';pre.classList.add('out');document.body.classList.add('listo');setTimeout(function(){pre.style.display='none'},1200);revelarHero()}
+  setTimeout(salir,RM?0:1700);
+
+  /* Divide títulos en palabras */
+  document.querySelectorAll('[data-split]').forEach(function(el){
+    var i=0;el.innerHTML=el.textContent.trim().split(/\s+/).map(function(w){return '<span class="w"><span style="--i:'+(i++)+'">'+esc(w)+'</span></span>'}).join(' ');
+  });
+  function revelarHero(){document.querySelectorAll('.hero .split,.hero .rv').forEach(function(el,i){setTimeout(function(){el.classList.add('in')},i*120)})}
+
+  /* Texto que se "decodifica" */
+  var GL='アカサタナハマヤラワ01#%&';
+  function scramble(el){
+    var nodo=el.firstChild;if(!nodo||nodo.nodeType!==3)return;var orig=nodo.textContent,f=0,tot=orig.length+10;
+    (function paso(){var out='';for(var i=0;i<orig.length;i++){out+=(i<f-10||orig[i]===' ')?orig[i]:(i<f?GL[(Math.random()*GL.length)|0]:'')}nodo.textContent=out;f++;if(f<=tot)requestAnimationFrame(paso);else nodo.textContent=orig})();
+  }
+
+  /* Revelado al entrar en pantalla */
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;var el=e.target;if(el.closest('.hero'))return;
+    el.classList.add('in');if(el.classList.contains('scramble')&&!RM)scramble(el);if(el.id==='gigante')el.classList.add('in');io.unobserve(el)})},{threshold:.12,rootMargin:'0px 0px -6% 0px'});
+  document.querySelectorAll('.rv,.split,.scramble,#gigante').forEach(function(el){io.observe(el)});
+  document.querySelectorAll('.grilla-3,.tres,.planes,.casos,.lista-bonos').forEach(function(g){Array.prototype.forEach.call(g.children,function(c,i){c.style.transitionDelay=(i%3)*90+'ms'})});
+
+  /* Servicios */
+  var SERV=[
+    {n:'01',t:'Web',k:'ウェブ',h:'Una web que trabaja por vos',d:'Rápida, impecable en el celular y pensada para llevar a la consulta.',c:'Landing → Web → Tienda',it:['Diseño a medida','Dominio y hosting','WhatsApp y formularios','SEO desde el día uno','Mantenimiento mensual','Autogestión']},
+    {n:'02',t:'Redes sociales',k:'ソーシャル',h:'Redes con constancia y estilo',d:'Elegimos dónde está tu público y mantenemos tus redes vivas todos los meses.',c:'De 1 a 4 redes',it:['Estrategia y calendario','Diseño de piezas','Reels y video corto','Textos con tu voz','Gestión de comunidad','Métricas del mes']},
+    {n:'03',t:'Newsletter',k:'メール',h:'Una audiencia que es tuya',d:'Las redes cambian sus reglas; tu lista de emails no. Te ponemos en su bandeja de entrada.',c:'De 1 a 4 envíos',it:['Plataforma lista','Captación con regalo','Plantilla de marca','Redacción y envío','Automatizaciones','Aperturas y clics']},
+    {n:'04',t:'Marca y contenido',k:'コンテンツ',h:'Contenido con identidad',d:'Ordenamos tu identidad y producimos el material que alimenta web, redes y mails.',c:'Banco de contenidos',it:['Kit de marca','Tono de voz','Fotografía','Video','Diseño gráfico','Redacción']},
+    {n:'05',t:'Crecimiento',k:'成長',h:'Que te encuentren primero',d:'Aparecés cuando alguien busca lo que ofrecés, y medimos todo para invertir donde rinde.',c:'Anuncios aparte',it:['Google Business','SEO y blog','Anuncios Meta y Google','Analítica','Panel en vivo','Pruebas A/B']},
+    {n:'06',t:'IA a medida',k:'人工知能',ia:1,h:'El salto a la IA',d:'Encontramos las tareas que se repiten y armamos herramientas de IA que te ahorran tiempo de verdad.',c:'En todos los planes',it:['Asistente 24/7','Entrenado con tu info','Automatizaciones','Contenido asistido','Informes inteligentes','Capacitación']}
+  ];
+  var hp=document.getElementById('hsPista');
+  hp.innerHTML=SERV.map(function(s){return '<article class="srv vidrio'+(s.ia?' ia':'')+'" data-tilt><div class="num"><span>'+s.n+' / '+esc(s.t)+'</span><span>'+s.k+'</span></div><h3>'+esc(s.h)+'</h3><p>'+esc(s.d)+'</p><span class="chip">'+esc(s.c)+'</span><ul>'+s.it.map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ul><span class="kata" aria-hidden="true">'+s.k+'</span></article>'}).join('');
+  var cuenta=document.getElementById('cuenta'),HZ=[];
+  function altoHS(){HZ.forEach(function(h){h.dist=Math.max(0,h.pista.scrollWidth-innerWidth+80);h.sec.style.height=innerWidth>900?(innerHeight+h.dist)+'px':''})}
+  function armarHS(){HZ=Array.prototype.map.call(document.querySelectorAll('.hs'),function(sec){return{sec:sec,pista:sec.querySelector('.pista'),barra:sec.querySelector('.barra i'),der:sec.dataset.dir==='der',dist:0,pr:0}});altoHS()}
+  addEventListener('resize',altoHS);addEventListener('load',altoHS);
+
+  /* Planes */
+  var PLANES=[
+    {n:'01',id:'Básico',para:'Presencia profesional para arrancar.',mes:250,alta:300,it:['1 red social','8 publicaciones al mes','Landing con WhatsApp','Google Business al día','1 h de cambios web'],ia:'IA: kit de inicio'},
+    {n:'02',id:'Medium',para:'Para comercios que quieren crecer con constancia.',mes:490,alta:600,it:['2 redes sociales','12 posts + 4 reels','Web de hasta 5 páginas','1 newsletter al mes','3 h de cambios web'],ia:'IA: asistente en tu web'},
+    {n:'03',id:'Pro',ancla:1,para:'Para escalar y recibir consultas todos los meses.',mes:890,alta:1200,it:['3 redes + comunidad','16 posts + 8 reels','Web de 10 páginas + blog','2 newsletters y 2 artículos','Anuncios en 1 plataforma'],ia:'IA: asistente multicanal 24 h'},
+    {n:'04',id:'Diamante',para:'Tu departamento digital completo.',mes:1590,alta:2000,it:['4 redes, comunidad diaria','24 posts + 12 reels','Web o tienda online','4 newsletters y 4 artículos','Responsable de cuenta'],ia:'IA: agente a medida integrado'}
+  ];
+  var anual=false,tc=0,grid=document.getElementById('planesGrid');
+  function usd(v){return v.toLocaleString('es-AR')}
+  function pintar(){grid.innerHTML=PLANES.map(function(p,i){var alta=anual?p.alta/2:p.alta;
+    return '<article class="plan vidrio rv in'+(p.ancla?' ancla':'')+'" data-tilt style="transition-delay:'+i*80+'ms"><div class="nivel"><span>PLAN '+p.n+' / 04</span>'+(p.ancla?'<span class="badge">MÁS ELEGIDO</span>':'')+'</div><h3>'+p.id+'</h3><p class="para">'+p.para+'</p>'+
+    '<div class="precio"><span class="u">US$</span><span class="v" data-v="'+p.mes+'">'+usd(p.mes)+'</span><span class="m">/MES</span></div><p class="ars">'+(tc?'≈ ARS $'+Math.round(p.mes*tc).toLocaleString('es-AR')+' /mes · alta $'+Math.round(alta*tc).toLocaleString('es-AR'):'')+'</p>'+
+    '<p class="alta">'+(anual?'Alta <s>US$'+usd(p.alta)+'</s> <b>US$'+usd(alta)+'</b> pagando el año':'Alta única <b>US$'+usd(p.alta)+'</b>')+'</p>'+
+    '<ul>'+p.it.map(function(x){return '<li>'+x+'</li>'}).join('')+'<li class="ia">'+p.ia+'</li></ul><a class="btn '+(p.ancla?'btn-sol':'btn-linea')+' mag" href="#contacto" data-plan="'+p.id+'">Quiero '+p.id+' <span class="fl">→</span></a></article>'}).join('');enlazar(grid)}
+  var bM=document.getElementById('pMensual'),bA=document.getElementById('pAnual'),pill=document.getElementById('pill');
+  function moverPill(){var b=anual?bA:bM;pill.style.width=b.offsetWidth+'px';pill.style.transform='translateX('+(b.offsetLeft-4)+'px)'}
+  function setAnual(v){anual=v;bM.setAttribute('aria-pressed',String(!v));bA.setAttribute('aria-pressed',String(v));moverPill();pintar()}
+  bM.onclick=function(){setAnual(false)};bA.onclick=function(){setAnual(true)};
+  var tcIn=document.getElementById('tc');
+  function leer(){var v=parseFloat(String(tcIn.value).replace(/\./g,'').replace(',','.'));tc=isFinite(v)&&v>0?v:0;pintar();try{localStorage.setItem('nika-tc',tcIn.value)}catch(e){}}
+  try{var g=localStorage.getItem('nika-tc');if(g)tcIn.value=g}catch(e){}
+  tcIn.addEventListener('input',leer);
+  grid.addEventListener('click',function(e){var a=e.target.closest('[data-plan]');if(a)document.getElementById('fPlan').value=a.getAttribute('data-plan')});
+
+  /* Casos de éxito: completar con las marcas reales (marca, rubro, servicios, resultado, link, imagen) */
+  var CASOS=[
+    {marca:'[Marca 01]',rubro:'[Rubro]',servicios:['Web','Redes'],resultado:'[Qué hicimos y qué cambió]',link:'',imagen:''},
+    {marca:'[Marca 02]',rubro:'[Rubro]',servicios:['Redes','Contenido'],resultado:'[Qué hicimos y qué cambió]',link:'',imagen:''},
+    {marca:'[Marca 03]',rubro:'[Rubro]',servicios:['Web','IA'],resultado:'[Qué hicimos y qué cambió]',link:'',imagen:''},
+    {marca:'[Cliente 04]',rubro:'[Rubro]',servicios:['Newsletter'],resultado:'[Qué hicimos y qué cambió]',link:'',imagen:''},
+    {marca:'[Cliente 05]',rubro:'[Rubro]',servicios:['Crecimiento'],resultado:'[Qué hicimos y qué cambió]',link:'',imagen:''},
+    {marca:'[Cliente 06]',rubro:'[Rubro]',servicios:['Marca'],resultado:'[Qué hicimos y qué cambió]',link:'',imagen:''}
+  ];
+  var MARCAS=['Logo 1','Logo 2','Logo 3','Logo 4','Logo 5','Logo 6'];
+  document.getElementById('casosGrid').innerHTML=CASOS.map(function(c){var hay=!!c.link;
+    return '<article class="caso vidrio rv" data-tilt><div class="portada">'+(c.imagen?'<img src="'+esc(c.imagen)+'" alt="'+esc(c.marca)+'" loading="lazy">':'<span class="vacio">Captura o logo</span>')+(hay?'':'<span class="pend">Espacio para caso</span>')+'</div>'+
+    '<div class="cuerpo"><span class="rubro">'+esc(c.rubro)+'</span><h3>'+esc(c.marca)+'</h3><div class="tags">'+c.servicios.map(function(s){return '<span>'+esc(s)+'</span>'}).join('')+'</div><p class="res">'+esc(c.resultado)+'</p>'+
+    (hay?'<a class="ver" href="'+esc(c.link)+'" target="_blank" rel="noopener">Ver portfolio ↗</a>':'<span class="ver" aria-disabled="true">Link del portfolio pendiente</span>')+'</div></article>'}).join('');
+  document.getElementById('casosGrid').insertAdjacentHTML('beforeend','<div class="marcas"><p class="eyebrow" style="color:var(--gris)">Marcas que confían en NIKA</p><div class="fila">'+MARCAS.map(function(m){return '<div class="slot">'+esc(m)+'</div>'}).join('')+'</div></div>');
+  document.querySelectorAll('#casosGrid .rv').forEach(function(el,i){el.style.transitionDelay=(i%3)*90+'ms';io.observe(el)});
+
+  /* Manifiesto: se ilumina palabra por palabra con el scroll */
+  armarHS();
+  var man=document.getElementById('manifiesto');
+  man.innerHTML=man.textContent.split(' ').map(function(w){return '<span class="dim">'+esc(w)+'</span>'}).join(' ');
+  var manW=man.querySelectorAll('span');
+
+  /* Inclinación 3D, botones magnéticos y cursor */
+  var cur=document.getElementById('cursor'),dot=document.getElementById('cursorDot'),cx=innerWidth/2,cy=innerHeight/2,rx=cx,ry=cy;
+  function enlazar(raiz){
+    if(!FINO||RM)return;
+    raiz.querySelectorAll('[data-tilt]').forEach(function(el){if(el._t)return;el._t=1;
+      el.addEventListener('pointermove',function(e){var r=el.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;
+        el.style.transition='transform .15s ease-out,border-color .3s';el.style.transform='rotateX('+((.5-y)*9)+'deg) rotateY('+((x-.5)*11)+'deg) translateZ(0)';el.style.setProperty('--mx',x*100+'%');el.style.setProperty('--my',y*100+'%')});
+      el.addEventListener('pointerleave',function(){el.style.transition='';el.style.transform=''})});
+    raiz.querySelectorAll('.mag').forEach(function(el){if(el._m)return;el._m=1;
+      el.addEventListener('pointermove',function(e){var r=el.getBoundingClientRect();el.style.transform='translate('+((e.clientX-r.left-r.width/2)*.06)+'px,'+((e.clientY-r.top-r.height/2)*.1)+'px)'});
+      el.addEventListener('pointerleave',function(){el.style.transform=''})});
+    raiz.querySelectorAll('a,button,summary,input,select,textarea,[data-tilt]').forEach(function(el){if(el._c)return;el._c=1;
+      var c=el.matches('[data-tilt]')?'hover':'link';
+      el.addEventListener('pointerenter',function(){cur.classList.add(c)});
+      el.addEventListener('pointerleave',function(){cur.classList.remove(c)})});
+  }
+  pintar();moverPill();if(tcIn.value)leer();enlazar(document);
+  addEventListener('resize',moverPill);
+
+  addEventListener('pointermove',function(e){cx=e.clientX;cy=e.clientY;NIKA.mouse.x=cx;NIKA.mouse.y=cy;NIKA.mouse.nx=cx/innerWidth*2-1;NIKA.mouse.ny=-(cy/innerHeight*2-1)},{passive:true});
+
+  /* Menú */
+  var menu=document.getElementById('menu'),tg=document.getElementById('toggleMenu'),km=document.getElementById('kanjiMenu');
+  function abrir(v){
+    var r=tg.getBoundingClientRect();menu.style.setProperty('--cx',(r.left+r.width-23)+'px');menu.style.setProperty('--cy',(r.top+23)+'px');
+    NIKA.menu=v;menu.classList.toggle('abierto',v);document.body.classList.toggle('menu-abierto',v);document.body.classList.toggle('lock',v);
+    tg.setAttribute('aria-expanded',String(v));menu.setAttribute('aria-hidden',String(!v));top.classList.remove('hide');
+    if(v)setTimeout(function(){var a=menu.querySelector('a');a&&a.focus({preventScroll:true})},60);else tg.focus({preventScroll:true});
+  }
+  tg.addEventListener('click',function(){abrir(!NIKA.menu)});
+  var cm=document.getElementById('cerrarMenu');
+  cm.addEventListener('click',function(){cm.classList.add('cerrando');setTimeout(function(){abrir(false);setTimeout(function(){cm.classList.remove('cerrando')},300)},240)});
+  addEventListener('keydown',function(e){if(e.key==='Escape'&&NIKA.menu)abrir(false)});
+  menu.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click',function(e){var h=a.getAttribute('href');if(h&&h[0]==='#'){e.preventDefault();abrir(false);var t=document.querySelector(h);setTimeout(function(){t&&t.scrollIntoView({behavior:RM?'auto':'smooth'})},120)}});
+    a.addEventListener('pointerenter',function(){var k=a.getAttribute('data-k');if(!k||km.textContent===k)return;km.classList.add('cambia');setTimeout(function(){km.textContent=k;km.classList.remove('cambia')},180)});
+  });
+
+  /* Formulario (vista previa) */
+  document.getElementById('form').addEventListener('submit',function(e){e.preventDefault();var ok=document.getElementById('ok'),nb=document.getElementById('fNombre').value.trim(),ct=document.getElementById('fContacto').value.trim();ok.hidden=false;
+    ok.textContent=(!nb||!ct)?'Completá tu nombre y un WhatsApp o email para que podamos responderte.':'Gracias, '+nb+'. Esta es una vista previa: cuando la web esté online, este formulario llega directo al mail de NIKA.'});
+  document.getElementById('anio').textContent=new Date().getFullYear();
+
+  /* Bucle de scroll y animación */
+  var gig=document.getElementById('gigante'),gigC=gig.querySelector('circle');
+  var acc=document.querySelector('.top .acciones');
+  var top=document.getElementById('top'),prog=document.getElementById('progreso'),pista=document.getElementById('pista');
+  pista.innerHTML+=pista.innerHTML;
+  var secciones=Array.prototype.slice.call(document.querySelectorAll('[data-niko]')),kbg=document.querySelectorAll('[data-speed]'),tags=document.querySelectorAll('[data-par]');
+  var pasos=document.getElementById('pasos'),pasoEls=pasos.querySelectorAll('.paso');
+  var ultY=scrollY,vel=0,marq=0;
+  function frame(){
+    var y=scrollY,dy=y-ultY;ultY=y;vel+= (dy-vel)*.12;NIKA.scrollV=vel;
+    var max=document.documentElement.scrollHeight-innerHeight;prog.style.transform='scaleX('+(max>0?y/max:0)+')';
+    top.classList.toggle('solida',y>40);
+    /* lugar de R-bot en la barra, al lado de los botones */
+    var acR=acc.getBoundingClientRect(),tR=top.getBoundingClientRect();NIKA.dock={x:acR.left-24,y:tR.top+tR.height/2,h:tR.height,bottom:tR.bottom};
+    var bm=document.getElementById(NIKA.menu?'cerrarMenu':'toggleMenu');if(bm){var bR=(NIKA.menu?bm:bm.querySelector('.ico')).getBoundingClientRect();NIKA.boton={x:bR.left+bR.width/2,y:bR.top+bR.height/2}}
+    var cz=document.getElementById('cabezaMenu');if(cz){var cR=cz.getBoundingClientRect();NIKA.cabeza={x:cR.left+cR.width/2,y:cR.top+cR.height/2,h:cR.height}}
+    var cf=document.getElementById('ctaFija');NIKA.piso=(cf&&cf.classList.contains('on'))?cf.getBoundingClientRect().top-10:innerHeight-14;
+    /* cinta */
+    marq-= (1.2+Math.abs(vel)*.6)*(vel<-0.5?-1:1);var w=pista.scrollWidth/2;if(marq<-w)marq+=w;if(marq>0)marq-=w;pista.style.transform='translateX('+marq+'px)';
+    /* kanjis en parallax */
+    kbg.forEach(function(k){var r=k.parentNode.getBoundingClientRect();k.style.transform='translateY('+(-r.top*parseFloat(k.dataset.speed))+'px)'});
+    /* etiquetas del hero con el mouse */
+    tags.forEach(function(t){var p=parseFloat(t.dataset.par);t.style.transform='translate('+(NIKA.mouse.nx*p)+'px,'+(-NIKA.mouse.ny*p)+'px)'});
+    /* servicios horizontales */
+    if(innerWidth>900)HZ.forEach(function(h){var r=h.sec.getBoundingClientRect(),tot=h.sec.offsetHeight-innerHeight;if(r.bottom<-50||r.top>innerHeight+50)return;
+      var pr=tot>0?Math.min(1,Math.max(0,-r.top/tot)):0;h.pr=pr;h.pista.style.transform='translateX('+(h.der?-(1-pr)*h.dist:-pr*h.dist)+'px)';
+      if(h.barra)h.barra.style.transform='scaleX('+pr+')';if(h.sec.id==='servicios')cuenta.innerHTML='<b>0'+Math.min(6,1+Math.floor(pr*5.999))+'</b> / 06'});
+    /* método */
+    var pr2=pasos.getBoundingClientRect(),pp=Math.min(1,Math.max(0,(innerHeight*.75-pr2.top)/(pr2.height+innerHeight*.2)));
+    pasos.style.setProperty('--p',pp.toFixed(3));pasoEls.forEach(function(p,i){p.classList.toggle('on',pp>=i/5)});
+    /* manifiesto */
+    var mr=man.getBoundingClientRect(),mp=innerWidth>900?Math.min(1,Math.max(0,(innerWidth*1.05-mr.left)/(innerWidth*.75))):Math.min(1,Math.max(0,(innerHeight*.85-mr.top)/(innerHeight*.6)));
+    manW.forEach(function(s,i){s.classList.toggle('dim',i/manW.length>=mp)});
+    /* sección activa para R-bot */
+    var c=innerHeight*.5,act=secciones[0];
+    for(var i=0;i<secciones.length;i++){var b=secciones[i].getBoundingClientRect();if(b.top<=c&&b.bottom>c){act=secciones[i];break}}
+    NIKA.look=act.dataset.niko;NIKA.modo=act.dataset.modo||'esquina';
+    /* al final, R-bot vuela y se convierte en el sol de la A */
+    var gR=gig.getBoundingClientRect();if(gR.top<innerHeight*.72&&gR.bottom>0){var gc=gigC.getBoundingClientRect();NIKA.modo='sol';NIKA.look='celebra-estrellas';NIKA.sol={x:gc.left+gc.width/2,y:gc.top+gc.height/2}}
+    /* cursor */
+    rx+=(cx-rx)*.18;ry+=(cy-ry)*.18;cur.style.left=rx+'px';cur.style.top=ry+'px';dot.style.left=cx+'px';dot.style.top=cy+'px';
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+
+<script type="module">
+/* ===================== Escenas WebGL ===================== */
+import * as THREE from "three";
+import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
+import { buildNiko, buildStage, LOOKS } from "./niko.js";
+
+const N = window.NIKA;
+try {
+  /* ---- Fondo: aurora + olas seigaiha que reaccionan al mouse ---- */
+  const bgCanvas = document.getElementById("bg");
+  const bgR = new THREE.WebGLRenderer({ canvas: bgCanvas, antialias: false, alpha: false });
+  const DPR_BG = Math.min(devicePixelRatio, innerWidth <= 900 ? 1 : 1.5);
+  bgR.setPixelRatio(DPR_BG);
+  const bgScene = new THREE.Scene(), bgCam = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+  const U = { uT: { value: 0 }, uRes: { value: new THREE.Vector2() }, uM: { value: new THREE.Vector2(.7, .5) }, uS: { value: 0 }, uV: { value: 0 } };
+  const quad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), new THREE.ShaderMaterial({
+    uniforms: U, depthWrite: false,
+    vertexShader: `varying vec2 vUv; void main(){ vUv = uv; gl_Position = vec4(position.xy, 0., 1.); }`,
+    fragmentShader: `
+      precision highp float; varying vec2 vUv;
+      uniform float uT, uS, uV; uniform vec2 uRes, uM;
+      float hash(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+      float noise(vec2 p){ vec2 i = floor(p), f = fract(p); f = f*f*(3.-2.*f);
+        return mix(mix(hash(i), hash(i+vec2(1,0)), f.x), mix(hash(i+vec2(0,1)), hash(i+vec2(1,1)), f.x), f.y); }
+      float fbm(vec2 p){ float v = 0., a = .5; for(int i=0;i<5;i++){ v += a*noise(p); p *= 2.02; a *= .5; } return v; }
+      // Seigaiha: el círculo pintado más abajo tapa a los de arriba
+      vec3 seigaiha(vec2 p, float t){
+        float best = 1e9, dist = 0.;
+        vec2 cell = floor(p / vec2(1., .5));
+        for(int j=-1;j<=2;j++) for(int i=-1;i<=1;i++){
+          float row = cell.y + float(j);
+          vec2 c = vec2(cell.x + float(i) + .5*mod(row, 2.), row * .5);
+          float d = length(p - c);
+          if(d < .5 && c.y < best){ best = c.y; dist = d; }
+        }
+        float rings = abs(fract(dist * 4. - t * .25) - .5);
+        float line = smoothstep(.08, .0, rings);
+        float edge = smoothstep(.47, .5, dist);
+        return vec3(line, edge, dist);
+      }
+      void main(){
+        vec2 uv = vUv; float asp = uRes.x / uRes.y;
+        vec2 p = (uv - .5) * vec2(asp, 1.);
+        vec2 m = (uM - .5) * vec2(asp, 1.);
+        float t = uT;
+        vec3 tinta = vec3(.043, .047, .063);
+        vec3 col = tinta;
+        // Aurora que respira y se mueve con el scroll
+        float n = fbm(p * 1.4 + vec2(t*.04, -t*.03) + uS*.3);
+        float n2 = fbm(p * 2.3 - vec2(t*.05, uS*.5));
+        vec3 lila = vec3(.61, .55, 1.), sol = vec3(1., .78, .24), amanecer = vec3(1., .48, .1);
+        float gl = smoothstep(.95, .0, length(p - vec2(.55*asp*.6, .1 - uS*.15)));
+        float go = smoothstep(1.1, .0, length(p - vec2(-.3*asp*.5, -.75 + sin(uS*.8)*.2)));
+        col += lila * gl * n * .38;
+        col += mix(amanecer, sol, n2) * go * n2 * .32;
+        // Luz que sigue al mouse
+        float md = length(p - m);
+        col += sol * .07 * smoothstep(.26, .0, md);
+        // Olas seigaiha con ondas que salen desde el mouse
+        float sc = 15.;
+        vec2 q = p * sc + vec2(0., t * .12);
+        float ripple = sin(md * 18. - t * 3.) * .5 + .5;
+        vec3 s = seigaiha(q, t + ripple * .25 * smoothstep(.3, .0, md));
+        float mascara = smoothstep(.3, .0, md) * .55 + .12 + smoothstep(.3, -.6, p.y) * .25;
+        col += lila * s.x * .16 * mascara;
+        col += sol * s.x * .14 * smoothstep(.16, .0, md);
+        col = mix(col, tinta, s.y * .35);
+        // Estrellas
+        vec2 g = floor(uv * uRes / 3.);
+        float st = step(.9985, hash(g)) * (.5 + .5 * sin(t * 2. + hash(g + 3.) * 30.));
+        col += st * .6;
+        // Viñeta
+        col *= 1. - .45 * pow(length(uv - .5) * 1.25, 2.);
+        gl_FragColor = vec4(col, 1.);
+      }`
+  }));
+  bgScene.add(quad);
+
+  /* ---- Primer plano: R-bot 3D como guía ---- */
+  const fx = document.getElementById("fx");
+  const R = new THREE.WebGLRenderer({ canvas: fx, antialias: true, alpha: true });
+  R.setPixelRatio(Math.min(devicePixelRatio, innerWidth <= 900 ? 1.5 : 1.75));
+  R.setClearColor(0x000000, 0);
+  R.toneMapping = THREE.ACESFilmicToneMapping; R.outputColorSpace = THREE.SRGBColorSpace;
+  const scene = buildStage(THREE, RoomEnvironment, R);
+  const cam = new THREE.PerspectiveCamera(30, 1, 0.1, 100); cam.position.set(0, 0.2, 11.6);
+
+  // Partículas de sol que flotan delante
+  const PN = innerWidth <= 900 ? 70 : 160, pg = new THREE.BufferGeometry(), pp = new Float32Array(PN * 3), ps = new Float32Array(PN);
+  for (let i = 0; i < PN; i++) { pp[i*3] = (Math.random()-.5)*16; pp[i*3+1] = (Math.random()-.5)*10; pp[i*3+2] = (Math.random()-.5)*6; ps[i] = Math.random(); }
+  pg.setAttribute("position", new THREE.BufferAttribute(pp, 3)); pg.setAttribute("seed", new THREE.BufferAttribute(ps, 1));
+  const pMat = new THREE.ShaderMaterial({ transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
+    uniforms: { uT: { value: 0 }, uPR: { value: R.getPixelRatio() } },
+    vertexShader: `attribute float seed; uniform float uT, uPR; varying float vA;
+      void main(){ vec3 p = position; p.y += mod(uT*.15*(.4+seed) + seed*10., 10.) - 5.; p.x += sin(uT*.3 + seed*20.)*.3;
+        vec4 mv = modelViewMatrix * vec4(p,1.); gl_Position = projectionMatrix * mv;
+        gl_PointSize = (2. + seed*5.) * uPR * (8. / -mv.z); vA = .25 + .5*seed; }`,
+    fragmentShader: `varying float vA; void main(){ float d = length(gl_PointCoord - .5); float a = smoothstep(.5, 0., d);
+        gl_FragColor = vec4(mix(vec3(1.,.78,.24), vec3(1.,.48,.1), d*2.), a * vA); }` });
+  const polvo = new THREE.Points(pg, pMat); scene.add(polvo);
+
+  const rig = new THREE.Group(); scene.add(rig);
+  const holder = new THREE.Group(); rig.add(holder);
+  const cache = {};
+  function getLook(name){
+    if (cache[name]) return cache[name];
+    const [pose, face] = name.includes("|") ? name.split("|") : (LOOKS[name] || LOOKS["frente-feliz"]);
+    const n = buildNiko(THREE, pose, face);
+    n.rotation.y = pose === "senala" ? -0.25 : -0.18;
+    const u = n.userData;
+    n.userData.base = { hx: u.head.rotation.x, hy: u.head.rotation.y, hz: u.head.rotation.z, az: u.arms.der.rotation.z, ax: u.arms.der.rotation.x, ai: u.arms.izq.rotation.z, pose, es: u.eyes.map((e) => e.scale.clone()), ez: u.eyes.map((e) => e.rotation.z) };
+    cache[name] = n; return n;
+  }
+  let actual = getLook("saludo-feliz"); holder.add(actual);
+  let pendiente = null, fase = 0, escala = 0; // fase 0 = estable, 1 = encogiendo
+  // Pre-construye las demás expresiones sin trabar la página
+  const cola = ["frente-sorpresa","abierto-sol","frente-destello","pensando","senala-guino","senala-curioso","ok-corazones","celebra-estrellas"];
+  cola.push("jarra|enojado","ok|corazones","duda|confundido","caido|dormido","frente|sorpresa","senala|curioso","celebra|estrellas");
+  (function precarga(){ const n = cola.shift(); if (!n) return; getLook(n); setTimeout(precarga, 120); })();
+
+  let salto = 0;
+  /* ---- Personalidad de R-bot ---- */
+  const burb = document.getElementById("burbuja");
+  let reac = null, burbHasta = 0, saludoHasta = 0, mareoAcum = 0, ultAng = null, caricia = 0, quietoDesde = 0, ultMov = 0, clics = [], sobre = false, sobreCabeza = false, vel = 0;
+  const REAC = {
+    enojo:    { key: "jarra|enojado",     dur: 3.2, txt: "¡Ey! ¡Basta de tocarme! 😤" },
+    caricia:  { key: "ok|corazones",      dur: 3.4, txt: "Jiji… me encantan los mimos ♡" },
+    mareo:    { key: "duda|confundido",   dur: 3.6, txt: "Todo da vueltas… 😵‍💫" },
+    dormido:  { key: "caido|dormido",  dur: 999, txt: "Zzz… <b>movete</b> y me despierto" },
+    despierta:{ key: "frente|sorpresa",   dur: 1.6, txt: "¡Ah! Estaba cargando el sol ☀️" },
+    curioso:  { key: "senala|curioso",    dur: 2.4, txt: "¿Qué mirás? 👀" },
+    susto:    { key: "frente|sorpresa",   dur: 1.6, txt: "¡Uy, qué rápido!" },
+    cta:      { key: "celebra|estrellas", dur: 2.4, txt: "¡Sí! Probame 10 días gratis ✨" },
+  };
+  function decir(txt, dur){ burbHasta = t + dur; burb.innerHTML = txt; }
+  function reaccionar(tipo){ if (reac && reac.tipo === tipo) { reac.hasta = t + REAC[tipo].dur; return; } reac = { tipo, ...REAC[tipo], hasta: t + REAC[tipo].dur }; decir(REAC[tipo].txt, Math.min(REAC[tipo].dur, 4)); if (tipo === "dormido") burbHasta = 1e9; }
+  // Saludo según la hora de Argentina y el clima real (Open-Meteo, sin clave). Si no hay red, solo saluda por la hora.
+  const horaAR = () => +new Intl.DateTimeFormat("es-AR", { hour: "numeric", hourCycle: "h23", timeZone: "America/Argentina/Buenos_Aires" }).format(new Date());
+  const saludoHora = () => { const h = horaAR(); return h >= 5 && h < 12 ? "¡Buen día!" : h >= 12 && h < 20 ? "¡Buenas tardes!" : "¡Buenas noches!"; };
+  let clima = null;
+  fetch("https://api.open-meteo.com/v1/forecast?latitude=-34.61&longitude=-58.38&current=temperature_2m,weather_code,is_day&timezone=America%2FArgentina%2FBuenos_Aires")
+    .then((r) => r.json()).then((d) => { if (d && d.current) clima = d.current; }).catch(() => {});
+  function fraseClima(){
+    const h = horaAR(), noche = h >= 20 || h < 6;
+    if (!clima) return noche ? "Linda noche para planear lo que viene 🌙" : "Lindo momento para hacer crecer tu marca ☀️";
+    const c = clima.weather_code, tp = Math.round(clima.temperature_2m), dia = clima.is_day === 1;
+    if (c >= 95) return `Hay tormenta en Buenos Aires ⛈️ pero tu marca sigue online.`;
+    if ((c >= 51 && c <= 67) || (c >= 80 && c <= 82)) return `Llueve en Buenos Aires 🌧️ ¡Me gusta la lluvia! Ideal para quedarse adentro diseñando.`;
+    if (c >= 71 && c <= 77) return `¿Nieve? ❄️ Qué día especial.`;
+    if (c === 45 || c === 48) return `Hay niebla 🌫️ Nosotros te ayudamos a que te vean igual.`;
+    if (tp >= 30) return `¡Qué calor! ${tp}° en Buenos Aires 🥵 Buen día para algo fresco.`;
+    if (tp <= 8) return `Hace frío, ${tp}° 🧣 Un mate y a trabajar en tu marca.`;
+    if (c <= 1) return dia ? `¡Qué lindo está el día! ${tp}° y sol ☀️` : `Noche despejada, ${tp}° ✨ Ideal para mirar las estrellas.`;
+    return dia ? `Está nublado, ${tp}° 🌥️ Buen día para planear.` : `Noche tranquila, ${tp}° 🌙`;
+  }
+  function saludar(){
+    saludoHasta = t + 2.8; decir(`${saludoHora()} Soy <b>R-bot</b> 👋`, 3.2);
+    setTimeout(() => { if (!reac && N.modo === "hero") decir(fraseClima(), 3.6); }, 3500);
+    setTimeout(() => { if (!reac && N.modo === "hero") decir(TACTIL ? "Deslizá el dedo por mi cabeza 🙂" : "Mové el cursor sobre mi cabeza 🙂", 3.4); }, 7400);
+    setTimeout(() => { if (!reac && N.modo === "hero") decir(TACTIL ? "Tocame varias veces o hacé círculos a mi alrededor 🌀" : "Probá hacer círculos a mi alrededor 🌀", 3.4); }, 11400);
+  }
+  setTimeout(saludar, N.reduce ? 200 : 1900);
+
+  const ray = new THREE.Raycaster(), ndc = new THREE.Vector2();
+  function golpe(x, y){
+    if (N.modo !== "hero" || N.menu || escala < .5) return null;
+    ndc.set(x / innerWidth * 2 - 1, -(y / innerHeight) * 2 + 1); ray.setFromCamera(ndc, cam);
+    const hit = ray.intersectObject(actual, true)[0]; if (!hit) return null;
+    let o = hit.object, cabeza = false; while (o) { if (o === actual.userData.head) { cabeza = true; break; } o = o.parent; }
+    return { cabeza };
+  }
+  let px = 0, py = 0, pt = performance.now();
+  addEventListener("pointermove", (e) => {
+    const now = performance.now(), dtm = Math.max(1, now - pt), dx = e.clientX - px, dy = e.clientY - py;
+    vel = vel * .7 + (Math.hypot(dx, dy) / dtm * 1000) * .3; px = e.clientX; py = e.clientY; pt = now; ultMov = t;
+    if (reac && reac.tipo === "dormido") { reac = null; reaccionar("despierta"); }
+    const dd = Math.hypot(e.clientX - botX, e.clientY - botY), ang = Math.atan2(e.clientY - botY, e.clientX - botX);
+    if (ultAng !== null && dd > (e.pointerType === "mouse" ? 50 : radPx * .45) && dd < 520) { let da = ang - ultAng; if (da > Math.PI) da -= 2 * Math.PI; if (da < -Math.PI) da += 2 * Math.PI; mareoAcum += da; }
+    ultAng = ang;
+    const g = golpe(e.clientX, e.clientY); sobre = !!g; sobreCabeza = !!(g && g.cabeza);
+    document.body.classList.toggle("sobre-bot", sobre);
+    if (sobreCabeza) { caricia += Math.abs(dx) * .9 + Math.abs(dy) * .3; if (Math.hypot(dx, dy) > 3) quietoDesde = t; }
+    else quietoDesde = t;
+  }, { passive: true });
+  addEventListener("pointerdown", (e) => {
+    if (e.target.closest("a,button,input,select,textarea,summary")) return;
+    if (!golpe(e.clientX, e.clientY) && !(N.modo === "hero" && !N.menu && Math.hypot(e.clientX - botX, e.clientY - botY) < 140 * Math.max(.5, escala))) return;
+    clics = clics.filter((c) => t - c < 2.4); clics.push(t); salto = 1;
+    if (clics.length >= 4) { reaccionar("enojo"); clics = []; }
+    else if (!reac) decir(["¡Ey, hola! 😄", "¡Jaja, cosquillas!", "Ojo que me enojo… 😠"][clics.length - 1], 1.8);
+  });
+  document.querySelectorAll(".hero .btn-sol").forEach((b) => b.addEventListener("pointerenter", () => { if (!reac || reac.tipo !== "enojo") { reaccionar("cta"); salto = .9; } }));
+  addEventListener("scroll", () => { ultMov = t; if (reac && reac.tipo === "dormido") { reac = null; reaccionar("despierta"); } }, { passive: true });
+  let eraHero = true, botX = -1e4, botY = -1e4, radPx = 60;
+  const TACTIL = matchMedia("(hover:none),(pointer:coarse)").matches; if (TACTIL) document.body.classList.add("tactil");
+  const zona = document.getElementById("zonaBot"), chip = document.querySelector(".hero .t2");
+  const soltar = (e) => { if (e.pointerType === "mouse") return; sobre = false; sobreCabeza = false; ultAng = null; document.body.classList.remove("sobre-bot"); };
+  addEventListener("pointerup", soltar); addEventListener("pointercancel", soltar);
+  const cvec = new THREE.Vector3();
+  function cerebro(){
+    const hero = N.modo === "hero" && !N.menu;
+    if (hero && !eraHero) saludar();
+    eraHero = hero;
+    if (!hero) { reac = null; burb.classList.remove("on"); zona.classList.remove("on"); if (chip) chip.classList.remove("on"); return; }
+    if (reac && t > reac.hasta) reac = null;
+    caricia *= .965; if (caricia > 420 && (!reac || reac.tipo !== "enojo")) { reaccionar("caricia"); caricia = 0; }
+    actual.userData.head.getWorldPosition(cvec); cvec.project(cam);
+    const cx = (cvec.x + 1) / 2 * innerWidth, cy = (1 - cvec.y) / 2 * innerHeight;
+    const d = Math.hypot(N.mouse.x - cx, N.mouse.y - cy), a = Math.atan2(N.mouse.y - cy, N.mouse.x - cx);
+    botX = cx; botY = cy; mareoAcum *= .992;
+    { const v2 = cvec.clone(); actual.userData.head.getWorldPosition(v2); v2.x += rig.scale.x * 1.25; v2.project(cam); radPx = Math.max(24, Math.abs((v2.x + 1) / 2 * innerWidth - cx)); }
+    if (chip) { const ok = innerWidth > 900 && escala > .9 && !reac; chip.classList.toggle("on", ok); if (ok) { chip.style.left = (cx + radPx * .5) + "px"; chip.style.top = (cy + radPx * 1.38) + "px"; } }
+    if (TACTIL) { const w = radPx * 3.1, h = radPx * 4.4; zona.classList.add("on"); zona.style.width = w + "px"; zona.style.height = h + "px"; zona.style.transform = `translate(${cx - w / 2}px,${cy - radPx * 1.5}px)`; }
+    if (Math.abs(mareoAcum) > Math.PI * 3) { reaccionar("mareo"); mareoAcum = 0; }
+    if (sobreCabeza && t - quietoDesde > 1.4 && !reac) { reaccionar("curioso"); quietoDesde = t; }
+    if (vel > 4200 && d < 360 && !reac) { reaccionar("susto"); salto = .8; vel = 0; }
+    if (t - ultMov > 14 && !reac) reaccionar("dormido");
+    const on = t < burbHasta && cy > radPx * 1.2 + 70 && cy < innerHeight - 40;
+    burb.classList.toggle("on", on);
+    if (on) { const bw = burb.offsetWidth; let bx = cx + 40, by = cy - 120; if (bx + bw > innerWidth - 16) bx = cx - bw - 40; bx = Math.max(16, bx); by = Math.max(80, by); burb.style.transform = `translate(${bx}px,${by}px)`; }
+  }
+
+  function size(){
+    const w = innerWidth, h = innerHeight;
+    bgR.setSize(w, h, false); U.uRes.value.set(w * DPR_BG, h * DPR_BG);
+    R.setSize(w, h, false); cam.aspect = w / h; cam.updateProjectionMatrix();
+  }
+  size(); addEventListener("resize", size);
+  document.body.classList.add("con-3d");
+
+
+  /* ---- R-bots de "Lo que te quita libertad": 3D en vivo dentro de cada tarjeta ---- */
+  const mini = buildStage(THREE, RoomEnvironment, R);
+  const miniCam = new THREE.PerspectiveCamera(30, 1, 0.1, 100); miniCam.position.set(0, -0.45, 10.6); miniCam.lookAt(0, -0.45, 0);
+  const snap = (o) => o && { p: o.position.clone(), r: o.rotation.clone(), s: o.scale.clone(), v: o.visible };
+  const restore = (o, b) => { if (!o || !b) return; o.position.copy(b.p); o.rotation.copy(b.r); o.scale.copy(b.s); o.visible = b.v; };
+  const bots = [...document.querySelectorAll("img[data-bot]")].map((img, i) => ({ img, i, emo: img.dataset.bot, n: null, t0: -99, base: null }));
+  function armar(b){
+    if (b.n) return;
+    const [pose, face] = LOOKS[b.emo];
+    const n = buildNiko(THREE, pose, face); n.rotation.y = -0.12; n.visible = false;
+    const u = n.userData;
+    b.parts = { n, head: u.head, armI: u.arms.izq, armD: u.arms.der, antena: u.antena, sun: u.sun, halo: u.halo, e0: u.eyes[0], e1: u.eyes[1] };
+    b.base = {}; for (const k in b.parts) b.base[k] = snap(b.parts[k]);
+    mini.add(n); b.n = n;
+  }
+  const ioBot = new IntersectionObserver((es) => es.forEach((e) => {
+    const b = bots.find((x) => x.img === e.target); if (!b) return;
+    if (e.isIntersecting) armar(b);
+  }), { threshold: [0, 0.55], rootMargin: "300px 0px 300px 0px" });
+  bots.forEach((b) => { ioBot.observe(b.img); const c = b.img.closest(".problema"), activar = () => { if (t - b.t0 > 1.2) b.t0 = t; }; c.addEventListener("pointerenter", (e) => { if (e.pointerType === "mouse") activar(); }); c.addEventListener("pointerdown", activar); });
+
+  function animarBot(b){
+    const P = b.parts, B = b.base; for (const k in P) restore(P[k], B[k]);
+    const k = t - b.t0, D = 1.8, env = k > 0 && k < D ? Math.sin(Math.PI * k / D) : 0, on = env > 0;
+    const blinkPh = (t + b.i * 1.37) % 4.6;
+    const eyes = [P.e0, P.e1];
+    P.halo.rotation.z = b.i;
+    switch (b.emo) {
+      case "enojado":
+        P.n.position.x += Math.sin(k * 42) * 0.07 * env; P.head.rotation.x += 0.14 * env;
+        P.armI.rotation.z += Math.sin(k * 22) * 0.18 * env; P.armD.rotation.z -= Math.sin(k * 22) * 0.18 * env;
+        eyes.forEach((e) => { e.scale.y *= 1 + 0.35 * env; e.scale.x *= 1 + 0.15 * env; });
+        P.sun.scale.multiplyScalar(1 + 0.6 * env * Math.abs(Math.sin(k * 14))); P.halo.scale.multiplyScalar(1 + 0.5 * env);
+        break;
+      case "frustrado":
+        P.armI.rotation.z += Math.sin(k * 26) * 0.22 * env; P.armD.rotation.z += Math.sin(k * 26 + 1) * 0.22 * env;
+        P.head.rotation.y += Math.sin(k * 18) * 0.22 * env;
+        eyes.forEach((e) => e.scale.multiplyScalar(1 + 0.3 * Math.sin(k * 22) * env));
+        P.antena.rotation.z += Math.sin(k * 16) * 0.3 * env;
+        break;
+      case "confundido":
+        P.head.rotation.z += Math.sin(k * 5.5) * 0.3 * env;
+        eyes.forEach((e, j) => { e.rotation.z += (j ? -1 : 1) * k * 9 * env; });
+        P.antena.rotation.z += Math.cos(k * 9) * 0.3 * env; P.antena.rotation.x += Math.sin(k * 9) * 0.3 * env;
+        P.halo.rotation.z += k * 6 * env;
+        break;
+      case "triste":
+        P.head.rotation.x += 0.22 * env; P.n.position.y -= 0.12 * env;
+        eyes.forEach((e) => { e.scale.y *= 1 - 0.35 * env; e.position.y -= 0.03 * env; });
+        P.antena.rotation.x += 0.4 * env; P.sun.scale.multiplyScalar(1 - 0.25 * env);
+        break;
+      case "sin-energia":
+        P.n.rotation.z += 0.12 * env; P.head.rotation.x += 0.1 * env;
+        if (on) { const off = Math.sin(k * 31) > 0.2; eyes.forEach((e) => (e.visible = !off)); }
+        P.sun.scale.multiplyScalar(1 + (on && Math.sin(k * 23) > 0.6 ? 0.55 : 0));
+        P.antena.rotation.z += Math.sin(k * 3) * 0.2 * env;
+        break;
+      case "error":
+        if (on) {
+          P.n.position.x += (Math.random() - 0.5) * 0.14 * env; P.head.rotation.z += (Math.random() - 0.5) * 0.25 * env;
+          eyes.forEach((e) => { e.visible = Math.random() > 0.25; e.position.x += (Math.random() - 0.5) * 0.05; });
+          P.sun.scale.multiplyScalar(1 + Math.random() * 0.5 * env); P.halo.scale.multiplyScalar(1 + Math.random() * 0.6 * env);
+        }
+        break;
+    }
+
+  }
+  function pintarBots(){
+    if (N.menu) return;
+    R.autoClear = false; R.setScissorTest(true);
+    for (const b of bots) {
+      if (!b.n) continue;
+      const r = b.img.getBoundingClientRect();
+      if (r.bottom < -40 || r.top > innerHeight + 40 || r.width < 4) continue;
+      animarBot(b);
+      const padX = r.width * 0.22, padY = r.height * 0.14;
+      const x = r.left - padX, w = r.width + padX * 2, h = r.height + padY * 2, y = innerHeight - r.bottom + 2;
+      R.setViewport(x, y, w, h); R.setScissor(x, y, w, h);
+      miniCam.aspect = w / h; miniCam.updateProjectionMatrix();
+      bots.forEach((o) => o.n && (o.n.visible = o === b));
+      R.clearDepth(); R.render(mini, miniCam);
+    }
+    R.setScissorTest(false); R.setViewport(0, 0, innerWidth, innerHeight); R.autoClear = true;
+  }
+  const clock = new THREE.Clock(); let t = 0, sm = new THREE.Vector2(.7, .5), sS = 0;
+  const pos = new THREE.Vector3(), objetivo = new THREE.Vector3();
+  // Caja de referencia de R-bot (de la antena a los pies) para ubicarlo con precisión en pantalla
+  const REF = new THREE.Box3().setFromObject(buildNiko(THREE, "frente", "feliz")), REF_H = REF.max.y - REF.min.y, REF_C = (REF.max.y + REF.min.y) / 2;
+  // Caja de la cabeza sola (orejas, visor y antena con el sol)
+  const CAB_H = 2.8, CAB_C = .5;
+  let soloCabeza = 0;
+  const yMundo = (py, halfH) => -(py / innerHeight * 2 - 1) * halfH + cam.position.y;
+  let escObj = 1, escAct = 0.001; let heroOff = 0;
+  const gigante = document.getElementById("gigante");
+  function loop(){
+    const dt = Math.min(clock.getDelta(), .05); t += dt;
+    // Fondo
+    const mx = (N.mouse.x || innerWidth*.7) / innerWidth, my = 1 - (N.mouse.y || innerHeight*.5) / innerHeight;
+    sm.x += (mx - sm.x) * .06; sm.y += (my - sm.y) * .06; U.uM.value.copy(sm);
+    sS += (scrollY / innerHeight - sS) * .08; U.uS.value = sS; U.uT.value = t;
+    bgR.render(bgScene, bgCam);
+
+    // Dónde va R-bot
+    const halfH = Math.tan(THREE.MathUtils.degToRad(15)) * 11.6, halfW = halfH * cam.aspect;
+    const movil = innerWidth <= 900;
+    // Al abrir el menú vuela al botón y se mete adentro; al cerrarlo sale de ahí y vuelve a su lugar
+    // Al abrir el menú se transforma: se le esconden cuerpo y brazos y queda solo la cabeza, adentro del menú
+    if (N.menu) { const pxu = innerHeight / (2 * halfH), c = N.cabeza;
+      if (c && c.h > 0) { escObj = c.h / (CAB_H * pxu); objetivo.set((c.x / innerWidth * 2 - 1) * halfW, yMundo(c.y, halfH) - CAB_C * escObj, 0); }
+      else { objetivo.set(halfW * .52, -0.35, 0); escObj = .5; } }
+    else if (N.modo === "hero") {
+      if (movil) { const pxu = innerHeight / (2 * halfH), arriba = (N.dock ? N.dock.bottom : 64) + 18, libre = innerHeight * .52 + 6 - arriba;
+        escObj = Math.max(.2, Math.min(.62, halfW / 2.4, libre / (REF_H * pxu)));
+        objetivo.set(halfW * .1, yMundo(arriba, halfH) - REF.max.y * escObj, 0); }
+      else { objetivo.set(halfW * .44, -0.35, 0); escObj = Math.min(1, halfH / 3.6); }
+    } else if (N.modo === "sol" && N.sol) {
+      objetivo.set((N.sol.x / innerWidth * 2 - 1) * halfW, -(N.sol.y / innerHeight * 2 - 1) * halfH + cam.position.y, 0); escObj = .0001;
+    } else {
+      const pxu = innerHeight / (2 * halfH), margen = (innerWidth - Math.min(innerWidth, 1240)) / 2 + 8;
+      let e = Math.min(.38, (margen - 14) / (3.0 * pxu));
+      if (!movil && e >= .17) { escObj = e; objetivo.set(halfW - (margen / 2 + 4) / pxu, -halfH + 2.75 * e + .3, 0); }
+      else { const alto = Math.max(70, Math.min(100, innerHeight * .115)); escObj = alto / (REF_H * pxu);
+        objetivo.set(((innerWidth - 12 - alto * .36) / innerWidth * 2 - 1) * halfW, yMundo(N.piso || innerHeight - 14, halfH) - REF.min.y * escObj, 0); }
+    }
+    pos.lerp(objetivo, .07); rig.position.copy(pos);
+    // En el inicio acompaña al contenido al scrollear, así no queda flotando encima de textos y botones
+    heroOff += ((N.modo === "hero" && !N.menu ? scrollY * 2 * halfH / innerHeight : 0) - heroOff) * .5; rig.position.y += heroOff;
+
+    // Cambio de expresión: gira y se encoge, cambia, vuelve a crecer
+    cerebro();
+    const quiere = N.menu ? "frente-feliz" : (reac ? reac.key : N.look);
+    if (quiere && getLook(quiere) !== actual && fase === 0) { pendiente = quiere; fase = 1; }
+    if (fase === 1) { escala += (0 - escala) * (reac ? .45 : .25); holder.rotation.y += reac ? .12 : .35;
+      if (escala < .04) { holder.remove(actual); actual = getLook(pendiente); holder.add(actual); fase = 0; holder.rotation.y = -Math.PI; } }
+    else { escala += (1 - escala) * .12; holder.rotation.y += (0 - holder.rotation.y) * .12; }
+    escAct += (escObj - escAct) * (N.modo === "sol" ? .06 : .08);
+    if (N.modo === "sol") { holder.rotation.y += .3 * Math.min(1, escAct * 4 + .2); if (escAct < .025 && pos.distanceTo(objetivo) < .35) gigante.classList.add("sol-on"); }
+    else gigante.classList.remove("sol-on");
+    rig.visible = !gigante.classList.contains("sol-on");
+    const s = Math.max(.0001, escAct * escala); rig.scale.setScalar(s);
+
+    // Flota, mira al mouse y salta
+    salto = Math.max(0, salto - dt * 1.6);
+    const brinco = Math.sin((1 - salto) * Math.PI) * (salto > 0 ? 1.2 : 0);
+    rig.position.y += Math.sin(t * 1.6) * .12 * s + brinco * s;
+    rig.rotation.z = Math.sin(t * 1.1) * .03 + THREE.MathUtils.clamp(-N.scrollV * .004, -.18, .18);
+    rig.rotation.x = THREE.MathUtils.clamp(N.scrollV * .01, -.25, .25);
+    const tx = N.mouse.nx || 0, ty = N.mouse.ny || 0;
+    rig.rotation.y += ((tx * .22) - rig.rotation.y) * .08;
+    const h = actual.userData.head, b = actual.userData.base;
+    if (h && b) { h.rotation.y += (b.hy + tx * .18 - h.rotation.y) * .1; h.rotation.x += (b.hx - ty * .22 - h.rotation.x) * .1; }
+    if (actual.userData.halo) { actual.userData.halo.rotation.z = t; actual.userData.halo.scale.setScalar(1 + Math.sin(t * 3) * .08); }
+    const u = actual.userData, A = u.arms;
+    soloCabeza += ((N.menu ? 1 : 0) - soloCabeza) * (N.menu ? .14 : .1);
+    const cuerpo = Math.max(.0001, 1 - soloCabeza); u.body.scale.setScalar(cuerpo); A.izq.scale.setScalar(cuerpo); A.der.scale.setScalar(cuerpo);
+    u.body.position.y = -1.55 + soloCabeza * .9; u.body.visible = A.izq.visible = A.der.visible = cuerpo > .02;
+    if (b) u.eyes.forEach((e, j) => { e.scale.copy(b.es[j]); e.rotation.z = b.ez[j]; });
+    u.sun.scale.setScalar(1); u.antena.rotation.set(0, 0, THREE.MathUtils.clamp(Math.sin(t * 2.3) * .05 - N.scrollV * .003, -.3, .3));
+    if (b && b.pose === "saludo") { const ola = t < saludoHasta || (!reac && N.modo === "hero" && t % 7 < 1.8), w = ola ? Math.sin(t * 11) * .38 : 0; A.der.rotation.z = b.az + w; A.der.rotation.x = b.ax + w * .3; }
+    if (reac && b) {
+      if (reac.tipo === "enojo") { rig.position.x += Math.sin(t * 46) * .05 * s; h.rotation.x += .012; u.sun.scale.setScalar(1 + Math.abs(Math.sin(t * 12)) * .5); u.eyes.forEach((e) => e.scale.multiplyScalar(1 + Math.abs(Math.sin(t * 9)) * .25)); }
+      if (reac.tipo === "mareo") { rig.rotation.z += Math.sin(t * 5) * .16; h.rotation.z = b.hz + Math.sin(t * 7) * .22; u.eyes.forEach((e, j) => (e.rotation.z = (j ? -1 : 1) * t * 9)); u.antena.rotation.z = Math.cos(t * 8) * .35; u.antena.rotation.x = Math.sin(t * 8) * .35; }
+      if (reac.tipo === "caricia") { h.rotation.z = b.hz + Math.sin(t * 4) * .14; u.eyes.forEach((e) => e.scale.multiplyScalar(1 + Math.sin(t * 6) * .12)); A.izq.rotation.z = b.ai + Math.sin(t * 4) * .1; }
+      if (reac.tipo === "dormido") { h.rotation.x = b.hx + .28 + Math.sin(t * 1.2) * .04; u.sun.scale.setScalar(.6 + Math.sin(t * 1.2) * .1); }
+      if (reac.tipo === "curioso") { h.rotation.y = b.hy + tx * .6; h.rotation.x = b.hx - ty * .4; }
+    } else if (t % 5.2 < .12) u.eyes.forEach((e) => (e.scale.y *= .12));
+
+    pMat.uniforms.uT.value = t; polvo.position.x = -tx * .4; polvo.position.y = -ty * .25 + sS * .6;
+    R.render(scene, cam);
+    pintarBots();
+    requestAnimationFrame(loop);
+  }
+  loop();
+} catch (err) {
+  console.warn("Sin WebGL:", err);
+  document.body.classList.add("sin-3d");
+}
+</script>
+<script>
+/* Si los módulos 3D no cargan, se muestra R-bot en imagen */
+setTimeout(function(){ if(!document.body.classList.contains('con-3d')) document.body.classList.add('sin-3d'); }, 6000);
+</script>
