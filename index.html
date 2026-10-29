@@ -906,6 +906,7 @@ footer nav a:hover{color:var(--sol)}
   var secciones=Array.prototype.slice.call(document.querySelectorAll('[data-niko]')),kbg=document.querySelectorAll('[data-speed]'),tags=document.querySelectorAll('[data-par]');
   var pasos=document.getElementById('pasos'),pasoEls=pasos.querySelectorAll('.paso');
   var ultY=scrollY,vel=0,marq=0;
+  var interac=[].slice.call(document.querySelectorAll('main a.btn, main button, main input, main select, main textarea, main summary, .contactos span'));
   function frame(){
     var y=scrollY,dy=y-ultY;ultY=y;vel+= (dy-vel)*.12;NIKA.scrollV=vel;
     var max=document.documentElement.scrollHeight-innerHeight;prog.style.transform='scaleX('+(max>0?y/max:0)+')';
@@ -915,6 +916,13 @@ footer nav a:hover{color:var(--sol)}
     var bm=document.getElementById(NIKA.menu?'cerrarMenu':'toggleMenu');if(bm){var bR=(NIKA.menu?bm:bm.querySelector('.ico')).getBoundingClientRect();NIKA.boton={x:bR.left+bR.width/2,y:bR.top+bR.height/2}}
     var cz=document.getElementById('cabezaMenu');if(cz){var cR=cz.getBoundingClientRect();NIKA.cabeza={x:cR.left+cR.width/2,y:cR.top+cR.height/2,h:cR.height}}
     var cf=document.getElementById('ctaFija');NIKA.piso=(cf&&cf.classList.contains('on'))?cf.getBoundingClientRect().top-10:innerHeight-14;
+    /* en el celular, si un botón o campo pasa por la esquina de R-bot, él se agacha para no taparlo */
+    NIKA.esquiva=false;
+    if(innerWidth<=900&&NIKA.modo!=='hero'&&NIKA.modo!=='sol'&&!NIKA.menu){
+      var alto=Math.max(70,Math.min(100,innerHeight*.115)),bx=innerWidth-12-alto*.8,by=NIKA.piso-alto;
+      for(var qi=0;qi<interac.length;qi++){var q=interac[qi].getBoundingClientRect();
+        if(q.width&&q.right>bx&&q.left<innerWidth-6&&q.bottom>by&&q.top<NIKA.piso+6){NIKA.esquiva=true;break}}
+    }
     /* cinta */
     marq-= (1.2+Math.abs(vel)*.6)*(vel<-0.5?-1:1);var w=pista.scrollWidth/2;if(marq<-w)marq+=w;if(marq>0)marq-=w;pista.style.transform='translateX('+marq+'px)';
     /* kanjis en parallax */
@@ -1298,7 +1306,7 @@ try {
       let e = Math.min(.38, (margen - 14) / (3.0 * pxu));
       if (!movil && e >= .17) { escObj = e; objetivo.set(halfW - (margen / 2 + 4) / pxu, -halfH + 2.75 * e + .3, 0); }
       else { const alto = Math.max(70, Math.min(100, innerHeight * .115)); escObj = alto / (REF_H * pxu);
-        objetivo.set(((innerWidth - 12 - alto * .36) / innerWidth * 2 - 1) * halfW, yMundo(N.piso || innerHeight - 14, halfH) - REF.min.y * escObj, 0); }
+        objetivo.set(((innerWidth - 12 - alto * .36) / innerWidth * 2 - 1) * halfW, yMundo(N.piso || innerHeight - 14, halfH) - REF.min.y * escObj - (N.esquiva ? REF_H * escObj * 1.25 : 0), 0); }
     }
     pos.lerp(objetivo, .07); rig.position.copy(pos);
     // En el inicio acompaña al contenido al scrollear, así no queda flotando encima de textos y botones
