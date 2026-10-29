@@ -443,6 +443,11 @@ input,select,textarea{font:inherit;font-family:var(--f-texto);font-size:16px;let
 textarea{min-height:96px;resize:vertical}
 input:focus,select:focus,textarea:focus{outline:none;border-color:var(--sol);box-shadow:0 0 0 3px rgba(255,200,61,.15)}
 .par{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.par label{justify-content:space-between}
+input,select{height:50px;line-height:1.2}
+select{-webkit-appearance:none;-moz-appearance:none;appearance:none;cursor:pointer;padding-right:44px;text-align:left;text-align-last:left;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14'%3E%3Cpath d='M3 5.5l4 4 4-4' fill='none' stroke='%23FFC83D' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;background-size:14px}
+select::-ms-expand{display:none}
+select option{background:#14151B;color:#F6F4EF}
 @media (max-width:520px){.par{grid-template-columns:1fr}}
 form .btn{justify-content:center}
 .ok{font-size:14.5px;color:var(--sol);border:1px solid rgba(255,200,61,.35);border-radius:12px;padding:12px 14px}
