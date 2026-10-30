@@ -65,7 +65,7 @@ body.menu-abierto #fx{z-index:91}
 
 .wrap{max-width:1240px;margin-inline:auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
 .bloque{padding-block:clamp(90px,12vw,160px);position:relative}
-.bloque:has(+.bloque){padding-bottom:clamp(40px,5vw,72px)}
+.bloque:has(+.bloque),.bloque:has(+.hs){padding-bottom:clamp(40px,5vw,72px)}
 .bloque+.bloque{padding-top:clamp(28px,3.5vw,48px)}
 .eyebrow{font-family:var(--f-datos);font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--sol);display:flex;flex-wrap:wrap;gap:.9em;align-items:center}
 .eyebrow .jp{font-family:var(--f-texto);letter-spacing:.1em;color:var(--gris-2);font-weight:500}
