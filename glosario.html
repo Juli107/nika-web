@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Glosario de marketing · NIKA</title>
+<meta name="description" content="Glosario de marketing y ventas: los términos que dominan el mundo comercial, explicados simple.">
+<meta name="theme-color" content="#0B0C10">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=JetBrains+Mono:wght@400;500&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<style>
+:root{--tinta:#0B0C10;--tinta-2:#14151B;--nube:#F6F4EF;--gris:#B9B6AE;--gris-2:#8A877F;--sol:#FFC83D;--amanecer:#FF7A1A;--linea:rgba(246,244,239,.1);
+  --f-titulo:"Chakra Petch","Arial Narrow",sans-serif;--f-texto:"Zen Kaku Gothic New",system-ui,sans-serif;--f-datos:"JetBrains Mono",ui-monospace,monospace}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{margin:0;background:var(--tinta);color:var(--nube);font-family:var(--f-texto);font-size:16.5px;line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:var(--sol)}
+.top{position:sticky;top:0;z-index:10;background:rgba(11,12,16,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--linea)}
+.top .in{max-width:1000px;margin:0 auto;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.logo svg{height:22px;width:auto;display:block}
+.logo .jp{font-size:12px;color:var(--sol);letter-spacing:.1em;border-left:1px solid rgba(246,244,239,.18);padding-left:12px}
+.volver{font-family:var(--f-datos);font-size:12px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;border:1px solid rgba(255,200,61,.4);border-radius:999px;padding:9px 16px;white-space:nowrap}
+.volver:hover{background:rgba(255,200,61,.1)}
+main{max-width:1000px;margin:0 auto;padding:56px 20px 80px;display:grid;grid-template-columns:240px minmax(0,1fr);gap:56px}
+.cab{grid-column:1/-1}
+.eyebrow{font-family:var(--f-datos);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--sol);margin:0 0 14px}
+h1{font-family:var(--f-titulo);font-weight:600;text-transform:uppercase;font-size:clamp(38px,7vw,72px);line-height:.95;margin:0 0 18px}
+.vig{font-family:var(--f-datos);font-size:12.5px;color:var(--gris-2);margin:0}
+.intro{color:var(--gris);max-width:680px;margin:18px 0 0}
+nav.indice{position:sticky;top:96px;align-self:start;font-family:var(--f-datos);font-size:12px;line-height:1.5}
+nav.indice ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px;counter-reset:i}
+nav.indice a{color:var(--gris-2);text-decoration:none;display:flex;gap:10px}
+nav.indice a::before{counter-increment:i;content:counter(i,decimal-leading-zero);color:var(--sol)}
+nav.indice a:hover{color:var(--nube)}
+section{padding:0 0 30px;margin:0 0 30px;border-bottom:1px solid var(--linea)}
+section:last-of-type{border-bottom:0}
+h2{font-family:var(--f-titulo);font-weight:600;text-transform:uppercase;font-size:22px;letter-spacing:.01em;margin:0 0 12px;display:flex;gap:12px;align-items:baseline}
+h2 span{font-family:var(--f-datos);font-size:12px;color:var(--sol);font-weight:400}
+p,li{color:var(--gris)}
+p{margin:0 0 12px}
+ul{margin:0 0 12px;padding-left:20px}
+li{margin:0 0 6px}
+li::marker{color:var(--sol)}
+strong{color:var(--nube);font-weight:500}
+.tabla{width:100%;border-collapse:collapse;margin:6px 0 14px;font-size:15px}
+.tabla th,.tabla td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--linea);vertical-align:top}
+.tabla th{font-family:var(--f-datos);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--gris-2);font-weight:400}
+.tabla td{color:var(--gris)}
+.nota{background:var(--tinta-2);border:1px solid var(--linea);border-left:3px solid var(--sol);border-radius:12px;padding:14px 16px;font-size:15px}
+footer{border-top:1px solid var(--linea);font-family:var(--f-datos);font-size:12px;color:var(--gris-2)}
+footer .in{max-width:1000px;margin:0 auto;padding:24px 20px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+@media (max-width:820px){main{grid-template-columns:1fr;gap:28px;padding-top:36px}nav.indice{position:static;background:var(--tinta-2);border:1px solid var(--linea);border-radius:14px;padding:16px}}
+@media (max-width:480px){.volver{padding:8px 12px;font-size:11px}.tabla{font-size:14px}.tabla th,.tabla td{padding:8px 6px}}
+
+.buscar{width:100%;max-width:520px;margin-top:22px;background:var(--tinta-2);border:1px solid var(--linea);border-radius:999px;padding:13px 20px;font:inherit;font-size:15.5px;color:var(--nube)}
+.buscar:focus{outline:none;border-color:var(--sol)}
+.grupo{margin:0 0 34px}
+.grupo h2{margin-bottom:16px}
+.lista{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.item{background:var(--tinta-2);border:1px solid var(--linea);border-radius:16px;padding:18px 20px}
+.item h3{font-family:var(--f-titulo);font-weight:600;text-transform:uppercase;font-size:17px;margin:0 0 6px;color:var(--nube)}
+.item p{margin:0;font-size:15px}
+.vacio{display:none;color:var(--gris-2)}
+.cta-final{margin-top:20px;background:linear-gradient(120deg,rgba(255,200,61,.12),rgba(255,122,26,.08));border:1px solid rgba(255,200,61,.35);border-radius:20px;padding:24px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px}
+.cta-final p{margin:0;color:var(--nube)}
+.cta-final a{font-family:var(--f-datos);font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;background:var(--sol);color:var(--tinta);border-radius:999px;padding:12px 20px;white-space:nowrap}
+@media (max-width:640px){.lista{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="top"><div class="in">
+  <a class="logo" href="index.html" aria-label="NIKA, volver al inicio"><svg viewBox="-12 -12 312 84" aria-hidden="true"><defs><linearGradient id="solG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFC83D"/><stop offset="1" stop-color="#FF7A1A"/></linearGradient><clipPath id="cwn"><rect x="-2" y="0" width="300" height="60"/></clipPath></defs><g clip-path="url(#cwn)" fill="none" stroke="#F6F4EF" stroke-width="12"><path d="M6 -4V64 M64 -4V64 M3 -6 L67 66"/><path d="M98 -4V64"/><path d="M132 -4V64 M134 36 L196 -2 M152 25 L198 64"/><path d="M218 66 L253 -4 L288 66"/></g><circle cx="253" cy="44" r="7.5" fill="url(#solG)"/></svg><span class="jp">ニカ</span></a>
+  <a class="volver" href="index.html">← Volver a la web</a>
+</div></header>
+<main>
+  <div class="cab">
+    <p class="eyebrow">Glosario · 用語集</p>
+    <h1>Los términos que dominan el marketing</h1>
+    <p class="intro">Del primer contacto al cierre: 46 conceptos de marketing, ventas y tecnología que vas a escuchar en cualquier reunión comercial, explicados simple.</p>
+    <input class="buscar" id="buscar" type="search" placeholder="Buscar un término (ej.: ROI, lead, SEO)" aria-label="Buscar un término">
+  </div>
+  <nav class="indice" aria-label="Categorías"><ol><li><a href="#g0">Estrategia y marca</a></li><li><a href="#g1">Ventas y comercial</a></li><li><a href="#g2">Métricas y resultados</a></li><li><a href="#g3">Publicidad digital</a></li><li><a href="#g4">Contenido, web y SEO</a></li><li><a href="#g5">IA y automatización</a></li></ol></nav>
+  <div><section class="grupo" id="g0"><h2><span>01</span>Estrategia y marca</h2><div class="lista"><div class="item"><h3>Buyer persona</h3><p>Perfil detallado del cliente ideal: quién es, qué necesita, qué le preocupa y cómo decide. Guía todo el contenido y los anuncios.</p></div><div class="item"><h3>Propuesta de valor</h3><p>La razón concreta por la que un cliente te elige a vos y no a la competencia, dicha en una frase.</p></div><div class="item"><h3>Branding</h3><p>Construcción de la identidad de una marca: nombre, logo, colores, tono y la percepción que genera.</p></div><div class="item"><h3>Posicionamiento</h3><p>El lugar que ocupa tu marca en la mente del cliente frente a la competencia.</p></div><div class="item"><h3>Embudo de ventas (funnel)</h3><p>El recorrido del cliente desde que te descubre hasta que compra: atracción, consideración, decisión y fidelización.</p></div><div class="item"><h3>Customer journey</h3><p>El mapa de todos los puntos de contacto que tiene un cliente con tu marca, antes, durante y después de la compra.</p></div><div class="item"><h3>Inbound marketing</h3><p>Estrategia que atrae clientes con contenido útil, en lugar de salir a buscarlos con publicidad invasiva.</p></div><div class="item"><h3>Outbound marketing</h3><p>Acciones en las que la marca sale a buscar al cliente: anuncios, llamados, emails en frío o eventos.</p></div></div></section><section class="grupo" id="g1"><h2><span>02</span>Ventas y comercial</h2><div class="lista"><div class="item"><h3>B2B</h3><p>Business to business: empresas que le venden a otras empresas. Ciclos de venta más largos y decisiones de varias personas.</p></div><div class="item"><h3>B2C</h3><p>Business to consumer: empresas que le venden al consumidor final. Decisiones más rápidas y emocionales.</p></div><div class="item"><h3>Lead</h3><p>Persona o empresa que mostró interés y dejó sus datos de contacto. Es un posible cliente.</p></div><div class="item"><h3>Lead calificado (MQL / SQL)</h3><p>MQL es un lead con interés real según su comportamiento; SQL es uno que el equipo comercial ya validó y está listo para una propuesta.</p></div><div class="item"><h3>Prospecto</h3><p>Lead que cumple el perfil de cliente ideal y con el que se inicia una conversación comercial.</p></div><div class="item"><h3>Pipeline</h3><p>El tablero de oportunidades de venta abiertas, ordenadas por etapa: contacto, propuesta, negociación y cierre.</p></div><div class="item"><h3>CRM</h3><p>Sistema donde se registran clientes, conversaciones y oportunidades para hacer seguimiento y no perder ventas.</p></div><div class="item"><h3>Ticket promedio</h3><p>Lo que gasta en promedio cada cliente por compra. Se calcula dividiendo la facturación por la cantidad de ventas.</p></div><div class="item"><h3>Upselling y cross-selling</h3><p>Upselling es ofrecer una versión superior de lo que compra el cliente; cross-selling es sumarle productos complementarios.</p></div><div class="item"><h3>Churn</h3><p>Porcentaje de clientes que dejan de comprarte o cancelan el servicio en un período.</p></div></div></section><section class="grupo" id="g2"><h2><span>03</span>Métricas y resultados</h2><div class="lista"><div class="item"><h3>KPI</h3><p>Indicador clave de desempeño: el número que mide si un objetivo se está cumpliendo.</p></div><div class="item"><h3>ROI</h3><p>Retorno de la inversión: cuánto ganaste por cada peso invertido. (Ganancia − inversión) ÷ inversión.</p></div><div class="item"><h3>ROAS</h3><p>Retorno de la inversión publicitaria: cuánto facturaste por cada peso puesto en anuncios.</p></div><div class="item"><h3>CAC</h3><p>Costo de adquisición de cliente: lo que te cuesta en marketing y ventas conseguir un cliente nuevo.</p></div><div class="item"><h3>LTV</h3><p>Valor de vida del cliente: todo lo que un cliente te deja mientras sigue comprándote. Un negocio sano tiene LTV mayor que CAC.</p></div><div class="item"><h3>Tasa de conversión</h3><p>Porcentaje de personas que hacen la acción buscada (comprar, escribir, registrarse) sobre el total que la vio.</p></div><div class="item"><h3>CTR</h3><p>Click-through rate: porcentaje de personas que hicieron clic en un anuncio, link o email sobre las que lo vieron.</p></div><div class="item"><h3>Alcance e impresiones</h3><p>Alcance es cuántas personas distintas vieron tu contenido; impresiones, cuántas veces se mostró en total.</p></div><div class="item"><h3>Engagement</h3><p>Nivel de interacción del público con tu contenido: me gusta, comentarios, guardados, compartidos y mensajes.</p></div></div></section><section class="grupo" id="g3"><h2><span>04</span>Publicidad digital</h2><div class="lista"><div class="item"><h3>Ads / pauta</h3><p>Anuncios pagos en plataformas como Meta (Instagram y Facebook), Google o TikTok.</p></div><div class="item"><h3>CPC y CPM</h3><p>CPC es lo que pagás por cada clic; CPM, lo que pagás por cada mil veces que se muestra el anuncio.</p></div><div class="item"><h3>Segmentación</h3><p>Elegir a quién se le muestra un anuncio según edad, zona, intereses o comportamiento.</p></div><div class="item"><h3>Remarketing (retargeting)</h3><p>Volver a mostrarle anuncios a quien ya visitó tu web o interactuó con tu marca, para que vuelva y compre.</p></div><div class="item"><h3>Píxel</h3><p>Código que se instala en la web para medir lo que hacen las visitas que llegan desde los anuncios y optimizar las campañas.</p></div><div class="item"><h3>Test A/B</h3><p>Probar dos versiones de un anuncio, una página o un email para quedarse con la que mejor funciona.</p></div></div></section><section class="grupo" id="g4"><h2><span>05</span>Contenido, web y SEO</h2><div class="lista"><div class="item"><h3>SEO</h3><p>Optimización para buscadores: el trabajo para que tu web aparezca entre los primeros resultados de Google sin pagar anuncios.</p></div><div class="item"><h3>SEM</h3><p>Marketing en buscadores con anuncios pagos, como Google Ads.</p></div><div class="item"><h3>Landing page</h3><p>Página pensada para una sola acción: dejar los datos, escribir por WhatsApp o comprar.</p></div><div class="item"><h3>CTA</h3><p>Call to action: el llamado a la acción, como &quot;Escribinos&quot;, &quot;Comprá ahora&quot; o &quot;Probá gratis&quot;.</p></div><div class="item"><h3>Lead magnet</h3><p>Algo de valor que se regala a cambio de los datos de contacto: una guía, un descuento o una prueba gratis.</p></div><div class="item"><h3>Copywriting</h3><p>Redacción persuasiva para vender: textos de anuncios, webs, emails y publicaciones.</p></div><div class="item"><h3>UGC</h3><p>User generated content: contenido creado por clientes reales, como reseñas, fotos o videos usando el producto.</p></div><div class="item"><h3>Calendario editorial</h3><p>Planificación de qué se publica, cuándo y en qué red, para sostener la constancia.</p></div></div></section><section class="grupo" id="g5"><h2><span>06</span>IA y automatización</h2><div class="lista"><div class="item"><h3>Chatbot / asistente IA</h3><p>Programa que responde consultas automáticamente las 24 horas, entrenado con la información del negocio.</p></div><div class="item"><h3>Automatización</h3><p>Tareas que se hacen solas sin intervención manual: respuestas, seguimientos, recordatorios o carga de datos.</p></div><div class="item"><h3>Email marketing automatizado</h3><p>Secuencias de emails que se envían solas según lo que hace cada persona: bienvenida, carrito abandonado o recompra.</p></div><div class="item"><h3>Prompt</h3><p>La instrucción que se le da a una herramienta de IA para obtener un resultado.</p></div><div class="item"><h3>Omnicanalidad</h3><p>Atender al cliente de forma coordinada en todos los canales (web, WhatsApp, Instagram, local) con la misma información.</p></div></div></section>
+    <p class="vacio" id="vacio">No encontramos ese término. Escribinos y te lo explicamos.</p>
+    <div class="cta-final"><p>¿Querés que estos números trabajen para tu marca?</p><a href="index.html#contacto">Probá 10 días gratis →</a></div>
+  </div>
+</main>
+<footer><div class="in">
+  <span>© <span id="anio">2026</span> NIKA ニカ · Liberá tu marca</span>
+  <a href="index.html">Volver a la web</a>
+</div></footer>
+<script>
+document.getElementById('anio').textContent=new Date().getFullYear();
+var q=document.getElementById('buscar'),items=[].slice.call(document.querySelectorAll('.item')),grupos=[].slice.call(document.querySelectorAll('.grupo'));
+function norm(x){return x.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'')}
+q.addEventListener('input',function(){var v=norm(q.value.trim()),hay=0;
+  items.forEach(function(it){var ok=!v||norm(it.textContent).indexOf(v)>-1;it.style.display=ok?'':'none';if(ok)hay++});
+  grupos.forEach(function(g){g.style.display=[].some.call(g.querySelectorAll('.item'),function(it){return it.style.display!=='none'})?'':'none'});
+  document.getElementById('vacio').style.display=hay?'none':'block'});
+</script>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="description" content="NIKA, agencia de marketing digital en Argentina: web, redes, newsletter, contenido e IA a medida en un solo plan mensual. Probá 10 días gratis.">
+<meta name="description" content="NIKA, agencia de marketing digital en Argentina: marketing, gestión comercial, reportes, analítica, mejora de procesos e IA a medida en un solo plan mensual. Probá 10 días gratis.">
 <meta property="og:title" content="NIKA · Liberá tu marca">
 <meta property="og:description" content="Web, redes, newsletter, contenido e IA a medida en un solo plan mensual. Probá 10 días gratis.">
 <meta name="theme-color" content="#0B0C10">
@@ -51,12 +51,10 @@ h3{font-size:clamp(19px,1.8vw,23px);line-height:1.15}
 #fx{z-index:40}
 .bot-wa{position:fixed;left:0;top:0;z-index:42;display:none;border-radius:40%;text-decoration:none;-webkit-tap-highlight-color:transparent;cursor:pointer}
 .bot-wa.on{display:block}
-.bot-wa .wa-ico{position:absolute;left:4%;top:18%;width:28px;height:28px;border-radius:50%;background:#25D366;display:grid;place-items:center;box-shadow:0 4px 14px rgba(37,211,102,.45),0 0 0 3px rgba(11,12,16,.85);animation:waLatido 2.6s ease-in-out infinite}
-@keyframes waLatido{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
-.bot-wa .wa-txt{position:absolute;right:calc(100% + 6px);top:22%;white-space:nowrap;font-family:var(--f-datos);font-size:12px;letter-spacing:.03em;color:var(--nube);background:rgba(17,19,25,.92);border:1px solid rgba(37,211,102,.5);border-radius:999px;padding:7px 12px;opacity:0;transform:translateX(6px);transition:opacity .35s,transform .35s;pointer-events:none}
+.bot-wa .wa-txt{position:absolute;right:calc(100% - 6px);top:4%;white-space:nowrap;font-family:var(--f-datos);font-size:12.5px;letter-spacing:.04em;line-height:1.4;color:var(--nube);background:rgba(17,19,25,.88);border:1px solid var(--linea-2);border-radius:16px 16px 4px 16px;padding:10px 14px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);opacity:0;transform:translate(8px,6px) scale(.92);transform-origin:100% 100%;transition:opacity .3s,transform .35s cubic-bezier(.2,.9,.3,1.3);pointer-events:none}
+.bot-wa .wa-txt b{color:var(--sol);font-weight:500}
 .bot-wa:hover .wa-txt,.bot-wa.aviso .wa-txt{opacity:1;transform:none}
 .bot-wa:focus-visible{outline:2px solid #25D366;outline-offset:4px}
-@media (prefers-reduced-motion:reduce){.bot-wa .wa-ico{animation:none}}
 .zona-bot{position:fixed;left:0;top:0;z-index:41;display:none;touch-action:none;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;border-radius:40%}
 body.tactil .zona-bot.on{display:block}
 main,footer{position:relative;z-index:2}
@@ -370,6 +368,13 @@ body.con-3d .problema img[data-bot]{opacity:0}
 .industrias.rv li{opacity:0;transform:translateY(14px);transition:opacity .6s var(--ease-out),transform .6s var(--ease-out),border-color .3s,background .3s}
 .industrias.rv.in li{opacity:1;transform:none}
 @media (max-width:600px){.industrias{gap:8px}.industrias li{padding:10px 14px;font-size:14.5px}}
+.terms{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.term{border-radius:22px;padding:24px;display:flex;flex-direction:column;gap:10px}
+.term h3{font-size:20px;color:var(--sol)}
+.term p{font-size:15px;color:var(--gris);margin:0}
+.glos-btn{margin:36px auto 0;display:flex;width:max-content}
+@media (max-width:900px){.terms{grid-template-columns:1fr 1fr}}
+@media (max-width:600px){.terms{grid-template-columns:1fr}.glos-btn{width:100%;justify-content:center}}
 .pago-nota{font-family:var(--f-datos);font-size:11px;letter-spacing:.04em;color:var(--gris-2);padding-left:6px}
 @media (max-width:900px){.pago-box{align-items:stretch}.pago-nota{text-align:center;padding:0}}
 .pago button[aria-pressed="true"] .off{color:#B5480A}
@@ -566,7 +571,7 @@ footer nav a:hover{color:var(--sol)}
 <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
 <div class="progreso" id="progreso" aria-hidden="true"></div>
 <div class="zona-bot" id="zonaBot" aria-hidden="true"></div>
-<a class="bot-wa" id="botWA" href="https://wa.me/5491133894270?text=Hola%20NIKA%2C%20quiero%20saber%20m%C3%A1s%20sobre%20la%20prueba%20gratis%20de%2010%20d%C3%ADas." target="_blank" rel="noopener" aria-label="Escribinos por WhatsApp"><span class="wa-ico" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15"><path fill="#fff" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2c0 1.3.9 2.5 1 2.7.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></svg></span><span class="wa-txt">¿Hablamos por WhatsApp?</span></a>
+<a class="bot-wa" id="botWA" href="https://wa.me/5491133894270?text=Hola%20NIKA%2C%20quiero%20saber%20m%C3%A1s%20sobre%20la%20prueba%20gratis%20de%2010%20d%C3%ADas." target="_blank" rel="noopener" aria-label="Escribinos por WhatsApp"><span class="wa-txt">¿Hablamos por <b>WhatsApp</b>?</span></a>
 <div class="burbuja" id="burbuja" role="status" aria-live="polite"></div>
 
 <header class="top" id="top">
@@ -616,7 +621,7 @@ footer nav a:hover{color:var(--sol)}
     <div class="hero-txt">
       <p class="eyebrow scramble">Agencia digital · Argentina <span class="jp">自由 = libertad</span></p>
       <h1><span class="ln split" data-split>Liberá</span><span class="ln grad split" data-split>tu marca.</span></h1>
-      <p class="lead rv">Web, redes, newsletter, contenido e IA a medida en un solo plan mensual. Vos te enfocás en vender; nosotros hacemos que te encuentren, te recuerden y te elijan.</p>
+      <p class="lead rv">Marketing, gestión comercial e inteligencia artificial en un solo plan mensual: web, redes, email, reportes, analítica y mejora de procesos. Vos te enfocás en vender; nosotros hacemos que tu marca crezca con estrategia y datos.</p>
       <div class="hero-ctas rv">
         <a class="btn btn-sol mag" href="#contacto">Probá 10 días gratis <span class="fl">→</span></a>
         <a class="btn btn-linea mag" href="#planes">Ver planes</a>
@@ -793,6 +798,18 @@ footer nav a:hover{color:var(--sol)}
   </div>
 </section>
 
+<section class="bloque" id="glosario" data-niko="pensando">
+  <span class="kanji-bg" data-speed=".15" aria-hidden="true">用語</span>
+  <div class="wrap">
+    <div class="cabecera">
+      <div><p class="eyebrow scramble">Glosario <span class="jp">用語集</span></p><h2 class="split" data-split>Los términos que dominan el marketing</h2></div>
+      <p class="lead rv">Del primer contacto al cierre: el lenguaje que usan los equipos de marketing y ventas todos los días, explicado simple.</p>
+    </div>
+    <div class="terms rv"><article class="term vidrio" data-tilt><h3>Lead</h3><p>Persona o empresa que mostró interés y dejó sus datos de contacto. Es un posible cliente.</p></article><article class="term vidrio" data-tilt><h3>Embudo de ventas (funnel)</h3><p>El recorrido del cliente desde que te descubre hasta que compra: atracción, consideración, decisión y fidelización.</p></article><article class="term vidrio" data-tilt><h3>ROI</h3><p>Retorno de la inversión: cuánto ganaste por cada peso invertido. (Ganancia − inversión) ÷ inversión.</p></article><article class="term vidrio" data-tilt><h3>CAC</h3><p>Costo de adquisición de cliente: lo que te cuesta en marketing y ventas conseguir un cliente nuevo.</p></article><article class="term vidrio" data-tilt><h3>SEO</h3><p>Optimización para buscadores: el trabajo para que tu web aparezca entre los primeros resultados de Google sin pagar anuncios.</p></article><article class="term vidrio" data-tilt><h3>Remarketing (retargeting)</h3><p>Volver a mostrarle anuncios a quien ya visitó tu web o interactuó con tu marca, para que vuelva y compre.</p></article></div>
+    <a class="btn btn-linea mag glos-btn" href="glosario.html">Ver el glosario completo <span class="fl">→</span></a>
+  </div>
+</section>
+
 <section class="bloque cierre" id="contacto" data-niko="celebra-estrellas">
   <div class="wrap">
     <div class="txt">
@@ -828,7 +845,7 @@ footer nav a:hover{color:var(--sol)}
     </svg>
     <div class="fila">
       <span>© <span id="anio">2026</span> NIKA ニカ · Liberá tu marca</span>
-      <nav aria-label="Pie"><a href="#servicios">Servicios</a><a href="#planes">Planes</a><a href="#casos">Casos</a><a href="#contacto">Contacto</a><a href="terminos.html">Términos y Condiciones</a></nav>
+      <nav aria-label="Pie"><a href="#servicios">Servicios</a><a href="#planes">Planes</a><a href="#casos">Casos</a><a href="#contacto">Contacto</a><a href="glosario.html">Glosario</a><a href="terminos.html">Términos y Condiciones</a></nav>
       <span>Hecho en Argentina</span>
     </div>
   </div>
@@ -1186,6 +1203,7 @@ try {
   let salto = 0;
   /* ---- Personalidad de R-bot ---- */
   const burb = document.getElementById("burbuja"), waBot = document.getElementById("botWA");
+  const hoverReal = matchMedia("(hover:hover)").matches;
   let reac = null, burbHasta = 0, saludoHasta = 0, mareoAcum = 0, ultAng = null, caricia = 0, quietoDesde = 0, ultMov = 0, clics = [], sobre = false, sobreCabeza = false, vel = 0;
   const REAC = {
     enojo:    { key: "jarra|enojado",     dur: 3.2, txt: "¡Ey! ¡Basta de tocarme! 😤" },
@@ -1439,7 +1457,7 @@ try {
       waBot.classList.toggle("on", activo);
       if (activo) { const h = REF_H * s * pxu, w = h * .78, x = (rig.position.x / halfW + 1) / 2 * innerWidth, y = (1 - (rig.position.y + REF_C * s - cam.position.y) / halfH) / 2 * innerHeight;
         waBot.style.width = w + "px"; waBot.style.height = h + "px"; waBot.style.transform = `translate(${x - w / 2}px,${y - h / 2}px)`;
-        waBot.classList.toggle("aviso", t % 16 > 11 && t % 16 < 14.5); } }
+        waBot.classList.toggle("aviso", !hoverReal && t % 16 > 11 && t % 16 < 14.5); } }
 
     // Flota, mira al mouse y salta
     salto = Math.max(0, salto - dt * 1.6);

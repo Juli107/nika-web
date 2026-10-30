@@ -21,8 +21,9 @@ body{margin:0;background:var(--tinta);color:var(--nube);font-family:var(--f-text
 a{color:var(--sol)}
 .top{position:sticky;top:0;z-index:10;background:rgba(11,12,16,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--linea)}
 .top .in{max-width:1000px;margin:0 auto;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;gap:16px}
-.logo{font-family:var(--f-titulo);font-weight:700;font-size:22px;letter-spacing:.12em;color:var(--nube);text-decoration:none}
-.logo b{color:var(--sol)}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.logo svg{height:22px;width:auto;display:block}
+.logo .jp{font-size:12px;color:var(--sol);letter-spacing:.1em;border-left:1px solid rgba(246,244,239,.18);padding-left:12px}
 .volver{font-family:var(--f-datos);font-size:12px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;border:1px solid rgba(255,200,61,.4);border-radius:999px;padding:9px 16px;white-space:nowrap}
 .volver:hover{background:rgba(255,200,61,.1)}
 main{max-width:1000px;margin:0 auto;padding:56px 20px 80px;display:grid;grid-template-columns:240px minmax(0,1fr);gap:56px}
@@ -59,7 +60,7 @@ footer .in{max-width:1000px;margin:0 auto;padding:24px 20px;display:flex;flex-wr
 </head>
 <body>
 <header class="top"><div class="in">
-  <a class="logo" href="index.html">NIK<b>A</b></a>
+  <a class="logo" href="index.html" aria-label="NIKA, volver al inicio"><svg viewBox="-12 -12 312 84" aria-hidden="true"><defs><linearGradient id="solG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFC83D"/><stop offset="1" stop-color="#FF7A1A"/></linearGradient><clipPath id="cwn"><rect x="-2" y="0" width="300" height="60"/></clipPath></defs><g clip-path="url(#cwn)" fill="none" stroke="#F6F4EF" stroke-width="12"><path d="M6 -4V64 M64 -4V64 M3 -6 L67 66"/><path d="M98 -4V64"/><path d="M132 -4V64 M134 36 L196 -2 M152 25 L198 64"/><path d="M218 66 L253 -4 L288 66"/></g><circle cx="253" cy="44" r="7.5" fill="url(#solG)"/></svg><span class="jp">ニカ</span></a>
   <a class="volver" href="index.html">← Volver a la web</a>
 </div></header>
 
