@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Firma de correo · NIKA</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<style>
+  body{margin:0;background:#F6F4EF;color:#0B0C10;font-family:Arial,Helvetica,sans-serif;padding:48px 16px}
+  .wrap{max-width:640px;margin:0 auto}
+  h1{font-size:22px;margin:0 0 6px}
+  p.sub{margin:0 0 28px;color:#555;font-size:15px;line-height:1.5}
+  .marco{background:#fff;border:1px solid #e3e0d8;border-radius:12px;padding:28px 24px;overflow-x:auto}
+  .acciones{display:flex;gap:12px;align-items:center;margin:20px 0 32px;flex-wrap:wrap}
+  button{font:600 15px Arial,sans-serif;background:#0B0C10;color:#FFC83D;border:0;border-radius:999px;padding:14px 26px;cursor:pointer}
+  #ok{font-size:14px;color:#1a7f37;opacity:0;transition:opacity .3s}
+  ol{padding-left:20px;line-height:1.7;font-size:15px}
+  code{background:#eceae4;padding:1px 6px;border-radius:4px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Firma de correo NIKA</h1>
+  <p class="sub">Tocá "Copiar firma" y pegala en Gmail. Se ve igual en compu y en celular.</p>
+
+  <div class="marco">
+<!-- FIRMA -->
+<div id="firma">
+<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;background:#0B0C10;border-radius:14px;width:520px;max-width:100%;font-family:Arial,Helvetica,sans-serif">
+  <tr><td colspan="2" style="height:3px;line-height:3px;font-size:0;background:#FFC83D;border-radius:14px 14px 0 0">&nbsp;</td></tr>
+  <tr>
+    <td valign="bottom" style="padding:18px 0 0 18px;width:72px">
+      <img src="https://nika-web-2t0.pages.dev/firma/rbot.png" width="72" height="100" alt="R-bot" style="display:block;border:0">
+    </td>
+    <td valign="top" style="padding:20px 22px 18px 18px">
+      <table cellpadding="0" cellspacing="0" border="0" style="border-left:2px solid #FFC83D">
+        <tr><td style="padding:0 0 0 16px">
+          <img src="https://nika-web-2t0.pages.dev/firma/nika-logo.png" width="112" height="23" alt="NIKA" style="display:block;border:0">
+          <div style="font-size:18px;font-weight:bold;color:#F6F4EF;margin:12px 0 2px;letter-spacing:.2px">Julián Cuello</div>
+          <div style="font-family:'Courier New',Courier,monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#FFC83D;margin:0 0 12px">Fundador · Agencia digital</div>
+          <div style="font-size:13px;line-height:21px;color:#B9B6AE">
+            <a href="https://wa.me/5491133894270" style="color:#F6F4EF;text-decoration:none">+54 9 11 3389-4270</a><br>
+            <a href="mailto:agency@digitalnika.com" style="color:#F6F4EF;text-decoration:none">agency@digitalnika.com</a><br>
+            <a href="https://digitalnika.com" style="color:#FFC83D;text-decoration:none">digitalnika.com</a>
+          </div>
+        </td></tr>
+      </table>
+    </td>
+  </tr>
+  <tr><td colspan="2" style="padding:0 22px 14px 18px">
+    <div style="border-top:1px solid #23262F;padding-top:10px;font-family:'Courier New',Courier,monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#8A8780">Liberá tu marca &nbsp;·&nbsp; 自由 &nbsp;·&nbsp; <a href="https://digitalnika.com/#contacto" style="color:#FF7A1A;text-decoration:none">Probá 10 días gratis →</a></div>
+  </td></tr>
+</table>
+</div>
+<!-- /FIRMA -->
+  </div>
+
+  <div class="acciones">
+    <button id="copiar">Copiar firma</button>
+    <span id="ok">¡Copiada! Pegala en Gmail.</span>
+  </div>
+
+  <ol>
+    <li>En Gmail, tocá ⚙️ <b>Ver todos los ajustes</b> y, en la pestaña <b>General</b>, bajá hasta <b>Firma</b>.</li>
+    <li>Tocá <b>Crear nueva</b>, ponele de nombre <code>NIKA</code> y pegá con <code>Ctrl + V</code>.</li>
+    <li>Abajo, en <b>Valores predeterminados de firma</b>, elegí <code>agency@digitalnika.com</code> y la firma NIKA, tanto para mensajes nuevos como para respuestas.</li>
+    <li>Tocá <b>Guardar cambios</b> al final de la página.</li>
+  </ol>
+</div>
+<script>
+document.getElementById('copiar').addEventListener('click', async function(){
+  var el=document.getElementById('firma'), html=el.innerHTML, ok=document.getElementById('ok');
+  try{
+    await navigator.clipboard.write([new ClipboardItem({'text/html':new Blob([html],{type:'text/html'}),'text/plain':new Blob([el.innerText],{type:'text/plain'})})]);
+  }catch(e){
+    var r=document.createRange(); r.selectNode(el); var s=getSelection(); s.removeAllRanges(); s.addRange(r); document.execCommand('copy'); s.removeAllRanges();
+  }
+  ok.style.opacity=1; setTimeout(function(){ok.style.opacity=0},2500);
+});
+</script>
+</body>
+</html>
