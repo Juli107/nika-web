@@ -671,6 +671,8 @@ footer nav a:hover{color:var(--sol)}
 .hw-chip{color:#FF7A1A;border-color:rgba(255,122,26,.55)!important;background:rgba(255,122,26,.10)!important}
 .hw-chip b{color:#FF7A1A}
 @media (max-width:900px){.hw .hw-arana{display:none}.hw-murci{--w:44px!important}.hw .hw-tela{--t:110px}}
+/* versión 3D (hw3d.js): las cajas quedan como anclas y se dibuja todo en el lienzo #hw */
+.hw3d .hw-murcis{display:none}.hw3d .hw-tela svg,.hw3d .hw-arana>*{visibility:hidden}.hw3d .hw-arana{display:block!important}
 @media (prefers-reduced-motion:reduce){.hw .hw-murcis{display:none}.hw-arana .hilo,.hw-arana svg,.hw-tela svg{animation:none}}
 </style>
 
@@ -1684,6 +1686,7 @@ try {
     requestAnimationFrame(loop);
   }
   loop();
+  if (N.halloween && !matchMedia("(prefers-reduced-motion: reduce)").matches) import("./hw3d.js").then((m) => m.iniciar(THREE)).catch((e) => console.warn("Halloween 3D:", e));
   // Arma de antemano los R-bots de cada sección, de a uno y cuando el navegador está libre, así el cambio no da tirones
   const previos = [...new Set([...document.querySelectorAll("[data-niko]")].map((e) => e.dataset.niko))].concat(["frente-feliz"]);
   const libre = window.requestIdleCallback || ((f) => setTimeout(f, 150));
