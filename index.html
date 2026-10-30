@@ -65,6 +65,8 @@ body.menu-abierto #fx{z-index:91}
 
 .wrap{max-width:1240px;margin-inline:auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
 .bloque{padding-block:clamp(90px,12vw,160px);position:relative}
+#metodo{padding-bottom:clamp(36px,4vw,56px)}
+#planes{padding-top:clamp(36px,4vw,56px)}
 .eyebrow{font-family:var(--f-datos);font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--sol);display:flex;flex-wrap:wrap;gap:.9em;align-items:center}
 .eyebrow .jp{font-family:var(--f-texto);letter-spacing:.1em;color:var(--gris-2);font-weight:500}
 .lead{font-size:clamp(17px,1.6vw,20px);color:var(--gris);max-width:52ch}
@@ -307,6 +309,22 @@ body.con-3d .problema img[data-bot]{opacity:0}
 .hs .marcas .fila{grid-template-columns:repeat(3,minmax(0,1fr))}
 .hs .barra{height:2px;background:var(--linea);border-radius:2px;overflow:hidden}
 .hs .barra i{display:block;height:100%;background:var(--degradado);transform-origin:0;transform:scaleX(0)}
+@media (min-width:901px) and (max-height:1000px){
+  .hs .pin{justify-content:flex-start;padding:max(84px,calc(50svh - 420px)) 0 14px;gap:clamp(12px,2.2svh,24px)}
+  .hs h2{font-size:clamp(30px,min(5vw,8.4svh),84px)}
+  .hs .cab .lead{font-size:15px;line-height:1.5}
+  .hs .eyebrow{margin:0}
+  .srv{min-height:0;padding:clamp(18px,3svh,30px) clamp(22px,2.6vw,34px);gap:clamp(8px,1.6svh,16px)}
+  .srv h3{font-size:clamp(22px,min(2.6vw,5svh),40px)}
+  .srv>p{font-size:14.5px}
+  .srv ul{gap:6px 18px}.srv li{font-size:13.5px}.srv li::before{margin-top:7px}
+  .srv .kata{font-size:110px}
+  .hs .libre{min-height:min(400px,44svh);padding:clamp(20px,3svh,34px)}
+  .libre .k{font-size:clamp(64px,13svh,120px)}
+  .hs .panel-man .manifiesto{font-size:clamp(22px,min(3.6vw,6.2svh),48px)}
+  .hs .caso .portada{aspect-ratio:auto;height:clamp(76px,22svh,230px)}
+  .hs .caso .cuerpo{padding:14px 18px 16px;gap:8px}
+}
 @media (max-width:900px){
   .hs{height:auto!important}
   .hs .pin{position:relative;height:auto;padding-block:90px}
@@ -716,7 +734,7 @@ footer nav a:hover{color:var(--sol)}
         <button type="button" id="pTrim" data-m="trimestral" aria-pressed="false"><span class="pre">Pago </span>trimestral <span class="off"><span class="pre">alta </span>−20%</span></button>
         <button type="button" id="pAnual" data-m="anual" aria-pressed="false"><span class="pre">Pago </span>anual <span class="off"><span class="pre">alta </span>−50%</span></button>
       </div><p class="pago-nota">El descuento se aplica al alta y a la mensualidad</p></div>
-      <div class="cambio-box"><label class="cambio" for="tc">Ver en pesos · dólar oficial <input id="tc" type="text" inputmode="decimal" placeholder="ARS por USD" autocomplete="off"></label><p class="tc-fuente" id="tcFuente" aria-live="polite">Buscando la cotización del día…</p></div>
+      <div class="cambio-box"><input id="tc" type="hidden"><p class="tc-fuente" id="tcFuente" aria-live="polite">Buscando la cotización del día…</p></div>
     </div>
     <div class="planes" id="planesGrid"></div>
     <p class="letra">Precios en dólares estadounidenses, sin impuestos. Se abonan en pesos al tipo de cambio del día de pago. El alta se paga mitad al arrancar y mitad al entregar. Anuncios e IA de uso intensivo se pagan aparte, al costo.</p>
@@ -931,7 +949,7 @@ footer nav a:hover{color:var(--sol)}
     function guardar(v,f){try{localStorage.setItem('nika-tc-auto',JSON.stringify({v:v,f:f,t:Date.now()}))}catch(e){}ponerTC(v,f)}
     fetch('https://dolarapi.com/v1/dolares/oficial').then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(d){if(!(d.venta>0))throw 0;guardar(d.venta,d.fechaActualizacion)})
     .catch(function(){return fetch('https://api.bluelytics.com.ar/v2/latest').then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(d){var v=d.oficial&&d.oficial.value_sell;if(!(v>0))throw 0;guardar(v,d.last_update)})})
-    .catch(function(){tcFuente.textContent='No pudimos traer la cotización: escribila a mano.'})}
+    .catch(function(){tcFuente.textContent='Precios en USD. Se abonan en pesos al dólar oficial del día de pago.'})}
   tcIn.addEventListener('input',function(){tcManual=true;tcFuente.textContent='Usando tu cotización. Borrá el número para volver al dólar oficial.';if(!tcIn.value.trim()){tcManual=false;traerTC()}else leer()});
   traerTC();
   grid.addEventListener('click',function(e){var a=e.target.closest('[data-plan]');if(a)document.getElementById('fPlan').value=a.getAttribute('data-plan');
