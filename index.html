@@ -314,7 +314,11 @@ body.con-3d .problema img[data-bot]{opacity:0}
 }
 
 /* Método */
-.pasos{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));position:relative}
+.pasos{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));position:relative}
+.paso ul{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;gap:9px}
+.paso li{font-size:15px;color:var(--gris);display:flex;gap:10px}
+.paso li::before{content:"";flex:0 0 6px;height:6px;margin-top:9px;border-radius:50%;background:var(--sol)}
+.sigue{margin-top:28px;font-family:var(--f-datos);font-size:13px;letter-spacing:.08em;color:var(--sol)}
 .pasos .linea{position:absolute;left:0;right:0;top:0;height:2px;background:var(--linea-2)}
 .pasos .linea i{display:block;height:100%;background:var(--degradado);transform-origin:0;transform:scaleX(var(--p,0))}
 .paso{display:flex;flex-direction:column;gap:10px;padding:34px 22px 0 0;position:relative}
@@ -619,17 +623,16 @@ footer nav a:hover{color:var(--sol)}
   <span class="kanji-bg" data-speed=".15" aria-hidden="true">方法</span>
   <div class="wrap">
     <div class="cabecera">
-      <div><p class="eyebrow scramble">Método <span class="jp">方法</span></p><h2 class="split" data-split>Del diagnóstico al primer reporte</h2></div>
-      <p class="lead rv">En un mes tu marca pasa de estar suelta a operar sola, con un calendario fijo y números claros.</p>
+      <div><p class="eyebrow scramble">Método <span class="jp">方法</span></p><h2 class="split" data-split>Tres meses para despegar</h2></div>
+      <p class="lead rv">Trabajamos con un plan mínimo de 3 meses: el primero pone todo en marcha, el segundo construye tu contenido y el tercero acelera con publicidad y métricas.</p>
     </div>
     <div class="pasos" id="pasos">
       <div class="linea"><i></i></div>
-      <div class="paso"><span class="cuando">Días 1–10</span><h3>Prueba gratis</h3><p>Diagnóstico, plan y primeras piezas publicadas, sin costo.</p></div>
-      <div class="paso"><span class="cuando">Semana 1</span><h3>Propuesta</h3><p>Plan recomendado, cronograma y presupuesto por escrito.</p></div>
-      <div class="paso"><span class="cuando">Semanas 2–4</span><h3>Alta</h3><p>Marca, cuentas, web, plantillas e IA listas para operar.</p></div>
-      <div class="paso"><span class="cuando">Cada mes</span><h3>Operación</h3><p>Calendario, producción, publicación y mantenimiento.</p></div>
-      <div class="paso"><span class="cuando">Fin de mes</span><h3>Reporte</h3><p>Resultados, aprendizajes y el plan del mes siguiente.</p></div>
+      <div class="paso"><span class="cuando">Mes 1</span><h3>Arranque</h3><ul><li>Prueba gratis de 10 días</li><li>Propuesta, cronograma y presupuesto</li><li>Alta de marca, cuentas, web e IA</li><li>Actualización y primeras publicaciones</li><li>Primer reporte de resultados</li></ul></div>
+      <div class="paso"><span class="cuando">Mes 2</span><h3>Redes y contenido</h3><ul><li>Calendario estratégico de contenido</li><li>Diseño de piezas, reels y videos</li><li>Publicación constante en tus redes</li><li>Newsletter y contenido para la web</li><li>Gestión de comunidad</li></ul></div>
+      <div class="paso"><span class="cuando">Mes 3</span><h3>Crecimiento</h3><ul><li>Campañas de publicidad en Meta y Google</li><li>Métricas y analítica de cada canal</li><li>Objetivos medibles por canal</li><li>Optimización de lo que mejor funciona</li><li>Reporte trimestral y plan de continuidad</li></ul></div>
     </div>
+    <p class="sigue rv">Desde el cuarto mes, todo sigue en marcha con un reporte y nuevos objetivos cada mes.</p>
     <div class="alcance">
       <div class="col nika vidrio rv" data-tilt><p class="eyebrow">NIKA se ocupa de</p><ul><li>Construir y cuidar tu presencia digital</li><li>Atraer visitas, seguidores y suscriptores</li><li>Llevar las consultas a tu WhatsApp, formulario o tienda</li><li>Automatizar tareas repetitivas con IA</li><li>Medir y contarte qué funcionó cada mes</li></ul></div>
       <div class="col vos vidrio rv" data-tilt><p class="eyebrow" style="color:var(--gris)">Tu equipo se ocupa de</p><ul><li>Atender y cerrar las ventas</li><li>Responder las consultas que te derivamos</li><li>Definir precios, stock y logística</li><li>Aprobar el calendario de contenidos</li><li>La inversión en anuncios, que se paga aparte</li></ul></div>
@@ -937,7 +940,7 @@ footer nav a:hover{color:var(--sol)}
       if(h.barra)h.barra.style.transform='scaleX('+pr+')';if(h.sec.id==='servicios')cuenta.innerHTML='<b>0'+Math.min(6,1+Math.floor(pr*5.999))+'</b> / 06'});
     /* método */
     var pr2=pasos.getBoundingClientRect(),pp=Math.min(1,Math.max(0,(innerHeight*.75-pr2.top)/(pr2.height+innerHeight*.2)));
-    pasos.style.setProperty('--p',pp.toFixed(3));pasoEls.forEach(function(p,i){p.classList.toggle('on',pp>=i/5)});
+    pasos.style.setProperty('--p',pp.toFixed(3));pasoEls.forEach(function(p,i){p.classList.toggle('on',pp>=i/3)});
     /* manifiesto */
     var mr=man.getBoundingClientRect(),mp=innerWidth>900?Math.min(1,Math.max(0,(innerWidth*1.05-mr.left)/(innerWidth*.75))):Math.min(1,Math.max(0,(innerHeight*.85-mr.top)/(innerHeight*.6)));
     manW.forEach(function(s,i){s.classList.toggle('dim',i/manW.length>=mp)});
