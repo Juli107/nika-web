@@ -384,6 +384,8 @@ body.con-3d .problema img[data-bot]{opacity:0}
 .industrias li:hover{border-color:var(--sol);background:rgba(255,200,61,.08);transform:translateY(-2px)}
 .industrias.rv li{opacity:0;transform:translateY(14px);transition:opacity .6s var(--ease-out),transform .6s var(--ease-out),border-color .3s,background .3s}
 .industrias.rv.in li{opacity:1;transform:none}
+.industrias.rv.in li.ok{transition:border-color .2s,background .2s,transform .25s var(--ease-out);transition-delay:0s}
+.industrias.rv.in li.ok:hover{transform:translateY(-2px)}
 @media (max-width:600px){.industrias{gap:8px}.industrias li{padding:10px 14px;font-size:14.5px}}
 .terms{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
 .term{border-radius:22px;padding:24px;display:flex;flex-direction:column;gap:10px}
@@ -908,7 +910,7 @@ footer nav a:hover{color:var(--sol)}
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;var el=e.target;if(el.closest('.hero'))return;
     el.classList.add('in');if(el.classList.contains('scramble')&&!RM)scramble(el);if(el.id==='gigante')el.classList.add('in');io.unobserve(el)})},{threshold:.12,rootMargin:'0px 0px -6% 0px'});
   document.querySelectorAll('.rv,.split,.scramble,#gigante').forEach(function(el){io.observe(el)});
-  document.querySelectorAll('.industrias').forEach(function(g){Array.prototype.forEach.call(g.children,function(c,i){c.style.transitionDelay=i*45+'ms'})});
+  document.querySelectorAll('.industrias').forEach(function(g){Array.prototype.forEach.call(g.children,function(c,i){c.style.transitionDelay=i*45+'ms';c.addEventListener('transitionend',function f(e){if(e.propertyName!=='opacity')return;c.style.transitionDelay='';c.classList.add('ok');c.removeEventListener('transitionend',f)})})});
   document.querySelectorAll('.grilla-3,.tres,.planes,.casos,.lista-bonos').forEach(function(g){Array.prototype.forEach.call(g.children,function(c,i){c.style.transitionDelay=(i%3)*90+'ms'})});
 
   /* Servicios */
