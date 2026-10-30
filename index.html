@@ -581,24 +581,35 @@ footer nav a:hover{color:var(--sol)}
 
 /* ===== Halloween (se activa solo del 24/10 al 1/11, hora de Argentina; ?halloween para previsualizar) ===== */
 .hw-murcis,.hw-arana,.hw-tela,.hw-niebla{display:none}
-.hw .hw-murcis{display:block;position:fixed;inset:0;z-index:3;pointer-events:none;overflow:hidden}
-.hw-murci{position:absolute;left:0;top:var(--y);width:var(--w);animation:hwVuelo var(--d) linear var(--del) infinite;opacity:0}
-.hw-murci i{display:block;animation:hwOla 2.6s ease-in-out infinite alternate}
-.hw-murci svg{display:block;width:100%;height:auto;fill:#3B2C6B;filter:drop-shadow(0 0 2px rgba(155,140,255,.9)) drop-shadow(0 0 12px rgba(255,122,26,.35));animation:hwAla .22s ease-in-out infinite alternate;transform-origin:50% 40%}
-@keyframes hwVuelo{0%{transform:translateX(-12vw);opacity:0}6%{opacity:.85}94%{opacity:.85}100%{transform:translateX(112vw);opacity:0}}
-@keyframes hwOla{from{transform:translateY(-26px) rotate(-6deg)}to{transform:translateY(26px) rotate(6deg)}}
-@keyframes hwAla{from{transform:scaleY(1)}to{transform:scaleY(.45)}}
-.hw .hw-arana{display:block;position:absolute;right:max(22px,calc((100vw - 1240px)/2 - 40px));top:0;z-index:1;pointer-events:none;width:38px}
-.hw-arana .hilo{display:block;margin:0 auto;width:1px;height:190px;background:linear-gradient(rgba(246,244,239,.05),rgba(246,244,239,.45));transform-origin:top;animation:hwBaja 5.5s ease-in-out infinite alternate}
-.hw-arana svg{display:block;width:38px;margin-top:-2px;animation:hwBajaA 5.5s ease-in-out infinite alternate}
-@keyframes hwBaja{from{transform:scaleY(.75)}to{transform:scaleY(1.25)}}
-@keyframes hwBajaA{from{transform:translateY(-37px) rotate(-8deg)}to{transform:translateY(37px) rotate(8deg)}}
-.hw .hw-tela{display:block;position:absolute;left:0;top:64px;width:clamp(120px,14vw,220px);z-index:0;pointer-events:none;opacity:.16}
+.hw .hw-murcis{display:block;position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.hw-murci{position:absolute;left:0;top:var(--y);width:var(--w);animation:hwVuelo var(--d) linear var(--del) infinite;opacity:0;filter:blur(var(--b,0px))}
+.hw-murci.vuelta{animation-name:hwVueltaV}
+.hw-murci i{display:block;animation:hwOla var(--o,2.4s) ease-in-out infinite alternate}
+.hw-murci svg{display:block;width:100%;height:auto;overflow:visible}
+.hw-murci .ala{transform-box:view-box;transform-origin:60px 24px;animation:hwAla var(--f,.26s) ease-in-out infinite alternate}
+.hw-murci .cuerpo{transform-box:view-box;transform-origin:60px 24px;animation:hwCuerpo var(--f,.26s) ease-in-out infinite alternate}
+@keyframes hwVuelo{0%{transform:translateX(-14vw);opacity:0}5%{opacity:var(--op,.9)}95%{opacity:var(--op,.9)}100%{transform:translateX(114vw);opacity:0}}
+@keyframes hwVueltaV{0%{transform:translateX(114vw) scaleX(-1);opacity:0}5%{opacity:var(--op,.9)}95%{opacity:var(--op,.9)}100%{transform:translateX(-14vw) scaleX(-1);opacity:0}}
+@keyframes hwOla{0%{transform:translateY(-30px) rotate(-8deg)}50%{transform:translateY(10px) rotate(4deg)}100%{transform:translateY(34px) rotate(9deg)}}
+@keyframes hwAla{0%{transform:scaleY(1)}55%{transform:scaleY(.15)}100%{transform:scaleY(-.6)}}
+@keyframes hwCuerpo{from{transform:translateY(-1.5px)}to{transform:translateY(2.5px)}}
+.hw .hw-arana{display:block;position:absolute;top:0;z-index:1;pointer-events:none;width:38px}
+.hw-arana .hilo{display:block;margin:0 auto;width:1px;height:var(--h,190px);background:linear-gradient(rgba(246,244,239,.04),rgba(246,244,239,.5));transform-origin:top;animation:hwBaja var(--d,5.5s) ease-in-out infinite alternate}
+.hw-arana svg{display:block;width:38px;margin-top:-2px;animation:hwBajaA var(--d,5.5s) ease-in-out infinite alternate}
+.hw-arana svg .patas{transform-box:fill-box;transform-origin:center;animation:hwPatas .5s ease-in-out infinite alternate}
+@keyframes hwBaja{from{transform:scaleY(.72)}to{transform:scaleY(1.22)}}
+@keyframes hwBajaA{from{transform:translateY(calc(var(--h,190px) * -.28)) rotate(-8deg)}to{transform:translateY(calc(var(--h,190px) * .22)) rotate(8deg)}}
+@keyframes hwPatas{from{transform:scaleX(1)}to{transform:scaleX(.9)}}
+.hw .hw-tela{display:block;position:absolute;z-index:0;pointer-events:none;width:var(--t,clamp(140px,16vw,240px));opacity:var(--op,.2)}
+.hw-tela svg{display:block;width:100%;height:auto;overflow:visible}
+.hw-tela.tl{left:0;top:0}.hw-tela.tr{right:0;top:0;transform:scaleX(-1)}.hw-tela.bl{left:0;bottom:0;transform:scaleY(-1)}.hw-tela.br{right:0;bottom:0;transform:scale(-1,-1)}
+.hw-tela svg{animation:hwBrisa 7s ease-in-out infinite alternate;transform-origin:0 0}
+@keyframes hwBrisa{from{transform:rotate(0)}to{transform:rotate(1.2deg) scale(1.01)}}
 .hw .hw-niebla{display:block;position:fixed;left:0;right:0;bottom:0;height:28vh;z-index:1;pointer-events:none;background:radial-gradient(60% 100% at 20% 100%,rgba(255,122,26,.10),transparent 70%),radial-gradient(60% 100% at 85% 100%,rgba(155,140,255,.12),transparent 70%)}
 .hw-chip{color:#FF7A1A;border-color:rgba(255,122,26,.55)!important;background:rgba(255,122,26,.10)!important}
 .hw-chip b{color:#FF7A1A}
-@media (max-width:900px){.hw .hw-arana,.hw .hw-tela{display:none}.hw-murci{--w:34px!important}}
-@media (prefers-reduced-motion:reduce){.hw .hw-murcis{display:none}.hw-arana .hilo,.hw-arana svg{animation:none}}
+@media (max-width:900px){.hw .hw-arana{display:none}.hw-murci{--w:44px!important}.hw .hw-tela{--t:110px}}
+@media (prefers-reduced-motion:reduce){.hw .hw-murcis{display:none}.hw-arana .hilo,.hw-arana svg,.hw-tela svg{animation:none}}
 </style>
 
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
@@ -921,21 +932,34 @@ footer nav a:hover{color:var(--sol)}
     var f=new Intl.DateTimeFormat('en-US',{timeZone:'America/Argentina/Buenos_Aires',month:'numeric',day:'numeric'}).format(new Date()).split('/'),m=+f[0],d=+f[1];
     return (m===10&&d>=24)||(m===11&&d<=1)}catch(e){return false}})();
   if(HW){document.documentElement.classList.add('hw');
-    var bat='<svg viewBox="0 0 64 30"><path d="M32 9c1.6-3 2.4-4.6 2.8-6.6 1 2 1.8 3 3 3.6 3.8-4.4 11-6.4 17.4-5.2-2.2 2-3.6 4.4-3.4 7.4 3.4-.6 7 .2 10.2 2.4-4.4.4-8 2.6-10.4 6.4-2.2-1.6-5-2-7.8-1.2.6 2.4.2 5.2-1.4 7.8-2.2-3.4-5.6-5.6-9.4-6.2l-1 .6-1-.6c-3.8.6-7.2 2.8-9.4 6.2-1.6-2.6-2-5.4-1.4-7.8-2.8-.8-5.6-.4-7.8 1.2C10.4 15 6.8 12.8 2.4 12.4 5.6 10.2 9.2 9.4 12.6 10c.2-3-1.2-5.4-3.4-7.4 6.4-1.2 13.6.8 17.4 5.2 1.2-.6 2-1.6 3-3.6.4 2 1.2 3.6 2.4 4.8z"/></svg>';
-    var M=[[14,58,19,0],[30,44,24,6],[9,36,27,13],[55,50,21,9],[70,40,29,17]],h='';
-    M.forEach(function(v){h+='<div class="hw-murci" style="--y:'+v[0]+'vh;--w:'+v[1]+'px;--d:'+v[2]+'s;--del:'+v[3]+'s"><i>'+bat+'</i></div>'});
+    // Murciélago: cuerpo con orejas y alas con dedos y membrana festoneada que aletean por separado
+    var ala='<path class="memb" d="M56 21 36 6 8 2Q15 12 3 20Q16 23 13 35Q25 30 31 40Q41 31 55 33Z"/><path class="dedos" fill="none" d="M56 21 36 6 8 2M36 6 3 20M36 6 13 35M36 6 31 40"/>';
+    var bat='<svg viewBox="0 0 120 60"><g stroke="rgba(155,140,255,.5)" stroke-width=".6" stroke-linejoin="round"><g class="ala" fill="#2A2040">'+ala+'<g transform="translate(120 0) scale(-1 1)">'+ala+'</g></g>'
+      +'<g class="cuerpo" fill="#1A1426"><path d="M56.5 14 55 3.5 59.2 11ZM63.5 14 65 3.5 60.8 11Z"/><circle cx="60" cy="16" r="4.6"/><ellipse cx="60" cy="27.5" rx="4.6" ry="9"/><path d="M58 36 56.5 41M62 36 63.5 41" fill="none"/><circle cx="58.2" cy="15.8" r=".95" fill="#FF7A1A" stroke="none"/><circle cx="61.8" cy="15.8" r=".95" fill="#FF7A1A" stroke="none"/></g></g></svg>';
+    // [alto %, ancho px, duración s, demora s, aleteo s, desenfoque px, opacidad, sentido]
+    var M=[[12,72,17,0,.24,0,.95,0],[32,52,23,5,.2,.6,.7,1],[8,40,28,11,.18,1.2,.5,0],[52,70,20,8,.26,0,.9,1],[68,46,26,15,.2,.8,.6,0],[22,64,19,20,.23,0,.85,1],[44,34,31,3,.17,1.4,.45,0]],h='';
+    M.forEach(function(v){h+='<div class="hw-murci'+(v[7]?' vuelta':'')+'" style="--y:'+v[0]+'vh;--w:'+v[1]+'px;--d:'+v[2]+'s;--del:'+v[3]+'s;--f:'+v[4]+'s;--b:'+v[5]+'px;--op:'+v[6]+';--o:'+(2+v[3]%3*.4)+'s"><i>'+bat+'</i></div>'});
     var cont=document.createElement('div');cont.className='hw-murcis';cont.setAttribute('aria-hidden','true');cont.innerHTML=h;document.body.appendChild(cont);
     var nb=document.createElement('div');nb.className='hw-niebla';nb.setAttribute('aria-hidden','true');document.body.appendChild(nb);
+    // Telaraña de esquina: radios desde el vértice y anillos que cuelgan entre radio y radio
+    function tela(seed){var R=[0,.16,.33,.5,.68,.84,1].map(function(k,i){return k*Math.PI/2+(i%2?.04:-.03)*seed}),d='',L=200,ri=[34,62,92,124,156,186];
+      R.forEach(function(a){d+='M0 0L'+(Math.cos(a)*L).toFixed(1)+' '+(Math.sin(a)*L).toFixed(1)});
+      ri.forEach(function(r,k){for(var i=0;i<R.length-1;i++){var a=R[i],b=R[i+1],rr=r*(1+((i+k+seed)%3-1)*.04),m=(a+b)/2,sag=rr*.86;
+        d+='M'+(Math.cos(a)*rr).toFixed(1)+' '+(Math.sin(a)*rr).toFixed(1)+'Q'+(Math.cos(m)*sag).toFixed(1)+' '+(Math.sin(m)*sag).toFixed(1)+' '+(Math.cos(b)*rr).toFixed(1)+' '+(Math.sin(b)*rr).toFixed(1)}});
+      return '<svg viewBox="0 0 200 200" fill="none" stroke="#F6F4EF" stroke-width="1" stroke-linecap="round"><path d="'+d+'"/><circle cx="'+(60+seed*9)+'" cy="'+(40+seed*7)+'" r="1.6" fill="#F6F4EF" opacity=".7"/></svg>'}
+    function ponerTela(el,pos,top,ops){if(!el)return;var t=document.createElement('div');t.className='hw-tela '+pos;t.setAttribute('aria-hidden','true');t.style.cssText=(top?'top:'+top+';':'')+(ops||'');t.innerHTML=tela(el.id.length%4+1);el.insertBefore(t,el.firstChild)}
+    var arana='<svg viewBox="0 0 40 40"><g class="patas" stroke="#6E5BB8" stroke-width="2.2" stroke-linecap="round" fill="none"><path d="M14 18Q8 10 3 13M14 21Q6 18 1 23M15 24Q8 27 5 34M16 26Q11 32 11 38M26 18Q32 10 37 13M26 21Q34 18 39 23M25 24Q32 27 35 34M24 26Q29 32 29 38"/></g><ellipse cx="20" cy="23" rx="7.5" ry="9" fill="#2E2452"/><circle cx="20" cy="13" r="5.2" fill="#2E2452"/><circle cx="18" cy="12.5" r="1.4" fill="#FF7A1A"/><circle cx="22" cy="12.5" r="1.4" fill="#FF7A1A"/><path d="M17 27h6M17.5 30h5" stroke="#FF7A1A" stroke-width=".9" opacity=".6"/></svg>';
+    function ponerArana(el,css,hh,dd){if(!el)return;var a=document.createElement('div');a.className='hw-arana';a.setAttribute('aria-hidden','true');a.style.cssText=css+';--h:'+hh+'px;--d:'+dd+'s';a.innerHTML='<span class="hilo"></span>'+arana;el.appendChild(a)}
     var hero=document.getElementById('inicio');
-    if(hero){
-      var ar=document.createElement('div');ar.className='hw-arana';ar.setAttribute('aria-hidden','true');
-      ar.innerHTML='<span class="hilo"></span><svg viewBox="0 0 40 40"><g stroke="#5A4A99" stroke-width="2.4" stroke-linecap="round" fill="none"><path d="M14 18 5 11 2 16M14 21 3 21 1 27M15 24 6 30 6 36M26 18 35 11 38 16M26 21 37 21 39 27M25 24 34 30 34 36"/></g><ellipse cx="20" cy="22" rx="7.5" ry="8.5" fill="#2E2452"/><circle cx="20" cy="12.5" r="5" fill="#2E2452"/><circle cx="18" cy="12" r="1.3" fill="#FF7A1A"/><circle cx="22" cy="12" r="1.3" fill="#FF7A1A"/></svg>';
-      hero.appendChild(ar);
-      var tl=document.createElement('div');tl.className='hw-tela';tl.setAttribute('aria-hidden','true');
-      tl.innerHTML='<svg viewBox="0 0 200 200" fill="none" stroke="#F6F4EF" stroke-width="1.1"><path d="M0 0 200 60M0 0 150 150M0 0 60 200M0 0 200 0M0 0 0 200"/><path d="M40 0Q34 22 40 12 32 34 34 34 14 30 0 40M80 0Q70 30 80 24 62 62 68 68 30 64 24 80 0 80M125 0Q112 40 125 37 92 92 102 102 40 92 37 125 0 125M170 0Q154 50 170 51 122 122 136 136 51 122 50 170 0 170"/></svg>';
-      hero.insertBefore(tl,hero.firstChild);
-      var chips=hero.querySelector('.chips');if(chips){var c=document.createElement('span');c.className='hw-chip';c.innerHTML='🎃 Edición <b>Halloween</b>';chips.insertBefore(c,chips.firstChild)}
-    }
+    ponerTela(hero,'tl','64px');ponerTela(hero,'br','auto','bottom:0;--t:clamp(110px,11vw,170px);--op:.13');
+    ponerTela(document.getElementById('problemas'),'tr','0');
+    ponerTela(document.getElementById('metodo'),'tl','0','--op:.15');
+    ponerTela(document.getElementById('planes'),'tr','0','--op:.16');
+    ponerTela(document.getElementById('contacto'),'tl','0');ponerTela(document.getElementById('contacto'),'br','auto','bottom:0;--op:.14');
+    ponerArana(hero,'right:max(22px,calc((100vw - 1240px)/2 - 40px))',190,5.5);
+    ponerArana(document.getElementById('problemas'),'left:max(18px,calc((100vw - 1240px)/2 - 50px))',140,4.6);
+    ponerArana(document.getElementById('contacto'),'right:max(22px,calc((100vw - 1240px)/2 - 40px))',160,6.2);
+    if(hero){var chips=hero.querySelector('.chips');if(chips){var c=document.createElement('span');c.className='hw-chip';c.innerHTML='🎃 Edición <b>Halloween</b>';chips.insertBefore(c,chips.firstChild)}}
   }
   window.NIKA={mouse:{x:0,y:0,nx:0,ny:0},scrollV:0,menu:false,look:'saludo-feliz',modo:'hero',reduce:RM,halloween:HW};
   function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
@@ -1275,7 +1299,7 @@ try {
   function getLook(name){
     if (cache[name]) return cache[name];
     const [pose, face] = name.includes("|") ? name.split("|") : (LOOKS[name] || LOOKS["frente-feliz"]);
-    const n = buildNiko(THREE, pose, face, { halloween: N.halloween });
+    const n = buildNiko(THREE, pose, face, { disfraz: N.halloween ? "dracula" : null });
     n.rotation.y = pose === "senala" ? -0.25 : -0.18;
     const u = n.userData;
     n.userData.base = { hx: u.head.rotation.x, hy: u.head.rotation.y, hz: u.head.rotation.z, az: u.arms.der.rotation.z, ax: u.arms.der.rotation.x, ai: u.arms.izq.rotation.z, pose, es: u.eyes.map((e) => e.scale.clone()), ez: u.eyes.map((e) => e.rotation.z) };
@@ -1326,7 +1350,7 @@ try {
     return dia ? `Está nublado, ${tp}° 🌥️ Buen día para planear.` : `Noche tranquila, ${tp}° 🌙`;
   }
   function saludar(){
-    saludoHasta = t + 2.8; decir(N.halloween ? `¡Feliz Halloween! 🎃 Soy <b>R-bot</b>, versión bruja` : `${saludoHora()} Soy <b>R-bot</b> 👋`, 3.2);
+    saludoHasta = t + 2.8; decir(N.halloween ? `¡Feliz Halloween! 🧛 Soy el conde <b>R-bot</b>` : `${saludoHora()} Soy <b>R-bot</b> 👋`, 3.2);
     setTimeout(() => { if (!reac && N.modo === "hero") decir(fraseClima(), 3.6); }, 3500);
     setTimeout(() => { if (!reac && N.modo === "hero") decir(TACTIL ? "Deslizá el dedo por mi cabeza 🙂" : "Mové el cursor sobre mi cabeza 🙂", 3.4); }, 7400);
     setTimeout(() => { if (!reac && N.modo === "hero") decir(TACTIL ? "Tocame varias veces o hacé círculos a mi alrededor 🌀" : "Probá hacer círculos a mi alrededor 🌀", 3.4); }, 11400);
@@ -1406,11 +1430,13 @@ try {
   const miniCam = new THREE.PerspectiveCamera(30, 1, 0.1, 100); miniCam.position.set(0, -0.45, 10.6); miniCam.lookAt(0, -0.45, 0);
   const snap = (o) => o && { p: o.position.clone(), r: o.rotation.clone(), s: o.scale.clone(), v: o.visible };
   const restore = (o, b) => { if (!o || !b) return; o.position.copy(b.p); o.rotation.copy(b.r); o.scale.copy(b.s); o.visible = b.v; };
+  // En Halloween cada R-bot de los problemas se disfraza de un monstruo distinto
+  const MONSTRUO = { enojado: "lobo", frustrado: "frankenstein", confundido: "momia", triste: "zombie", error: "bruja", "sin-energia": "esqueleto" };
   const bots = [...document.querySelectorAll("img[data-bot]")].map((img, i) => ({ img, i, emo: img.dataset.bot, n: null, t0: -99, base: null }));
   function armar(b){
     if (b.n) return;
     const [pose, face] = LOOKS[b.emo];
-    const n = buildNiko(THREE, pose, face, { halloween: N.halloween }); n.rotation.y = -0.12; n.visible = false;
+    const n = buildNiko(THREE, pose, face, { disfraz: N.halloween ? MONSTRUO[b.emo] : null }); n.rotation.y = -0.12; n.visible = false;
     const u = n.userData;
     b.parts = { n, head: u.head, armI: u.arms.izq, armD: u.arms.der, antena: u.antena, sun: u.sun, halo: u.halo, e0: u.eyes[0], e1: u.eyes[1] };
     b.base = {}; for (const k in b.parts) b.base[k] = snap(b.parts[k]);
