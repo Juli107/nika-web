@@ -138,7 +138,7 @@ body.menu-abierto #fx{z-index:91}
   body .hero-ctas{flex-direction:column}body .hero-ctas .btn{justify-content:center;width:100%}
   body .hero .chips span{font-size:10.5px;padding:6px 10px}
   body .planes-top{flex-direction:column;align-items:stretch}
-  body .pago{align-self:stretch}body .pago button{flex:1;text-align:center;padding:10px 8px;font-size:11px;white-space:nowrap}
+  body .pago{align-self:stretch}body .pago .pre{display:none}body .pago button{flex:1;text-align:center;padding:10px 8px;font-size:11px;white-space:nowrap}
   body .cambio{flex-wrap:wrap}body .cambio input{flex:1;min-width:0;width:auto}
   body .precio .v{font-size:46px}
   body .menu li a{font-size:clamp(34px,11vw,48px);padding-block:4px}
@@ -350,6 +350,11 @@ body.con-3d .problema img[data-bot]{opacity:0}
 .pago button[aria-pressed="true"]{color:var(--tinta)}
 .pago button:focus-visible{outline:2px solid var(--sol)}
 .pago .off{color:var(--amanecer)}
+.pago .pre{display:none}
+.pago{flex:none}.pago button{white-space:nowrap}
+.pago-box{display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+.pago-nota{font-family:var(--f-datos);font-size:11px;letter-spacing:.04em;color:var(--gris-2);padding-left:6px}
+@media (max-width:900px){.pago-box{align-items:stretch}.pago-nota{text-align:center;padding:0}}
 .pago button[aria-pressed="true"] .off{color:#B5480A}
 .cambio{display:flex;align-items:center;gap:10px;font-family:var(--f-datos);font-size:12.5px;color:var(--gris)}
 .cambio input{width:124px;background:var(--tinta-2);border:1px solid var(--linea-2);color:var(--nube);border-radius:10px;padding:9px 12px;font:inherit;font-variant-numeric:tabular-nums}
@@ -677,10 +682,11 @@ footer nav a:hover{color:var(--sol)}
       <p class="lead rv">Un alta única para dejar todo listo y una mensualidad fija para operarlo. Subís de plan cuando quieras pagando solo la diferencia del alta.</p>
     </div>
     <div class="planes-top rv">
-      <div class="pago" role="group" aria-label="Forma de pago"><span class="pill" id="pill"></span>
-        <button type="button" id="pMensual" aria-pressed="true">Pago mensual</button>
-        <button type="button" id="pAnual" aria-pressed="false">Pago anual <span class="off">alta −50%</span></button>
-      </div>
+      <div class="pago-box"><div class="pago" role="group" aria-label="Forma de pago"><span class="pill" id="pill"></span>
+        <button type="button" id="pMensual" data-m="mensual" aria-pressed="true"><span class="pre">Pago </span>mensual</button>
+        <button type="button" id="pTrim" data-m="trimestral" aria-pressed="false"><span class="pre">Pago </span>trimestral <span class="off"><span class="pre">alta </span>−20%</span></button>
+        <button type="button" id="pAnual" data-m="anual" aria-pressed="false"><span class="pre">Pago </span>anual <span class="off"><span class="pre">alta </span>−50%</span></button>
+      </div><p class="pago-nota">El descuento se aplica sobre el alta</p></div>
       <div class="cambio-box"><label class="cambio" for="tc">Ver en pesos · dólar oficial <input id="tc" type="text" inputmode="decimal" placeholder="ARS por USD" autocomplete="off"></label><p class="tc-fuente" id="tcFuente" aria-live="polite">Buscando la cotización del día…</p></div>
     </div>
     <div class="planes" id="planesGrid"></div>
@@ -732,7 +738,7 @@ footer nav a:hover{color:var(--sol)}
       <div class="cond">
         <details open><summary>Permanencia <span>+</span></summary><p>Mínimo 3 meses. Después, aviso con 30 días y listo.</p></details>
         <details><summary>Precios en dólares <span>+</span></summary><p>Pagás en pesos al cambio del día. El alta, mitad al arrancar y mitad al entregar.</p></details>
-        <details><summary>Pago anual <span>+</span></summary><p>Si pagás el año por adelantado, el alta tiene 50% off.</p></details>
+        <details><summary>Pago trimestral o anual <span>+</span></summary><p>Si pagás los 3 meses por adelantado, el alta tiene 20% off. Si pagás el año completo, el alta tiene 50% off.</p></details>
         <details><summary>Revisiones <span>+</span></summary><p>2 rondas de cambios por pieza incluidas.</p></details>
         <details><summary>Todo es tuyo <span>+</span></summary><p>Cuentas, diseños, web y asistentes de IA quedan a tu nombre.</p></details>
         <details><summary>Costos de terceros <span>+</span></summary><p>Anuncios e IA de uso intensivo se pagan aparte, al costo.</p></details>
@@ -849,17 +855,17 @@ footer nav a:hover{color:var(--sol)}
     {n:'03',id:'Pro',ancla:1,para:'Para escalar y recibir consultas todos los meses.',mes:890,alta:1200,it:['3 redes + comunidad','16 posts + 8 reels','Web de 10 páginas + blog','2 newsletters y 2 artículos','Anuncios en 1 plataforma'],ia:'IA: asistente multicanal 24 h',ex:['Tres redes gestionadas, más la atención de tu comunidad: respondemos comentarios y mensajes en horario comercial para que ninguna consulta se enfríe.','Presencia casi diaria, con dieciséis publicaciones, ocho videos cortos e historias cada mes, para sostener el crecimiento y la interacción.','Un sitio de hasta diez páginas con blog integrado, pensado para posicionarte en Google y convertir visitas en consultas.','Dos emails al mes a tu base de contactos y dos artículos de blog optimizados para SEO que te ayudan a aparecer en las búsquedas.','Creamos, segmentamos y optimizamos campañas en Meta o en Google Ads. La inversión en anuncios se paga aparte, directo a la plataforma.'],iaEx:'Un asistente con IA que atiende tu web, WhatsApp e Instagram las 24 horas: responde, califica las consultas y te pasa las que están listas para cerrar.'},
     {n:'04',id:'Diamante',para:'Tu departamento digital completo.',mes:1590,alta:2000,it:['4 redes, comunidad diaria','24 posts + 12 reels','Web o tienda online','4 newsletters y 4 artículos','Responsable de cuenta'],ia:'IA: agente a medida integrado',ex:['Cuatro redes gestionadas, con atención diaria de comentarios y mensajes todos los días de la semana.','Contenido todos los días: veinticuatro publicaciones y doce videos cortos por mes, con producción profesional y una estrategia de crecimiento.','Un sitio corporativo o una tienda online con catálogo, carrito y medios de pago, integrada con tus redes.','Un email por semana y cuatro artículos de blog por mes, para mantener activa a tu audiencia y crecer en Google.','Una persona dedicada a tu marca, con reuniones mensuales, seguimiento de objetivos y respuesta prioritaria.'],iaEx:'Un agente de IA hecho para tu negocio, conectado a tus sistemas (agenda, stock, CRM o tienda) para automatizar ventas, turnos y atención.'}
   ];
-  var anual=false,tc=0,grid=document.getElementById('planesGrid');
+  var modo='mensual',DESC={mensual:0,trimestral:.2,anual:.5},POR={trimestral:'pagando el trimestre',anual:'pagando el año'},tc=0,grid=document.getElementById('planesGrid');
   function usd(v){return v.toLocaleString('es-AR')}
-  function pintar(){grid.innerHTML=PLANES.map(function(p,i){var alta=anual?p.alta/2:p.alta;
+  function pintar(){grid.innerHTML=PLANES.map(function(p,i){var alta=p.alta*(1-DESC[modo]);
     return '<article class="plan vidrio rv in'+(p.ancla?' ancla':'')+'" data-tilt style="transition-delay:'+i*80+'ms"><div class="nivel"><span>PLAN '+p.n+' / 04</span>'+(p.ancla?'<span class="badge">MÁS ELEGIDO</span>':'')+'</div><h3>'+p.id+'</h3><p class="para">'+p.para+'</p>'+
     '<div class="precio"><span class="u">US$</span><span class="v" data-v="'+p.mes+'">'+usd(p.mes)+'</span><span class="m">/MES</span></div><p class="ars">'+(tc?'≈ ARS $'+Math.round(p.mes*tc).toLocaleString('es-AR')+' /mes · alta $'+Math.round(alta*tc).toLocaleString('es-AR'):'')+'</p>'+
-    '<p class="alta">'+(anual?'Alta <s>US$'+usd(p.alta)+'</s> <b>US$'+usd(alta)+'</b> pagando el año':'Alta única <b>US$'+usd(p.alta)+'</b>')+'</p>'+
+    '<p class="alta">'+(DESC[modo]?'Alta <s>US$'+usd(p.alta)+'</s> <b>US$'+usd(alta)+'</b> '+POR[modo]:'Alta única <b>US$'+usd(p.alta)+'</b>')+'</p>'+
     '<ul data-i="'+i+'">'+p.it.map(function(x){return '<li>'+x+'</li>'}).join('')+'<li class="ia">'+p.ia+'</li></ul><button type="button" class="ver-detalle" data-i="'+i+'">Ver el detalle del plan <span aria-hidden="true">+</span></button><a class="btn '+(p.ancla?'btn-sol':'btn-linea')+' mag" href="#contacto" data-plan="'+p.id+'">Quiero '+p.id+' <span class="fl">→</span></a></article>'}).join('');enlazar(grid)}
-  var bM=document.getElementById('pMensual'),bA=document.getElementById('pAnual'),pill=document.getElementById('pill');
-  function moverPill(){var b=anual?bA:bM;pill.style.width=b.offsetWidth+'px';pill.style.transform='translateX('+(b.offsetLeft-4)+'px)'}
-  function setAnual(v){anual=v;bM.setAttribute('aria-pressed',String(!v));bA.setAttribute('aria-pressed',String(v));moverPill();pintar()}
-  bM.onclick=function(){setAnual(false)};bA.onclick=function(){setAnual(true)};
+  var pBots=[].slice.call(document.querySelectorAll('.pago button')),pill=document.getElementById('pill');
+  function moverPill(){var b=pBots.filter(function(x){return x.dataset.m===modo})[0];pill.style.width=b.offsetWidth+'px';pill.style.transform='translateX('+(b.offsetLeft-4)+'px)'}
+  function setModo(m){modo=m;pBots.forEach(function(x){x.setAttribute('aria-pressed',String(x.dataset.m===m))});moverPill();pintar()}
+  pBots.forEach(function(x){x.onclick=function(){setModo(x.dataset.m)}});
   var tcIn=document.getElementById('tc');
   function leer(){var v=parseFloat(String(tcIn.value).replace(/\./g,'').replace(',','.'));tc=isFinite(v)&&v>0?v:0;pintar()}
   /* Dólar oficial del día (venta), con respaldo si una fuente falla */
@@ -883,9 +889,9 @@ footer nav a:hover{color:var(--sol)}
   document.body.appendChild(det);
   var detCuerpo=det.querySelector('.det-cuerpo'),detVolver=null;
   function abrirDetalle(i){var p=PLANES[i];if(!p)return;detVolver=document.activeElement;
-    var alta=anual?p.alta/2:p.alta;
+    var alta=p.alta*(1-DESC[modo]);
     detCuerpo.innerHTML='<p class="det-niv">PLAN '+p.n+' / 04'+(p.ancla?' · <b>MÁS ELEGIDO</b>':'')+'</p><h3 id="detTit">'+p.id+'</h3><p class="det-para">'+p.para+'</p>'+
-      '<p class="det-precio"><b>US$'+usd(p.mes)+'</b> por mes · alta '+(anual?'<s>US$'+usd(p.alta)+'</s> US$'+usd(alta)+' pagando el año':'única US$'+usd(p.alta))+'</p>'+
+      '<p class="det-precio"><b>US$'+usd(p.mes)+'</b> por mes · alta '+(DESC[modo]?'<s>US$'+usd(p.alta)+'</s> US$'+usd(alta)+' '+POR[modo]:'única US$'+usd(p.alta))+'</p>'+
       '<ol class="det-lista">'+p.it.map(function(x,k){return '<li><span class="det-n">'+('0'+(k+1)).slice(-2)+'</span><div><h4>'+x+'</h4><p>'+p.ex[k]+'</p></div></li>'}).join('')+
       '<li class="ia"><span class="det-n">IA</span><div><h4>'+p.ia.replace(/^IA: (.)/,function(m,c){return c.toUpperCase()})+'</h4><p>'+p.iaEx+'</p></div></li></ol>'+
       '<p class="det-nota">Incluye en todos los planes: prueba gratis de 10 días, reporte mensual, panel en vivo y grupo de WhatsApp con el equipo. Permanencia mínima de 3 meses.</p>'+
