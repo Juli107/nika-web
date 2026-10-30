@@ -622,6 +622,25 @@ footer nav a:hover{color:var(--sol)}
   .hs:not(.carrusel) .libre .k{font-size:64px}
   .hs:not(.carrusel) .caso .portada{aspect-ratio:16/7}
 }
+
+/* Celular: más fluido (sin desenfoques en vivo) y planes compactos */
+@media (max-width:900px){
+  .vidrio,.btn-linea,.hero .chips span,.hero .tag3d,.cinta,.pago,.top::before,.toggle-menu,.burbuja,.bot-wa .wa-txt{backdrop-filter:none;-webkit-backdrop-filter:none}
+  .vidrio{background:rgba(19,21,28,.9)}
+  .plan{padding:20px 18px 18px;gap:10px;border-radius:22px}
+  .plan .nivel{font-size:11px}
+  .plan h3{font-size:26px}
+  .plan .para{font-size:13.5px;line-height:1.4;min-height:0}
+  .plan .antes{font-size:12px;margin:0}
+  .precio .u{font-size:15px}.precio .v{font-size:40px}
+  .ars{font-size:11.5px;min-height:0}.ars:empty{display:none}
+  .alta{font-size:11.5px;padding:7px 10px}
+  .plan ul{padding-top:10px;gap:5px}
+  .plan li{font-size:13.5px;line-height:1.35;gap:8px}
+  .plan li::before{flex-basis:12px;height:12px;margin-top:3px}
+  .ver-detalle{padding:8px 12px;font-size:10.5px}
+  .plan .btn{padding-block:13px}
+}
 /* ===== Halloween (se activa solo del 24/10 al 1/11, hora de Argentina; ?halloween para previsualizar) ===== */
 .hw-murcis,.hw-arana,.hw-tela,.hw-niebla{display:none}
 .hw .hw-murcis{display:block;position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden}
@@ -1199,7 +1218,7 @@ footer nav a:hover{color:var(--sol)}
   pista.innerHTML+=pista.innerHTML;
   var secciones=Array.prototype.slice.call(document.querySelectorAll('[data-niko]')),kbg=document.querySelectorAll('[data-speed]'),tags=document.querySelectorAll('[data-par]');
   var pasos=document.getElementById('pasos'),pasoEls=pasos.querySelectorAll('.paso');
-  var ultY=scrollY,vel=0,marq=0;
+  var ultY=scrollY,vel=0,marq=0,cuadro=0;
   var interac=[].slice.call(document.querySelectorAll('main a.btn, main button, main input, main select, main textarea, main summary, .contactos span'));
   function frame(){
     var y=scrollY,dy=y-ultY;ultY=y;vel+= (dy-vel)*.12;NIKA.scrollV=vel;
@@ -1211,12 +1230,12 @@ footer nav a:hover{color:var(--sol)}
     var cz=document.getElementById('cabezaMenu');if(cz){var cR=cz.getBoundingClientRect();NIKA.cabeza={x:cR.left+cR.width/2,y:cR.top+cR.height/2,h:cR.height}}
     var cf=document.getElementById('ctaFija');NIKA.piso=(cf&&cf.classList.contains('on'))?cf.getBoundingClientRect().top-10:innerHeight-14;
     /* en el celular, si un botón o campo pasa por la esquina de R-bot, él se agacha para no taparlo */
-    NIKA.esquiva=false;
+    if(++cuadro%3===0){NIKA.esquiva=false;
     if(innerWidth<=900&&NIKA.modo!=='hero'&&NIKA.modo!=='sol'&&!NIKA.menu){
       var alto=Math.max(70,Math.min(100,innerHeight*.115)),bx=innerWidth-12-alto*.8,by=NIKA.piso-alto;
       for(var qi=0;qi<interac.length;qi++){var q=interac[qi].getBoundingClientRect();
         if(q.width&&q.right>bx&&q.left<innerWidth-6&&q.bottom>by&&q.top<NIKA.piso+6){NIKA.esquiva=true;break}}
-    }
+    }}
     /* cinta */
     marq-= (1.2+Math.abs(vel)*.6)*(vel<-0.5?-1:1);var w=pista.scrollWidth/2;if(marq<-w)marq+=w;if(marq>0)marq-=w;pista.style.transform='translateX('+marq+'px)';
     /* kanjis en parallax */
@@ -1260,12 +1279,12 @@ try {
   /* ---- Fondo: aurora + olas seigaiha que reaccionan al mouse ---- */
   const bgCanvas = document.getElementById("bg");
   const bgR = new THREE.WebGLRenderer({ canvas: bgCanvas, antialias: false, alpha: false });
-  const DPR_BG = Math.min(devicePixelRatio, innerWidth <= 900 ? 1 : 1.5);
+  const MOVIL = innerWidth <= 900, DPR_BG = MOVIL ? Math.min(devicePixelRatio, .75) : Math.min(devicePixelRatio, 1.5);
   bgR.setPixelRatio(DPR_BG);
   const bgScene = new THREE.Scene(), bgCam = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
   const U = { uT: { value: 0 }, uRes: { value: new THREE.Vector2() }, uM: { value: new THREE.Vector2(.7, .5) }, uS: { value: 0 }, uV: { value: 0 } };
   const quad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), new THREE.ShaderMaterial({
-    uniforms: U, depthWrite: false,
+    uniforms: U, depthWrite: false, defines: { OCT: MOVIL ? 3 : 5 },
     vertexShader: `varying vec2 vUv; void main(){ vUv = uv; gl_Position = vec4(position.xy, 0., 1.); }`,
     fragmentShader: `
       precision highp float; varying vec2 vUv;
@@ -1273,7 +1292,7 @@ try {
       float hash(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
       float noise(vec2 p){ vec2 i = floor(p), f = fract(p); f = f*f*(3.-2.*f);
         return mix(mix(hash(i), hash(i+vec2(1,0)), f.x), mix(hash(i+vec2(0,1)), hash(i+vec2(1,1)), f.x), f.y); }
-      float fbm(vec2 p){ float v = 0., a = .5; for(int i=0;i<5;i++){ v += a*noise(p); p *= 2.02; a *= .5; } return v; }
+      float fbm(vec2 p){ float v = 0., a = .5; for(int i=0;i<OCT;i++){ v += a*noise(p); p *= 2.02; a *= .5; } return v; }
       // Seigaiha: el círculo pintado más abajo tapa a los de arriba
       vec3 seigaiha(vec2 p, float t){
         float best = 1e9, dist = 0.;
@@ -1330,14 +1349,14 @@ try {
   /* ---- Primer plano: R-bot 3D como guía ---- */
   const fx = document.getElementById("fx");
   const R = new THREE.WebGLRenderer({ canvas: fx, antialias: true, alpha: true });
-  R.setPixelRatio(Math.min(devicePixelRatio, innerWidth <= 900 ? 1.5 : 1.75));
+  R.setPixelRatio(Math.min(devicePixelRatio, MOVIL ? 1.25 : 1.75));
   R.setClearColor(0x000000, 0);
   R.toneMapping = THREE.ACESFilmicToneMapping; R.outputColorSpace = THREE.SRGBColorSpace;
   const scene = buildStage(THREE, RoomEnvironment, R);
   const cam = new THREE.PerspectiveCamera(30, 1, 0.1, 100); cam.position.set(0, 0.2, 11.6);
 
   // Partículas de sol que flotan delante
-  const PN = innerWidth <= 900 ? 70 : 160, pg = new THREE.BufferGeometry(), pp = new Float32Array(PN * 3), ps = new Float32Array(PN);
+  const PN = MOVIL ? 40 : 160, pg = new THREE.BufferGeometry(), pp = new Float32Array(PN * 3), ps = new Float32Array(PN);
   for (let i = 0; i < PN; i++) { pp[i*3] = (Math.random()-.5)*16; pp[i*3+1] = (Math.random()-.5)*10; pp[i*3+2] = (Math.random()-.5)*6; ps[i] = Math.random(); }
   pg.setAttribute("position", new THREE.BufferAttribute(pp, 3)); pg.setAttribute("seed", new THREE.BufferAttribute(ps, 1));
   const pMat = new THREE.ShaderMaterial({ transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
@@ -1578,13 +1597,15 @@ try {
   const yMundo = (py, halfH) => -(py / innerHeight * 2 - 1) * halfH + cam.position.y;
   let escObj = 1, escAct = 0.001; let heroOff = 0;
   const gigante = document.getElementById("gigante");
+  let cuadroBg = 0;
   function loop(){
     const dt = Math.min(clock.getDelta(), .05); t += dt;
     // Fondo
     const mx = (N.mouse.x || innerWidth*.7) / innerWidth, my = 1 - (N.mouse.y || innerHeight*.5) / innerHeight;
     sm.x += (mx - sm.x) * .06; sm.y += (my - sm.y) * .06; U.uM.value.copy(sm);
     sS += (scrollY / innerHeight - sS) * .08; U.uS.value = sS; U.uT.value = t;
-    bgR.render(bgScene, bgCam);
+    // en el celular el fondo se dibuja un cuadro sí y uno no: se mueve lento y así queda resto para R-bot y el scroll
+    if (!MOVIL || (cuadroBg++ & 1) === 0) bgR.render(bgScene, bgCam);
 
     // Dónde va R-bot
     const halfH = Math.tan(THREE.MathUtils.degToRad(15)) * 11.6, halfW = halfH * cam.aspect;
@@ -1663,6 +1684,12 @@ try {
     requestAnimationFrame(loop);
   }
   loop();
+  // Arma de antemano los R-bots de cada sección, de a uno y cuando el navegador está libre, así el cambio no da tirones
+  const previos = [...new Set([...document.querySelectorAll("[data-niko]")].map((e) => e.dataset.niko))].concat(["frente-feliz"]);
+  const libre = window.requestIdleCallback || ((f) => setTimeout(f, 150));
+  setTimeout(function prearmar(){ const n = previos.shift(); if (!n) return;
+    try { const o = getLook(n); if (!o.parent) { scene.add(o); R.compile(scene, cam); scene.remove(o); } } catch (e) {}
+    libre(prearmar, { timeout: 800 }); }, 1800);
 } catch (err) {
   console.warn("Sin WebGL:", err);
   document.body.classList.add("sin-3d");
