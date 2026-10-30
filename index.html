@@ -693,7 +693,7 @@ footer nav a:hover{color:var(--sol)}
     <div class="pista">
       <article class="libre vidrio" data-tilt><span class="k" aria-hidden="true">財</span><div><h3>Libertad económica</h3><p>Accedés a un equipo completo de marketing, diseño, contenido y tecnología por una cuota mensual fija. Sin sueldos, cargas sociales, licencias ni estructura propia: un costo previsible que se convierte en inversión medible.</p></div></article>
       <article class="libre vidrio" data-tilt><span class="k" aria-hidden="true">知</span><div><h3>Libertad intelectual</h3><p>Dejás de pensar en algoritmos, formatos y tendencias. Tu energía vuelve a lo que mejor sabés hacer: liderar tu negocio, atender a tus clientes y decidir con información clara.</p></div></article>
-      <article class="libre vidrio" data-tilt><span class="k" aria-hidden="true">任</span><div><h3>Libertad de delegar</h3><p>Ponés tu operación digital en manos de especialistas, con procesos definidos, reuniones semanales y reportes. Sabés qué se hace, cuándo y con qué resultado, sin tener que supervisarlo.</p></div></article>
+      <article class="libre vidrio" data-tilt><span class="k" aria-hidden="true">任</span><div><h3>Libertad de delegar</h3><p>Ponés tu operación digital en manos de especialistas, con procesos definidos, reuniones de avance y reportes. Sabés qué se hace, cuándo y con qué resultado, sin tener que supervisarlo.</p></div></article>
       <div class="panel-man"><p class="manifiesto" id="manifiesto">Vos te enfocás en tu negocio y en vender. Nosotros nos ocupamos de que te encuentren, te recuerden y te elijan.</p></div>
     </div>
     <div class="wrap"><div class="barra"><i></i></div></div>
@@ -765,7 +765,7 @@ footer nav a:hover{color:var(--sol)}
           <tr><td>Blog y SEO</td><td>Google Business</td><td>SEO de base</td><td class="pro">2 artículos</td><td>4 artículos</td></tr>
           <tr><td>Sesión de fotos y video</td><td>Se cotiza aparte</td><td>Se cotiza aparte</td><td class="pro">Cada 2 meses</td><td>Mensual</td></tr>
           <tr class="fia"><td>Inteligencia artificial</td><td>Kit de inicio</td><td>Asistente web</td><td class="pro">Multicanal</td><td>Agente a medida</td></tr>
-          <tr><td>Reuniones de avance</td><td>Semanales</td><td>Semanales</td><td class="pro">Semanales</td><td>Semanales</td></tr>
+          <tr><td>Reuniones de avance</td><td>Mensual</td><td>Quincenal</td><td class="pro">Semanal</td><td>Semanal</td></tr>
           <tr><td>Responsable de cuenta</td><td>—</td><td>—</td><td class="pro">—</td><td>Exclusivo</td></tr>
         </tbody>
       </table></div>
@@ -798,7 +798,7 @@ footer nav a:hover{color:var(--sol)}
         <details open><summary>Permanencia <span>+</span></summary><p>Permanencia mínima de 3 meses. Luego, la baja del servicio se solicita con 10 días de preaviso, plazo en el que realizamos el cierre y te transferimos todos los activos, accesos y resultados obtenidos.</p></details>
         <details><summary>Precios en dólares <span>+</span></summary><p>Pagás en pesos al cambio del día. El alta, mitad al arrancar y mitad al entregar.</p></details>
         <details><summary>Pago trimestral o anual <span>+</span></summary><p>Si abonás el trimestre por adelantado, tenés 20% de descuento en el alta y en cada mensualidad. Si abonás el año completo, el descuento es del 50% en ambos.</p></details>
-        <details><summary>Revisiones <span>+</span></summary><p>Cada pieza incluye 2 rondas de cambios. Además, tenemos reuniones semanales para revisar avances, objetivos y nuevas propuestas.</p></details>
+        <details><summary>Revisiones <span>+</span></summary><p>Cada pieza incluye 2 rondas de cambios. Además, tenemos reuniones para revisar avances, objetivos y nuevas propuestas: mensuales en Básico, quincenales en Medium y semanales en Pro y Diamante.</p></details>
         <details><summary>Todo es tuyo <span>+</span></summary><p>Cuentas, diseños, web y asistentes de IA quedan a tu nombre.</p></details>
         <details><summary>Costos de terceros <span>+</span></summary><p>Anuncios e IA de uso intensivo se pagan aparte, al costo.</p></details>
       </div>
@@ -977,7 +977,7 @@ footer nav a:hover{color:var(--sol)}
       '<p class="det-precio">'+(DESC[modo]?'<s>US$'+usd(p.mes)+'</s> ':'')+'<b>US$'+usd(Math.round(p.mes*(1-DESC[modo])))+'</b> por mes · alta '+(DESC[modo]?'<s>US$'+usd(p.alta)+'</s> US$'+usd(alta)+' '+POR[modo]:'única US$'+usd(p.alta))+'</p>'+
       '<ol class="det-lista">'+p.it.map(function(x,k){return '<li><span class="det-n">'+('0'+(k+1)).slice(-2)+'</span><div><h4>'+x+'</h4><p>'+p.ex[k]+'</p></div></li>'}).join('')+
       '<li class="ia"><span class="det-n">IA</span><div><h4>'+p.ia.replace(/^IA: (.)/,function(m,c){return c.toUpperCase()})+'</h4><p>'+p.iaEx+'</p></div></li></ol>'+
-      '<p class="det-nota">Incluye en todos los planes: prueba gratis de 10 días, reuniones semanales de avances, reporte mensual, panel en vivo y grupo de WhatsApp con el equipo. Permanencia mínima de 3 meses.</p>'+
+      '<p class="det-nota">Incluye en todos los planes: prueba gratis de 10 días, reuniones de avance (mensuales, quincenales o semanales según el plan), reporte mensual, panel en vivo y grupo de WhatsApp con el equipo. Permanencia mínima de 3 meses.</p>'+
       '<a class="btn btn-sol mag" href="#contacto" data-elegir="'+p.id+'">Quiero el plan '+p.id+' <span class="fl">→</span></a>';
     det.hidden=false;document.body.classList.add('lock');requestAnimationFrame(function(){det.classList.add('abierto')});det.querySelector('.det-x').focus()}
   function cerrarDetalle(){det.classList.remove('abierto');document.body.classList.remove('lock');setTimeout(function(){det.hidden=true},300);if(detVolver&&detVolver.focus)detVolver.focus()}
