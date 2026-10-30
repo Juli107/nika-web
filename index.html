@@ -373,6 +373,31 @@ body.con-3d .problema img[data-bot]{opacity:0}
 .plan li::before{content:"";flex:0 0 14px;height:14px;margin-top:5px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M2 7.5l3.2 3L12 3.5' fill='none' stroke='%23FFC83D' stroke-width='2'/%3E%3C/svg%3E") center/contain no-repeat}
 .plan li.ia{color:var(--sol)}
 .plan .btn{justify-content:center}
+.plan ul{cursor:pointer}
+.ver-detalle{align-self:stretch;justify-content:center;white-space:nowrap;background:rgba(255,200,61,.06);border:1px solid rgba(255,200,61,.25);border-radius:999px;padding:10px 14px;font-family:var(--f-datos);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--sol);cursor:pointer;display:inline-flex;gap:8px;align-items:center}
+.ver-detalle span{display:inline-grid;place-items:center;width:20px;height:20px;border:1px solid rgba(255,200,61,.5);border-radius:50%;transition:transform .3s}
+.ver-detalle:hover span{transform:rotate(90deg)}
+.detalle{position:fixed;inset:0;z-index:120;display:grid;place-items:center;padding:20px}
+.detalle[hidden]{display:none}
+.det-fondo{position:absolute;inset:0;background:rgba(5,6,9,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);opacity:0;transition:opacity .3s}
+.det-caja{position:relative;width:min(640px,100%);max-height:calc(100svh - 40px);overflow-y:auto;overscroll-behavior:contain;border-radius:26px;padding:clamp(24px,4vw,40px);background:#121319;opacity:0;transform:translateY(18px) scale(.98);transition:opacity .3s,transform .4s var(--ease-out)}
+.detalle.abierto .det-fondo{opacity:1}.detalle.abierto .det-caja{opacity:1;transform:none}
+.det-x{position:absolute;top:16px;right:16px;width:40px;height:40px;border-radius:50%;border:1px solid var(--linea-2);background:rgba(11,12,16,.6);cursor:pointer}
+.det-x i{position:absolute;left:11px;right:11px;top:50%;height:2px;background:var(--nube);border-radius:2px}
+.det-x i:first-child{transform:rotate(45deg)}.det-x i:last-child{transform:rotate(-45deg)}
+.det-niv{font-family:var(--f-datos);font-size:12px;letter-spacing:.14em;color:var(--gris)}.det-niv b{color:var(--sol);font-weight:500}
+.det-caja h3{font-size:clamp(30px,5vw,42px);margin:6px 0 4px}
+.det-para{color:var(--gris)}
+.det-precio{margin:14px 0 6px;font-family:var(--f-datos);font-size:13px;color:var(--gris)}.det-precio b{color:var(--nube);font-size:16px}
+.det-lista{list-style:none;margin:18px 0;padding:0;display:flex;flex-direction:column;border-top:1px solid var(--linea)}
+.det-lista li{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid var(--linea)}
+.det-n{flex:0 0 30px;font-family:var(--f-datos);font-size:12px;letter-spacing:.1em;color:var(--sol);padding-top:4px}
+.det-lista h4{font-size:17px;margin:0 0 4px}
+.det-lista p{font-size:14.5px;color:var(--gris);line-height:1.55}
+.det-lista li.ia h4{color:var(--sol)}
+.det-nota{font-size:13px;color:var(--gris);margin-bottom:18px}
+.det-caja .btn{width:100%;justify-content:center}
+@media (max-width:560px){.detalle{padding:0;place-items:end stretch}.det-caja{border-radius:24px 24px 0 0;max-height:92svh;padding-top:28px}}
 .plan.ancla{border-color:transparent;background:linear-gradient(#15151D,#15151D) padding-box,conic-gradient(from var(--ang,0deg),#FFC83D,#FF7A1A,#9B8CFF,#FFC83D) border-box;border:1.5px solid transparent;box-shadow:0 40px 90px -40px rgba(255,140,30,.6);animation:gira-borde 6s linear infinite}
 @property --ang{syntax:"<angle>";inherits:false;initial-value:0deg}
 @keyframes gira-borde{to{--ang:360deg}}
@@ -815,10 +840,10 @@ footer nav a:hover{color:var(--sol)}
 
   /* Planes */
   var PLANES=[
-    {n:'01',id:'Básico',para:'Presencia profesional para arrancar.',mes:250,alta:300,it:['1 red social','8 publicaciones al mes','Landing con WhatsApp','Google Business al día','1 h de cambios web'],ia:'IA: kit de inicio'},
-    {n:'02',id:'Medium',para:'Para comercios que quieren crecer con constancia.',mes:490,alta:600,it:['2 redes sociales','12 posts + 4 reels','Web de hasta 5 páginas','1 newsletter al mes','3 h de cambios web'],ia:'IA: asistente en tu web'},
-    {n:'03',id:'Pro',ancla:1,para:'Para escalar y recibir consultas todos los meses.',mes:890,alta:1200,it:['3 redes + comunidad','16 posts + 8 reels','Web de 10 páginas + blog','2 newsletters y 2 artículos','Anuncios en 1 plataforma'],ia:'IA: asistente multicanal 24 h'},
-    {n:'04',id:'Diamante',para:'Tu departamento digital completo.',mes:1590,alta:2000,it:['4 redes, comunidad diaria','24 posts + 12 reels','Web o tienda online','4 newsletters y 4 artículos','Responsable de cuenta'],ia:'IA: agente a medida integrado'}
+    {n:'01',id:'Básico',para:'Presencia profesional para arrancar.',mes:250,alta:300,it:['1 red social','8 publicaciones al mes','Landing con WhatsApp','Google Business al día','1 h de cambios web'],ia:'IA: kit de inicio',ex:['Elegimos la red donde está tu público (Instagram, Facebook o TikTok) y la gestionamos de punta a punta: perfil optimizado, biografía, destacados y publicaciones.','Dos publicaciones por semana entre posts, carruseles e historias, diseñadas con tu identidad y con textos pensados para tu cliente. Antes de publicar, te enviamos el calendario para que lo apruebes.','Una página profesional, rápida y adaptada al celular, con tus servicios, tu ubicación y un botón directo a tu WhatsApp para recibir consultas.','Creamos u optimizamos tu ficha de Google Maps (horarios, fotos, categorías y novedades) para que aparezcas cuando te buscan en tu zona.','Una hora por mes para actualizar textos, precios, fotos o promociones de tu web, sin costo extra.'],iaEx:'Te armamos respuestas rápidas y plantillas con IA para WhatsApp y redes, y te enseñamos a usar herramientas de IA para crear textos e ideas de contenido en minutos.'},
+    {n:'02',id:'Medium',para:'Para comercios que quieren crecer con constancia.',mes:490,alta:600,it:['2 redes sociales','12 posts + 4 reels','Web de hasta 5 páginas','1 newsletter al mes','3 h de cambios web'],ia:'IA: asistente en tu web',ex:['Gestionamos dos redes (por ejemplo, Instagram y Facebook o TikTok) con una estrategia coordinada y contenido adaptado a cada una.','Doce publicaciones de diseño y cuatro videos cortos por mes, con guion, edición, música y subtítulos, para ganar alcance y nuevos seguidores.','Un sitio completo con inicio, servicios, nosotros, galería y contacto: adaptado al celular, con SEO básico, formularios y WhatsApp integrado.','Un email mensual a tu base de contactos con novedades, promociones o contenido de valor, con el diseño de tu marca y reporte de aperturas y clics.','Tres horas por mes para actualizar contenido, sumar secciones o publicar promociones en tu web.'],iaEx:'Un chat con IA en tu web, entrenado con la información de tu negocio, que responde las preguntas frecuentes las 24 horas y deriva las consultas a tu WhatsApp.'},
+    {n:'03',id:'Pro',ancla:1,para:'Para escalar y recibir consultas todos los meses.',mes:890,alta:1200,it:['3 redes + comunidad','16 posts + 8 reels','Web de 10 páginas + blog','2 newsletters y 2 artículos','Anuncios en 1 plataforma'],ia:'IA: asistente multicanal 24 h',ex:['Tres redes gestionadas, más la atención de tu comunidad: respondemos comentarios y mensajes en horario comercial para que ninguna consulta se enfríe.','Presencia casi diaria, con dieciséis publicaciones, ocho videos cortos e historias cada mes, para sostener el crecimiento y la interacción.','Un sitio de hasta diez páginas con blog integrado, pensado para posicionarte en Google y convertir visitas en consultas.','Dos emails al mes a tu base de contactos y dos artículos de blog optimizados para SEO que te ayudan a aparecer en las búsquedas.','Creamos, segmentamos y optimizamos campañas en Meta o en Google Ads. La inversión en anuncios se paga aparte, directo a la plataforma.'],iaEx:'Un asistente con IA que atiende tu web, WhatsApp e Instagram las 24 horas: responde, califica las consultas y te pasa las que están listas para cerrar.'},
+    {n:'04',id:'Diamante',para:'Tu departamento digital completo.',mes:1590,alta:2000,it:['4 redes, comunidad diaria','24 posts + 12 reels','Web o tienda online','4 newsletters y 4 artículos','Responsable de cuenta'],ia:'IA: agente a medida integrado',ex:['Cuatro redes gestionadas, con atención diaria de comentarios y mensajes todos los días de la semana.','Contenido todos los días: veinticuatro publicaciones y doce videos cortos por mes, con producción profesional y una estrategia de crecimiento.','Un sitio corporativo o una tienda online con catálogo, carrito y medios de pago, integrada con tus redes.','Un email por semana y cuatro artículos de blog por mes, para mantener activa a tu audiencia y crecer en Google.','Una persona dedicada a tu marca, con reuniones mensuales, seguimiento de objetivos y respuesta prioritaria.'],iaEx:'Un agente de IA hecho para tu negocio, conectado a tus sistemas (agenda, stock, CRM o tienda) para automatizar ventas, turnos y atención.'}
   ];
   var anual=false,tc=0,grid=document.getElementById('planesGrid');
   function usd(v){return v.toLocaleString('es-AR')}
@@ -826,7 +851,7 @@ footer nav a:hover{color:var(--sol)}
     return '<article class="plan vidrio rv in'+(p.ancla?' ancla':'')+'" data-tilt style="transition-delay:'+i*80+'ms"><div class="nivel"><span>PLAN '+p.n+' / 04</span>'+(p.ancla?'<span class="badge">MÁS ELEGIDO</span>':'')+'</div><h3>'+p.id+'</h3><p class="para">'+p.para+'</p>'+
     '<div class="precio"><span class="u">US$</span><span class="v" data-v="'+p.mes+'">'+usd(p.mes)+'</span><span class="m">/MES</span></div><p class="ars">'+(tc?'≈ ARS $'+Math.round(p.mes*tc).toLocaleString('es-AR')+' /mes · alta $'+Math.round(alta*tc).toLocaleString('es-AR'):'')+'</p>'+
     '<p class="alta">'+(anual?'Alta <s>US$'+usd(p.alta)+'</s> <b>US$'+usd(alta)+'</b> pagando el año':'Alta única <b>US$'+usd(p.alta)+'</b>')+'</p>'+
-    '<ul>'+p.it.map(function(x){return '<li>'+x+'</li>'}).join('')+'<li class="ia">'+p.ia+'</li></ul><a class="btn '+(p.ancla?'btn-sol':'btn-linea')+' mag" href="#contacto" data-plan="'+p.id+'">Quiero '+p.id+' <span class="fl">→</span></a></article>'}).join('');enlazar(grid)}
+    '<ul data-i="'+i+'">'+p.it.map(function(x){return '<li>'+x+'</li>'}).join('')+'<li class="ia">'+p.ia+'</li></ul><button type="button" class="ver-detalle" data-i="'+i+'">Ver el detalle del plan <span aria-hidden="true">+</span></button><a class="btn '+(p.ancla?'btn-sol':'btn-linea')+' mag" href="#contacto" data-plan="'+p.id+'">Quiero '+p.id+' <span class="fl">→</span></a></article>'}).join('');enlazar(grid)}
   var bM=document.getElementById('pMensual'),bA=document.getElementById('pAnual'),pill=document.getElementById('pill');
   function moverPill(){var b=anual?bA:bM;pill.style.width=b.offsetWidth+'px';pill.style.transform='translateX('+(b.offsetLeft-4)+'px)'}
   function setAnual(v){anual=v;bM.setAttribute('aria-pressed',String(!v));bA.setAttribute('aria-pressed',String(v));moverPill();pintar()}
@@ -835,7 +860,25 @@ footer nav a:hover{color:var(--sol)}
   function leer(){var v=parseFloat(String(tcIn.value).replace(/\./g,'').replace(',','.'));tc=isFinite(v)&&v>0?v:0;pintar();try{localStorage.setItem('nika-tc',tcIn.value)}catch(e){}}
   try{var g=localStorage.getItem('nika-tc');if(g)tcIn.value=g}catch(e){}
   tcIn.addEventListener('input',leer);
-  grid.addEventListener('click',function(e){var a=e.target.closest('[data-plan]');if(a)document.getElementById('fPlan').value=a.getAttribute('data-plan')});
+  grid.addEventListener('click',function(e){var a=e.target.closest('[data-plan]');if(a)document.getElementById('fPlan').value=a.getAttribute('data-plan');
+    var d=e.target.closest('.ver-detalle,.plan ul');if(d)abrirDetalle(+d.getAttribute('data-i'))});
+  /* Detalle de cada plan */
+  var det=document.createElement('div');det.className='detalle';det.id='detalle';det.setAttribute('role','dialog');det.setAttribute('aria-modal','true');det.setAttribute('aria-labelledby','detTit');det.hidden=true;
+  det.innerHTML='<div class="det-fondo" data-cerrar></div><div class="det-caja vidrio"><button type="button" class="det-x" data-cerrar aria-label="Cerrar detalle"><i></i><i></i></button><div class="det-cuerpo"></div></div>';
+  document.body.appendChild(det);
+  var detCuerpo=det.querySelector('.det-cuerpo'),detVolver=null;
+  function abrirDetalle(i){var p=PLANES[i];if(!p)return;detVolver=document.activeElement;
+    var alta=anual?p.alta/2:p.alta;
+    detCuerpo.innerHTML='<p class="det-niv">PLAN '+p.n+' / 04'+(p.ancla?' · <b>MÁS ELEGIDO</b>':'')+'</p><h3 id="detTit">'+p.id+'</h3><p class="det-para">'+p.para+'</p>'+
+      '<p class="det-precio"><b>US$'+usd(p.mes)+'</b> por mes · alta '+(anual?'<s>US$'+usd(p.alta)+'</s> US$'+usd(alta)+' pagando el año':'única US$'+usd(p.alta))+'</p>'+
+      '<ol class="det-lista">'+p.it.map(function(x,k){return '<li><span class="det-n">'+('0'+(k+1)).slice(-2)+'</span><div><h4>'+x+'</h4><p>'+p.ex[k]+'</p></div></li>'}).join('')+
+      '<li class="ia"><span class="det-n">IA</span><div><h4>'+p.ia.replace(/^IA: (.)/,function(m,c){return c.toUpperCase()})+'</h4><p>'+p.iaEx+'</p></div></li></ol>'+
+      '<p class="det-nota">Incluye en todos los planes: prueba gratis de 10 días, reporte mensual, panel en vivo y grupo de WhatsApp con el equipo. Permanencia mínima de 3 meses.</p>'+
+      '<a class="btn btn-sol mag" href="#contacto" data-elegir="'+p.id+'">Quiero el plan '+p.id+' <span class="fl">→</span></a>';
+    det.hidden=false;document.body.classList.add('lock');requestAnimationFrame(function(){det.classList.add('abierto')});det.querySelector('.det-x').focus()}
+  function cerrarDetalle(){det.classList.remove('abierto');document.body.classList.remove('lock');setTimeout(function(){det.hidden=true},300);if(detVolver&&detVolver.focus)detVolver.focus()}
+  det.addEventListener('click',function(e){if(e.target.closest('[data-cerrar]'))cerrarDetalle();var el=e.target.closest('[data-elegir]');if(el){document.getElementById('fPlan').value=el.getAttribute('data-elegir');cerrarDetalle()}});
+  addEventListener('keydown',function(e){if(e.key==='Escape'&&!det.hidden)cerrarDetalle()});
 
   /* Casos de éxito: completar con las marcas reales (marca, rubro, servicios, resultado, link, imagen) */
   var CASOS=[
