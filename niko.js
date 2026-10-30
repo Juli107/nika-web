@@ -4,7 +4,8 @@ export const COLORS = {
   lila: 0x9B8CFF, rojo: 0xD12E36, sakura: 0xF5A8B8,
 };
 
-export function buildNiko(THREE, pose = "frente", face = "feliz") {
+export function buildNiko(THREE, pose = "frente", face = "feliz", opts = {}) {
+  const hw = !!opts.halloween; // Disfraz de Halloween: sombrero de bruja, capa, ojos de calabaza y el sol hecho calabaza
   const C = COLORS;
   const shell = new THREE.MeshPhysicalMaterial({ color: C.nube, roughness: 0.32, clearcoat: 1, clearcoatRoughness: 0.12, sheen: 0.3, sheenColor: new THREE.Color(C.lila) });
   const visorMat = new THREE.MeshPhysicalMaterial({ color: C.tinta, roughness: 0.08, metalness: 0.2, clearcoat: 1, clearcoatRoughness: 0.02 });
@@ -31,7 +32,7 @@ export function buildNiko(THREE, pose = "frente", face = "feliz") {
     ring.rotation.y = Math.PI / 2; ring.position.set(1.38 * s, 0.05, 0);
   }
   // Expresiones en el visor (los ojos brillan en color sol)
-  const eyeMat = glow(C.sol);
+  const eyeMat = glow(hw ? C.amanecer : C.sol);
   // Apoya cada ojo sobre la superficie curva del visor y lo orienta según su normal, para que no quede hundido
   const onVisor = (m, x, y, sx = 1) => {
     const A = 0.98, B = 0.58, Cz = 0.62, yc = 0.06, zc = 0.45;
@@ -80,6 +81,9 @@ export function buildNiko(THREE, pose = "frente", face = "feliz") {
     corazones: () => [heart(), heart()],
     pensando: () => [dotEye(), dotEye()],
   };
+  // Ojos de calabaza tallada: triángulos que brillan en naranja
+  const tri = (side) => { const sh = new THREE.Shape(); sh.moveTo(-0.17, -0.11); sh.lineTo(0.17, -0.11); sh.lineTo(0.05 * side, 0.15); sh.closePath(); return new THREE.Mesh(flat(sh), eyeMat); };
+  if (hw) { E.feliz = () => [tri(-1), tri(1)]; E.guino = () => [tri(-1), (() => { const b = bar(); b.rotation.z = Math.PI / 2; return b; })()]; }
   const [eL, eR] = (E[face] || E.feliz)();
   const ey = face === "pensando" ? 0.12 : 0.02, ex = face === "pensando" ? 0.06 : 0;
   onVisor(eL, -0.33 + ex, ey); onVisor(eR, 0.33 + ex, ey);
@@ -94,6 +98,9 @@ export function buildNiko(THREE, pose = "frente", face = "feliz") {
   else if (face === "confundido") { mouth = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3([[-0.1, 0], [-0.03, 0.03], [0.03, -0.03], [0.1, 0]].map(([x, y]) => new THREE.Vector3(x, y, 0))), 48, 0.022, 10, false), mouthMat); }
   else if (face === "curioso") { mouth = new THREE.Mesh(new THREE.TorusGeometry(0.04, 0.02, 12, 32), mouthMat); }
   else if (face === "sinenergia" || face === "dormido") { mouth = new THREE.Mesh(new THREE.TorusGeometry(0.045, 0.02, 12, 32), mouthMat); }
+  else if (hw) { // Sonrisa de calabaza, con dientes
+    const sh = new THREE.Shape(); sh.moveTo(-0.17, 0.03); [[-0.11, 0.0], [-0.07, 0.05], [-0.03, 0.0], [0.03, 0.0], [0.07, 0.05], [0.11, 0.0], [0.17, 0.03]].forEach(([x, y]) => sh.lineTo(x, y));
+    sh.quadraticCurveTo(0.12, -0.13, 0, -0.13); sh.quadraticCurveTo(-0.12, -0.13, -0.17, 0.03); mouth = new THREE.Mesh(flat(sh, 0.02), mouthMat); mouth.scale.setScalar(1.35); }
   else { mouth = new THREE.Mesh(new THREE.TorusGeometry(0.1, 0.028, 16, 48, Math.PI), mouthMat); mouth.rotation.z = Math.PI; }
   if (face === "triste") { const tear = add(head, new THREE.Mesh(new THREE.SphereGeometry(0.06, 24, 24), new THREE.MeshPhysicalMaterial({ color: 0xBFD8FF, roughness: 0, transmission: 0.6, thickness: 0.2, clearcoat: 1 }))); tear.scale.y = 1.35; tear.position.set(0.42, -0.3, 0.86); }
   mouth.position.set(face === "pensando" ? 0.08 : 0, -0.52, ["enojado","triste","frustrado","error","confundido","sinenergia","dormido"].includes(face) ? 0.9 : 0.86); mouth.rotation.x = -0.5; add(head, mouth);
@@ -112,6 +119,12 @@ export function buildNiko(THREE, pose = "frente", face = "feliz") {
   const halo = add(antena, new THREE.Mesh(new THREE.TorusGeometry(0.27, 0.022, 16, 64), glow(C.amanecer, 0.8)));
   halo.position.y = 0.55;
   const sunLight = new THREE.PointLight(C.sol, 2.2, 3); sunLight.position.y = 0.58; antena.add(sunLight);
+  if (hw) { // El sol se disfraza de calabaza: gajos, cabito y hojita
+    sun.material = sunMat(C.amanecer, 0.55); sun.scale.set(1.12, 0.88, 1.12); brillo.material.color.set(C.amanecer); halo.material = glow(C.lila);
+    for (let i = 0; i < 6; i++) { const gajo = new THREE.Mesh(new THREE.TorusGeometry(0.17, 0.012, 8, 48), sunMat(0xE8650F, 0.3)); gajo.rotation.y = i * Math.PI / 6; sun.add(gajo); }
+    const tallo = add(antena, new THREE.Mesh(new THREE.CylinderGeometry(0.025, 0.035, 0.09, 12), matte(0x3F7A2E, 0.6))); tallo.position.y = 0.72; tallo.rotation.z = 0.25;
+    const hoja = add(antena, new THREE.Mesh(new THREE.SphereGeometry(0.05, 16, 16), matte(0x5FA83A, 0.6))); hoja.scale.set(1.3, 0.35, 0.7); hoja.position.set(0.07, 0.71, 0); hoja.rotation.z = -0.4;
+    sunLight.color.set(C.amanecer); }
   if (face === "sinenergia") { sun.material = new THREE.MeshStandardMaterial({ color: 0x55586A, roughness: 0.6 }); brillo.visible = false; halo.visible = false; sunLight.intensity = 0; }
   if (face === "dormido") { sun.material = sunMat(C.sol, 0.12); brillo.material.opacity = 0.08; halo.visible = false; sunLight.intensity = 0.4; }
   if (face === "enojado" || face === "error") { sun.material = sunMat(C.rojo, 0.7); brillo.material.color.set(C.rojo); halo.material = glow(C.rojo); sunLight.color.set(C.rojo); }
@@ -129,6 +142,24 @@ export function buildNiko(THREE, pose = "frente", face = "feliz") {
   for (const s of [-1, 1]) {
     const leg = add(body, new THREE.Mesh(new THREE.CapsuleGeometry(0.2, 0.18, 12, 32), shell));
     leg.position.set(0.3 * s, -0.78, 0);
+  }
+
+  if (hw) {
+    // Capa de vampiro: violeta por fuera y roja por dentro, con cuello alto
+    const capaFuera = new THREE.MeshPhysicalMaterial({ color: 0x2A1F4A, roughness: 0.55, sheen: 1, sheenColor: new THREE.Color(C.lila), side: THREE.FrontSide });
+    const capaDentro = new THREE.MeshStandardMaterial({ color: 0x8E1B24, roughness: 0.6, side: THREE.BackSide });
+    for (const m of [capaFuera, capaDentro]) { const capa = add(body, new THREE.Mesh(new THREE.CylinderGeometry(0.7, 1.08, 1.45, 64, 1, true, Math.PI * 0.42, Math.PI * 1.16), m)); capa.position.set(0, -0.2, -0.05); }
+    const cuelloC = add(body, new THREE.Mesh(new THREE.CylinderGeometry(0.78, 0.66, 0.32, 64, 1, true, Math.PI * 0.5, Math.PI), new THREE.MeshStandardMaterial({ color: 0x2A1F4A, roughness: 0.5, side: THREE.DoubleSide }))); cuelloC.position.set(0, 0.62, -0.02);
+    const broche = add(body, new THREE.Mesh(new THREE.SphereGeometry(0.06, 24, 24), sunMat(C.sol, 0.5))); broche.position.set(0, 0.52, 0.62);
+    // Sombrero de bruja inclinado hacia un costado, para que la antena siga a la vista
+    const sombrero = new THREE.Group(); sombrero.position.set(-0.5, 0.74, 0.05); sombrero.rotation.set(0.12, 0, 0.5); sombrero.scale.setScalar(1.3); head.add(sombrero);
+    const felpa = new THREE.MeshPhysicalMaterial({ color: 0x241A3D, roughness: 0.6, sheen: 1, sheenColor: new THREE.Color(C.lila) });
+    const ala = add(sombrero, new THREE.Mesh(new THREE.CylinderGeometry(0.62, 0.62, 0.035, 64), felpa)); ala.position.y = 0;
+    const cono = new THREE.Group(); cono.position.y = 0.02; sombrero.add(cono);
+    const c1 = add(cono, new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.36, 0.42, 48), felpa)); c1.position.y = 0.21;
+    const c2 = add(cono, new THREE.Mesh(new THREE.CylinderGeometry(0.0, 0.2, 0.44, 48), felpa)); c2.position.set(0.06, 0.6, 0); c2.rotation.z = -0.35;
+    const cinta = add(sombrero, new THREE.Mesh(new THREE.CylinderGeometry(0.335, 0.36, 0.09, 48), matte(C.amanecer, 0.4))); cinta.position.y = 0.075;
+    const hebilla = add(sombrero, new THREE.Mesh(new THREE.TorusGeometry(0.05, 0.016, 8, 4), sunMat(C.sol, 0.4))); hebilla.position.set(0, 0.075, 0.355); hebilla.rotation.z = Math.PI / 4;
   }
 
   // Brazos con pivote en el hombro
