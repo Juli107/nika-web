@@ -12,6 +12,10 @@
 <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" crossorigin>
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/environments/RoomEnvironment.js" crossorigin>
+<link rel="modulepreload" href="niko.js">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=JetBrains+Mono:wght@400;500&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap">
@@ -1032,9 +1036,13 @@ footer nav a:hover{color:var(--sol)}
 
   /* Precarga */
   var pre=document.getElementById('pre'),cnt=document.getElementById('cnt'),n=0;
-  var timer=setInterval(function(){n=Math.min(100,n+Math.ceil(Math.random()*9));cnt.textContent='自由 · '+('00'+n).slice(-3);if(n>=100)clearInterval(timer)},40);
+  /* la cortina se levanta cuando R-bot y el 3D ya están listos (mínimo 1,1 s y máximo 4,5 s), así la portada arranca sin tirones */
+  var listo3d=false,t0=Date.now(),MIN_PRE=RM?0:1100;
+  var timer=setInterval(function(){n=Math.min(listo3d?100:92,n+Math.ceil(Math.random()*(listo3d?14:7)));cnt.textContent='自由 · '+('00'+n).slice(-3);if(n>=100)clearInterval(timer)},40);
+  function intentar(){if(listo3d&&Date.now()-t0>=MIN_PRE)salir()}
+  addEventListener('nika3d',function(){listo3d=true;intentar()});
   function salir(){if(pre.classList.contains('out'))return;clearInterval(timer);cnt.textContent='自由 · 100';pre.classList.add('out');document.body.classList.add('listo');setTimeout(function(){pre.style.display='none'},1200);revelarHero()}
-  setTimeout(salir,RM?0:1700);
+  setTimeout(intentar,MIN_PRE);setTimeout(salir,RM?0:4500);
 
   /* Divide títulos en palabras */
   document.querySelectorAll('[data-split]').forEach(function(el){
@@ -1686,15 +1694,19 @@ try {
     requestAnimationFrame(loop);
   }
   loop();
+  // compila todo mientras la cortina de carga sigue puesta y avisa que ya se puede mostrar
+  try { R.compile(scene, cam); } catch (e) {}
+  requestAnimationFrame(() => requestAnimationFrame(() => dispatchEvent(new Event("nika3d"))));
   if (N.halloween && !matchMedia("(prefers-reduced-motion: reduce)").matches) import("./hw3d.js").then((m) => m.iniciar(THREE)).catch((e) => console.warn("Halloween 3D:", e));
   // Arma de antemano los R-bots de cada sección, de a uno y cuando el navegador está libre, así el cambio no da tirones
   const previos = [...new Set([...document.querySelectorAll("[data-niko]")].map((e) => e.dataset.niko))].concat(["frente-feliz"]);
   const libre = window.requestIdleCallback || ((f) => setTimeout(f, 150));
   setTimeout(function prearmar(){ const n = previos.shift(); if (!n) return;
     try { const o = getLook(n); if (!o.parent) { scene.add(o); R.compile(scene, cam); scene.remove(o); } } catch (e) {}
-    libre(prearmar, { timeout: 800 }); }, 1800);
+    libre(prearmar, { timeout: 1500 }); }, 4200);
 } catch (err) {
   console.warn("Sin WebGL:", err);
+  dispatchEvent(new Event("nika3d"));
   document.body.classList.add("sin-3d");
 }
 </script>
