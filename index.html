@@ -867,7 +867,8 @@ footer nav a:hover{color:var(--sol)}
         <label for="fPlan">Plan que te interesa<select id="fPlan"><option>Todavía no sé</option><option>Básico</option><option>Medium</option><option>Pro</option><option>Diamante</option></select></label>
       </div>
       <label for="fMsg">¿Qué te gustaría liberar primero?<textarea id="fMsg" placeholder="Ej.: no llego a publicar, la web no trae consultas…"></textarea></label>
-      <button class="btn btn-sol mag" type="submit">Enviar por WhatsApp <span class="fl">→</span></button>
+      <input type="text" name="_honey" id="fHoney" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+      <button class="btn btn-sol mag" type="submit" id="fEnviar">Enviar consulta <span class="fl">→</span></button>
       <p class="ok" id="ok" hidden></p>
       <p class="legal-form">Al enviar aceptás los <a href="terminos.html" target="_blank" rel="noopener">Términos y Condiciones</a>.</p>
     </form>
@@ -1056,9 +1057,18 @@ footer nav a:hover{color:var(--sol)}
   document.getElementById('form').addEventListener('submit',function(e){e.preventDefault();var ok=document.getElementById('ok'),v=function(id){return document.getElementById(id).value.trim()},nb=v('fNombre'),ct=v('fContacto');ok.hidden=false;
     if(!nb||!ct){ok.textContent='Completá tu nombre y un WhatsApp o email para que podamos responderte.';return}
     var txt='Hola NIKA, quiero empezar mi prueba gratis de 10 días.\n\nNombre: '+nb+(v('fMarca')?'\nMarca o negocio: '+v('fMarca'):'')+'\nContacto: '+ct+'\nPlan que me interesa: '+v('fPlan')+(v('fMsg')?'\nQué quiero liberar primero: '+v('fMsg'):'');
-    var url='https://wa.me/5491133894270?text='+encodeURIComponent(txt);
-    var w=window.open(url,'_blank');if(!w)location.href=url;
-    ok.innerHTML='Gracias, '+esc(nb)+'. Te abrimos WhatsApp con tu consulta lista para enviar. Si no se abrió, <a href="'+url+'" target="_blank" rel="noopener">tocá acá</a>.'});
+    var url='https://wa.me/5491133894270?text='+encodeURIComponent(txt),btn=document.getElementById('fEnviar');
+    if(v('fHoney'))return;
+    var mail=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(ct);
+    btn.disabled=true;btn.style.opacity=.6;ok.textContent='Enviando tu consulta…';
+    fetch('https://formsubmit.co/ajax/agency@digitalnika.com',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({
+      _subject:'Nueva consulta web: '+nb+(v('fMarca')?' ('+v('fMarca')+')':''),_template:'table',_captcha:'false',_replyto:mail?ct:undefined,
+      Nombre:nb,'Marca o negocio':v('fMarca')||'—','WhatsApp o email':ct,'Plan que le interesa':v('fPlan'),'Qué quiere liberar primero':v('fMsg')||'—'})})
+    .then(function(r){return r.json()}).then(function(d){if(String(d.success)!=='true')throw 0;
+      document.getElementById('form').querySelectorAll('input,textarea').forEach(function(i){i.value=''});
+      ok.innerHTML='¡Gracias, '+esc(nb)+'! Recibimos tu consulta y te respondemos en menos de 3 h hábiles. Si es urgente, <a href="'+url+'" target="_blank" rel="noopener">escribinos por WhatsApp</a>.'})
+    .catch(function(){ok.innerHTML='No pudimos enviar el formulario. <a href="'+url+'" target="_blank" rel="noopener">Mandanos tu consulta por WhatsApp</a> o escribinos a <a href="mailto:agency@digitalnika.com">agency@digitalnika.com</a>.'})
+    .then(function(){btn.disabled=false;btn.style.opacity=''})});
   document.getElementById('anio').textContent=new Date().getFullYear();
 
   /* Bucle de scroll y animación */
