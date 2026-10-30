@@ -452,6 +452,15 @@ body.con-3d .problema img[data-bot]{opacity:0}
 @keyframes gira-borde{to{--ang:360deg}}
 .plan .badge{background:var(--degradado);color:var(--tinta);border-radius:999px;padding:5px 10px;letter-spacing:.1em}
 .letra{font-size:14px;color:var(--gris-2);margin-top:20px;max-width:84ch}
+.letra-mas{margin-top:22px;max-width:84ch}
+.letra-mas summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:12px;font-family:var(--f-datos);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--gris);transition:color .3s}
+.letra-mas summary::-webkit-details-marker{display:none}
+.letra-mas summary:hover,.letra-mas[open] summary{color:var(--sol)}
+.letra-mas .mas{width:30px;height:30px;border-radius:50%;border:1px solid rgba(255,200,61,.55);display:grid;place-items:center;color:var(--sol);font-size:17px;letter-spacing:0;line-height:1;transition:transform .4s var(--ease-out),background .3s,color .3s;box-shadow:0 0 18px rgba(255,200,61,.12)}
+.letra-mas summary:hover .mas{background:rgba(255,200,61,.12)}
+.letra-mas[open] .mas{transform:rotate(45deg);background:var(--sol);color:var(--tinta)}
+.letra-mas p{font-size:14px;color:var(--gris-2);margin:14px 0 0 42px;padding-left:16px;border-left:1px solid var(--linea-2);animation:letraIn .45s var(--ease-out)}
+@keyframes letraIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
 details.comparar{margin-top:28px;border-radius:22px}
 details.comparar summary{cursor:pointer;list-style:none;padding:20px 24px;display:flex;justify-content:space-between;align-items:center;font-family:var(--f-titulo);font-weight:600;text-transform:uppercase;letter-spacing:.04em}
 details.comparar summary::-webkit-details-marker{display:none}
@@ -737,7 +746,7 @@ footer nav a:hover{color:var(--sol)}
       <div class="cambio-box"><input id="tc" type="hidden"><p class="tc-fuente" id="tcFuente" aria-live="polite">Buscando la cotización del día…</p></div>
     </div>
     <div class="planes" id="planesGrid"></div>
-    <p class="letra">Precios en dólares estadounidenses, sin impuestos. Se abonan en pesos al tipo de cambio del día de pago. El alta se paga mitad al arrancar y mitad al entregar. Anuncios e IA de uso intensivo se pagan aparte, al costo.</p>
+    <details class="letra-mas"><summary><span class="mas" aria-hidden="true">+</span>Condiciones de pago</summary><p>Precios en dólares estadounidenses, sin impuestos. Se abonan en pesos al tipo de cambio del día de pago. El alta se paga mitad al arrancar y mitad al entregar. Anuncios e IA de uso intensivo se pagan aparte, al costo.</p></details>
     <details class="comparar vidrio">
       <summary>Comparar los cuatro planes <span>+</span></summary>
       <div class="tabla-wrap"><table>
