@@ -277,7 +277,8 @@ body.con-3d .problema img[data-bot]{opacity:0}
 .hs{position:relative;z-index:2}
 .hs .pin{position:sticky;top:0;height:100svh;overflow:hidden;display:flex;flex-direction:column;justify-content:center;gap:clamp(20px,3vh,36px)}
 .hs .pista{display:flex;gap:24px;padding-left:max(20px,calc((100vw - 1240px)/2 + 20px));will-change:transform;width:max-content}
-.hs .cab{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap}
+.hs .cab{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:20px clamp(28px,4vw,72px)}
+@media (max-width:900px){.hs .cab{grid-template-columns:1fr}}
 .hs .cuenta{font-family:var(--f-datos);font-size:13px;letter-spacing:.2em;color:var(--gris-2)}
 .hs .cuenta b{color:var(--sol);font-weight:500}
 .srv{width:min(560px,78vw);flex:0 0 auto;border-radius:30px;padding:clamp(24px,3vw,38px);display:flex;flex-direction:column;gap:18px;position:relative;overflow:hidden;min-height:min(560px,64svh)}
@@ -299,7 +300,7 @@ body.con-3d .problema img[data-bot]{opacity:0}
 .srv.ia .kata{-webkit-text-stroke:1px rgba(11,12,16,.18)}
 .hs[data-dir=der] .pista{flex-direction:row-reverse;padding-inline:max(20px,calc((100vw - 1240px)/2 + 20px))}
 .hs[data-dir=der] .barra i{transform-origin:100% 0}
-.hs .cab .lead{max-width:44ch}
+.hs .cab .lead{max-width:40ch;font-size:clamp(15px,1.15vw,17px);line-height:1.6;padding-left:18px;border-left:2px solid var(--sol);margin:0 0 .4em}
 .hs .kanji-bg{top:auto;bottom:-4vh;right:auto;left:-2vw;z-index:0}
 .hs .libre{width:min(460px,74vw);flex:0 0 auto;min-height:min(400px,50svh)}
 .hs .panel-man{width:min(760px,82vw);flex:0 0 auto;display:flex;align-items:center}
@@ -313,7 +314,7 @@ body.con-3d .problema img[data-bot]{opacity:0}
 @media (min-width:901px) and (max-height:1000px){
   .hs .pin{justify-content:flex-start;padding:max(84px,calc(50svh - 420px)) 0 14px;gap:clamp(12px,2.2svh,24px)}
   .hs h2{font-size:clamp(30px,min(5vw,8.4svh),84px)}
-  .hs .cab .lead{font-size:15px;line-height:1.5}
+  .hs .cab .lead{font-size:15.5px;line-height:1.55}
   .hs .eyebrow{margin:0}
   .srv{min-height:0;padding:clamp(18px,3svh,30px) clamp(22px,2.6vw,34px);gap:clamp(8px,1.6svh,16px)}
   .srv h3{font-size:clamp(22px,min(2.6vw,5svh),40px)}
@@ -690,9 +691,9 @@ footer nav a:hover{color:var(--sol)}
       <p class="lead rv">Nika es el dios del sol, el guerrero de la liberación: el que rompe las cadenas y trae alegría. De ahí nace nuestro nombre.</p>
     </div>
     <div class="pista">
-      <article class="libre vidrio" data-tilt><span class="k" aria-hidden="true">財</span><div><h3>Libertad económica</h3><p>Un equipo digital completo por una cuota fija, sin sueldos, cargas ni estructura propia.</p></div></article>
-      <article class="libre vidrio" data-tilt><span class="k" aria-hidden="true">知</span><div><h3>Libertad intelectual</h3><p>Tu cabeza vuelve a estar en tu negocio y tus ideas, no en algoritmos ni tendencias.</p></div></article>
-      <article class="libre vidrio" data-tilt><span class="k" aria-hidden="true">任</span><div><h3>Libertad de delegar</h3><p>Dejás toda la operación digital en manos expertas, con reglas claras y resultados a la vista.</p></div></article>
+      <article class="libre vidrio" data-tilt><span class="k" aria-hidden="true">財</span><div><h3>Libertad económica</h3><p>Accedés a un equipo completo de marketing, diseño, contenido y tecnología por una cuota mensual fija. Sin sueldos, cargas sociales, licencias ni estructura propia: un costo previsible que se convierte en inversión medible.</p></div></article>
+      <article class="libre vidrio" data-tilt><span class="k" aria-hidden="true">知</span><div><h3>Libertad intelectual</h3><p>Dejás de pensar en algoritmos, formatos y tendencias. Tu energía vuelve a lo que mejor sabés hacer: liderar tu negocio, atender a tus clientes y decidir con información clara.</p></div></article>
+      <article class="libre vidrio" data-tilt><span class="k" aria-hidden="true">任</span><div><h3>Libertad de delegar</h3><p>Ponés tu operación digital en manos de especialistas, con procesos definidos, reuniones semanales y reportes. Sabés qué se hace, cuándo y con qué resultado, sin tener que supervisarlo.</p></div></article>
       <div class="panel-man"><p class="manifiesto" id="manifiesto">Vos te enfocás en tu negocio y en vender. Nosotros nos ocupamos de que te encuentren, te recuerden y te elijan.</p></div>
     </div>
     <div class="wrap"><div class="barra"><i></i></div></div>
