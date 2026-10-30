@@ -145,7 +145,7 @@ body.menu-abierto #fx{z-index:91}
   body .menu .dentro{gap:28px;padding-top:calc(96px + env(safe-area-inset-top,0px))}
   body .srv{border-radius:24px}body .srv .kata{font-size:110px}
   body .libre{min-height:0}body .libre .k{font-size:84px}
-  body .contactos span{font-size:12px}
+  body .contactos span,body .contactos a{font-size:12px}
   footer .fila{flex-direction:column}
 }
 
@@ -480,6 +480,7 @@ tr.fia td{color:var(--sol)}
 .cierre .txt{display:flex;flex-direction:column;gap:26px;min-width:0}
 .cierre h2{font-size:clamp(44px,7vw,104px);line-height:.92}
 .contactos{display:flex;flex-wrap:wrap;gap:10px}
+.contactos a{font-family:var(--f-datos);font-size:13px;border:1px solid rgba(255,200,61,.45);border-radius:999px;padding:9px 16px;background:rgba(255,200,61,.08);color:var(--sol);text-decoration:none;transition:background .3s}.contactos a:hover{background:rgba(255,200,61,.18)}
 .contactos span{font-family:var(--f-datos);font-size:13px;border:1px solid var(--linea-2);border-radius:999px;padding:9px 16px;user-select:all;background:rgba(11,12,16,.4)}
 form{position:relative;border-radius:28px;padding:clamp(24px,3vw,36px);display:flex;flex-direction:column;gap:16px;min-width:0}
 form h3{font-size:24px}
@@ -585,6 +586,7 @@ footer nav a:hover{color:var(--sol)}
         <span>Agencia digital · Argentina</span>
         <span><b>hola@nika.studio</b></span>
         <span>@nika.studio</span>
+        <a href="https://wa.me/5491133894270" target="_blank" rel="noopener" style="color:var(--sol);text-decoration:none">WhatsApp +54 9 11 3389-4270</a>
         <a class="btn btn-sol mag" href="#contacto" style="align-self:flex-start;margin-top:10px">Probá 10 días gratis <span class="fl">→</span></a>
       </div>
     </div>
@@ -770,7 +772,7 @@ footer nav a:hover{color:var(--sol)}
       <p class="eyebrow scramble">Empecemos <span class="jp">ハジメマショウ</span></p>
       <h2><span class="split" data-split>Liberá tu marca.</span> <span class="grad split" data-split>Nosotros la hacemos volar.</span></h2>
       <p class="lead rv">Empezá con 10 días de prueba gratis: diagnóstico, plan y primeras piezas, sin tarjeta y sin compromiso.</p>
-      <div class="contactos rv"><span>hola@nika.studio</span><span>@nika.studio</span><span>WhatsApp +54 9 [número]</span></div>
+      <div class="contactos rv"><span>hola@nika.studio</span><span>@nika.studio</span><a href="https://wa.me/5491133894270" target="_blank" rel="noopener">WhatsApp +54 9 11 3389-4270</a></div>
     </div>
     <form id="form" class="vidrio rv" data-tilt novalidate>
       <h3>Empezá tu prueba gratis</h3>
@@ -783,7 +785,7 @@ footer nav a:hover{color:var(--sol)}
         <label for="fPlan">Plan que te interesa<select id="fPlan"><option>Todavía no sé</option><option>Básico</option><option>Medium</option><option>Pro</option><option>Diamante</option></select></label>
       </div>
       <label for="fMsg">¿Qué te gustaría liberar primero?<textarea id="fMsg" placeholder="Ej.: no llego a publicar, la web no trae consultas…"></textarea></label>
-      <button class="btn btn-sol mag" type="submit">Quiero mis 10 días gratis <span class="fl">→</span></button>
+      <button class="btn btn-sol mag" type="submit">Enviar por WhatsApp <span class="fl">→</span></button>
       <p class="ok" id="ok" hidden></p>
     </form>
   </div>
@@ -968,8 +970,13 @@ footer nav a:hover{color:var(--sol)}
   });
 
   /* Formulario (vista previa) */
-  document.getElementById('form').addEventListener('submit',function(e){e.preventDefault();var ok=document.getElementById('ok'),nb=document.getElementById('fNombre').value.trim(),ct=document.getElementById('fContacto').value.trim();ok.hidden=false;
-    ok.textContent=(!nb||!ct)?'Completá tu nombre y un WhatsApp o email para que podamos responderte.':'Gracias, '+nb+'. Esta es una vista previa: cuando la web esté online, este formulario llega directo al mail de NIKA.'});
+  /* El formulario arma el mensaje y lo abre en el WhatsApp de NIKA */
+  document.getElementById('form').addEventListener('submit',function(e){e.preventDefault();var ok=document.getElementById('ok'),v=function(id){return document.getElementById(id).value.trim()},nb=v('fNombre'),ct=v('fContacto');ok.hidden=false;
+    if(!nb||!ct){ok.textContent='Completá tu nombre y un WhatsApp o email para que podamos responderte.';return}
+    var txt='Hola NIKA, quiero empezar mi prueba gratis de 10 días.\n\nNombre: '+nb+(v('fMarca')?'\nMarca o negocio: '+v('fMarca'):'')+'\nContacto: '+ct+'\nPlan que me interesa: '+v('fPlan')+(v('fMsg')?'\nQué quiero liberar primero: '+v('fMsg'):'');
+    var url='https://wa.me/5491133894270?text='+encodeURIComponent(txt);
+    var w=window.open(url,'_blank');if(!w)location.href=url;
+    ok.innerHTML='Gracias, '+esc(nb)+'. Te abrimos WhatsApp con tu consulta lista para enviar. Si no se abrió, <a href="'+url+'" target="_blank" rel="noopener">tocá acá</a>.'});
   document.getElementById('anio').textContent=new Date().getFullYear();
 
   /* Bucle de scroll y animación */
