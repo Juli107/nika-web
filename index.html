@@ -475,11 +475,15 @@ th{font-family:var(--f-datos);font-weight:500;font-size:12px;letter-spacing:.12e
 td:first-child{color:var(--gris)}
 .pro{background:rgba(255,200,61,.07)}
 tr.fia td{color:var(--sol)}
-.extras{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:28px;margin-top:20px}
-.extras div{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid var(--linea);font-size:15px}
-.extras div span:last-child{font-family:var(--f-datos);color:var(--sol);white-space:nowrap}
-@media (max-width:900px){.extras{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:560px){.extras{grid-template-columns:1fr}}
+.extras{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;margin-top:24px}
+.ext-cat{display:flex;align-items:center;gap:10px;font-family:var(--f-datos);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--sol);padding-bottom:12px;border-bottom:1px solid rgba(255,200,61,.35);margin:0}
+.ext-cat .jp{font-size:13px;letter-spacing:0;color:var(--gris-2)}
+.ext{padding:16px 0;border-bottom:1px solid var(--linea);transition:padding .3s var(--ease-out)}
+.ext:hover{padding-left:8px}
+.ext-top{display:flex;justify-content:space-between;align-items:baseline;gap:16px;font-size:15.5px;color:var(--nube)}
+.ext-top b{font-family:var(--f-datos);font-weight:500;color:var(--sol);white-space:nowrap}
+.ext p{margin:6px 0 0;font-size:13.5px;line-height:1.5;color:var(--gris-2)}
+@media (max-width:980px){.extras{grid-template-columns:1fr;gap:36px}}
 .sub{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin-top:80px}
 .sub h3{font-size:clamp(24px,2.6vw,32px)}
 
@@ -772,9 +776,9 @@ footer nav a:hover{color:var(--sol)}
     </details>
     <div class="sub"><div style="display:flex;flex-direction:column;gap:12px"><p class="eyebrow">Extras <span class="jp">追加</span></p><h3>Sumá cuando lo necesites</h3></div><p style="font-family:var(--f-datos);font-size:12.5px;color:var(--gris-2);letter-spacing:.1em">USD · PRECIO DESDE</p></div>
     <div class="extras">
-      <div><span>Sesión de fotos</span><span>$250</span></div><div><span>Video de 60 segundos</span><span>$400</span></div><div><span>Landing de campaña</span><span>$350</span></div>
-      <div><span>Rediseño de identidad</span><span>$600</span></div><div><span>Asistente IA o integración extra</span><span>$300</span></div><div><span>Taller de IA de 3 horas</span><span>$200</span></div>
-      <div><span>Newsletter adicional</span><span>$60</span></div><div><span>Hora web adicional</span><span>$35</span></div><div><span>Automatización a medida</span><span>$200</span></div>
+      <div class="ext-col"><p class="ext-cat"><span class="jp">写</span>Foto y video</p><div class="ext"><div class="ext-top"><span>Sesión fotográfica 2 h</span><b>$250</b></div><p>20 fotos editadas de producto, equipo o local, listas para redes y web.</p></div><div class="ext"><div class="ext-top"><span>Sesión fotográfica 4 h</span><b>$420</b></div><p>45 fotos editadas, con varias locaciones o líneas de producto.</p></div><div class="ext"><div class="ext-top"><span>Grabación de video</span><b>$300</b></div><p>Jornada de 2 h y un video de 60 a 90 s editado, con música y subtítulos.</p></div><div class="ext"><div class="ext-top"><span>Sesión de fotos + video</span><b>$650</b></div><p>Jornada de 4 h: 30 fotos editadas y 3 reels listos para publicar.</p></div></div>
+      <div class="ext-col"><p class="ext-cat"><span class="jp">作</span>Contenido y web</p><div class="ext"><div class="ext-top"><span>Sesión de reels</span><b>$450</b></div><p>3 a 4 reels con guion, grabación, edición, música y subtítulos.</p></div><div class="ext"><div class="ext-top"><span>Landing de campaña</span><b>$350</b></div><p>Página para una promoción o lanzamiento, con formulario y WhatsApp.</p></div><div class="ext"><div class="ext-top"><span>Rediseño de identidad</span><b>$600</b></div><p>Logo, paleta, tipografías y manual de marca con aplicaciones.</p></div><div class="ext"><div class="ext-top"><span>Hora web adicional</span><b>$35</b></div><p>Cambios en tu web o piezas de marca por encima de las horas del plan.</p></div></div>
+      <div class="ext-col"><p class="ext-cat"><span class="jp">技</span>IA y sistemas</p><div class="ext"><div class="ext-top"><span>Taller de IA de 3 h</span><b>$200</b></div><p>Capacitación práctica para tu equipo, con plantillas y prompts listos.</p></div><div class="ext"><div class="ext-top"><span>Asistente IA o automatización</span><b>$300</b></div><p>Un asistente o flujo automático extra conectado a tus canales.</p></div><div class="ext"><div class="ext-top"><span>Sistema a medida</span><b>$2.500</b></div><p>Desarrollo de un sistema propio: turnos, pedidos, stock o portal de clientes.</p></div><div class="ext"><div class="ext-top"><span>Armado de CRM</span><b>$1.800</b></div><p>CRM configurado con embudo, etapas, formularios, automatizaciones y capacitación.</p></div></div>
     </div>
   </div>
 </section>
