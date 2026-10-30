@@ -305,6 +305,7 @@ body.con-3d .problema img[data-bot]{opacity:0}
 .hs .panel-man{width:min(760px,82vw);flex:0 0 auto;display:flex;align-items:center}
 .hs .panel-man .manifiesto{margin-top:0}
 .hs .caso{width:min(380px,76vw);flex:0 0 auto}
+@media (min-width:901px){.hs .caso .portada{aspect-ratio:auto;height:clamp(70px,20svh,220px)}.hs .caso .cuerpo{padding:14px 18px 16px;gap:8px}}
 .hs .marcas{width:min(620px,82vw);flex:0 0 auto;margin-top:0;justify-content:center}
 .hs .marcas .fila{grid-template-columns:repeat(3,minmax(0,1fr))}
 .hs .barra{height:2px;background:var(--linea);border-radius:2px;overflow:hidden}
@@ -322,8 +323,6 @@ body.con-3d .problema img[data-bot]{opacity:0}
   .hs .libre{min-height:min(400px,44svh);padding:clamp(20px,3svh,34px)}
   .libre .k{font-size:clamp(64px,13svh,120px)}
   .hs .panel-man .manifiesto{font-size:clamp(22px,min(3.6vw,6.2svh),48px)}
-  .hs .caso .portada{aspect-ratio:auto;height:clamp(76px,22svh,230px)}
-  .hs .caso .cuerpo{padding:14px 18px 16px;gap:8px}
 }
 @media (max-width:900px){
   .hs{height:auto!important}
@@ -986,9 +985,7 @@ footer nav a:hover{color:var(--sol)}
     {marca:'[Marca 01]',rubro:'[Rubro]',servicios:['Web','Redes'],resultado:'[Qué hicimos y qué cambió]',link:'',imagen:''},
     {marca:'[Marca 02]',rubro:'[Rubro]',servicios:['Redes','Contenido'],resultado:'[Qué hicimos y qué cambió]',link:'',imagen:''},
     {marca:'[Marca 03]',rubro:'[Rubro]',servicios:['Web','IA'],resultado:'[Qué hicimos y qué cambió]',link:'',imagen:''},
-    {marca:'[Cliente 04]',rubro:'[Rubro]',servicios:['Newsletter'],resultado:'[Qué hicimos y qué cambió]',link:'',imagen:''},
-    {marca:'[Cliente 05]',rubro:'[Rubro]',servicios:['Crecimiento'],resultado:'[Qué hicimos y qué cambió]',link:'',imagen:''},
-    {marca:'[Cliente 06]',rubro:'[Rubro]',servicios:['Marca'],resultado:'[Qué hicimos y qué cambió]',link:'',imagen:''}
+    {marca:'[Cliente 04]',rubro:'[Rubro]',servicios:['Newsletter'],resultado:'[Qué hicimos y qué cambió]',link:'',imagen:''}
   ];
   var MARCAS=['Logo 1','Logo 2','Logo 3','Logo 4'];
   document.getElementById('casosGrid').innerHTML=CASOS.map(function(c){var hay=!!c.link;
