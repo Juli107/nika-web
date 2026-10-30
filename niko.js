@@ -185,8 +185,6 @@ function disfrazar(THREE, dz, P) {
     const peloM = fis(0x15121D, { roughness: 0.18, clearcoat: 1, clearcoatRoughness: 0.05 });
     const cap = add(head, new THREE.Mesh(new THREE.SphereGeometry(1.03, 96, 48, 0, Math.PI * 2, 0, Math.PI * 0.42), peloM)); cap.scale.set(1.26, 1.03, 1.05); cap.rotation.x = -0.5;
     const pico = add(head, cono(0.2, 0.36, peloM)); pico.rotation.set(-0.75, 0, Math.PI); pico.scale.z = 0.3; pico.position.set(0, 0.62, 0.8);
-    // Orejas de vampiro, puntiagudas
-    for (const s of [-1, 1]) { const o = add(head, cono(0.17, 0.66, shell)); o.scale.z = 0.4; o.position.set(1.22 * s, 0.5, -0.12); o.rotation.set(0, 0, -0.95 * s); const oi = add(head, cono(0.09, 0.42, matte(C.sakura, 0.7))); oi.scale.z = 0.2; oi.position.set(1.21 * s, 0.49, -0.05); oi.rotation.set(0, 0, -0.95 * s); }
     // Capa con cuello alto: negra por fuera y roja por dentro
     capa(fis(0x14111C, { sheen: 1, sheenColor: new THREE.Color(C.lila) }), fis(0xB0141F, { sheen: 0.6, sheenColor: new THREE.Color(0xFF5A62) }));
     const cuello = add(body, new THREE.Mesh(new THREE.CylinderGeometry(0.86, 0.66, 0.5, 64, 1, true, Math.PI * 0.52, Math.PI * 0.96), tela(0x14111C, 0.5))); cuello.position.set(0, 0.74, -0.04);
