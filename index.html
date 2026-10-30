@@ -354,6 +354,10 @@ body.con-3d .problema img[data-bot]{opacity:0}
 .cambio{display:flex;align-items:center;gap:10px;font-family:var(--f-datos);font-size:12.5px;color:var(--gris)}
 .cambio input{width:124px;background:var(--tinta-2);border:1px solid var(--linea-2);color:var(--nube);border-radius:10px;padding:9px 12px;font:inherit;font-variant-numeric:tabular-nums}
 .cambio input:focus{outline:none;border-color:var(--sol)}
+.cambio-box{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+.tc-fuente{font-family:var(--f-datos);font-size:11px;letter-spacing:.04em;color:var(--gris-2)}
+.tc-fuente b{color:var(--sol);font-weight:500}
+@media (max-width:900px){.cambio-box{align-items:stretch}}
 .planes{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;perspective:1400px}
 @media (max-width:1080px){.planes{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:620px){.planes{grid-template-columns:1fr}}
@@ -677,7 +681,7 @@ footer nav a:hover{color:var(--sol)}
         <button type="button" id="pMensual" aria-pressed="true">Pago mensual</button>
         <button type="button" id="pAnual" aria-pressed="false">Pago anual <span class="off">alta −50%</span></button>
       </div>
-      <label class="cambio" for="tc">Ver en pesos · cotización del día <input id="tc" type="text" inputmode="decimal" placeholder="ARS por USD" autocomplete="off"></label>
+      <div class="cambio-box"><label class="cambio" for="tc">Ver en pesos · dólar oficial <input id="tc" type="text" inputmode="decimal" placeholder="ARS por USD" autocomplete="off"></label><p class="tc-fuente" id="tcFuente" aria-live="polite">Buscando la cotización del día…</p></div>
     </div>
     <div class="planes" id="planesGrid"></div>
     <p class="letra">Precios en dólares estadounidenses, sin impuestos. Se abonan en pesos al tipo de cambio del día de pago. El alta se paga mitad al arrancar y mitad al entregar. Anuncios e IA de uso intensivo se pagan aparte, al costo.</p>
@@ -857,9 +861,20 @@ footer nav a:hover{color:var(--sol)}
   function setAnual(v){anual=v;bM.setAttribute('aria-pressed',String(!v));bA.setAttribute('aria-pressed',String(v));moverPill();pintar()}
   bM.onclick=function(){setAnual(false)};bA.onclick=function(){setAnual(true)};
   var tcIn=document.getElementById('tc');
-  function leer(){var v=parseFloat(String(tcIn.value).replace(/\./g,'').replace(',','.'));tc=isFinite(v)&&v>0?v:0;pintar();try{localStorage.setItem('nika-tc',tcIn.value)}catch(e){}}
-  try{var g=localStorage.getItem('nika-tc');if(g)tcIn.value=g}catch(e){}
-  tcIn.addEventListener('input',leer);
+  function leer(){var v=parseFloat(String(tcIn.value).replace(/\./g,'').replace(',','.'));tc=isFinite(v)&&v>0?v:0;pintar()}
+  /* Dólar oficial del día (venta), con respaldo si una fuente falla */
+  var tcFuente=document.getElementById('tcFuente'),tcManual=false;
+  function fmtTC(v){return v.toLocaleString('es-AR',{maximumFractionDigits:2})}
+  function ponerTC(v,fecha){if(tcManual)return;tcIn.value=fmtTC(v);leer();
+    var f=fecha?new Date(fecha):new Date();tcFuente.innerHTML='Dólar oficial (venta) <b>$'+fmtTC(v)+'</b> · actualizado el '+f.toLocaleDateString('es-AR',{day:'2-digit',month:'2-digit',timeZone:'America/Argentina/Buenos_Aires'})}
+  function traerTC(){
+    try{var c=JSON.parse(localStorage.getItem('nika-tc-auto')||'null');if(c&&Date.now()-c.t<6*36e5){ponerTC(c.v,c.f);return}}catch(e){}
+    function guardar(v,f){try{localStorage.setItem('nika-tc-auto',JSON.stringify({v:v,f:f,t:Date.now()}))}catch(e){}ponerTC(v,f)}
+    fetch('https://dolarapi.com/v1/dolares/oficial').then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(d){if(!(d.venta>0))throw 0;guardar(d.venta,d.fechaActualizacion)})
+    .catch(function(){return fetch('https://api.bluelytics.com.ar/v2/latest').then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(d){var v=d.oficial&&d.oficial.value_sell;if(!(v>0))throw 0;guardar(v,d.last_update)})})
+    .catch(function(){tcFuente.textContent='No pudimos traer la cotización: escribila a mano.'})}
+  tcIn.addEventListener('input',function(){tcManual=true;tcFuente.textContent='Usando tu cotización. Borrá el número para volver al dólar oficial.';if(!tcIn.value.trim()){tcManual=false;traerTC()}else leer()});
+  traerTC();
   grid.addEventListener('click',function(e){var a=e.target.closest('[data-plan]');if(a)document.getElementById('fPlan').value=a.getAttribute('data-plan');
     var d=e.target.closest('.ver-detalle,.plan ul');if(d)abrirDetalle(+d.getAttribute('data-i'))});
   /* Detalle de cada plan */
