@@ -326,15 +326,23 @@ body.con-3d .problema img[data-bot]{opacity:0}
   .hs .panel-man .manifiesto{font-size:clamp(22px,min(3.6vw,6.2svh),48px)}
 }
 @media (max-width:900px){
-  .hs{height:auto!important}
-  .hs .pin{position:relative;height:auto;padding-block:90px}
-  .hs .pista{flex-direction:column;width:auto;padding-inline:max(20px,env(safe-area-inset-left,0px)) max(20px,env(safe-area-inset-right,0px));transform:none!important}
-  .hs[data-dir=der] .pista{flex-direction:column;padding-inline:max(20px,env(safe-area-inset-left,0px)) max(20px,env(safe-area-inset-right,0px))}
-  .srv,.hs .libre,.hs .caso,.hs .panel-man,.hs .marcas{width:100%;min-height:0}
-  .hs .libre{min-height:280px}
+  .hs .pin{padding:76px 0 18px;justify-content:center;gap:clamp(14px,2.4svh,22px)}
+  .hs .pista,.hs[data-dir=der] .pista{gap:14px;padding-inline:max(20px,env(safe-area-inset-left,0px)) max(20px,env(safe-area-inset-right,0px))}
+  .hs h2{font-size:clamp(30px,min(9vw,5.6svh),46px)}
+  .hs .cab{gap:14px}
+  .hs .cab .lead{font-size:15px;line-height:1.5}
+  .hs .libre{width:80vw;min-height:0}
+  .hs .caso{width:78vw}
+  .hs .panel-man{width:84vw}
+  .hs .marcas{width:86vw}
   .hs .kanji-bg{top:24px;bottom:auto;right:-2vw;left:auto}
   .srv ul{grid-template-columns:1fr}
-  .hs .barra{display:none}
+  /* Servicios: carrusel para deslizar con el dedo */
+  .hs.carrusel{height:auto!important}
+  .hs.carrusel .pin{position:relative;height:auto;padding:90px 0 30px}
+  .hs.carrusel .pista{width:auto;transform:none!important}
+  .hs.carrusel .barra{display:none}
+  .srv{min-height:0}
 }
 
 /* Método */
@@ -579,6 +587,41 @@ footer nav a:hover{color:var(--sol)}
   .grano{display:none}
 }
 
+
+/* Celular: recorrido lateral */
+.met-carril,.met-pin{display:contents}
+.puntos{display:none}
+@media (max-width:900px){
+  /* carruseles para deslizar con el dedo */
+  .desliza{display:flex!important;position:relative;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scrollbar-width:none;gap:14px;margin-inline:-20px;padding:8px 20px 20px;scroll-padding-inline:20px}
+  .desliza::-webkit-scrollbar{display:none}
+  .desliza>*{flex:0 0 min(84vw,400px);width:auto;scroll-snap-align:center}
+  .hs .desliza{margin-inline:0}
+  .puntos{display:flex;justify-content:center;gap:8px;margin-top:2px}
+  .puntos i{width:7px;height:7px;border-radius:99px;background:var(--linea-2);transition:width .35s var(--ease-out),background .35s}
+  .puntos i.on{width:24px;background:var(--sol)}
+  /* Método: la pantalla se queda fija y los meses avanzan de costado */
+  .met-carril{display:block;position:relative}
+  .met-pin{display:flex;flex-direction:column;justify-content:center;position:sticky;top:0;height:100svh;padding:76px 20px 18px;margin-inline:-20px;overflow:hidden}
+  .met-pin .cabecera{margin-bottom:34px}
+  .pasos{display:flex;width:max-content;padding-left:0;will-change:transform}
+  .pasos .linea{left:0;right:0;top:0;bottom:auto;width:auto;height:2px}
+  .pasos .linea i{transform-origin:0;transform:scaleX(var(--p,0))}
+  .paso{width:78vw;flex:0 0 auto;padding:34px 24px 0 0}
+  .paso::before{left:0;top:-6px}
+  /* entradas alternadas desde los costados */
+  .rv.rv-i{transform:translateX(-64px) rotate(-2deg)}
+  .rv.rv-d{transform:translateX(64px) rotate(2deg)}
+  .rv.rv-i.in,.rv.rv-d.in{transform:none}
+  .hs .desliza{align-items:flex-start}
+  .srv ul{margin-top:4px}
+  .pasos{padding-right:12vw}
+}
+@media (max-width:900px) and (max-height:700px){
+  .hs:not(.carrusel) .cab .lead{display:none}
+  .hs:not(.carrusel) .libre .k{font-size:64px}
+  .hs:not(.carrusel) .caso .portada{aspect-ratio:16/7}
+}
 /* ===== Halloween (se activa solo del 24/10 al 1/11, hora de Argentina; ?halloween para previsualizar) ===== */
 .hw-murcis,.hw-arana,.hw-tela,.hw-niebla{display:none}
 .hw .hw-murcis{display:block;position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden}
@@ -712,7 +755,7 @@ footer nav a:hover{color:var(--sol)}
       <div><p class="eyebrow scramble" style="color:#FF5A62">Lo que hoy te frena <span class="jp">問題</span></p><h2 class="split" data-split>Lo que te quita libertad</h2></div>
       <p class="lead rv">Si te pasa a vos, R-bot también lo sufre. Y cada problema tiene una solución concreta.</p>
     </div>
-    <div class="grilla-3">
+    <div class="grilla-3 desliza" id="problemasGrid">
       <article class="problema vidrio rv" data-tilt><span class="n">01</span><img data-bot="enojado" src="img/niko-enojado.webp" alt="R-bot enojado" loading="lazy"><h3>Nadie responde los mensajes</h3><p>Consultas en diferentes horarios que se enfrían por no responder a tiempo.</p><span class="s">→ Asistente de IA 24 h</span></article>
       <article class="problema vidrio rv" data-tilt><span class="n">02</span><img data-bot="frustrado" src="img/niko-frustrado.webp" alt="R-bot frustrado" loading="lazy"><h3>Publicar me consume</h3><p>Vendés, atendés y encima tenés que crear todos los días.</p><span class="s">→ Redes y contenido delegados</span></article>
       <article class="problema vidrio rv" data-tilt><span class="n">03</span><img data-bot="confundido" src="img/niko-confundido.webp" alt="R-bot confundido" loading="lazy"><h3>No sé qué funciona</h3><p>Pagás anuncios o agencias y nunca ves números claros.</p><span class="s">→ Reportes y anuncios medidos</span></article>
@@ -740,13 +783,13 @@ footer nav a:hover{color:var(--sol)}
   </div>
 </section>
 
-<section class="hs" id="servicios" data-dir="izq" data-niko="frente-destello">
+<section class="hs carrusel" id="servicios" data-dir="izq" data-niko="frente-destello">
   <div class="pin">
     <div class="wrap cab">
       <div style="display:flex;flex-direction:column;gap:18px"><p class="eyebrow scramble">Servicios <span class="jp">サービス</span></p><h2 class="split" data-split>Todo lo digital, un solo equipo</h2></div>
       <span class="cuenta" id="cuenta"><b>01</b> / 06</span>
     </div>
-    <div class="pista" id="hsPista"></div>
+    <div class="pista desliza" id="hsPista"></div>
     <div class="wrap"><div class="barra"><i></i></div></div>
   </div>
 </section>
@@ -754,6 +797,7 @@ footer nav a:hover{color:var(--sol)}
 <section class="bloque" id="metodo" data-niko="pensando">
   <span class="kanji-bg" data-speed=".15" aria-hidden="true">方法</span>
   <div class="wrap">
+    <div class="met-carril"><div class="met-pin">
     <div class="cabecera">
       <div><p class="eyebrow scramble">Método <span class="jp">方法</span></p><h2 class="split" data-split>Tres meses para despegar</h2></div>
       <p class="lead rv">Trabajamos con un plan mínimo de 3 meses: el primero pone todo en marcha, el segundo construye tu contenido y el tercero acelera con publicidad y métricas.</p>
@@ -764,6 +808,7 @@ footer nav a:hover{color:var(--sol)}
       <div class="paso"><span class="cuando">Mes 2</span><h3>Redes y contenido</h3><ul><li>Calendario estratégico de contenido</li><li>Diseño de piezas, reels y videos</li><li>Publicación constante en tus redes</li><li>Newsletter y contenido para la web</li><li>Gestión de comunidad</li></ul></div>
       <div class="paso"><span class="cuando">Mes 3</span><h3>Crecimiento</h3><ul><li>Campañas de publicidad en Meta y Google</li><li>Métricas y analítica de cada canal</li><li>Objetivos medibles por canal</li><li>Optimización de lo que mejor funciona</li><li>Reporte trimestral y plan de continuidad</li></ul></div>
     </div>
+    </div></div>
     <p class="sigue rv">Desde el cuarto mes, todo sigue en marcha con un reporte y nuevos objetivos cada mes.</p>
     <div class="alcance">
       <div class="col nika vidrio rv" data-tilt><p class="eyebrow">NIKA se ocupa de</p><ul><li>Construir y cuidar tu presencia digital</li><li>Atraer visitas, seguidores y suscriptores</li><li>Llevar las consultas a tu WhatsApp, formulario o tienda</li><li>Automatizar tareas repetitivas con IA</li><li>Medir y contarte qué funcionó cada mes</li></ul></div>
@@ -787,7 +832,7 @@ footer nav a:hover{color:var(--sol)}
       </div><p class="pago-nota">El descuento se aplica al alta y a la mensualidad</p></div>
       <div class="cambio-box"><input id="tc" type="hidden"><p class="tc-fuente" id="tcFuente" aria-live="polite">Buscando la cotización del día…</p></div>
     </div>
-    <div class="planes" id="planesGrid"></div>
+    <div class="planes desliza" id="planesGrid"></div>
     <details class="letra-mas"><summary><span class="mas" aria-hidden="true">+</span>Condiciones de pago</summary><p>Precios en dólares estadounidenses, sin impuestos. Se abonan en pesos al tipo de cambio del día de pago. El alta se paga mitad al arrancar y mitad al entregar. Anuncios e IA de uso intensivo se pagan aparte, al costo.</p></details>
     <details class="comparar vidrio">
       <summary>Comparar los cuatro planes <span>+</span></summary>
@@ -987,6 +1032,7 @@ footer nav a:hover{color:var(--sol)}
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;var el=e.target;if(el.closest('.hero'))return;
     el.classList.add('in');if(el.classList.contains('scramble')&&!RM)scramble(el);if(el.id==='gigante')el.classList.add('in');io.unobserve(el)})},{threshold:.12,rootMargin:'0px 0px -6% 0px'});
   document.querySelectorAll('.rv,.split,.scramble,#gigante').forEach(function(el){io.observe(el)});
+  var lado=0;document.querySelectorAll('main .rv').forEach(function(el){if(el.closest('.hero,.desliza,.pista,.pasos'))return;el.classList.add(lado++%2?'rv-d':'rv-i')});
   document.querySelectorAll('.industrias').forEach(function(g){Array.prototype.forEach.call(g.children,function(c,i){c.style.transitionDelay=i*45+'ms';c.addEventListener('transitionend',function f(e){if(e.propertyName!=='opacity')return;c.style.transitionDelay='';c.classList.add('ok');c.removeEventListener('transitionend',f)})})});
   document.querySelectorAll('.grilla-3,.tres,.planes,.casos,.lista-bonos').forEach(function(g){Array.prototype.forEach.call(g.children,function(c,i){c.style.transitionDelay=(i%3)*90+'ms'})});
 
@@ -1001,10 +1047,19 @@ footer nav a:hover{color:var(--sol)}
   ];
   var hp=document.getElementById('hsPista');
   hp.innerHTML=SERV.map(function(s){return '<article class="srv vidrio'+(s.ia?' ia':'')+'" data-tilt><div class="num"><span>'+s.n+' / '+esc(s.t)+'</span><span>'+s.k+'</span></div><h3>'+esc(s.h)+'</h3><p>'+esc(s.d)+'</p><div class="chips-srv">'+(s.ia?'<span class="chip estrella">★ El diferencial NIKA</span>':'')+'<span class="chip">'+esc(s.c)+'</span></div><ul>'+s.it.map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ul><span class="kata" aria-hidden="true">'+s.k+'</span></article>'}).join('');
-  var cuenta=document.getElementById('cuenta'),HZ=[];
-  function altoHS(){HZ.forEach(function(h){h.dist=Math.max(0,h.pista.scrollWidth-innerWidth+80);h.sec.style.height=innerWidth>900?(innerHeight+h.dist)+'px':''})}
-  function armarHS(){HZ=Array.prototype.map.call(document.querySelectorAll('.hs'),function(sec){return{sec:sec,pista:sec.querySelector('.pista'),barra:sec.querySelector('.barra i'),der:sec.dataset.dir==='der',dist:0,pr:0}});altoHS()}
+  var cuenta=document.getElementById('cuenta'),HZ=[],metC=document.querySelector('.met-carril'),MET={el:metC,dist:0},VH=innerHeight,VW=innerWidth;
+  /* en el celular, el alto solo se recalcula si cambia el ancho (así no salta cuando se esconde la barra del navegador) */
+  function altoHS(){if(innerWidth>900||innerWidth!==VW)VH=innerHeight;VW=innerWidth;var cel=innerWidth<=900;
+    HZ.forEach(function(h){h.dist=Math.max(0,h.pista.scrollWidth-innerWidth+(cel?0:80));h.sec.style.height=(!cel||!h.carrusel)?(VH+h.dist)+'px':''});
+    MET.dist=cel?Math.max(0,document.getElementById('pasos').offsetWidth+40-innerWidth):0;metC.style.height=cel?(VH+MET.dist)+'px':''}
+  function armarHS(){HZ=Array.prototype.map.call(document.querySelectorAll('.hs'),function(sec){return{sec:sec,pista:sec.querySelector('.pista'),barra:sec.querySelector('.barra i'),der:sec.dataset.dir==='der',carrusel:sec.classList.contains('carrusel'),dist:0,pr:0}});altoHS()}
   addEventListener('resize',altoHS);addEventListener('load',altoHS);
+  /* carruseles del celular con puntitos */
+  function puntos(cont,n){var d=document.createElement('div');d.className='puntos';d.setAttribute('aria-hidden','true');d.innerHTML=new Array(n+1).join('<i></i>');cont.parentNode.insertBefore(d,cont.nextSibling);
+    function act(){var k=0,c=cont.scrollLeft+cont.clientWidth/2,best=1e9;Array.prototype.forEach.call(cont.children,function(ch,i){var m=Math.abs(ch.offsetLeft+ch.offsetWidth/2-c);if(m<best){best=m;k=i}});
+      Array.prototype.forEach.call(d.children,function(x,i){x.classList.toggle('on',i===k)});if(cont.id==='hsPista'&&innerWidth<=900)cuenta.innerHTML='<b>0'+(k+1)+'</b> / 06'}
+    cont.addEventListener('scroll',act,{passive:true});addEventListener('resize',act);setTimeout(act,50)}
+  puntos(hp,6);puntos(document.getElementById('problemasGrid'),6);
 
   /* Planes */
   var PLANES=[
@@ -1013,7 +1068,7 @@ footer nav a:hover{color:var(--sol)}
     {n:'03',id:'Pro',ancla:1,para:'Para escalar y recibir consultas todos los meses.',mes:890,alta:1000,it:['2 redes + comunidad','16 posts + 6 reels','Historias diarias','Comentarios y mensajes las 24 h','Web de 5 páginas + blog','Anuncios en Meta y Google','2 newsletters y 2 artículos','10 h de cambios web e identidad'],ia:'IA: asistente multicanal 24 h',ex:['Dos redes gestionadas con una estrategia de crecimiento, más la gestión activa de tu comunidad: interacción, menciones y conversación con tus seguidores.','Dieciséis publicaciones y seis videos cortos por mes, con guion, edición y una línea visual consistente, para sostener el crecimiento y la interacción.','Historias todos los días para que tu marca esté presente a diario en la pantalla de tus clientes.','Comentarios y mensajes atendidos las 24 horas, con apoyo de IA fuera de horario, para que ninguna consulta se enfríe.','Un sitio de hasta cinco páginas con blog integrado, pensado para posicionarte en Google y convertir visitas en consultas.','Campañas en Meta y Google Ads: creamos, segmentamos, optimizamos y reportamos resultados. La inversión en anuncios se paga aparte, directo a la plataforma.','Dos emails al mes a tu base de contactos y dos artículos de blog optimizados para SEO que te ayudan a aparecer en las búsquedas.','Diez horas por mes para evolucionar tu web, sumar contenido o desarrollar piezas de identidad de marca.'],iaEx:'Un asistente con IA que atiende tu web, WhatsApp e Instagram las 24 horas: responde, califica las consultas y te pasa las que están listas para cerrar.'},
     {n:'04',id:'Diamante',para:'Tu departamento digital completo.',mes:1390,alta:1500,it:['4 redes + comunidad','24 posts + 10 reels','Historias diarias','Comentarios y mensajes las 24 h','Web o tienda online','Anuncios en Meta y Google','4 newsletters y 4 artículos','12 h de cambios web e identidad','Responsable de cuenta'],ia:'IA: agente a medida integrado',ex:['Cuatro redes gestionadas con estrategia propia para cada una, más la gestión activa de tu comunidad todos los días.','Contenido casi diario: veinticuatro publicaciones y diez videos cortos por mes, con producción profesional y una estrategia de crecimiento.','Historias todos los días para que tu marca esté presente a diario en la pantalla de tus clientes.','Comentarios y mensajes atendidos las 24 horas, con apoyo de IA fuera de horario, para que ninguna consulta se enfríe.','Un sitio corporativo o una tienda online con catálogo, carrito y medios de pago, integrada con tus redes.','Campañas en Meta y Google Ads con estrategia de embudo completo: creamos, segmentamos, optimizamos y reportamos resultados. La inversión en anuncios se paga aparte.','Un email por semana y cuatro artículos de blog por mes, para mantener activa a tu audiencia y crecer en Google.','Doce horas por mes para evolucionar tu web o tienda y desarrollar piezas de identidad de marca.','Una persona del equipo dedicada únicamente a tu cuenta: coordina todo el trabajo, conoce tu negocio en profundidad y es tu contacto directo, con respuesta prioritaria.'],iaEx:'Un agente de IA hecho para tu negocio, conectado a tus sistemas (agenda, stock, CRM o tienda) para automatizar ventas, turnos y atención.'}
   ];
-  var modo='mensual',DESC={mensual:0,trimestral:.2,anual:.5},POR={trimestral:'pagando el trimestre',anual:'pagando el año'},tc=0,grid=document.getElementById('planesGrid');
+  var modo='mensual',DESC={mensual:0,trimestral:.2,anual:.5},POR={trimestral:'pagando el trimestre',anual:'pagando el año'},tc=0,grid=document.getElementById('planesGrid');puntos(grid,4);
   function usd(v){return v.toLocaleString('es-AR')}
   function pintar(){grid.innerHTML=PLANES.map(function(p,i){var alta=p.alta*(1-DESC[modo]),mes=Math.round(p.mes*(1-DESC[modo]));
     return '<article class="plan vidrio rv in'+(p.ancla?' ancla':'')+'" data-tilt style="transition-delay:'+i*80+'ms"><div class="nivel"><span>PLAN '+p.n+' / 04</span>'+(p.ancla?'<span class="badge">MÁS ELEGIDO</span>':'')+'</div><h3>'+p.id+'</h3><p class="para">'+p.para+'</p>'+
@@ -1169,14 +1224,16 @@ footer nav a:hover{color:var(--sol)}
     /* etiquetas del hero con el mouse */
     tags.forEach(function(t){var p=parseFloat(t.dataset.par);t.style.transform='translate('+(NIKA.mouse.nx*p)+'px,'+(-NIKA.mouse.ny*p)+'px)'});
     /* servicios horizontales */
-    if(innerWidth>900)HZ.forEach(function(h){var r=h.sec.getBoundingClientRect(),tot=h.sec.offsetHeight-innerHeight;if(r.bottom<-50||r.top>innerHeight+50)return;
+    var cel=innerWidth<=900;
+    HZ.forEach(function(h){if(cel&&h.carrusel)return;var r=h.sec.getBoundingClientRect(),tot=h.sec.offsetHeight-innerHeight;if(r.bottom<-50||r.top>innerHeight+50)return;
       var pr=tot>0?Math.min(1,Math.max(0,-r.top/tot)):0;h.pr=pr;h.pista.style.transform='translateX('+(h.der?-(1-pr)*h.dist:-pr*h.dist)+'px)';
       if(h.barra)h.barra.style.transform='scaleX('+pr+')';if(h.sec.id==='servicios')cuenta.innerHTML='<b>0'+Math.min(6,1+Math.floor(pr*5.999))+'</b> / 06'});
     /* método */
-    var pr2=pasos.getBoundingClientRect(),pp=Math.min(1,Math.max(0,(innerHeight*.75-pr2.top)/(pr2.height+innerHeight*.2)));
+    var pp;if(cel){var mr2=metC.getBoundingClientRect(),mt=metC.offsetHeight-innerHeight;pp=mt>0?Math.min(1,Math.max(0,-mr2.top/mt)):0;pasos.style.transform='translateX('+(-pp*MET.dist)+'px)'}
+    else{var pr2=pasos.getBoundingClientRect();pp=Math.min(1,Math.max(0,(innerHeight*.75-pr2.top)/(pr2.height+innerHeight*.2)));pasos.style.transform=''}
     pasos.style.setProperty('--p',pp.toFixed(3));pasoEls.forEach(function(p,i){p.classList.toggle('on',pp>=i/3)});
     /* manifiesto */
-    var mr=man.getBoundingClientRect(),mp=innerWidth>900?Math.min(1,Math.max(0,(innerWidth*1.05-mr.left)/(innerWidth*.75))):Math.min(1,Math.max(0,(innerHeight*.85-mr.top)/(innerHeight*.6)));
+    var mr=man.getBoundingClientRect(),mp=Math.min(1,Math.max(0,(innerWidth*1.05-mr.left)/(innerWidth*.75)));
     manW.forEach(function(s,i){s.classList.toggle('dim',i/manW.length>=mp)});
     /* sección activa para R-bot */
     var c=innerHeight*.5,act=secciones[0];
