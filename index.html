@@ -12,6 +12,8 @@
 <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="claude:viewport-fit-sides" content="cover">
+<!-- el importmap tiene que ir antes de cualquier módulo o precarga de módulo: si no, Safari y otros navegadores lo ignoran y no carga el 3D -->
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" crossorigin>
 <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/environments/RoomEnvironment.js" crossorigin>
@@ -680,7 +682,7 @@ footer nav a:hover{color:var(--sol)}
 @media (prefers-reduced-motion:reduce){.hw .hw-murcis{display:none}.hw-arana .hilo,.hw-arana svg,.hw-tela svg{animation:none}}
 </style>
 
-<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
