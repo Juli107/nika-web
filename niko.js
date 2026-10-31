@@ -104,7 +104,7 @@ export function buildNiko(THREE, pose = "frente", face = "feliz", opts = {}) {
   if (dz === "dracula") { // Colmillos
     for (const s of [-1, 1]) { const f = new THREE.Mesh(new THREE.ConeGeometry(0.038, 0.13, 16), new THREE.MeshPhysicalMaterial({ color: 0xFFFFFF, roughness: 0.15, clearcoat: 1 }));
       f.rotation.z = Math.PI; f.position.set(0.07 * s, (mouth.geometry.type === "TorusGeometry" ? -0.1 : 0) - 0.045, 0.04); f.castShadow = true; mouth.add(f); } }
-  if (face === "triste") { const tear = add(head, new THREE.Mesh(new THREE.SphereGeometry(0.06, 24, 24), new THREE.MeshPhysicalMaterial({ color: 0xBFD8FF, roughness: 0, transmission: 0.6, thickness: 0.2, clearcoat: 1 }))); tear.scale.y = 1.35; tear.position.set(0.42, -0.3, 0.86); }
+  if (face === "triste") { const tear = add(head, new THREE.Mesh(new THREE.SphereGeometry(0.06, 24, 24), new THREE.MeshPhysicalMaterial({ color: 0xBFD8FF, roughness: 0, transparent: true, opacity: 0.8, clearcoat: 1 }))); tear.scale.y = 1.35; tear.position.set(0.42, -0.3, 0.86); }
   mouth.position.set(face === "pensando" ? 0.08 : 0, -0.52, ["enojado","triste","frustrado","error","confundido","sinenergia","dormido"].includes(face) ? 0.9 : 0.86); mouth.rotation.x = -0.5; add(head, mouth);
 
   // Antena con el sol: todo cuelga de un pivote en la cabeza, así el sol nunca se separa del tallo
@@ -191,7 +191,7 @@ function disfrazar(THREE, dz, P) {
     const cuelloIn = add(body, new THREE.Mesh(new THREE.CylinderGeometry(0.84, 0.64, 0.48, 64, 1, true, Math.PI * 0.52, Math.PI * 0.96), new THREE.MeshStandardMaterial({ color: 0xB0141F, roughness: 0.6, side: THREE.BackSide }))); cuelloIn.position.copy(cuello.position);
     // Medallón con rubí
     const med = add(body, new THREE.Mesh(new THREE.TorusGeometry(0.075, 0.018, 12, 32), fis(C.sol, { metalness: 0.9, roughness: 0.2 }))); med.position.set(0, 0.42, 0.63);
-    const rubi = add(body, new THREE.Mesh(new THREE.SphereGeometry(0.055, 24, 24), fis(0xD0101C, { roughness: 0.05, transmission: 0.3, clearcoat: 1, emissive: 0x500006 }))); rubi.position.set(0, 0.42, 0.65);
+    const rubi = add(body, new THREE.Mesh(new THREE.SphereGeometry(0.055, 24, 24), fis(0xD0101C, { roughness: 0.05, clearcoat: 1, emissive: 0x6A0008 }))); rubi.position.set(0, 0.42, 0.65);
   }
 
   if (dz === "lobo") {

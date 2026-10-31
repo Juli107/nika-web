@@ -6,8 +6,8 @@ export function iniciar(THREE, op = {}) {
   lienzo.id = "hw"; lienzo.setAttribute("aria-hidden", "true");
   lienzo.style.cssText = "position:fixed;inset:0;width:100%;height:100%;display:block;pointer-events:none;z-index:1";
   document.body.insertBefore(lienzo, document.getElementById("fx"));
-  const R = new THREE.WebGLRenderer({ canvas: lienzo, antialias: true, alpha: true });
-  R.setPixelRatio(Math.min(devicePixelRatio, movil ? 1.25 : 1.75));
+  const R = new THREE.WebGLRenderer({ canvas: lienzo, antialias: !movil, alpha: true, powerPreference: "low-power" });
+  R.setPixelRatio(Math.min(devicePixelRatio, movil ? 1 : 1.5));
   R.setClearColor(0x000000, 0);
   R.toneMapping = THREE.ACESFilmicToneMapping; R.outputColorSpace = THREE.SRGBColorSpace;
 
@@ -24,7 +24,7 @@ export function iniciar(THREE, op = {}) {
   const aMundo = (x, y, v) => v.set((x - W / 2) * k, -(y - H / 2) * k, 0);
 
   const add = (p, o) => (p.add(o), o);
-  const esfera = (r, m, s = 20) => new THREE.Mesh(new THREE.SphereGeometry(r, s, Math.round(s * .7)), m);
+  const esfera = (r, m, s = 14) => new THREE.Mesh(new THREE.SphereGeometry(r, s, Math.round(s * .7)), m);
   function hueso(p, a, b, r0, r1, m) { // cilindro de a a b
     const d = new THREE.Vector3().subVectors(b, a), largo = d.length();
     const c = add(p, new THREE.Mesh(new THREE.CylinderGeometry(r1, r0, largo, 6), m));
@@ -89,7 +89,7 @@ export function iniciar(THREE, op = {}) {
   }
 
   /* ---------- Araña ---------- */
-  const caparazon = new THREE.MeshPhysicalMaterial({ color: 0x0E0B12, roughness: .22, clearcoat: 1, clearcoatRoughness: .15, sheen: 1, sheenColor: new THREE.Color(0x9B8CFF) });
+  const caparazon = new THREE.MeshStandardMaterial({ color: 0x0E0B12, roughness: .2, metalness: .35 });
   const pata = new THREE.MeshStandardMaterial({ color: 0x17121B, roughness: .5 });
   const marca = new THREE.MeshStandardMaterial({ color: 0xFF7A1A, emissive: 0xFF3B10, emissiveIntensity: .9 });
   const seda = new THREE.LineBasicMaterial({ color: 0xE8E4F2, transparent: true, opacity: .45 });
@@ -158,8 +158,13 @@ export function iniciar(THREE, op = {}) {
   document.documentElement.classList.add("hw3d");
 
   const v = new THREE.Vector3(), v2 = new THREE.Vector3(), reloj = new THREE.Clock(); let t = 0;
+  // en el celular se dibuja a 30 cuadros por segundo y nunca se dibuja cuando no hay ningún bicho a la vista,
+  // así no le quita fluidez a R-bot
+  let impar = false, habia = true;
   function cuadro() {
-    const dt = Math.min(reloj.getDelta(), .05); t += dt; telaMat.uniforms.uT.value = t;
+    requestAnimationFrame(cuadro);
+    if (movil && (impar = !impar)) return;
+    const dt = Math.min(reloj.getDelta(), .1); t += dt; telaMat.uniforms.uT.value = t;
     for (const m of MURCI) moverMurci(m, t, dt);
     for (const w of TELAS) {
       const r = w.el.getBoundingClientRect(), ver = r.bottom > -40 && r.top < H + 40 && r.width > 0; w.g.visible = ver; if (!ver) continue;
@@ -178,8 +183,9 @@ export function iniciar(THREE, op = {}) {
       const pos = a.hilo.geometry.attributes.position; pos.setXYZ(0, v.x, v.y, 0); pos.setXYZ(1, v2.x, v2.y, 0); pos.needsUpdate = true;
       for (const p of a.patas) p.cad.rotation.z = p.base + Math.sin(t * 5 + p.f) * .12 + Math.sin(t * .55 + a.f) * .08;
     }
-    R.render(escena, cam);
-    requestAnimationFrame(cuadro);
+    const hay = MURCI.some((m) => m.g.visible) || TELAS.some((w) => w.g.visible) || ARANAS.some((a) => a.g.visible);
+    if (hay) R.render(escena, cam); else if (habia) R.clear();
+    habia = hay;
   }
   cuadro();
 }

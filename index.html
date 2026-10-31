@@ -1696,7 +1696,7 @@ try {
   const libre = window.requestIdleCallback || ((f) => setTimeout(f, 150));
   setTimeout(function prearmar(){ const n = previos.shift(); if (!n) return;
     try { getLook(n); } catch (e) {}
-    libre(prearmar, { timeout: 1500 }); }, 4200);
+    libre(prearmar); }, 4200);
 } catch (err) {
   console.warn("Sin WebGL:", err);
   document.body.classList.add("sin-3d");
