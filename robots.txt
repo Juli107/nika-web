@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /firma.html
+Disallow: /firma/
+
+Sitemap: https://digitalnika.com/sitemap.xml

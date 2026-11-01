@@ -3,11 +3,30 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="description" content="NIKA, agencia de marketing digital en Argentina: marketing, gestión comercial, reportes, analítica, mejora de procesos e IA a medida en un solo plan mensual. Probá 10 días gratis.">
-<meta property="og:title" content="NIKA · Liberá tu marca">
-<meta property="og:description" content="Web, redes, newsletter, contenido e IA a medida en un solo plan mensual. Probá 10 días gratis.">
+<title>NIKA · Agencia de marketing digital en Argentina | Liberá tu marca</title>
+<meta name="description" content="Agencia de marketing digital en Argentina: web, redes sociales, contenido, anuncios en Meta y Google e IA a medida en un solo plan mensual. Probá 10 días gratis.">
+<link rel="canonical" href="https://digitalnika.com/">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="NIKA">
+<meta property="og:locale" content="es_AR">
+<meta property="og:url" content="https://digitalnika.com/">
+<meta property="og:title" content="NIKA · Agencia de marketing digital en Argentina">
+<meta property="og:description" content="Web, redes, contenido, anuncios e IA a medida en un solo plan mensual. Probá 10 días gratis.">
+<meta property="og:image" content="https://digitalnika.com/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="NIKA, agencia de marketing digital: Liberá tu marca">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="NIKA · Agencia de marketing digital en Argentina">
+<meta name="twitter:description" content="Web, redes, contenido, anuncios e IA a medida en un solo plan mensual. Probá 10 días gratis.">
+<meta name="twitter:image" content="https://digitalnika.com/img/og.jpg">
 <meta name="theme-color" content="#0B0C10">
-<title>NIKA · Liberá tu marca</title>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[
+{"@type":"ProfessionalService","@id":"https://digitalnika.com/#nika","name":"NIKA","alternateName":"NIKA Agencia Digital","description":"Agencia de marketing digital en Argentina: web, redes sociales, newsletter, contenido, anuncios e inteligencia artificial a medida en un solo plan mensual.","url":"https://digitalnika.com/","logo":"https://digitalnika.com/apple-touch-icon.png","image":"https://digitalnika.com/img/og.jpg","email":"agency@digitalnika.com","telephone":"+54 9 11 3389-4270","address":{"@type":"PostalAddress","addressCountry":"AR"},"areaServed":{"@type":"Country","name":"Argentina"},"priceRange":"USD 300 - 1390 por mes","sameAs":["https://instagram.com/nikadigitalagency"],"contactPoint":{"@type":"ContactPoint","contactType":"ventas","email":"agency@digitalnika.com","telephone":"+54 9 11 3389-4270","availableLanguage":"es"},
+"hasOfferCatalog":{"@type":"OfferCatalog","name":"Planes mensuales","itemListElement":[
+{"@type":"Offer","name":"Plan Básico","price":"300","priceCurrency":"USD"},{"@type":"Offer","name":"Plan Medium","price":"570","priceCurrency":"USD"},{"@type":"Offer","name":"Plan Pro","price":"890","priceCurrency":"USD"},{"@type":"Offer","name":"Plan Diamante","price":"1390","priceCurrency":"USD"}]}},
+{"@type":"WebSite","@id":"https://digitalnika.com/#web","url":"https://digitalnika.com/","name":"NIKA","inLanguage":"es-AR","publisher":{"@id":"https://digitalnika.com/#nika"}}]}</script>
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -1154,6 +1173,7 @@ footer nav a:hover{color:var(--sol)}
     '<div class="cuerpo"><span class="rubro">'+esc(c.rubro)+'</span><h3>'+esc(c.marca)+'</h3><div class="tags">'+c.servicios.map(function(s){return '<span>'+esc(s)+'</span>'}).join('')+'</div><p class="res">'+esc(c.resultado)+'</p>'+
     (hay?'<a class="ver" href="'+esc(c.link)+'" target="_blank" rel="noopener">Ver portfolio ↗</a>':'<span class="ver" aria-disabled="true">Link del portfolio pendiente</span>')+'</div></article>'}).join('');
   document.getElementById('casosGrid').insertAdjacentHTML('beforeend','<div class="marcas"><p class="eyebrow" style="color:var(--gris)">Marcas que confían en NIKA</p><div class="fila">'+MARCAS.map(function(m){return '<div class="slot">'+esc(m)+'</div>'}).join('')+'<a class="slot proximo" href="#contacto"><span>Vos sos el próximo</span><i aria-hidden="true">→</i></a></div></div>');
+  if(!CASOS.some(function(c){return c.link})){document.getElementById('casos').hidden=true;document.querySelectorAll('a[href="#casos"]').forEach(function(a){(a.closest('li')||a).hidden=true})}
   document.querySelectorAll('#casosGrid .rv').forEach(function(el,i){el.style.transitionDelay=(i%3)*90+'ms';io.observe(el)});
 
   /* Manifiesto: se ilumina palabra por palabra con el scroll */

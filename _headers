@@ -1,0 +1,13 @@
+# Las direcciones de prueba de Cloudflare no se indexan: Google solo tiene que ver digitalnika.com
+https://nika-web-2t0.pages.dev/*
+  X-Robots-Tag: noindex
+https://:version.nika-web-2t0.pages.dev/*
+  X-Robots-Tag: noindex
+
+/firma.html
+  X-Robots-Tag: noindex
+
+/img/*
+  Cache-Control: public, max-age=604800
+/firma/*
+  Cache-Control: public, max-age=604800
