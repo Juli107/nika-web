@@ -1234,7 +1234,7 @@ footer nav a:hover{color:var(--sol)}
       Nombre:nb,'Marca o negocio':v('fMarca')||'—','WhatsApp o email':ct,'Plan que le interesa':v('fPlan'),'Qué quiere liberar primero':v('fMsg')||'—'})})
     .then(function(r){return r.json()}).then(function(d){if(String(d.success)!=='true')throw 0;
       document.getElementById('form').querySelectorAll('input,textarea').forEach(function(i){i.value=''});
-      ok.innerHTML='¡Gracias, '+esc(nb)+'! Recibimos tu consulta y te respondemos en menos de 3 h hábiles. '})
+      ok.innerHTML='¡Gracias, '+esc(nb)+'! Recibimos tu consulta y te respondemos en breve. '})
     .catch(function(){ok.innerHTML='No pudimos enviar el formulario. Probá de nuevo en un momento o escribinos a <a href="mailto:agency@digitalnika.com?subject='+encodeURIComponent('Consulta web: '+nb)+'&body='+encodeURIComponent(txt)+'">agency@digitalnika.com</a>.'})
     .then(function(){btn.disabled=false;btn.style.opacity=''})});
   document.getElementById('anio').textContent=new Date().getFullYear();
