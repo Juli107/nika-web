@@ -22,6 +22,14 @@
   $('#wa').href = waLink('¡Hola Bliss! Vi la web y quiero hacer un pedido 🍪');
   $('#giftbtn').href = waLink('¡Hola Bliss! Quiero cotizar cajas para regalo. Cantidad aproximada: ___ · Fecha de entrega: ___');
   $('#giftbtn').target = '_blank';
+  document.querySelectorAll('.wa-ev').forEach(function(e){ e.href = waLink('¡Hola Bliss! Quiero consultar por cookies para un evento. Fecha: ___ · Cantidad aproximada: ___'); e.target = '_blank'; });
+  var bx = $('#boxart');
+  if (bx) {
+    bx.addEventListener('click', function(){ bx.classList.toggle('open'); });
+    if ('IntersectionObserver' in window && matchMedia('(hover: none)').matches) {
+      new IntersectionObserver(function(es){ es.forEach(function(en){ bx.classList.toggle('open', en.intersectionRatio > .6); }); }, {threshold:[0,.6,1]}).observe(bx);
+    }
+  }
 
   /* aparición al hacer scroll */
   var io = new IntersectionObserver(function (es) {

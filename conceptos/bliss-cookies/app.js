@@ -185,7 +185,7 @@ function loop() {
   const leave = clamp(1 - exitR.top / H);                          // 0 → 1 al entrar en sabores
 
   // posición: portada a la derecha (arriba en el celu) → centro-derecha en el proceso → se va al salir
-  const heroX = mobile ? 0 : 1.55, heroY = mobile ? 0.62 : 0.05, heroS = mobile ? 0.62 : 1.05;
+  const heroX = mobile ? 0 : 1.55, heroY = mobile ? -0.12 : -0.6, heroS = mobile ? 0.62 : 1.05;
   const procX = mobile ? 0 : 1.05, procY = mobile ? 0.82 : 0, procS = mobile ? 0.5 : 0.95;
   const e = ease(enter);
   let x = lerp(heroX, procX, e), y = lerp(heroY, procY, e), s = lerp(heroS, procS, e);
