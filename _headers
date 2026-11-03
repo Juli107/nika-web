@@ -11,3 +11,7 @@ https://:version.nika-web-2t0.pages.dev/*
   Cache-Control: public, max-age=604800
 /firma/*
   Cache-Control: public, max-age=604800
+
+# Conceptos para clientes: se comparten por link, no se indexan
+/conceptos/*
+  X-Robots-Tag: noindex, nofollow

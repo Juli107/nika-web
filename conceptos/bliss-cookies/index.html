@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Bliss Cookies · Bake. Bite. Bliss. — Concepto NIKA</title>
+<meta name="description" content="Concepto de web inmersiva hecho por NIKA para Bliss Cookies: cookies de 110 g con chocolate belga, de Recoleta y Nuevo Quilmes.">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#140C0A">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='28' fill='%23C98A4B'/%3E%3Ccircle cx='22' cy='24' r='5' fill='%233B1E12'/%3E%3Ccircle cx='40' cy='22' r='4' fill='%233B1E12'/%3E%3Ccircle cx='36' cy='40' r='6' fill='%233B1E12'/%3E%3Ccircle cx='20' cy='42' r='3.5' fill='%233B1E12'/%3E%3C/svg%3E">
+<!-- el importmap va antes de cualquier módulo o precarga (Safari) -->
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,500;1,9..144,700&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root{
+  --cacao:#140C0A; --cacao2:#1E1310; --cacao3:#2A1A15;
+  --crema:#F7EDE4; --crema2:#D9C8BA; --gris:#A8968A;
+  --rosa:#FF8FB8; --rosa2:#FF4F8B; --oro:#E7B477; --masa:#C98A4B;
+  --line:rgba(247,237,228,.12); --glass:rgba(30,19,16,.62);
+  --grad:linear-gradient(100deg,#FFB3CF 0%,#FF8FB8 35%,#FF4F8B 100%);
+  --r:22px; --pad:clamp(16px,5vw,64px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--cacao);color:var(--crema);font-family:'DM Sans',system-ui,sans-serif;font-size:17px;line-height:1.55;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+::selection{background:var(--rosa2);color:#fff}
+.mono{font-family:'JetBrains Mono',monospace;letter-spacing:.18em;text-transform:uppercase;font-size:11px}
+h1,h2,h3{font-family:'Fraunces',Georgia,serif;font-weight:700;letter-spacing:-.02em;line-height:1}
+em.g,.g{font-style:italic;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:var(--rosa);padding-right:.06em}
+
+/* fondo */
+.bgfx{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(60vw 60vw at 85% 10%,rgba(255,79,139,.16),transparent 60%),
+             radial-gradient(50vw 50vw at 0% 90%,rgba(231,180,119,.12),transparent 60%),var(--cacao)}
+.grain{position:fixed;inset:-50%;z-index:1;pointer-events:none;opacity:.07;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation:grain 1.2s steps(6) infinite}
+@keyframes grain{0%{transform:translate(0,0)}25%{transform:translate(-3%,2%)}50%{transform:translate(2%,-3%)}75%{transform:translate(-2%,-1%)}100%{transform:translate(1%,3%)}}
+#gl{position:fixed;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;transition:opacity .5s}
+.fallback{position:fixed;z-index:2;right:8vw;top:22vh;width:min(42vw,420px);aspect-ratio:1;border-radius:50%;display:none;pointer-events:none;
+  background:radial-gradient(circle at 30% 28%,#3B1E12 0 6%,transparent 6.5%),radial-gradient(circle at 62% 35%,#3B1E12 0 7%,transparent 7.5%),radial-gradient(circle at 45% 64%,#3B1E12 0 8%,transparent 8.5%),radial-gradient(circle at 72% 68%,#3B1E12 0 5%,transparent 5.5%),radial-gradient(circle at 40% 35%,#E7B477,#C98A4B 55%,#8E5427);
+  box-shadow:0 40px 80px rgba(0,0,0,.5),inset 0 -12px 30px rgba(80,40,10,.5)}
+.no-gl .fallback{display:block}
+.no-gl #gl{display:none}
+main,header,footer,.concept{position:relative;z-index:3}
+
+/* cinta de concepto */
+.concept{display:flex;justify-content:center;gap:10px;align-items:center;flex-wrap:wrap;text-align:center;padding:8px 16px;background:#0B0C10;color:#C9CCD3;font-size:12px;border-bottom:1px solid rgba(255,255,255,.08)}
+.concept b{color:#fff}
+.concept a{color:#FFC83D;text-decoration:none;font-weight:700}
+
+/* nav */
+header{position:sticky;top:0;z-index:20;transition:background .3s,backdrop-filter .3s}
+header.solid{background:rgba(20,12,10,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px var(--pad);max-width:1400px;margin:0 auto}
+.logo{font-family:'Fraunces',serif;font-weight:900;font-style:italic;font-size:30px;letter-spacing:-.03em;text-decoration:none;display:flex;align-items:center;gap:6px}
+.logo span{font-family:'JetBrains Mono',monospace;font-style:normal;font-weight:500;font-size:10px;letter-spacing:.25em;color:var(--gris);margin-top:8px}
+.links{display:flex;gap:26px;list-style:none}
+.links a{text-decoration:none;color:var(--crema2);font-size:14.5px;font-weight:500;position:relative}
+.links a:after{content:'';position:absolute;left:0;right:0;bottom:-4px;height:2px;background:var(--grad);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.links a:hover{color:#fff}.links a:hover:after{transform:scaleX(1)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;border:0;cursor:pointer;font:700 15px 'DM Sans',sans-serif;text-decoration:none;color:#1B0710;background:var(--grad);padding:14px 24px;border-radius:999px;box-shadow:0 10px 30px rgba(255,79,139,.28);transition:transform .25s,box-shadow .25s,filter .25s;min-height:48px}
+.btn:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(255,79,139,.4)}
+.btn:active{transform:translateY(0) scale(.98)}
+.btn[disabled]{filter:grayscale(.8) brightness(.7);cursor:not-allowed;transform:none;box-shadow:none}
+.btn.ghost{background:transparent;color:var(--crema);border:1px solid rgba(247,237,228,.3);box-shadow:none}
+.btn.ghost:hover{border-color:var(--rosa);color:#fff}
+.btn.sm{padding:10px 18px;font-size:14px;min-height:42px}
+.burger{display:none;background:none;border:1px solid var(--line);color:var(--crema);border-radius:12px;width:44px;height:44px;font-size:20px;cursor:pointer}
+
+/* hero */
+.hero{min-height:calc(100svh - 110px);display:flex;align-items:center;padding:40px var(--pad) 80px;max-width:1400px;margin:0 auto}
+.hero .txt{max-width:600px}
+.hero .mono{color:var(--rosa)}
+.hero h1{font-size:clamp(56px,9.5vw,138px);margin:18px 0 22px;font-weight:900}
+.hero h1 .w{display:inline-block;opacity:0;transform:translateY(40px) rotate(4deg);animation:up .9s cubic-bezier(.2,.8,.2,1) forwards}
+.hero h1 .w:nth-child(2){animation-delay:.12s}.hero h1 .w:nth-child(3){animation-delay:.24s}
+@keyframes up{to{opacity:1;transform:none}}
+.hero p.lead{font-size:clamp(17px,1.6vw,20px);color:var(--crema2);max-width:500px;opacity:0;animation:up .9s .4s forwards}
+.hero .ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px;opacity:0;animation:up .9s .55s forwards}
+.stats{display:flex;gap:28px;margin-top:44px;flex-wrap:wrap;opacity:0;animation:up .9s .7s forwards}
+.stat b{display:block;font-family:'Fraunces',serif;font-size:34px;line-height:1}
+.stat small{color:var(--gris);font-size:13px}
+.hint{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);color:var(--gris);display:flex;flex-direction:column;align-items:center;gap:8px}
+.hint i{width:22px;height:34px;border:1.5px solid var(--gris);border-radius:12px;position:relative}
+.hint i:after{content:'';position:absolute;left:50%;top:6px;width:3px;height:7px;background:var(--rosa);border-radius:2px;transform:translateX(-50%);animation:wheel 1.6s infinite}
+@keyframes wheel{to{transform:translate(-50%,10px);opacity:0}}
+.crumb{position:fixed;z-index:4;pointer-events:none;width:6px;height:6px;border-radius:2px;background:var(--masa);animation:fall 1s ease-in forwards}
+@keyframes fall{to{transform:translate(var(--dx),70px) rotate(220deg);opacity:0}}
+
+/* marquee */
+.marq{overflow:hidden;border-block:1px solid var(--line);background:rgba(20,12,10,.55);backdrop-filter:blur(6px)}
+.marq div{display:flex;width:max-content;animation:mq 26s linear infinite}
+.marq span{font-family:'Fraunces',serif;font-style:italic;font-size:clamp(24px,3.4vw,40px);padding:18px 28px;white-space:nowrap}
+.marq span:nth-child(even){color:var(--rosa)}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* proceso pinned */
+.proc{height:520vh;position:relative}
+.proc .stick{position:sticky;top:0;height:100svh;display:flex;align-items:center;padding:0 var(--pad);max-width:1400px;margin:0 auto}
+.proc .panel{max-width:440px;position:relative;min-height:300px;width:100%}
+.proc .head .mono{color:var(--rosa)}
+.proc .head h2{font-size:clamp(34px,4.4vw,58px);margin:12px 0 26px}
+.step{position:absolute;left:0;right:0;opacity:0;transform:translateY(24px);transition:opacity .5s,transform .5s}
+.step.on{opacity:1;transform:none}
+.step .n{font-family:'Fraunces',serif;font-style:italic;font-size:64px;line-height:1;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;display:block}
+.step h3{font-size:30px;margin:6px 0 10px}
+.step p{color:var(--crema2)}
+.bar{position:absolute;left:var(--pad);bottom:40px;display:flex;gap:8px}
+.bar i{width:34px;height:4px;border-radius:4px;background:rgba(247,237,228,.16);overflow:hidden;position:relative}
+.bar i b{position:absolute;inset:0;background:var(--grad);transform:scaleX(0);transform-origin:left}
+.callout{position:fixed;z-index:3;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--crema);padding:8px 12px;border-radius:999px;background:rgba(20,12,10,.75);border:1px solid rgba(255,143,184,.5);opacity:0;transition:opacity .4s;white-space:nowrap}
+.callout:before{content:'';display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--rosa);margin-right:8px;vertical-align:1px;box-shadow:0 0 0 4px rgba(255,143,184,.25)}
+.callout.on{opacity:1}
+
+/* secciones */
+section.s{padding:120px var(--pad);max-width:1400px;margin:0 auto}
+.sh{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:48px}
+.sh .mono{color:var(--rosa)}
+.sh h2{font-size:clamp(40px,6vw,84px);margin-top:12px}
+.sh p{max-width:420px;color:var(--crema2)}
+.rv{opacity:0;transform:translateY(40px);transition:opacity .9s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1)}
+.rv.in{opacity:1;transform:none}
+
+/* sabores */
+.flavors{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;perspective:1000px}
+.fl{position:relative;border-radius:var(--r);padding:26px 22px 24px;background:linear-gradient(170deg,var(--cacao3),var(--cacao2));border:1px solid var(--line);transform-style:preserve-3d;transition:transform .2s ease-out,border-color .3s;min-height:380px;display:flex;flex-direction:column;overflow:hidden}
+.fl:hover{border-color:rgba(255,143,184,.55)}
+.fl .ck{width:72%;aspect-ratio:1;margin:6px auto 22px;border-radius:50%;transform:translateZ(50px);transition:transform .5s cubic-bezier(.2,.8,.2,1);box-shadow:0 30px 50px rgba(0,0,0,.45),inset 0 -10px 22px rgba(70,30,10,.55),inset 0 8px 16px rgba(255,230,190,.25)}
+.fl:hover .ck{transform:translateZ(70px) rotate(-18deg) scale(1.05)}
+.ck.belga{background:radial-gradient(circle at 28% 30%,#2A140C 0 8%,transparent 8.5%),radial-gradient(circle at 64% 26%,#2A140C 0 6%,transparent 6.5%),radial-gradient(circle at 50% 58%,#2A140C 0 10%,transparent 10.5%),radial-gradient(circle at 76% 62%,#2A140C 0 6%,transparent 6.5%),radial-gradient(circle at 30% 72%,#2A140C 0 5%,transparent 5.5%),radial-gradient(circle at 42% 38%,#E7B477,#C98A4B 58%,#8E5427)}
+.ck.limon{background:radial-gradient(circle at 30% 30%,#FFF6E8 0 7%,transparent 7.5%),radial-gradient(circle at 66% 34%,#D9375F 0 6%,transparent 6.5%),radial-gradient(circle at 48% 62%,#FFF6E8 0 8%,transparent 8.5%),radial-gradient(circle at 74% 66%,#D9375F 0 5%,transparent 5.5%),radial-gradient(circle at 26% 64%,#D9375F 0 4%,transparent 4.5%),radial-gradient(circle at 42% 38%,#F6DE8F,#E2B65A 58%,#B88432)}
+.ck.temp{background:radial-gradient(circle at 30% 30%,#3B1E12 0 7%,transparent 7.5%),radial-gradient(circle at 62% 36%,#F2D9A6 0 6%,transparent 6.5%),radial-gradient(circle at 50% 64%,#3B1E12 0 9%,transparent 9.5%),radial-gradient(circle at 74% 62%,#F2D9A6 0 5%,transparent 5.5%),radial-gradient(circle at 42% 38%,#8A4E2E,#5E321C 58%,#3A1E10)}
+.ck.drop{background:radial-gradient(circle at 30% 30%,#FF8FB8 0 6%,transparent 6.5%),radial-gradient(circle at 64% 30%,#FFF 0 5%,transparent 5.5%),radial-gradient(circle at 48% 60%,#FF4F8B 0 8%,transparent 8.5%),radial-gradient(circle at 74% 66%,#FFF 0 5%,transparent 5.5%),radial-gradient(circle at 42% 38%,#F3E3CC,#E0C39A 58%,#B68E5E)}
+.fl .tag{position:absolute;top:16px;left:16px}
+.tag{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;padding:5px 10px;border-radius:999px;border:1px solid rgba(255,143,184,.5);color:var(--rosa);background:rgba(20,12,10,.6)}
+.fl h3{font-size:26px;transform:translateZ(30px)}
+.fl p{color:var(--crema2);font-size:15px;margin-top:8px;transform:translateZ(20px)}
+.fl .add{margin-top:auto;padding-top:16px}
+
+/* caja */
+.box{display:grid;grid-template-columns:1.05fr .95fr;gap:28px;align-items:start}
+.card{background:var(--glass);border:1px solid var(--line);border-radius:var(--r);padding:28px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.lbl{display:block;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gris);margin:0 0 10px}
+.seg{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+.seg button{flex:1;min-width:84px;min-height:48px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--crema);font:600 15px 'DM Sans';cursor:pointer;transition:all .2s}
+.seg button small{display:block;font-weight:400;font-size:11.5px;color:var(--gris)}
+.seg button.on{border-color:transparent;background:var(--grad);color:#1B0710}
+.seg button.on small{color:#4A1426}
+.row{display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid var(--line)}
+.row .dot{width:38px;height:38px;border-radius:50%;flex:none;box-shadow:inset 0 -4px 8px rgba(0,0,0,.35)}
+.row .nm{flex:1;font-weight:600}
+.row .nm small{display:block;font-weight:400;color:var(--gris);font-size:13px}
+.qty{display:flex;align-items:center;gap:6px}
+.qty button{width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--crema);font-size:20px;cursor:pointer;transition:.2s}
+.qty button:hover:not([disabled]){border-color:var(--rosa);color:#fff}
+.qty button[disabled]{opacity:.3;cursor:not-allowed}
+.qty b{width:26px;text-align:center;font-family:'Fraunces';font-size:20px}
+.field{width:100%;min-height:48px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--crema);font:16px 'DM Sans';padding:12px 14px;margin-bottom:16px}
+.field:focus{outline:2px solid var(--rosa);outline-offset:1px}
+.check{display:flex;gap:10px;align-items:center;margin:4px 0 20px;cursor:pointer;color:var(--crema2)}
+.check input{width:20px;height:20px;accent-color:#FF4F8B}
+.preview{position:sticky;top:110px}
+.lid{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:18px}
+.lid h3{font-size:28px}
+.count{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;color:var(--rosa)}
+.tray{display:grid;gap:12px;padding:20px;border-radius:18px;background:linear-gradient(160deg,#F2DCC8,#E4C3A6);box-shadow:inset 0 3px 0 rgba(255,255,255,.5),inset 0 -6px 18px rgba(120,70,30,.35),0 30px 60px rgba(0,0,0,.45)}
+.slot{aspect-ratio:1;border-radius:50%;background:rgba(120,70,30,.18);box-shadow:inset 0 3px 8px rgba(90,50,20,.35);position:relative}
+.slot .ck{position:absolute;inset:6%;border-radius:50%;animation:pop .45s cubic-bezier(.3,1.6,.5,1);box-shadow:0 6px 12px rgba(60,30,10,.4),inset 0 -5px 10px rgba(70,30,10,.5)}
+@keyframes pop{from{transform:scale(.2) rotate(-90deg);opacity:0}}
+.sum{margin:18px 0 6px;color:var(--crema2);font-size:15px;min-height:46px}
+.bar2{height:6px;border-radius:6px;background:rgba(247,237,228,.12);overflow:hidden;margin-bottom:18px}
+.bar2 i{display:block;height:100%;width:0;background:var(--grad);transition:width .4s cubic-bezier(.2,.8,.2,1)}
+.preview .btn{width:100%}
+.note{font-size:12.5px;color:var(--gris);margin-top:12px;text-align:center}
+
+/* regalos */
+.gift{position:relative;border-radius:32px;overflow:hidden;padding:clamp(32px,6vw,72px);background:linear-gradient(120deg,#FF4F8B 0%,#FF8FB8 45%,#FFC9A8 100%);color:#1B0710;display:grid;grid-template-columns:1.2fr .8fr;gap:30px;align-items:center}
+.gift:before{content:'';position:absolute;inset:0;background:radial-gradient(40% 60% at 90% 10%,rgba(255,255,255,.45),transparent 70%)}
+.gift>*{position:relative}
+.gift .mono{color:#5A1230}
+.gift h2{font-size:clamp(38px,5.4vw,74px);margin:12px 0 16px;color:#1B0710}
+.gift p{font-size:18px;max-width:520px;color:#3A0F22}
+.gift .btn{background:#140C0A;color:#fff;box-shadow:0 12px 30px rgba(20,12,10,.35);margin-top:26px}
+.gift ul{list-style:none;display:grid;gap:12px}
+.gift li{background:rgba(255,255,255,.5);backdrop-filter:blur(6px);border-radius:16px;padding:14px 16px;font-weight:600;display:flex;gap:12px;align-items:center}
+.gift li:before{content:'✓';flex:none;width:26px;height:26px;border-radius:50%;background:#140C0A;color:#FF8FB8;display:grid;place-items:center;font-size:14px}
+
+/* hermanas */
+.sis{display:grid;grid-template-columns:.9fr 1.1fr;gap:48px;align-items:center}
+.photo{aspect-ratio:4/5;border-radius:28px;border:1.5px dashed rgba(255,143,184,.5);display:grid;place-items:center;text-align:center;color:var(--gris);padding:30px;background:repeating-linear-gradient(135deg,rgba(255,143,184,.05) 0 14px,transparent 14px 28px)}
+.photo b{display:block;font-family:'Fraunces';font-style:italic;font-size:26px;color:var(--crema);margin-bottom:8px}
+.quote{font-family:'Fraunces',serif;font-size:clamp(26px,3vw,40px);line-height:1.2;font-weight:500}
+.quote .g{font-weight:700}
+.sig{margin-top:22px;color:var(--gris)}
+
+/* donde */
+.where{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px}
+.where .card h3{font-size:30px;margin:10px 0 8px}
+.where .card p{color:var(--crema2)}
+.apps{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+
+/* faq */
+.faq{max-width:860px}
+details{border-bottom:1px solid var(--line);padding:22px 0}
+summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:20px;font-family:'Fraunces';font-size:23px;font-weight:600}
+summary::-webkit-details-marker{display:none}
+summary:after{content:'+';color:var(--rosa);font-family:'DM Sans';font-weight:400;font-size:28px;line-height:1;transition:transform .3s}
+details[open] summary:after{transform:rotate(45deg)}
+details p{color:var(--crema2);margin-top:12px;max-width:680px}
+
+footer{padding:60px var(--pad) 120px;max-width:1400px;margin:0 auto;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;color:var(--gris);font-size:14px}
+footer .logo{color:var(--crema)}
+.wa{position:fixed;right:18px;bottom:18px;z-index:30;width:60px;height:60px;border-radius:50%;background:#25D366;display:grid;place-items:center;box-shadow:0 12px 30px rgba(0,0,0,.4);transition:transform .25s}
+.wa:hover{transform:scale(1.08)}
+.wa svg{width:30px;height:30px;fill:#fff}
+
+@media (max-width:1100px){
+  .flavors{grid-template-columns:1fr 1fr}
+  .box{grid-template-columns:1fr}
+  .preview{position:relative;top:0}
+  .where{grid-template-columns:1fr}
+}
+@media (max-width:820px){
+  body{font-size:16px}
+  .links,.nav .btn.sm{display:none}
+  .burger{display:block}
+  .links.open{display:flex;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;background:rgba(20,12,10,.96);backdrop-filter:blur(14px);padding:8px 16px 16px;border-bottom:1px solid var(--line)}
+  .links.open a{display:block;padding:14px 4px;font-size:17px;border-bottom:1px solid var(--line)}
+  .hero{align-items:flex-end;min-height:calc(100svh - 100px);padding-top:44svh;padding-bottom:70px}
+  .hint{display:none}
+  .stats{gap:20px}
+  .proc .stick{align-items:flex-end;padding-bottom:100px}
+  .proc .panel{max-width:none;min-height:262px;background:var(--glass);border:1px solid var(--line);border-radius:var(--r);padding:20px;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+  .proc .head h2{font-size:28px;margin:6px 0 12px}
+  .step{left:20px;right:20px}
+  .step .n{font-size:40px}.step h3{font-size:23px}
+  .step p{font-size:15px}
+  .bar{bottom:60px;left:var(--pad);transform:none}
+  .wa{width:52px;height:52px;right:14px;bottom:14px}
+  .hero{padding-bottom:90px}
+  .callout{display:none}
+  section.s{padding:84px var(--pad)}
+  .flavors{grid-template-columns:1fr}
+  .fl{min-height:0}
+  .fl .ck{width:52%}
+  .gift,.sis{grid-template-columns:1fr}
+  .card{padding:20px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .grain{display:none}
+}
+</style>
+</head>
+<body>
+<div class="bgfx"></div><div class="grain"></div>
+<canvas id="gl" aria-hidden="true"></canvas>
+<div class="fallback" aria-hidden="true"></div>
+
+<div class="concept">✦ <span><b>Concepto de web</b> hecho por NIKA para Bliss Cookies. No es la web oficial.</span> <a href="https://digitalnika.com" target="_blank" rel="noopener">digitalnika.com</a></div>
+
+<header id="top">
+  <nav class="nav" aria-label="Principal">
+    <a class="logo" href="#">bliss<span>cookies</span></a>
+    <ul class="links" id="links">
+      <li><a href="#proceso">El proceso</a></li>
+      <li><a href="#sabores">Sabores</a></li>
+      <li><a href="#caja">Armá tu caja</a></li>
+      <li><a href="#regalos">Regalos</a></li>
+      <li><a href="#donde">Dónde estamos</a></li>
+    </ul>
+    <a class="btn sm" href="#caja">Pedí las tuyas</a>
+    <button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false">☰</button>
+  </nav>
+</header>
+
+<main>
+  <section class="hero" id="hero">
+    <div class="txt">
+      <div class="mono">Cookies estilo NY · Buenos Aires</div>
+      <h1><span class="w">Bake.</span> <span class="w">Bite.</span> <span class="w"><em class="g">Bliss.</em></span></h1>
+      <p class="lead">110 gramos de chocolate belga, manteca bien fría y un centro que se desarma. Las hacen dos hermanas, entre Recoleta y Nuevo Quilmes.</p>
+      <div class="ctas"><a class="btn" href="#caja">Armá tu caja</a><a class="btn ghost" href="#proceso">Mirá cómo se hacen</a></div>
+      <div class="stats">
+        <div class="stat"><b>110 g</b><small>por cookie</small></div>
+        <div class="stat"><b>100%</b><small>chocolate belga</small></div>
+        <div class="stat"><b>2</b><small>hermanas, 2 barrios</small></div>
+      </div>
+    </div>
+    <div class="hint mono"><i></i>Bajá y partila</div>
+  </section>
+
+  <div class="marq" aria-hidden="true"><div>
+    <span>110 g de amor</span><span>chocolate belga</span><span>borde crujiente</span><span>centro chewy</span><span>manteca bien fría</span><span>hecho por hermanas</span>
+    <span>110 g de amor</span><span>chocolate belga</span><span>borde crujiente</span><span>centro chewy</span><span>manteca bien fría</span><span>hecho por hermanas</span>
+  </div></div>
+
+  <section class="proc" id="proceso">
+    <div class="stick">
+      <div class="panel">
+        <div class="head"><div class="mono">El proceso</div><h2>Nada es un error. <em class="g">Todo está pensado.</em></h2></div>
+        <div style="position:relative">
+          <div class="step" data-i="0"><span class="n">01</span><h3>Manteca bien fría</h3><p>Es lo que hace que la cookie crezca alta y no se aplaste en el horno.</p></div>
+          <div class="step" data-i="1"><span class="n">02</span><h3>Muuucho chocolate belga</h3><p>En trozos, no en chips. Cuando la partís, se nota.</p></div>
+          <div class="step" data-i="2"><span class="n">03</span><h3>Borde dorado y crujiente</h3><p>El primer mordisco suena. Después viene lo mejor.</p></div>
+          <div class="step" data-i="3"><span class="n">04</span><h3>Interior chewy</h3><p>Húmedo, denso, de los que se desarman en la boca.</p></div>
+          <div class="step" data-i="4"><span class="n">05</span><h3>110 g de <em class="g">bliss</em></h3><p>Si parece distinta, probablemente esté bien hecha.</p></div>
+        </div>
+      </div>
+      <div class="bar" aria-hidden="true"><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i></div>
+      <div class="callout" id="co1">Chocolate belga</div>
+      <div class="callout" id="co2">Centro chewy</div>
+      <div class="callout" id="co3">Borde crujiente</div>
+    </div>
+  </section>
+
+  <section class="s" id="sabores">
+    <div class="sh rv"><div><div class="mono">Sabores</div><h2>Elegí tu <em class="g">antojo</em></h2></div><p>Pasá el mouse por cada una. Los dos primeros son de su carta; los otros dos son una idea para sumar sabores rotativos.</p></div>
+    <div class="flavors">
+      <article class="fl rv" data-f="belga"><span class="tag">La favorita</span><div class="ck belga"></div><h3>La Belga</h3><p>Masa de manteca con trozos generosos de chocolate belga semiamargo.</p><div class="add"><button class="btn ghost sm" data-add="belga">Sumar a la caja</button></div></article>
+      <article class="fl rv" data-f="limon"><span class="tag">Fresca</span><div class="ck limon"></div><h3>Limón &amp; Frambuesa</h3><p>Limón, frambuesa y chocolate blanco. La que no esperabas.</p><div class="add"><button class="btn ghost sm" data-add="limon">Sumar a la caja</button></div></article>
+      <article class="fl rv" data-f="temp"><span class="tag">Idea · temporada</span><div class="ck temp"></div><h3>Sabor del mes</h3><p>Un sabor nuevo cada mes, votado por la comunidad en historias.</p><div class="add"><button class="btn ghost sm" data-add="temp">Sumar a la caja</button></div></article>
+      <article class="fl rv" data-f="drop"><span class="tag">Idea · drop</span><div class="ck drop"></div><h3>Edición limitada</h3><p>Pocas unidades, un solo fin de semana. Se avisa primero por WhatsApp.</p><div class="add"><button class="btn ghost sm" data-add="drop">Sumar a la caja</button></div></article>
+    </div>
+  </section>
+
+  <section class="s" id="caja">
+    <div class="sh rv"><div><div class="mono">Pedidos</div><h2>Armá tu <em class="g">caja</em></h2></div><p>Elegí el tamaño, llenala como quieras y te llega el pedido ya escrito por WhatsApp.</p></div>
+    <div class="box">
+      <div class="card rv">
+        <span class="lbl">1 · Tamaño</span>
+        <div class="seg" id="sizes">
+          <button data-n="4">Caja x4<small>para darte un gusto</small></button>
+          <button data-n="6" class="on">Caja x6<small>para compartir</small></button>
+          <button data-n="12">Caja x12<small>para regalar</small></button>
+        </div>
+        <span class="lbl">2 · Sabores</span>
+        <div id="rows"></div>
+        <div style="height:24px"></div>
+        <span class="lbl">3 · Entrega</span>
+        <div class="seg" id="zone">
+          <button data-z="Recoleta" class="on">Recoleta</button>
+          <button data-z="Nuevo Quilmes">Nuevo Quilmes</button>
+        </div>
+        <div class="seg" id="mode">
+          <button data-m="Retiro" class="on">Retiro</button>
+          <button data-m="Envío">Envío</button>
+        </div>
+        <label class="lbl" for="name">Tu nombre</label>
+        <input class="field" id="name" placeholder="¿Cómo te llamás?" autocomplete="given-name">
+        <label class="check"><input type="checkbox" id="gift"> Es para regalo, con tarjeta</label>
+      </div>
+      <div class="preview rv">
+        <div class="card">
+          <div class="lid"><h3>Tu caja</h3><span class="count" id="count">0 / 6</span></div>
+          <div class="tray" id="tray"></div>
+          <div class="bar2"><i id="fill"></i></div>
+          <p class="sum" id="sum">Sumá sabores para llenar la caja.</p>
+          <button class="btn" id="send" disabled>Pedir por WhatsApp</button>
+          <p class="note">Precios y zonas de envío: a confirmar con Bliss. En el concepto, el botón abre WhatsApp con el pedido escrito.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="s" id="regalos">
+    <div class="gift rv">
+      <div>
+        <div class="mono">Regalos y empresas</div>
+        <h2>Fin de año, en una caja.</h2>
+        <p>Cajas para regalar a tu equipo, a tus clientes o a quien quieras, con tarjeta escrita a mano y entrega coordinada.</p>
+        <a class="btn" id="giftbtn" href="#">Cotizar cajas para regalo</a>
+      </div>
+      <ul>
+        <li>Tarjeta con tu mensaje</li>
+        <li>Cantidades a medida</li>
+        <li>Entrega coordinada en CABA y zona sur</li>
+        <li>Presupuesto en el día por WhatsApp</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="s" id="hermanas">
+    <div class="sis">
+      <div class="photo rv"><div><b>Acá va la foto de ustedes dos</b>En la cocina, con harina en las manos. Es la imagen que más vende.</div></div>
+      <div class="rv">
+        <div class="mono" style="color:var(--rosa)">Quiénes somos</div>
+        <p class="quote" style="margin-top:16px">“En Bliss hacemos cookies respetando el proceso. Porque es distinto. Y cada detalle responde a <span class="g">una decisión, no a un error.</span>”</p>
+        <p class="sig">Dos hermanas haciendo realidad Bliss · Recoleta + Nuevo Quilmes</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="s" id="donde">
+    <div class="sh rv"><div><div class="mono">Dónde estamos</div><h2>Dos barrios, <em class="g">un antojo</em></h2></div></div>
+    <div class="where">
+      <div class="card rv"><span class="tag">CABA</span><h3>Recoleta</h3><p>Retiro y envíos en la zona. Días y horarios a confirmar.</p></div>
+      <div class="card rv"><span class="tag">Zona sur</span><h3>Nuevo Quilmes</h3><p>Retiro y envíos en Quilmes, Bernal y alrededores. A confirmar.</p></div>
+      <div class="card rv"><span class="tag">Apps</span><h3>Delivery</h3><p>También por WhatsApp, Rappi y PedidosYa.</p><div class="apps"><span class="tag">WhatsApp</span><span class="tag">Rappi</span><span class="tag">PedidosYa</span></div></div>
+    </div>
+  </section>
+
+  <section class="s" id="faq">
+    <div class="sh rv"><div><div class="mono">Preguntas</div><h2>Lo que <em class="g">nos preguntan</em></h2></div></div>
+    <div class="faq rv">
+      <details open><summary>¿Cuánto pesa una cookie?</summary><p>110 gramos. Es una cookie estilo Nueva York: alta, con borde crujiente y centro húmedo.</p></details>
+      <details><summary>¿Cómo hago un pedido?</summary><p>Armá tu caja acá y te abre WhatsApp con el pedido escrito. También estamos en Rappi y PedidosYa.</p></details>
+      <details><summary>¿Hacen envíos?</summary><p>Sí, desde Recoleta y desde Nuevo Quilmes. Las zonas y el costo se confirman por WhatsApp.</p></details>
+      <details><summary>¿Hacen cajas para empresas o eventos?</summary><p>Sí. Escribinos con la cantidad y la fecha y te pasamos una propuesta.</p></details>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div><a class="logo" href="#">bliss<span>cookies</span></a><p style="margin-top:10px">Bake. Bite. Bliss. · Buenos Aires</p></div>
+  <div>Instagram <a href="https://www.instagram.com/blisscookies.ba" target="_blank" rel="noopener">@blisscookies.ba</a><br>TikTok <a href="https://www.tiktok.com/@blisscookies.ba" target="_blank" rel="noopener">@blisscookies.ba</a></div>
+  <div>Concepto diseñado por <a href="https://digitalnika.com" target="_blank" rel="noopener" style="color:#FFC83D">NIKA · Agencia digital</a></div>
+</footer>
+
+<a class="wa" id="wa" href="#" aria-label="Escribir por WhatsApp" target="_blank" rel="noopener"><svg viewBox="0 0 32 32"><path d="M16 3a13 13 0 0 0-11.2 19.6L3 29l6.6-1.7A13 13 0 1 0 16 3zm0 23.7c-2 0-4-.5-5.7-1.6l-.4-.2-3.9 1 1-3.8-.3-.4A10.7 10.7 0 1 1 16 26.7zm5.9-8c-.3-.2-1.9-1-2.2-1s-.5-.2-.7.2l-1 1.2c-.2.2-.4.2-.7.1a8.8 8.8 0 0 1-4.4-3.8c-.3-.6.3-.5 1-1.7.1-.2 0-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 0 0-.9.4 3.7 3.7 0 0 0-1.1 2.7 6.4 6.4 0 0 0 1.3 3.4 14.7 14.7 0 0 0 5.6 5c2.1.9 2.9 1 4 .8a3.4 3.4 0 0 0 2.2-1.6 2.8 2.8 0 0 0 .2-1.6c-.1-.1-.3-.2-.6-.4z"/></svg></a>
+
+<script src="ui.js" defer></script>
+<script type="module" src="app.js"></script>
+<script>setTimeout(function(){if(!window.__gl)document.documentElement.classList.add('no-gl')},4000)</script>
+</body>
+</html>

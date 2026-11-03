@@ -2,5 +2,6 @@ User-agent: *
 Allow: /
 Disallow: /firma.html
 Disallow: /firma/
+Disallow: /conceptos/
 
 Sitemap: https://digitalnika.com/sitemap.xml
