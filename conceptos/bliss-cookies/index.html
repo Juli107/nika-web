@@ -9,8 +9,7 @@
 <meta name="theme-color" content="#436765">
 <link rel="icon" href="bliss-icon.png" type="image/png">
 <link rel="apple-touch-icon" href="bliss-icon.png">
-<!-- el importmap va antes de cualquier módulo o precarga (Safari) -->
-<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+<link rel="preload" as="image" href="fotos/oreo-cut.webp">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,12 +19,14 @@
   --teal:#436765; --teal2:#355452; --teal3:#2A4442;
   --rosa:#EEAEBF; --rosa2:#E68AA6; --rosa3:#FBE3EA;
   --crema:#FBF4EA; --crema2:#F4E8D8; --papel:#FFFDF9;
-  --cacao:#3A2A22; --cacao2:#6E5A4E; --masa:#C98A4B;
+  --cacao:#3A2A22; --cacao2:#6E5A4E;
   --line:rgba(67,103,101,.18);
   --r:28px; --pad:clamp(16px,5vw,64px);
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;overflow-x:clip}
+html{-webkit-text-size-adjust:100%;overflow-x:clip}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
 body{background:var(--crema);color:var(--cacao);font-family:'DM Sans',system-ui,sans-serif;font-size:17px;line-height:1.55;overflow-x:clip}
 img{max-width:100%;display:block}
 a{color:inherit}
@@ -33,22 +34,14 @@ a{color:inherit}
 h1,h2,h3{font-family:'Fraunces',Georgia,serif;font-weight:900;font-variation-settings:'SOFT' 100,'WONK' 1;letter-spacing:-.025em;line-height:.95;color:var(--teal)}
 .typ{font-family:'Courier Prime',monospace;letter-spacing:.32em;text-transform:uppercase;font-size:12px;font-weight:700}
 .pk{color:var(--rosa2)}
-.hl{position:relative;white-space:nowrap;color:var(--teal)}
-.hl:after{content:'';position:absolute;left:-.06em;right:-.06em;bottom:.04em;height:.32em;background:var(--rosa);z-index:-1;border-radius:.2em;transform:scaleX(0);transform-origin:left;transition:transform .9s .4s cubic-bezier(.2,.8,.2,1)}
-.in .hl:after,.hero .hl:after{transform:scaleX(1)}
-
-/* fondo: papel con migas */
-.bgfx{position:fixed;inset:0;z-index:0;pointer-events:none;background:
+.hl{position:relative;white-space:nowrap;color:var(--teal);z-index:0}
+.hl:after{content:'';position:absolute;left:-.06em;right:-.06em;bottom:.04em;height:.32em;background:var(--rosa);z-index:-1;border-radius:.2em;transform:scaleX(var(--hl,1));transform-origin:left}
+.js .hl:after{--hl:0}
+.hl.in:after{--hl:1;transition:transform .9s .2s cubic-bezier(.2,.8,.2,1)}
+.bgfx{position:fixed;inset:0;z-index:-1;pointer-events:none;background:
   radial-gradient(circle at 12% 18%,rgba(201,138,75,.10) 0 2px,transparent 3px) 0 0/90px 90px,
   radial-gradient(circle at 70% 60%,rgba(67,103,101,.07) 0 2px,transparent 3px) 0 0/130px 130px,var(--crema)}
-#gl{position:fixed;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;transition:opacity .5s}
-.fallback{position:fixed;z-index:2;right:9vw;top:24vh;width:min(38vw,400px);aspect-ratio:1;border-radius:50%;display:none;pointer-events:none;
-  background:radial-gradient(circle at 30% 28%,#3B1E12 0 6%,transparent 6.5%),radial-gradient(circle at 62% 35%,#3B1E12 0 7%,transparent 7.5%),radial-gradient(circle at 45% 64%,#3B1E12 0 8%,transparent 8.5%),radial-gradient(circle at 72% 68%,#3B1E12 0 5%,transparent 5.5%),radial-gradient(circle at 40% 35%,#E7B477,#C98A4B 55%,#8E5427);
-  box-shadow:0 40px 80px rgba(58,42,34,.3)}
-.no-gl .fallback{display:block}
-.no-gl #gl{display:none}
-header,footer,.concept,.promo{position:relative;z-index:3}
-main{position:relative}main>section,main>.marq{position:relative;z-index:3}main>.hero{z-index:auto}.hero .txt{position:relative;z-index:3}
+.prog{position:fixed;left:0;top:0;height:4px;width:100%;background:var(--rosa2);transform-origin:left;transform:scaleX(0);z-index:50}
 
 /* barra concepto + promo */
 .concept{display:flex;justify-content:center;gap:8px;align-items:center;flex-wrap:wrap;text-align:center;padding:7px 16px;background:#0B0C10;color:#C9CCD3;font-size:12px}
@@ -57,9 +50,9 @@ main{position:relative}main>section,main>.marq{position:relative;z-index:3}main>
 .promo a{color:var(--rosa);font-weight:700;text-decoration:none}
 
 /* nav */
-header{position:sticky;top:0;z-index:20;transition:background .3s,box-shadow .3s}
+header{position:sticky;top:0;z-index:40;transition:background .3s,box-shadow .3s}
 header.solid{background:rgba(251,244,234,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 1px 0 var(--line)}
-.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px var(--pad);max-width:1400px;margin:0 auto}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px var(--pad);max-width:1400px;margin:0 auto;position:relative}
 .logo{display:flex;align-items:center;gap:12px;text-decoration:none}
 .logo img{width:62px;height:62px;border-radius:50%;transition:transform .5s cubic-bezier(.3,1.6,.5,1)}
 .logo:hover img{transform:rotate(-14deg) scale(1.06)}
@@ -77,99 +70,132 @@ header.solid{background:rgba(251,244,234,.92);backdrop-filter:blur(12px);-webkit
 .btn.sm{padding:9px 18px;font-size:14px;min-height:44px}
 .burger{display:none;background:var(--papel);border:2px solid var(--teal);color:var(--teal);border-radius:14px;width:46px;height:46px;font-size:20px;cursor:pointer}
 
-/* hero */
-.hero{min-height:calc(100svh - 140px);display:flex;align-items:center;padding:30px var(--pad) 80px;max-width:1400px;margin:0 auto;position:relative}
-.hero .txt{max-width:610px}
-.hero h1{font-size:clamp(58px,9vw,132px);margin:16px 0 24px}
-.hero h1 .w{display:inline-block;opacity:0;transform:translateY(40px) rotate(3deg);animation:up .9s cubic-bezier(.2,.8,.2,1) forwards}
-.hero h1 .w:nth-child(2){animation-delay:.1s}.hero h1 .w:nth-child(3){animation-delay:.2s}.hero h1 .w:nth-child(4){animation-delay:.3s}
-@keyframes up{to{opacity:1;transform:none}}
-.hero .lead{font-size:clamp(17px,1.6vw,21px);color:var(--cacao2);max-width:500px;opacity:0;animation:up .9s .4s forwards}
-.hero .ctas{display:flex;gap:14px;flex-wrap:wrap;margin-top:32px;opacity:0;animation:up .9s .55s forwards}
-.blob{position:absolute;z-index:1;right:4vw;top:50%;width:min(44vw,600px);aspect-ratio:1;transform:translateY(-50%);border-radius:50%;background:var(--rosa);pointer-events:none}
-.blob:before{content:'';position:absolute;inset:-22px;border:2px dashed rgba(67,103,101,.35);border-radius:50%;animation:spin 40s linear infinite}
+/* ===== HERO: la cookie real se parte ===== */
+.hero{position:relative;height:100svh;min-height:600px;overflow:hidden}
+.stage{position:absolute;inset:86px 0 0;display:grid;place-items:center}
+.disc{position:absolute;width:min(62vh,52vw);aspect-ratio:1;border-radius:50%;background:var(--rosa)}
+.disc:before{content:'';position:absolute;inset:-22px;border:2px dashed rgba(67,103,101,.35);border-radius:50%;animation:spin 40s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-.stamp{position:absolute;z-index:4;right:calc(4vw + min(44vw,600px)*.02);top:calc(50% - min(44vw,600px)*.48);width:118px;height:118px;border-radius:50%;animation:wob 6s ease-in-out infinite;filter:drop-shadow(0 10px 18px rgba(53,84,82,.3))}
+.inside{position:absolute;width:min(62vh,52vw);aspect-ratio:1;border-radius:50%;overflow:hidden;transform:scale(0);background:#5B321A}
+.inside img{width:100%;height:100%;object-fit:cover;transform:scale(1.4)}
+.cookie{position:absolute;width:min(56vh,47vw);aspect-ratio:1;filter:drop-shadow(0 40px 50px rgba(58,42,34,.35))}
+.cookie .spin{position:absolute;inset:0}
+.half{position:absolute;inset:0}
+.half img{width:100%;height:100%;object-fit:contain}
+.half.l{clip-path:polygon(0 0,52% 0,47% 10%,55% 21%,46% 33%,53% 44%,45% 56%,54% 67%,47% 79%,53% 90%,49% 100%,0 100%)}
+.half.r{clip-path:polygon(52% 0,100% 0,100% 100%,49% 100%,53% 90%,47% 79%,54% 67%,45% 56%,53% 44%,46% 33%,55% 21%,47% 10%)}
+.hw{position:absolute;font-family:'Fraunces',Georgia,serif;font-weight:900;font-variation-settings:'SOFT' 100,'WONK' 1;color:var(--teal);font-size:clamp(64px,13vw,210px);line-height:.85;letter-spacing:-.04em;pointer-events:none;white-space:nowrap}
+.hw.a{left:var(--pad);top:9%}
+.hw.b{right:var(--pad);top:38%}
+.hw.c{left:calc(var(--pad) + 6vw);bottom:12%;color:var(--rosa2)}
+.hero .sub{position:absolute;right:var(--pad);bottom:9%;max-width:340px;font-size:17px;color:var(--cacao2)}
+.hero .sub .btn{margin-top:16px}
+.stamp{position:absolute;width:118px;height:118px;border-radius:50%;left:calc(50% + min(62vh,52vw)*.3);top:calc(50% - min(62vh,52vw)*.52);filter:drop-shadow(0 10px 18px rgba(53,84,82,.3));animation:wob 6s ease-in-out infinite}
 @keyframes wob{50%{transform:rotate(-10deg) translateY(-6px)}}
-.badge110{position:absolute;z-index:4;right:calc(4vw + min(44vw,600px)*.78);top:calc(50% + min(44vw,600px)*.26);background:var(--papel);border:2px solid var(--teal);border-radius:20px;padding:10px 16px;box-shadow:0 5px 0 var(--teal);text-align:center;transform:rotate(-6deg)}
-.badge110 b{display:block;font-family:'Fraunces';font-weight:900;font-variation-settings:'SOFT' 100;font-size:34px;line-height:1;color:var(--teal)}
-.badge110 span{font-size:12px;font-weight:700;color:var(--cacao2)}
-.crumb{position:fixed;z-index:5;pointer-events:none;width:6px;height:6px;border-radius:2px;background:var(--masa);animation:fall 1s ease-in forwards}
-@keyframes fall{to{transform:translate(var(--dx),70px) rotate(220deg);opacity:0}}
+.badge{position:absolute;left:calc(50% - min(62vh,52vw)*.55);top:calc(50% + min(62vh,52vw)*.22);background:var(--papel);border:2px solid var(--teal);border-radius:20px;padding:10px 16px;box-shadow:0 5px 0 var(--teal);text-align:center;transform:rotate(-6deg)}
+.badge b{display:block;font-family:'Fraunces';font-weight:900;font-variation-settings:'SOFT' 100;font-size:34px;line-height:1;color:var(--teal)}
+.badge span{font-size:12px;font-weight:700;color:var(--cacao2)}
+.reveal{position:absolute;inset:0;clip-path:circle(0% at 50% 50%);display:grid;place-items:center;text-align:center;color:var(--crema)}
+.reveal img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.reveal:after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(42,20,10,.15),rgba(42,20,10,.55))}
+.reveal .cap{position:relative;z-index:1;padding:0 var(--pad)}
+.reveal h2{color:var(--crema);font-size:clamp(46px,8vw,128px)}
+.reveal h2 em{color:var(--rosa);font-style:italic}
+.reveal p{margin-top:14px;font-size:18px;opacity:.9}
+.hint{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--teal);display:flex;flex-direction:column;align-items:center;gap:8px}
+.hint i{width:2px;height:34px;background:linear-gradient(var(--teal),transparent);animation:drip 1.6s ease-in-out infinite;transform-origin:top}
+@keyframes drip{0%{transform:scaleY(0)}60%{transform:scaleY(1)}100%{transform:scaleY(1);opacity:0}}
 
 /* cinta */
-.marq{overflow:hidden;background:var(--teal);color:var(--crema);transform:rotate(-1.2deg);margin:0 -2vw;box-shadow:0 6px 0 var(--teal3)}
-.marq div{display:flex;width:max-content;animation:mq 28s linear infinite}
+.marq{overflow:hidden;background:var(--teal);color:var(--crema);margin:0 -2vw;box-shadow:0 6px 0 var(--teal3);position:relative;z-index:2;transform:rotate(-1.2deg)}
+.marq .tr{display:flex;width:max-content;will-change:transform}
 .marq span{font-family:'Fraunces',serif;font-weight:800;font-variation-settings:'SOFT' 100;font-size:clamp(22px,3vw,36px);padding:16px 22px;white-space:nowrap;display:flex;align-items:center;gap:44px}
 .marq span:after{content:'✿';color:var(--rosa);font-size:.7em}
-@keyframes mq{to{transform:translateX(-50%)}}
 
-/* proceso */
-.proc{height:520vh;position:relative}
-.proc .stick{position:sticky;top:0;height:100svh;display:flex;align-items:center;padding:0 var(--pad);max-width:1400px;margin:0 auto}
-.proc .panel{max-width:440px;position:relative;min-height:320px;width:100%}
-.proc .head h2{font-size:clamp(38px,4.6vw,64px);margin:12px 0 26px}
-.step{position:absolute;left:0;right:0;opacity:0;transform:translateY(24px);transition:opacity .5s,transform .5s}
-.step.on{opacity:1;transform:none}
-.step .n{display:inline-grid;place-items:center;width:52px;height:52px;border-radius:50%;background:var(--rosa);color:var(--teal3);font-family:'Fraunces';font-weight:900;font-size:22px;border:2px solid var(--teal)}
-.step h3{font-size:34px;margin:14px 0 10px}
-.step p{color:var(--cacao2);font-size:18px}
-.bar{position:absolute;left:var(--pad);bottom:40px;display:flex;gap:8px}
-.bar i{width:36px;height:6px;border-radius:6px;background:rgba(67,103,101,.15);overflow:hidden;position:relative}
-.bar i b{position:absolute;inset:0;background:var(--teal);transform:scaleX(0);transform-origin:left}
-.callout{position:fixed;z-index:3;font-family:'Courier Prime',monospace;font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);padding:8px 14px;border-radius:999px;background:var(--papel);border:2px solid var(--teal);box-shadow:0 4px 0 var(--teal);opacity:0;transition:opacity .4s;white-space:nowrap}
-.callout.on{opacity:1}
+/* manifiesto: palabras que se pintan */
+.mani{padding:160px var(--pad);max-width:1250px;margin:0 auto}
+.mani p{font-family:'Fraunces',serif;font-weight:800;font-variation-settings:'SOFT' 100;font-size:clamp(34px,5.2vw,78px);line-height:1.06;letter-spacing:-.02em;color:var(--teal)}
+.mani .wd{opacity:.14;transition:none}
+.mani .wd.ch{color:var(--rosa2)}
+.mani .typ{margin-bottom:26px}
+
+/* proceso horizontal */
+.hz{position:relative;overflow:hidden}
+.hz .hzin{height:100svh;display:flex;flex-direction:column;justify-content:center;gap:28px;padding-top:86px}
+.hz .top>div:first-child{flex:1}
+.hz .top{padding:0 var(--pad);display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap}
+.hz h2{font-size:clamp(36px,4.6vw,72px)}
+.hz .count{font-family:'Fraunces';font-weight:900;font-size:clamp(40px,5vw,72px);color:var(--rosa2);line-height:1}
+.track{display:flex;gap:28px;padding:0 var(--pad);width:max-content;will-change:transform}
+.card{width:min(440px,78vw);flex:none;background:var(--papel);border:2px solid var(--teal);border-radius:var(--r);box-shadow:0 6px 0 var(--teal);overflow:hidden;display:flex;flex-direction:column}
+.card .ph{height:min(36svh,320px);overflow:hidden;position:relative;background:var(--crema2)}
+.card .ph.pink{background:var(--rosa)}.card .ph.pink img{inset:6%;width:88%;height:88%;object-fit:contain;max-width:none}
+.card .ph img{position:absolute;inset:-10% -12%;width:124%;height:120%;object-fit:cover;max-width:none}
+.card .tx{padding:22px 24px 26px}
+.card .n{display:inline-grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--rosa);color:var(--teal3);font-family:'Fraunces';font-weight:900;font-size:19px;border:2px solid var(--teal);margin-bottom:10px}
+.card h3{font-size:30px;margin-bottom:6px}
+.card p{color:var(--cacao2)}
+.card.end{background:var(--teal);justify-content:center;align-items:flex-start;padding:36px;color:var(--crema)}
+.card.end h3{color:var(--crema);font-size:44px;margin-bottom:18px}
+.card.end h3 em{color:var(--rosa)}
 
 /* secciones */
-section.s{padding:120px var(--pad);max-width:1400px;margin:0 auto}
-.sh{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:48px}
-.sh h2{font-size:clamp(44px,6vw,88px);margin-top:12px}
+section.s{padding:130px var(--pad);max-width:1400px;margin:0 auto;position:relative}
+.sh{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:52px}
+.sh h2{font-size:clamp(44px,6vw,92px);margin-top:12px}
 .sh p{max-width:420px;color:var(--cacao2)}
-.rv{opacity:0;transform:translateY(40px);transition:opacity .9s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1)}
-.rv.in{opacity:1;transform:none}
+.lines .ln{display:block;overflow:hidden;padding-bottom:.06em;margin-bottom:-.06em}
+.lines .ln>span{display:inline-block}
 
 /* favoritas */
-.flavors{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;perspective:1000px}
-.fl{position:relative;border-radius:var(--r);padding:22px 20px 22px;background:var(--papel);border:2px solid var(--teal);box-shadow:0 6px 0 var(--teal);transform-style:preserve-3d;transition:transform .2s ease-out;display:flex;flex-direction:column}
-.fl .plate{border-radius:20px;aspect-ratio:1/.86;display:grid;place-items:center;margin-bottom:18px;background:var(--rosa3);overflow:hidden}
+.flavors{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;perspective:1100px}
+.fl{position:relative;border-radius:var(--r);padding:18px 18px 22px;background:var(--papel);border:2px solid var(--teal);box-shadow:0 6px 0 var(--teal);transform-style:preserve-3d;display:flex;flex-direction:column}
+.fl .plate{border-radius:20px;aspect-ratio:1/.9;display:grid;place-items:center;margin-bottom:18px;background:var(--rosa3);overflow:hidden;position:relative}
 .fl:nth-child(2) .plate{background:#E5EFE9}.fl:nth-child(3) .plate{background:var(--crema2)}.fl:nth-child(4) .plate{background:#EDE6F5}
-.fl .ck{width:68%;aspect-ratio:1;border-radius:50%;transform:translateZ(40px);transition:transform .6s cubic-bezier(.2,.8,.2,1);box-shadow:0 22px 30px rgba(58,42,34,.28),inset 0 -10px 22px rgba(70,30,10,.45),inset 0 8px 16px rgba(255,230,190,.3)}
-.fl:hover .ck{transform:translateZ(60px) rotate(-20deg) scale(1.07)}
+.fl .plate img{width:84%;aspect-ratio:1;object-fit:cover;border-radius:50%;filter:drop-shadow(0 18px 22px rgba(58,42,34,.3));transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+.fl:hover .plate img{transform:rotate(-24deg) scale(1.08)}
+.fl .plate .ck{width:66%}
+.fl .plate img.cut{object-fit:contain;border-radius:0}
+.fl .plate.empty{border:2px dashed var(--teal);text-align:center;color:var(--cacao2);font-size:14px;padding:20px}
+.fl .plate.empty b{display:block;font-family:'Fraunces';font-weight:900;font-variation-settings:'SOFT' 100;font-size:24px;color:var(--teal);margin-bottom:6px}
+.fl .plate .soon{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);font-family:'Courier Prime',monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);background:var(--papel);padding:4px 10px;border-radius:999px;white-space:nowrap}
+.ck{aspect-ratio:1;border-radius:50%;box-shadow:0 22px 30px rgba(58,42,34,.28),inset 0 -10px 22px rgba(70,30,10,.45),inset 0 8px 16px rgba(255,230,190,.3)}
 .ck.belga{background:radial-gradient(circle at 28% 30%,#2A140C 0 8%,transparent 8.5%),radial-gradient(circle at 64% 26%,#2A140C 0 6%,transparent 6.5%),radial-gradient(circle at 50% 58%,#2A140C 0 10%,transparent 10.5%),radial-gradient(circle at 76% 62%,#2A140C 0 6%,transparent 6.5%),radial-gradient(circle at 30% 72%,#2A140C 0 5%,transparent 5.5%),radial-gradient(circle at 42% 38%,#E7B477,#C98A4B 58%,#8E5427)}
-.ck.limon{background:radial-gradient(circle at 30% 30%,#FFF6E8 0 7%,transparent 7.5%),radial-gradient(circle at 66% 34%,#D9375F 0 6%,transparent 6.5%),radial-gradient(circle at 48% 62%,#FFF6E8 0 8%,transparent 8.5%),radial-gradient(circle at 74% 66%,#D9375F 0 5%,transparent 5.5%),radial-gradient(circle at 26% 64%,#D9375F 0 4%,transparent 4.5%),radial-gradient(circle at 42% 38%,#F6DE8F,#E2B65A 58%,#B88432)}
+.ck.limon{background:url(fotos/berry.webp) center/contain no-repeat;box-shadow:none!important;filter:drop-shadow(0 6px 8px rgba(60,30,10,.35))}
+.ck.oreo{background:url(fotos/oreo-cut.webp) center/contain no-repeat;box-shadow:none!important;filter:drop-shadow(0 6px 8px rgba(60,30,10,.35))}
 .ck.temp{background:radial-gradient(circle at 30% 30%,#3B1E12 0 7%,transparent 7.5%),radial-gradient(circle at 62% 36%,#F2D9A6 0 6%,transparent 6.5%),radial-gradient(circle at 50% 64%,#3B1E12 0 9%,transparent 9.5%),radial-gradient(circle at 74% 62%,#F2D9A6 0 5%,transparent 5.5%),radial-gradient(circle at 42% 38%,#8A4E2E,#5E321C 58%,#3A1E10)}
 .ck.drop{background:radial-gradient(circle at 30% 30%,#EEAEBF 0 6%,transparent 6.5%),radial-gradient(circle at 64% 30%,#FFF 0 5%,transparent 5.5%),radial-gradient(circle at 48% 60%,#E68AA6 0 8%,transparent 8.5%),radial-gradient(circle at 74% 66%,#FFF 0 5%,transparent 5.5%),radial-gradient(circle at 42% 38%,#F3E3CC,#E0C39A 58%,#B68E5E)}
-.tag{position:absolute;top:14px;left:14px;z-index:2;font-family:'Courier Prime',monospace;font-weight:700;font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:6px 12px;border-radius:999px;background:var(--rosa);color:var(--teal3);border:2px solid var(--teal);transform:rotate(-4deg)}
+.tag{position:absolute;top:12px;left:12px;z-index:2;font-family:'Courier Prime',monospace;font-weight:700;font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:6px 12px;border-radius:999px;background:var(--rosa);color:var(--teal3);border:2px solid var(--teal);transform:rotate(-4deg)}
 .tag.alt{background:var(--papel)}
 .fl h3{font-size:28px}
 .fl p{color:var(--cacao2);font-size:15px;margin-top:8px}
 .fl .add{margin-top:auto;padding-top:18px}
 
 /* regalos */
-.gift{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
-.boxart{position:relative;aspect-ratio:1;max-width:520px;width:100%;margin:0 auto}
-.boxart .base{position:absolute;left:8%;right:8%;bottom:8%;height:58%;background:var(--teal);border-radius:22px;box-shadow:0 10px 0 var(--teal3),0 40px 60px rgba(53,84,82,.25)}
-.boxart .base:before{content:'';position:absolute;left:46%;width:8%;top:0;bottom:0;background:var(--rosa)}
-.boxart .lid{position:absolute;left:4%;right:4%;top:14%;height:20%;background:var(--teal2);border-radius:18px;transform:rotate(-8deg);transform-origin:left bottom;box-shadow:0 8px 0 var(--teal3);transition:transform .8s cubic-bezier(.3,1.4,.5,1)}
-.boxart .lid:before{content:'';position:absolute;left:46%;width:8%;top:0;bottom:0;background:var(--rosa)}
-.boxart .bow{position:absolute;left:50%;top:8%;width:110px;height:60px;transform:translateX(-50%) rotate(-8deg);transition:transform .8s cubic-bezier(.3,1.4,.5,1)}
-.boxart .bow:before,.boxart .bow:after{content:'';position:absolute;top:0;width:54px;height:54px;border:12px solid var(--rosa);border-radius:50% 50% 10% 50%}
-.boxart .bow:before{left:0;transform:rotate(-20deg)}.boxart .bow:after{right:0;transform:scaleX(-1) rotate(-20deg)}
-.boxart .ckp{position:absolute;width:30%;aspect-ratio:1;border-radius:50%;box-shadow:0 10px 18px rgba(58,42,34,.35),inset 0 -6px 12px rgba(70,30,10,.45);transition:transform .8s cubic-bezier(.3,1.4,.5,1)}
-.boxart .c1{left:14%;top:30%;transform:rotate(-10deg)}.boxart .c2{left:38%;top:24%;z-index:1}.boxart .c3{left:58%;top:31%;transform:rotate(12deg)}
-.boxart:hover .lid,.boxart.open .lid{transform:rotate(-24deg) translate(-4%,-30%)}
-.boxart:hover .bow,.boxart.open .bow{transform:translateX(-50%) translateY(-60%) rotate(-24deg)}
-.boxart:hover .c2,.boxart.open .c2{transform:translateY(-22%)}
-.boxart .card{position:absolute;right:2%;bottom:2%;background:var(--papel);border:2px solid var(--teal);border-radius:14px;padding:12px 16px;transform:rotate(5deg);box-shadow:0 5px 0 var(--teal);font-family:'Fraunces';font-style:italic;font-weight:600;color:var(--teal);z-index:2}
-.gift h2{font-size:clamp(40px,5.4vw,78px);margin:12px 0 16px}
+.gift{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center}
+.gph{position:relative;aspect-ratio:4/3.2;border-radius:var(--r);overflow:hidden;background:var(--teal);clip-path:inset(0 round 28px)}
+.gph .rib{position:absolute;left:47%;width:6%;top:0;bottom:0;background:var(--rosa)}
+.gph:before{content:'';position:absolute;left:0;right:0;top:46%;height:7%;background:var(--rosa)}
+.gph .gc{position:absolute;width:38%;aspect-ratio:1;object-fit:contain;filter:drop-shadow(0 18px 20px rgba(0,0,0,.35))}
+.gph .g2{width:36%}
+.gph .g1{left:6%;top:12%;transform:rotate(-12deg)}.gph .g2{left:35%;top:36%}.gph .g3{right:5%;top:6%;transform:rotate(20deg)}
+.gph .card2{position:absolute;right:18px;bottom:18px;background:var(--papel);border:2px solid var(--teal);border-radius:14px;padding:12px 16px;transform:rotate(5deg);box-shadow:0 5px 0 var(--teal);font-family:'Fraunces';font-style:italic;font-weight:600;color:var(--teal)}
+.gift h2{font-size:clamp(40px,5.4vw,80px);margin:12px 0 16px}
 .gift p{font-size:18px;color:var(--cacao2);max-width:520px}
-.occ{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:56px}
+.occ{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:64px}
 .oc{background:var(--papel);border:2px solid var(--teal);border-radius:24px;padding:24px;box-shadow:0 6px 0 var(--teal);transition:transform .25s}
 .oc:hover{transform:translateY(-4px) rotate(-.6deg)}
 .oc .ic{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;background:var(--rosa);font-size:24px;border:2px solid var(--teal);margin-bottom:14px}
 .oc h3{font-size:26px}
 .oc p{color:var(--cacao2);font-size:15.5px;margin:8px 0 14px}
 .oc a{font-weight:700;color:var(--teal);text-decoration:underline;text-decoration-color:var(--rosa2);text-decoration-thickness:3px;text-underline-offset:4px}
+
+/* banda de foto con parallax */
+.band{position:relative;height:78svh;overflow:hidden;display:grid;place-items:center;text-align:center;margin:40px 0}
+.band img{position:absolute;inset:-15% 0;width:100%;height:130%;object-fit:cover}
+.band:after{content:'';position:absolute;inset:0;background:rgba(42,20,10,.35)}
+.band h2{position:relative;z-index:1;color:var(--crema);font-size:clamp(52px,10vw,170px);line-height:.9}
+.band h2 em{color:var(--rosa);font-style:italic}
 
 /* caja */
 .box{display:grid;grid-template-columns:1.05fr .95fr;gap:28px;align-items:start}
@@ -181,7 +207,7 @@ section.s{padding:120px var(--pad);max-width:1400px;margin:0 auto}
 .seg button.on{background:var(--teal);color:var(--crema)}
 .seg button.on small{color:var(--rosa)}
 .row{display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1.5px dashed var(--line)}
-.row .dot{width:40px;height:40px;border-radius:50%;flex:none;box-shadow:inset 0 -4px 8px rgba(0,0,0,.3)}
+.row .dot{width:40px;height:40px;flex:none;box-shadow:inset 0 -4px 8px rgba(0,0,0,.3)}
 .row .nm{flex:1;font-weight:700;color:var(--teal)}
 .row .nm small{display:block;font-weight:400;color:var(--cacao2);font-size:13px}
 .qty{display:flex;align-items:center;gap:6px}
@@ -198,10 +224,10 @@ section.s{padding:120px var(--pad);max-width:1400px;margin:0 auto}
 .lid2{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
 .lid2 h3{font-size:30px;color:var(--crema)}
 .lid2 img{width:54px;height:54px;border-radius:50%}
-.count{font-family:'Courier Prime',monospace;font-weight:700;font-size:13px;letter-spacing:.14em;color:var(--rosa)}
+.count2{font-family:'Courier Prime',monospace;font-weight:700;font-size:13px;letter-spacing:.14em;color:var(--rosa)}
 .tray{display:grid;gap:12px;padding:20px;border-radius:20px;background:var(--rosa);box-shadow:inset 0 4px 0 rgba(255,255,255,.45),inset 0 -8px 18px rgba(160,60,90,.25)}
 .slot{aspect-ratio:1;border-radius:50%;background:rgba(53,84,82,.12);box-shadow:inset 0 3px 8px rgba(120,40,70,.25);position:relative}
-.slot .ck{position:absolute;inset:6%;border-radius:50%;animation:pop .45s cubic-bezier(.3,1.6,.5,1);box-shadow:0 6px 12px rgba(60,30,10,.35),inset 0 -5px 10px rgba(70,30,10,.45)}
+.slot .ck{position:absolute;inset:6%;animation:pop .45s cubic-bezier(.3,1.6,.5,1);box-shadow:0 6px 12px rgba(60,30,10,.35)}
 @keyframes pop{from{transform:scale(.2) rotate(-90deg);opacity:0}}
 .sum{margin:18px 0 6px;font-size:15px;min-height:46px}
 .bar2{height:8px;border-radius:8px;background:rgba(251,244,234,.2);overflow:hidden;margin-bottom:18px}
@@ -210,19 +236,21 @@ section.s{padding:120px var(--pad);max-width:1400px;margin:0 auto}
 .note{font-size:12.5px;color:rgba(251,244,234,.7);margin-top:12px;text-align:center}
 
 /* opiniones */
-.quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:start}
 .q{background:var(--rosa);border:2px solid var(--teal);border-radius:var(--r);padding:30px 26px;box-shadow:0 6px 0 var(--teal);position:relative}
-.q:nth-child(2){background:var(--papel);transform:rotate(1deg)}.q:nth-child(3){background:#E5EFE9;transform:rotate(-1deg)}
+.q:nth-child(2){background:var(--papel);margin-top:60px}.q:nth-child(3){background:#E5EFE9;margin-top:20px}
 .q p{font-family:'Fraunces';font-weight:800;font-variation-settings:'SOFT' 100;font-size:30px;line-height:1.1;color:var(--teal3)}
 .q small{display:block;margin-top:16px;font-family:'Courier Prime',monospace;font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:11px;color:var(--teal)}
 .q:before{content:'“';position:absolute;top:-30px;right:18px;font-family:'Fraunces';font-weight:900;font-size:110px;color:var(--teal);line-height:1}
 
 /* historia */
 .sis{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:center}
-.photo{aspect-ratio:4/5;border-radius:200px 200px 28px 28px;border:2px dashed var(--teal);display:grid;place-items:center;text-align:center;color:var(--cacao2);padding:40px;background:var(--rosa3);position:relative}
-.photo b{display:block;font-family:'Fraunces';font-weight:900;font-variation-settings:'SOFT' 100;font-size:28px;color:var(--teal);margin-bottom:8px}
-.photo img{position:absolute;width:120px;height:120px;border-radius:50%;bottom:-30px;right:-20px;transform:rotate(10deg);box-shadow:0 10px 20px rgba(53,84,82,.3)}
-.sis h2{font-size:clamp(40px,5vw,72px);margin:12px 0 22px}
+.photo{aspect-ratio:4/5;border-radius:220px 220px 28px 28px;overflow:hidden;position:relative;background:var(--rosa3);border:2px solid var(--teal)}
+.photo img.main{width:100%;height:100%;object-fit:cover}
+.photo .ph-txt{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:40px;color:var(--cacao2)}
+.photo .ph-txt b{display:block;font-family:'Fraunces';font-weight:900;font-variation-settings:'SOFT' 100;font-size:28px;color:var(--teal);margin-bottom:8px}
+.sis .seal{position:absolute;width:120px;height:120px;border-radius:50%;margin:-90px 0 0 calc(100% - 100px);transform:rotate(10deg);box-shadow:0 10px 20px rgba(53,84,82,.3)}
+.sis h2{font-size:clamp(40px,5vw,76px);margin:12px 0 22px}
 .quote{font-family:'Fraunces',serif;font-size:clamp(22px,2.4vw,30px);line-height:1.3;font-weight:500;color:var(--cacao)}
 .sig{margin-top:22px;font-family:'Fraunces';font-style:italic;font-weight:700;font-size:22px;color:var(--rosa2)}
 
@@ -243,13 +271,14 @@ summary:after{content:'+';flex:none;width:36px;height:36px;border-radius:50%;bac
 details[open] summary:after{transform:rotate(45deg)}
 details p{color:var(--cacao2);margin-top:12px;max-width:680px}
 
-footer{background:var(--teal);color:var(--crema);margin-top:40px}
-footer .in{padding:70px var(--pad) 110px;max-width:1400px;margin:0 auto;display:grid;grid-template-columns:auto 1fr 1fr 1fr;gap:40px;align-items:start}
+footer{background:var(--teal);color:var(--crema);margin-top:40px;overflow:hidden}
+footer .fin{padding:60px var(--pad) 110px;max-width:1400px;margin:0 auto;display:grid;grid-template-columns:auto 1fr 1fr 1fr;gap:40px;align-items:start}
 footer img{width:120px;height:120px;border-radius:50%}
 footer h4{font-family:'Courier Prime',monospace;letter-spacing:.2em;text-transform:uppercase;font-size:12px;color:var(--rosa);margin-bottom:10px}
 footer a{color:var(--crema)}
-footer .big{font-family:'Fraunces';font-weight:900;font-variation-settings:'SOFT' 100;font-size:clamp(40px,7vw,96px);line-height:.9;color:var(--rosa);padding:0 var(--pad);max-width:1400px;margin:0 auto;padding-top:60px}
-.wa{position:fixed;right:18px;bottom:18px;z-index:30;width:60px;height:60px;border-radius:50%;background:#25D366;display:grid;place-items:center;box-shadow:0 5px 0 #138a43,0 14px 26px rgba(0,0,0,.25);transition:transform .25s}
+footer .big{font-family:'Fraunces';font-weight:900;font-variation-settings:'SOFT' 100,'WONK' 1;font-size:clamp(56px,14vw,230px);line-height:.85;letter-spacing:-.04em;color:var(--rosa);padding:70px var(--pad) 0;white-space:nowrap}
+footer .big span{display:inline-block}
+.wa{position:fixed;right:18px;bottom:18px;z-index:45;width:60px;height:60px;border-radius:50%;background:#25D366;display:grid;place-items:center;box-shadow:0 5px 0 #138a43,0 14px 26px rgba(0,0,0,.25);transition:transform .25s}
 .wa:hover{transform:scale(1.08)}
 .wa svg{width:30px;height:30px;fill:#fff}
 
@@ -258,8 +287,8 @@ footer .big{font-family:'Fraunces';font-weight:900;font-variation-settings:'SOFT
   .box{grid-template-columns:1fr}
   .preview{position:relative;top:0}
   .where,.quotes,.occ{grid-template-columns:1fr}
-  .q:nth-child(n){transform:none}
-  footer .in{grid-template-columns:1fr 1fr}
+  .q:nth-child(n){margin-top:0}
+  footer .fin{grid-template-columns:1fr 1fr}
 }
 @media (max-width:820px){
   body{font-size:16px}
@@ -268,36 +297,40 @@ footer .big{font-family:'Fraunces';font-weight:900;font-variation-settings:'SOFT
   .logo img{width:52px;height:52px}
   .links.open{display:flex;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;background:var(--crema);padding:8px 16px 16px;box-shadow:0 10px 20px rgba(53,84,82,.15)}
   .links.open a{display:block;padding:14px 4px;font-size:18px;border-bottom:1.5px dashed var(--line)}
-  .hero{align-items:flex-end;min-height:calc(100svh - 130px);padding-top:46svh;padding-bottom:84px}
-  .blob{width:76vw;right:12vw;top:22svh}
-  .stamp{width:84px;height:84px;right:6vw;top:calc(22svh - 38vw + 6px)}
-  .badge110{right:auto;left:6vw;top:calc(22svh + 18vw)}
-  .badge110 b{font-size:26px}
-  .proc .stick{align-items:flex-end;padding-bottom:100px}
-  .proc .panel{max-width:none;min-height:262px;background:var(--papel);border:2px solid var(--teal);border-radius:24px;padding:20px;box-shadow:0 6px 0 var(--teal)}
-  .proc .head h2{font-size:28px;margin:6px 0 12px}
-  .step{left:20px;right:20px}
-  .step .n{width:40px;height:40px;font-size:18px}
-  .step h3{font-size:24px;margin:8px 0 6px}
-  .step p{font-size:15px}
-  .bar{bottom:60px}
-  .callout{display:none}
-  section.s{padding:84px var(--pad)}
+  .disc,.inside{width:min(74vw,40svh)}
+  .cookie{width:min(66vw,36svh)}
+  .stage{inset:0;place-items:start center}
+  .disc,.inside,.cookie{top:calc(160px + min(74vw,40svh)/2);left:50%;translate:-50% -50%}
+  .stamp{width:72px;height:72px;left:auto;right:4vw;top:150px}
+  .badge{left:4vw;top:calc(160px + min(74vw,40svh)*.7)}
+  .badge b{font-size:26px}
+  .hw{font-size:clamp(58px,19vw,110px)}
+  .hw.a{top:74px;left:var(--pad)}
+  .hw.b{top:auto;bottom:29%;right:auto;left:var(--pad)}
+  .hw.c{bottom:18%;left:calc(var(--pad) + 26vw)}
+  .hero .sub{left:var(--pad);right:80px;bottom:3%;max-width:none;display:flex;flex-direction:row-reverse;gap:12px;align-items:center;justify-content:space-between}
+  .hero .sub p{display:none}
+  .hero .sub .btn{margin:0;flex:none}
+  .hint{display:none}
+  .mani{padding:110px var(--pad)}
+  section.s{padding:90px var(--pad)}
   .flavors{grid-template-columns:1fr}
   .gift,.sis{grid-template-columns:1fr}
   .panel2{padding:20px}
+  .card .ph{height:34svh}
+  .card h3{font-size:26px}
   .wa{width:52px;height:52px;right:14px;bottom:14px}
-  footer .in{grid-template-columns:1fr}
+  footer .fin{grid-template-columns:1fr}
 }
 @media (prefers-reduced-motion:reduce){
   *,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 }
 </style>
+<script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
 <div class="bgfx"></div>
-<canvas id="gl" aria-hidden="true"></canvas>
-<div class="fallback" aria-hidden="true"></div>
+<div class="prog" id="prog"></div>
 
 <div class="concept">✦ <span><b>Concepto de web</b> hecho por NIKA para Bliss. No es la web oficial.</span> <a href="https://digitalnika.com" target="_blank" rel="noopener">digitalnika.com</a></div>
 <div class="promo">Nuevo: cajas para regalar en fin de año 🎁 · Envíos desde Recoleta y Nuevo Quilmes · <a href="#caja">Armá la tuya</a></div>
@@ -319,76 +352,81 @@ footer .big{font-family:'Fraunces';font-weight:900;font-variation-settings:'SOFT
 
 <main>
   <section class="hero" id="hero">
-    <div class="blob" aria-hidden="true"></div>
-    <img class="stamp" src="bliss-logo.webp" alt="" aria-hidden="true">
-    <div class="badge110" aria-hidden="true"><b>110 g</b><span>por cookie</span></div>
-    <div class="txt">
-      <div class="typ pk">Homemade cookies · Buenos Aires</div>
-      <h1><span class="w">Cookies</span> <span class="w">grandes,</span> <span class="w">hechas</span> <span class="w"><span class="hl">en casa.</span></span></h1>
-      <p class="lead">Estilo Nueva York, con muuucho chocolate belga, borde crujiente y un centro que se desarma. Las hacen dos hermanas, entre Recoleta y Nuevo Quilmes.</p>
-      <div class="ctas"><a class="btn pink" href="#caja">Armá tu caja</a><a class="btn ghost" href="#proceso">Mirá cómo se hacen</a></div>
+    <div class="stage">
+      <div class="disc" id="disc"></div>
+      <div class="inside" id="inside"><img src="fotos/oreo-partida.webp" alt=""></div>
+      <div class="cookie" id="cookie"><div class="spin">
+        <div class="half l" id="hl"><img src="fotos/oreo-cut.webp" alt="Cookie de Bliss con Oreo"></div>
+        <div class="half r" id="hr"><img src="fotos/oreo-cut.webp" alt=""></div>
+      </div></div>
     </div>
+    <h1 class="sr" style="position:absolute;left:-9999px">Bliss · Cookies grandes, hechas en casa</h1>
+    <div class="hw a" aria-hidden="true">Bake.</div>
+    <div class="hw b" aria-hidden="true">Bite.</div>
+    <div class="hw c" aria-hidden="true">Bliss.</div>
+    <img class="stamp" id="stamp" src="bliss-logo.webp" alt="" aria-hidden="true">
+    <div class="badge" id="badge" aria-hidden="true"><b>110 g</b><span>por cookie</span></div>
+    <div class="sub" id="sub"><p>Cookies estilo Nueva York, grandes y rellenas. Las hacen dos hermanas, entre Recoleta y Nuevo Quilmes.</p><a class="btn pink" href="#caja">Armá tu caja</a></div>
+    <div class="hint" id="hint">Bajá y partila<i></i></div>
+    <div class="reveal" id="reveal"><img src="fotos/oreo-partida.webp" alt="Cookie de Bliss partida al medio, con centro cremoso"><div class="cap"><h2>Un centro que <em>se desarma.</em></h2><p>Afuera, borde crujiente. Adentro, lo mejor.</p></div></div>
   </section>
 
-  <div class="marq" aria-hidden="true"><div>
+  <div class="marq" aria-hidden="true"><div class="tr" id="mq">
     <span>Hechas a mano</span><span>110 g de amor</span><span>Chocolate belga</span><span>Recoleta + Quilmes</span><span>Bake. Bite. Bliss.</span>
     <span>Hechas a mano</span><span>110 g de amor</span><span>Chocolate belga</span><span>Recoleta + Quilmes</span><span>Bake. Bite. Bliss.</span>
   </div></div>
 
-  <section class="proc" id="proceso">
-    <div class="stick">
-      <div class="panel">
-        <div class="head"><div class="typ pk">Cómo las hacemos</div><h2>Nada es un error. <span class="hl">Todo está pensado.</span></h2></div>
-        <div style="position:relative">
-          <div class="step" data-i="0"><span class="n">1</span><h3>Manteca bien fría</h3><p>Es lo que hace que la cookie crezca alta y no se aplaste en el horno.</p></div>
-          <div class="step" data-i="1"><span class="n">2</span><h3>Muuucho chocolate belga</h3><p>En trozos, no en chips. Cuando la partís, se nota.</p></div>
-          <div class="step" data-i="2"><span class="n">3</span><h3>Borde dorado y crujiente</h3><p>El primer mordisco suena. Después viene lo mejor.</p></div>
-          <div class="step" data-i="3"><span class="n">4</span><h3>Centro chewy</h3><p>Húmedo, denso, de los que se desarman en la boca.</p></div>
-          <div class="step" data-i="4"><span class="n">5</span><h3>110 g de Bliss</h3><p>Si parece distinta, probablemente esté bien hecha.</p></div>
-        </div>
+  <section class="mani" id="mani">
+    <div class="typ pk">Nada es un error</div>
+    <p id="manitxt">Manteca bien fría. Muuucho chocolate belga, en trozos y no en chips. Un borde que suena al morderlo y un centro que se desarma. Ciento diez gramos de Bliss, hechos a mano por dos hermanas.</p>
+  </section>
+
+  <section class="hz" id="proceso">
+    <div class="hzin">
+      <div class="top"><div><div class="typ pk">Cómo las hacemos</div><h2 class="lines">Todo está <span class="hl">pensado.</span></h2></div><div class="count" id="pcount">01/05</div></div>
+      <div class="track" id="track">
+        <article class="card"><div class="ph"><img src="fotos/oreo.webp" alt=""></div><div class="tx"><span class="n">1</span><h3>Manteca bien fría</h3><p>Es lo que hace que la cookie crezca alta y no se aplaste en el horno.</p></div></article>
+        <article class="card"><div class="ph"><img src="fotos/oreo-partida.webp" alt="" style="object-position:85% 30%"></div><div class="tx"><span class="n">2</span><h3>Muuucho chocolate belga</h3><p>En trozos, no en chips. Cuando la partís, se nota.</p></div></article>
+        <article class="card"><div class="ph pink"><img src="fotos/berry.webp" alt=""></div><div class="tx"><span class="n">3</span><h3>Borde dorado y crujiente</h3><p>El primer mordisco suena. Después viene lo mejor.</p></div></article>
+        <article class="card"><div class="ph"><img src="fotos/oreo-partida.webp" alt="" style="object-position:45% 40%"></div><div class="tx"><span class="n">4</span><h3>Centro chewy</h3><p>Húmedo, denso, de los que se desarman en la boca.</p></div></article>
+        <article class="card"><div class="ph pink"><img src="fotos/oreo-cut.webp" alt=""></div><div class="tx"><span class="n">5</span><h3>110 g de Bliss</h3><p>Si parece distinta, probablemente esté bien hecha.</p></div></article>
+        <article class="card end"><h3>¿Y si probás <em>una caja?</em></h3><a class="btn pink" href="#caja">Armá tu caja</a></article>
       </div>
-      <div class="bar" aria-hidden="true"><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i></div>
-      <div class="callout" id="co1">Chocolate belga</div>
-      <div class="callout" id="co2">Centro chewy</div>
-      <div class="callout" id="co3">Borde crujiente</div>
     </div>
   </section>
 
   <section class="s" id="sabores">
-    <div class="sh rv"><div><div class="typ pk">Las favoritas</div><h2>Elegí tu <span class="hl">antojo</span></h2></div><p>Las dos primeras son de la carta de Bliss. Las otras dos son una idea para sumar sabores que cambian.</p></div>
-    <div class="flavors">
-      <article class="fl rv"><span class="tag">La más pedida</span><div class="plate"><div class="ck belga"></div></div><h3>La Belga</h3><p>Masa de manteca con trozos generosos de chocolate belga semiamargo.</p><div class="add"><button class="btn ghost sm" data-add="belga">Sumar a la caja</button></div></article>
-      <article class="fl rv"><span class="tag alt">Fresca</span><div class="plate"><div class="ck limon"></div></div><h3>Limón &amp; Frambuesa</h3><p>Limón, frambuesa y chocolate blanco. La que no esperabas.</p><div class="add"><button class="btn ghost sm" data-add="limon">Sumar a la caja</button></div></article>
-      <article class="fl rv"><span class="tag alt">Idea · del mes</span><div class="plate"><div class="ck temp"></div></div><h3>Sabor del mes</h3><p>Uno nuevo cada mes, votado por la comunidad en historias.</p><div class="add"><button class="btn ghost sm" data-add="temp">Sumar a la caja</button></div></article>
-      <article class="fl rv"><span class="tag alt">Idea · drop</span><div class="plate"><div class="ck drop"></div></div><h3>Edición limitada</h3><p>Pocas unidades, un solo fin de semana. Se avisa primero por WhatsApp.</p><div class="add"><button class="btn ghost sm" data-add="drop">Sumar a la caja</button></div></article>
+    <div class="sh"><div><div class="typ pk">Las favoritas</div><h2 class="lines">Elegí tu <span class="hl">antojo</span></h2></div><p class="up">Grandes, rellenas y hechas el mismo día. Estas son las que más piden.</p></div>
+    <div class="flavors" id="flavors">
+      <article class="fl"><span class="tag">Cookie Berry</span><div class="plate"><img class="cut" src="fotos/berry.webp" alt="Cookie de limón, frambuesa y chocolate blanco"></div><h3>Limón &amp; Frambuesa</h3><p>Masa de limón, frambuesa y chocolate blanco, con un copo de crema arriba.</p><div class="add"><button class="btn ghost sm" data-add="limon">Sumar a la caja</button></div></article>
+      <article class="fl"><span class="tag alt">Rellena</span><div class="plate"><img class="cut" src="fotos/oreo-cut.webp" alt="Cookie de Bliss con Oreo"></div><h3>Oreo</h3><p>Trozos de Oreo, chocolate y un centro cremoso que aparece cuando la partís.</p><div class="add"><button class="btn ghost sm" data-add="oreo">Sumar a la caja</button></div></article>
+      <article class="fl"><span class="tag alt">Clásica</span><div class="plate empty"><div class="ph-txt"><b>Foto de La Belga</b>Pendiente: la sacamos en la sesión de fotos.</div></div><h3>La Belga</h3><p>Masa de manteca con trozos generosos de chocolate belga semiamargo.</p><div class="add"><button class="btn ghost sm" data-add="belga">Sumar a la caja</button></div></article>
     </div>
   </section>
 
+  <div class="band" id="band"><img src="fotos/oreo-partida.webp" alt=""><h2 class="lines">Bake. Bite. <em>Bliss.</em></h2></div>
+
   <section class="s" id="regalos">
     <div class="gift">
-      <div class="boxart rv" id="boxart" aria-hidden="true">
-        <div class="ckp ck belga c1"></div><div class="ckp ck limon c2"></div><div class="ckp ck belga c3"></div>
-        <div class="base"></div><div class="lid"></div><div class="bow"></div>
-        <div class="card">Para vos, con amor ♡</div>
-      </div>
-      <div class="rv">
+      <div class="gph" id="gph" aria-label="Caja de regalo con cookies de Bliss"><div class="rib"></div><img class="gc g1" src="fotos/berry.webp" alt=""><img class="gc g2" src="fotos/oreo-cut.webp" alt=""><img class="gc g3" src="fotos/berry.webp" alt=""><div class="card2">Para vos, con amor ♡</div></div>
+      <div>
         <div class="typ pk">Regalos</div>
-        <h2>Regalos que se <span class="hl">abren con ganas</span></h2>
-        <p>Cajas de Bliss con tarjeta escrita a mano para el cumple, para agradecer o para fin de año. Tocá la caja y mirá adentro.</p>
-        <a class="btn" style="margin-top:28px" href="#caja">Armar una caja de regalo</a>
+        <h2 class="lines">Regalos que se <span class="hl">abren con ganas</span></h2>
+        <p class="up">Cajas de Bliss con tarjeta escrita a mano para el cumple, para agradecer o para fin de año.</p>
+        <a class="btn up" style="margin-top:28px" href="#caja">Armar una caja de regalo</a>
       </div>
     </div>
-    <div class="occ">
-      <div class="oc rv"><div class="ic">💼</div><h3>Empresas</h3><p>Para tu equipo o tus clientes, con tarjeta y entrega coordinada.</p><a id="giftbtn" href="#">Cotizar por WhatsApp</a></div>
-      <div class="oc rv"><div class="ic">🎉</div><h3>Eventos</h3><p>Cumpleaños, baby showers y mesas dulces. Cantidades a medida.</p><a class="wa-ev" href="#">Consultar fecha</a></div>
-      <div class="oc rv"><div class="ic">💌</div><h3>Sorpresas</h3><p>La mandamos a otra casa con tu mensaje. Que no sepa quién fue.</p><a href="#caja">Armar la caja</a></div>
+    <div class="occ" id="occ">
+      <div class="oc"><div class="ic">💼</div><h3>Empresas</h3><p>Para tu equipo o tus clientes, con tarjeta y entrega coordinada.</p><a id="giftbtn" href="#">Cotizar por WhatsApp</a></div>
+      <div class="oc"><div class="ic">🎉</div><h3>Eventos</h3><p>Cumpleaños, baby showers y mesas dulces. Cantidades a medida.</p><a class="wa-ev" href="#">Consultar fecha</a></div>
+      <div class="oc"><div class="ic">💌</div><h3>Sorpresas</h3><p>La mandamos a otra casa con tu mensaje. Que no sepa quién fue.</p><a href="#caja">Armar la caja</a></div>
     </div>
   </section>
 
   <section class="s" id="caja">
-    <div class="sh rv"><div><div class="typ pk">Pedidos</div><h2>Armá tu <span class="hl">caja</span></h2></div><p>Elegí el tamaño, llenala como quieras y te llega el pedido ya escrito por WhatsApp.</p></div>
+    <div class="sh"><div><div class="typ pk">Pedidos</div><h2 class="lines">Armá tu <span class="hl">caja</span></h2></div><p class="up">Elegí el tamaño, llenala como quieras y te llega el pedido ya escrito por WhatsApp.</p></div>
     <div class="box">
-      <div class="panel2 rv">
+      <div class="panel2 up">
         <span class="lbl">1 · Tamaño</span>
         <div class="seg" id="sizes">
           <button data-n="4">Caja x4<small>para darte un gusto</small></button>
@@ -411,9 +449,9 @@ footer .big{font-family:'Fraunces';font-weight:900;font-variation-settings:'SOFT
         <input class="field" id="name" placeholder="¿Cómo te llamás?" autocomplete="given-name">
         <label class="check"><input type="checkbox" id="gift"> Es para regalo, con tarjeta</label>
       </div>
-      <div class="preview rv">
+      <div class="preview up">
         <div class="panel2">
-          <div class="lid2"><div><h3>Tu caja</h3><span class="count" id="count">0 / 6</span></div><img src="bliss-logo.webp" alt="" width="54" height="54"></div>
+          <div class="lid2"><div><h3>Tu caja</h3><span class="count2" id="count">0 / 6</span></div><img src="bliss-logo.webp" alt="" width="54" height="54"></div>
           <div class="tray" id="tray"></div>
           <p class="sum" id="sum">Sumá sabores para llenar la caja.</p>
           <div class="bar2"><i id="fill"></i></div>
@@ -425,38 +463,41 @@ footer .big{font-family:'Fraunces';font-weight:900;font-variation-settings:'SOFT
   </section>
 
   <section class="s" id="opiniones">
-    <div class="sh rv"><div><div class="typ pk">Lo que dicen</div><h2>Comentarios <span class="hl">reales</span></h2></div><p>Algunos comentarios que dejaron en el Instagram de Bliss.</p></div>
+    <div class="sh"><div><div class="typ pk">Lo que dicen</div><h2 class="lines">Comentarios <span class="hl">reales</span></h2></div><p class="up">Algunos comentarios que dejaron en el Instagram de Bliss.</p></div>
     <div class="quotes">
-      <div class="q rv"><p>Espectaculares!!!!</p><small>En Instagram · cookie de limón</small></div>
-      <div class="q rv"><p>Amo la unión del limón y la frambuesa 😍</p><small>En Instagram</small></div>
-      <div class="q rv"><p>Me muerooooo 🔥🔥🔥</p><small>En Instagram · reel</small></div>
+      <div class="q" data-speed="0.9"><p>Espectaculares!!!!</p><small>En Instagram · cookie de limón</small></div>
+      <div class="q" data-speed="1.15"><p>Amo la unión del limón y la frambuesa 😍</p><small>En Instagram</small></div>
+      <div class="q" data-speed="1.0"><p>Me muerooooo 🔥🔥🔥</p><small>En Instagram · reel</small></div>
     </div>
   </section>
 
   <section class="s" id="hermanas">
     <div class="sis">
-      <div class="photo rv"><div><b>Acá va la foto de ustedes dos</b>En la cocina, con harina en las manos. Es la imagen que más vende.</div><img src="bliss-logo.webp" alt="" aria-hidden="true"></div>
-      <div class="rv">
+      <div>
+        <div class="photo" id="sisph"><div class="ph-txt"><div><b>Acá va la foto de ustedes dos</b>En la cocina, con harina en las manos. Es la imagen que más vende.</div></div></div>
+        <img class="seal" src="bliss-logo.webp" alt="" aria-hidden="true">
+      </div>
+      <div>
         <div class="typ pk">Quiénes somos</div>
-        <h2>Dos hermanas y <span class="hl">un horno</span></h2>
-        <p class="quote">“En Bliss hacemos cookies respetando el proceso. Porque es distinto. Y cada detalle responde a una decisión, no a un error.”</p>
-        <p class="sig">Las hermanas de Bliss</p>
+        <h2 class="lines">Dos hermanas y <span class="hl">un horno</span></h2>
+        <p class="quote up">“En Bliss hacemos cookies respetando el proceso. Porque es distinto. Y cada detalle responde a una decisión, no a un error.”</p>
+        <p class="sig up">Las hermanas de Bliss</p>
       </div>
     </div>
   </section>
 
   <section class="s" id="donde">
-    <div class="sh rv"><div><div class="typ pk">Dónde estamos</div><h2>Dos barrios, <span class="hl">un antojo</span></h2></div></div>
-    <div class="where">
-      <div class="panel2 rv"><span class="tag">CABA</span><h3>Recoleta</h3><p>Retiro y envíos en la zona. Días y horarios a confirmar.</p></div>
-      <div class="panel2 rv"><span class="tag alt">Zona sur</span><h3>Nuevo Quilmes</h3><p>Retiro y envíos en Quilmes, Bernal y alrededores. A confirmar.</p></div>
-      <div class="panel2 rv"><span class="tag alt">Delivery</span><h3>Por apps</h3><p>También pedís por WhatsApp, Rappi y PedidosYa.</p><div class="apps"><span>WhatsApp</span><span>Rappi</span><span>PedidosYa</span></div></div>
+    <div class="sh"><div><div class="typ pk">Dónde estamos</div><h2 class="lines">Dos barrios, <span class="hl">un antojo</span></h2></div></div>
+    <div class="where" id="where">
+      <div class="panel2"><span class="tag">CABA</span><h3>Recoleta</h3><p>Retiro y envíos en la zona. Días y horarios a confirmar.</p></div>
+      <div class="panel2"><span class="tag alt">Zona sur</span><h3>Nuevo Quilmes</h3><p>Retiro y envíos en Quilmes, Bernal y alrededores. A confirmar.</p></div>
+      <div class="panel2"><span class="tag alt">Delivery</span><h3>Por apps</h3><p>También pedís por WhatsApp, Rappi y PedidosYa.</p><div class="apps"><span>WhatsApp</span><span>Rappi</span><span>PedidosYa</span></div></div>
     </div>
   </section>
 
   <section class="s" id="faq">
-    <div class="sh rv"><div><div class="typ pk">Preguntas</div><h2>Lo que <span class="hl">nos preguntan</span></h2></div></div>
-    <div class="faq rv">
+    <div class="sh"><div><div class="typ pk">Preguntas</div><h2 class="lines">Lo que <span class="hl">nos preguntan</span></h2></div></div>
+    <div class="faq up">
       <details open><summary>¿Cuánto pesa una cookie?</summary><p>110 gramos. Es una cookie estilo Nueva York: alta, con borde crujiente y centro húmedo.</p></details>
       <details><summary>¿Cómo hago un pedido?</summary><p>Armá tu caja acá y te abre WhatsApp con el pedido escrito. También estamos en Rappi y PedidosYa.</p></details>
       <details><summary>¿Hacen envíos?</summary><p>Sí, desde Recoleta y desde Nuevo Quilmes. Las zonas y el costo se confirman por WhatsApp.</p></details>
@@ -466,8 +507,8 @@ footer .big{font-family:'Fraunces';font-weight:900;font-variation-settings:'SOFT
 </main>
 
 <footer>
-  <div class="big">Bake. Bite. Bliss.</div>
-  <div class="in">
+  <div class="big" id="big" aria-label="Bake. Bite. Bliss.">Bake. Bite. Bliss.</div>
+  <div class="fin">
     <img src="bliss-logo.webp" alt="Bliss Homemade Cookies" width="120" height="120">
     <div><h4>Pedidos</h4><p><a href="#caja">Armá tu caja</a><br><a href="#regalos">Regalos y empresas</a><br>WhatsApp, Rappi y PedidosYa</p></div>
     <div><h4>Seguinos</h4><p>Instagram <a href="https://www.instagram.com/blisscookies.ba" target="_blank" rel="noopener">@blisscookies.ba</a><br>TikTok <a href="https://www.tiktok.com/@blisscookies.ba" target="_blank" rel="noopener">@blisscookies.ba</a></p></div>
@@ -477,8 +518,10 @@ footer .big{font-family:'Fraunces';font-weight:900;font-variation-settings:'SOFT
 
 <a class="wa" id="wa" href="#" aria-label="Escribir por WhatsApp" target="_blank" rel="noopener"><svg viewBox="0 0 32 32"><path d="M16 3a13 13 0 0 0-11.2 19.6L3 29l6.6-1.7A13 13 0 1 0 16 3zm0 23.7c-2 0-4-.5-5.7-1.6l-.4-.2-3.9 1 1-3.8-.3-.4A10.7 10.7 0 1 1 16 26.7zm5.9-8c-.3-.2-1.9-1-2.2-1s-.5-.2-.7.2l-1 1.2c-.2.2-.4.2-.7.1a8.8 8.8 0 0 1-4.4-3.8c-.3-.6.3-.5 1-1.7.1-.2 0-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 0 0-.9.4 3.7 3.7 0 0 0-1.1 2.7 6.4 6.4 0 0 0 1.3 3.4 14.7 14.7 0 0 0 5.6 5c2.1.9 2.9 1 4 .8a3.4 3.4 0 0 0 2.2-1.6 2.8 2.8 0 0 0 .2-1.6c-.1-.1-.3-.2-.6-.4z"/></svg></a>
 
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
 <script src="ui.js" defer></script>
-<script type="module" src="app.js"></script>
-<script>setTimeout(function(){if(!window.__gl)document.documentElement.classList.add('no-gl')},4000)</script>
+<script src="scroll.js" defer></script>
 </body>
 </html>
