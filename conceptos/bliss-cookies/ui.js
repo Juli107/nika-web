@@ -1,4 +1,4 @@
-/* Bliss Cookies · concepto NIKA — interacción de la página (funciona aunque no cargue el 3D) */
+/* Bliss Cookies · concepto NIKA — interacción de la página (funciona aunque no carguen las animaciones) */
 (function () {
   'use strict';
   var WA = '5492804706544';
@@ -23,33 +23,7 @@
   $('#giftbtn').href = waLink('¡Hola Bliss! Quiero cotizar cajas para regalo. Cantidad aproximada: ___ · Fecha de entrega: ___');
   $('#giftbtn').target = '_blank';
   document.querySelectorAll('.wa-ev').forEach(function(e){ e.href = waLink('¡Hola Bliss! Quiero consultar por cookies para un evento. Fecha: ___ · Cantidad aproximada: ___'); e.target = '_blank'; });
-  var bx = $('#boxart');
-  if (bx) {
-    bx.addEventListener('click', function(){ bx.classList.toggle('open'); });
-    if ('IntersectionObserver' in window && matchMedia('(hover: none)').matches) {
-      new IntersectionObserver(function(es){ es.forEach(function(en){ bx.classList.toggle('open', en.intersectionRatio > .6); }); }, {threshold:[0,.6,1]}).observe(bx);
-    }
-  }
-
-  /* aparición al hacer scroll */
-  var io = new IntersectionObserver(function (es) {
-    es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-  }, { threshold: 0.15 });
-  $$('.rv').forEach(function (el, i) { el.style.transitionDelay = (i % 4) * 0.08 + 's'; io.observe(el); });
-
-  /* proceso: pasos según el scroll */
-  var proc = $('#proceso'), steps = $$('.step'), bars = $$('.bar i b');
-  window.blissProgress = function () {
-    var r = proc.getBoundingClientRect(), h = proc.offsetHeight - window.innerHeight;
-    return Math.min(1, Math.max(0, -r.top / h));
-  };
-  function onScroll() {
-    header.classList.toggle('solid', window.scrollY > 40);
-    var p = window.blissProgress();
-    var k = Math.min(4, Math.floor(p * 5));
-    steps.forEach(function (s, i) { s.classList.toggle('on', i === k); });
-    bars.forEach(function (b, i) { b.style.transform = 'scaleX(' + Math.min(1, Math.max(0, p * 5 - i)) + ')'; });
-  }
+  function onScroll() { header.classList.toggle('solid', window.scrollY > 40); }
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
@@ -83,12 +57,11 @@
 
   /* armá tu caja */
   var FL = [
-    { id: 'belga', nm: 'La Belga', d: 'chocolate belga' },
-    { id: 'limon', nm: 'Limón & Frambuesa', d: 'con chocolate blanco' },
-    { id: 'temp', nm: 'Sabor del mes', d: 'idea de temporada' },
-    { id: 'drop', nm: 'Edición limitada', d: 'idea de drop' }
+    { id: 'limon', nm: 'Limón & Frambuesa', d: 'cookie berry' },
+    { id: 'oreo', nm: 'Oreo', d: 'con centro cremoso' },
+    { id: 'belga', nm: 'La Belga', d: 'chocolate belga' }
   ];
-  var st = { n: 6, q: { belga: 0, limon: 0, temp: 0, drop: 0 }, zone: 'Recoleta', mode: 'Retiro' };
+  var st = { n: 6, q: { limon: 0, oreo: 0, belga: 0 }, zone: 'Recoleta', mode: 'Retiro' };
   var rows = $('#rows'), tray = $('#tray');
   FL.forEach(function (f) {
     var r = document.createElement('div');
@@ -149,7 +122,7 @@
   $$('[data-add]').forEach(function (b) {
     b.addEventListener('click', function () {
       if (total() < st.n) { st.q[b.dataset.add]++; render(true); }
-      document.getElementById('caja').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
+      var cj = document.getElementById('caja'); if (window.blissScrollTo) window.blissScrollTo(cj); else cj.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
     });
   });
   $('#send').addEventListener('click', function () {
