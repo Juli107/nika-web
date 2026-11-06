@@ -1,6 +1,6 @@
 /* Franciotex · concepto NIKA — los productos en 3D.
    Cada tela se teje en tiempo real: los hilos se dibujan en un canvas (color, relieve y huecos de la trama)
-   y la ondulación se calcula en la placa de video, así que no hace falta descargar ninguna imagen.
+   y la ondulación se calcula en la placa de video. La franela y la ballerina usan la textura de fotos reales (fotos/).
    Lee window.FX_STATE, que ui.js anima con el scroll. */
 import * as THREE from 'three';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
@@ -48,9 +48,11 @@ const LOOK = {
   repasador: { cm: [45, 64], pitch: 9, tw: .9, base: '#F7F4EE', fringe: 0, holes: false, hem: true,
                weft: (f) => band(f, [[.06, .1, '#2F5DA8'], [.115, .125, '#2F5DA8'], [.875, .885, '#2F5DA8'], [.9, .94, '#2F5DA8']]),
                warp: (f) => band(f, [[.06, .09, '#2F5DA8'], [.91, .94, '#2F5DA8']]) },
-  piso:      { cm: [50, 60], pitch: 15, tw: .92, base: '#ECE8E1', fringe: 0, holes: true, waffle: true,
-               weft: (f) => (Math.floor(f * 12) % 2 ? '#8F8E8A' : null) },
-  franela:   { cm: [40, 50], felt: '#D9661A', edge: '#FFC34D' },
+  piso:      { cm: [50, 60], pitch: 15, tw: .95, base: '#DCC8A8', fringe: 0, holes: true, waffle: true,
+               weft: (f) => band(f, [[.05, .07, '#1F2D5C'], [.085, .105, '#C8433A'], [.12, .135, '#1F2D5C'], [.865, .88, '#1F2D5C'], [.895, .915, '#C8433A'], [.93, .95, '#1F2D5C']]) },
+  /* franela y ballerina: textura tomada de fotos reales del producto */
+  franela:   { cm: [40, 50], photo: 'fotos/franela-tex.jpg', avg: '#E3202B', rep: 3.6, edge: '#9E0E17', felt: true, sheen: 0xFF2A2A },
+  ballerina: { cm: [40, 40], photo: 'fotos/ballerina-tex.jpg', avg: '#E2CF14', rep: 2.4, felt: true, sheen: 0xFFE000 },
   auto:      { cm: [50, 60], pitch: 17, tw: .86, base: '#EADFC8', fringe: .04, holes: true, heavy: true,
                weft: (f) => band(f, [[.42, .47, '#2F5DA8'], [.49, .5, '#EADFC8'], [.52, .57, '#C9362C']]) }
 };
@@ -65,7 +67,12 @@ function weave(L) {
   const m = cm.getContext('2d'), b = cb.getContext('2d');
   const k = BASE / 1280;
 
-  if (L.felt) { /* franela: frisa suave con borde overlock */
+  if (L.photo) { /* se pinta cuando carga la foto (ver paintPhoto) */
+    m.fillStyle = L.avg; m.fillRect(0, 0, W, H);
+    b.fillStyle = 'rgb(120,255,0)'; b.fillRect(0, 0, W, H);
+    return [cm, cb];
+  }
+  if (L.felt) { /* frisa suave con borde overlock */
     m.fillStyle = L.felt; m.fillRect(0, 0, W, H);
     b.fillStyle = 'rgb(120,255,0)'; b.fillRect(0, 0, W, H);
     for (let i = 0; i < 26000 * k; i++) {
@@ -165,6 +172,38 @@ function weave(L) {
   return [cm, cb];
 }
 
+/* tela a partir de una foto real: la textura se repite, el relieve sale del brillo de la foto
+   y la franela lleva el borde cosido (overlock) */
+function paintPhoto(L, cm, cb, img) {
+  const W = cm.width, H = cm.height, k = BASE / 1280;
+  const m = cm.getContext('2d'), b = cb.getContext('2d');
+  const sc = W / L.rep / img.width;
+  const pat = m.createPattern(img, 'repeat'); pat.setTransform(new DOMMatrix().scale(sc));
+  m.fillStyle = pat; m.fillRect(0, 0, W, H);
+  const d = m.getImageData(0, 0, W, H), bd = b.createImageData(W, H);
+  let lo = 255, hi = 0;
+  for (let i = 0; i < d.data.length; i += 4) { const l = (d.data[i] * .3 + d.data[i + 1] * .59 + d.data[i + 2] * .11); if (l < lo) lo = l; if (l > hi) hi = l; }
+  const rg = Math.max(1, hi - lo);
+  for (let i = 0; i < d.data.length; i += 4) {
+    const l = (d.data[i] * .3 + d.data[i + 1] * .59 + d.data[i + 2] * .11);
+    bd.data[i] = 40 + (l - lo) / rg * 200; bd.data[i + 1] = 255; bd.data[i + 2] = 0; bd.data[i + 3] = 255;
+  }
+  b.putImageData(bd, 0, 0);
+  /* borde: un poco más oscuro y apretado */
+  const e = 14 * k;
+  for (const [ctx, col] of [[m, 'rgba(0,0,0,.16)'], [b, 'rgba(255,255,0,.35)']]) { ctx.strokeStyle = col; ctx.lineWidth = e; ctx.strokeRect(e / 2, e / 2, W - e, H - e); }
+  if (L.edge) {
+    const step = 7 * k;
+    for (const [ctx, col] of [[m, L.edge], [b, 'rgb(255,255,0)']]) {
+      ctx.strokeStyle = col; ctx.lineWidth = 2.2 * k;
+      ctx.beginPath();
+      for (let x = 0; x < W; x += step) { ctx.moveTo(x, 0); ctx.lineTo(x + step * .6, e); ctx.moveTo(x, H); ctx.lineTo(x + step * .6, H - e); }
+      for (let y = 0; y < H; y += step) { ctx.moveTo(0, y); ctx.lineTo(e, y + step * .6); ctx.moveTo(W, y); ctx.lineTo(W - e, y + step * .6); }
+      ctx.stroke();
+    }
+  }
+}
+
 const TEX = {};
 function texFor(i) {
   const id = P[i].id;
@@ -173,7 +212,12 @@ function texFor(i) {
   const map = new THREE.CanvasTexture(cm); map.colorSpace = THREE.SRGBColorSpace; map.anisotropy = ANISO;
   const bump = new THREE.CanvasTexture(cb); bump.anisotropy = ANISO;
   const L = LOOK[id];
-  return (TEX[id] = { map, bump, holes: !!L.holes, size: new THREE.Vector2(L.cm[0] / 40 * .92, L.cm[1] / 40 * .92), heavy: !!L.heavy, felt: !!L.felt });
+  if (L.photo) {
+    const img = new Image();
+    img.onload = () => { paintPhoto(L, cm, cb, img); map.needsUpdate = true; bump.needsUpdate = true; };
+    img.src = L.photo;
+  }
+  return (TEX[id] = { map, bump, holes: !!L.holes, size: new THREE.Vector2(L.cm[0] / 40 * .92, L.cm[1] / 40 * .92), heavy: !!L.heavy, felt: !!L.felt, sheen: L.sheen, photo: !!L.photo });
 }
 
 /* ---------------- la tela: ondula en la placa de video ---------------- */
@@ -237,9 +281,10 @@ function show(i) {
   const t = texFor(i);
   mat.map = t.map; mat.bumpMap = t.bump; mat.alphaMap = t.holes ? t.bump : null;
   mat.alphaTest = t.holes ? .42 : 0;
-  mat.bumpScale = t.felt ? .8 : (t.heavy ? 3 : 2.2);
+  mat.bumpScale = t.photo ? 1.8 : t.felt ? .8 : (t.heavy ? 3 : 2.2);
   mat.sheenRoughness = t.felt ? .35 : .55;
-  mat.sheenColor.set(t.felt ? 0xFF9A4A : 0xFFF4E2); mat.sheen = t.felt ? .7 : 1;
+  mat.sheenColor.set(t.sheen || (t.felt ? 0xFF9A4A : 0xFFF4E2)); mat.sheen = t.photo ? .12 : t.felt ? .7 : 1;
+  mat.color.setScalar(t.photo ? .58 : 1); /* las fotos ya traen su luz: se bajan un poco para no lavar el color */
   mat.needsUpdate = true;
 }
 /* tejer el resto en segundo plano para que el cambio de producto sea instantáneo */
@@ -287,7 +332,7 @@ const ptr = { x: 0, y: 0, tx: 0, ty: 0 };
 addEventListener('pointermove', (e) => { ptr.tx = e.clientX / innerWidth * 2 - 1; ptr.ty = e.clientY / innerHeight * 2 - 1; }, { passive: true });
 
 /* ---------------- animación ---------------- */
-const cur = Object.assign({}, window.FX_STATE || {});
+const cur = Object.assign({}, window.FX_STATE || {}); cur.threads = 0;
 const clock = new THREE.Clock();
 const ease = (a, b, t) => a + (b - a) * t;
 const smooth = (e0, e1, x) => { const t = Math.min(1, Math.max(0, (x - e0) / (e1 - e0))); return t * t * (3 - 2 * t); };
@@ -310,7 +355,8 @@ function frame() {
 
   holder.position.set(cur.x * hw + ptr.x * .04, cur.y * hh - ptr.y * .03, cur.z);
   holder.rotation.set(cur.rx + ptr.y * .08, cur.ry + spin + ptr.x * .14, cur.rz);
-  holder.scale.setScalar(cur.s * (1 - Math.sin(smooth(.2, .8, fr) * Math.PI) * .08));
+  holder.scale.setScalar(Math.max(cur.s, .001) * (1 - Math.sin(smooth(.2, .8, fr) * Math.PI) * .08));
+  holder.visible = cur.s > .03;
 
   /* hilos */
   const tv = cur.threads;
@@ -322,7 +368,9 @@ function frame() {
       m.geometry.setDrawRange(0, Math.floor(c * prog / seg) * seg);
     });
     threads.rotation.x = Math.sin(U.uTime.value * .4) * .05 + ptr.y * .05;
-    threads.position.y = Math.sin(U.uTime.value * .7) * .02;
+    threads.position.y = (cur.ty || 0) * hh + Math.sin(U.uTime.value * .7) * .02;
+    threads.rotation.z = cur.tr || 0;
+    threads.position.x = (cur.tx || 0) * hw;
   }
   warm.intensity = 1.6 + Math.sin(U.uTime.value * .8) * .4;
   renderer.render(scene, camera);
