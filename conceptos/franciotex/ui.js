@@ -11,14 +11,14 @@
 
   /* ---------- estado que lee el 3D (tela.js) ---------- */
   var KF = {
-    hero:      { x: .5,  y: .02, z: 0,    rx: -.26, ry: -.55, rz: .12, s: 1.12, amp: 1,   flag: 0,  curl: .95,  prod: 0,  threads: 0, m: { x: .05, y: .54, s: .48 } },
+    hero:      { x: .5,  y: .02, z: 0,    rx: -.26, ry: -.55, rz: .12, s: 1.12, amp: 1,   flag: 0,  curl: .95,  prod: 0,  threads: 0, m: { x: .08, y: .66, s: .36 } },
     macro:     { x: .42, y: 0,   z: 1.75, rx: -.04, ry: -.12, rz: .02, s: 1.15, amp: .3,  flag: 0,  curl: .15, prod: 0,  threads: 0, m: { x: 0, y: .5, z: .5, s: .75 } },
     hilos:     { x: .78, y: -.25,z: -1.4, rx: -.1,  ry: .7,   rz: -.1, s: .75,  amp: .8,  flag: 0,  curl: .5,  prod: 0,  threads: 1, m: { x: .4, y: .55, s: .5 } },
     productos: { x: -.16,y: .02, z: .1,   rx: -.12, ry: 0,    rz: 0,   s: 1,    amp: .55, flag: 0,  curl: .3,  prod: 0,  threads: 0, m: { x: 0, y: .24, s: .5 } },
-    bandera:   { x: .52, y: .22, z: 0,    rx: 0,    ry: -.32, rz: 0,   s: 1.05,  amp: 1.15,flag: 1,  curl: 0,   prod: 7,  threads: 0, m: { x: 0, y: .5, s: .62 } },
-    lateral:   { x: -1.05,y: -.35,z: -.6, rx: -.2,  ry: .6,   rz: .25, s: .7,   amp: .7,  flag: 0,  curl: .9,  prod: 10, threads: 0, m: { x: -.6, y: .62, s: .45 } },
+    bandera: { x: .44, y: .3,  z: 0,    rx: 0,    ry: -.32, rz: 0,   s: 1.0,  amp: 1.15,flag: 1,  curl: 0,   prod: 7,  threads: 0, m: { x: 0, y: .5, s: .62 } },
+    lateral: { x: .1,  y: -.62,z: -.8,  rx: -.2,  ry: .6,   rz: .25, s: .7,   amp: .7,  flag: 0,  curl: .9,  prod: 10, threads: 0, m: { x: -.6, y: .62, s: .45 } },
     lejos:     { x: .95, y: .55, z: -2.2, rx: -.3,  ry: -.6,  rz: -.2, s: .8,   amp: .9,  flag: 0,  curl: .6,  prod: 11, threads: 0, m: { x: .5, y: .7, s: .5 } },
-    pedido:    { x: -1.1,y: .15, z: -1.6, rx: -.1,  ry: .5,   rz: .15, s: .85,  amp: .8,  flag: 0,  curl: .5,  prod: 12, threads: 0, m: { x: -.5, y: .75, s: .5 } },
+    pedido: { x: .5,  y: .2,  z: -1.2, rx: -.1,  ry: .5,   rz: .15, s: .9,   amp: .8,  flag: 0,  curl: .5,  prod: 12, threads: 0, m: { x: -.5, y: .75, s: .5 } },
     cierre:    { x: 0,   y: .05, z: -.4,  rx: -.2,  ry: 0,    rz: 0,   s: 1.2,  amp: 1,   flag: .35,curl: .2,  prod: 13, threads: 0, m: { x: 0, y: .05, s: .8 } }
   };
   var KEYS = ['x', 'y', 'z', 'rx', 'ry', 'rz', 's', 'amp', 'flag', 'curl', 'prod', 'threads'];

@@ -44,7 +44,7 @@ const LOOK = {
   rejilla:   { cm: [40, 40], pitch: 20, tw: .76, base: '#F3EEE3', fringe: .045, holes: true,
                weft: (f) => band(f, [[.17, .2, '#2E8B57'], [.215, .245, '#D23A2E'], [.755, .785, '#D23A2E'], [.8, .83, '#2E8B57']]) },
   argentina: { cm: [50, 40], pitch: 20, tw: .76, base: '#F5F1E8', fringe: .045, holes: true,
-               weft: (f) => band(f, [[.12, .2, '#7DB6E8'], [.215, .235, '#E5B84B'], [.44, .56, '#7DB6E8'], [.765, .785, '#E5B84B'], [.8, .88, '#7DB6E8']]) },
+               weft: (f) => band(f, [[.12, .2, '#4F96D8'], [.215, .24, '#E0A92E'], [.44, .56, '#4F96D8'], [.76, .785, '#E0A92E'], [.8, .88, '#4F96D8']]) },
   repasador: { cm: [45, 64], pitch: 9, tw: .9, base: '#F7F4EE', fringe: 0, holes: false, hem: true,
                weft: (f) => band(f, [[.06, .1, '#2F5DA8'], [.115, .125, '#2F5DA8'], [.875, .885, '#2F5DA8'], [.9, .94, '#2F5DA8']]),
                warp: (f) => band(f, [[.06, .09, '#2F5DA8'], [.91, .94, '#2F5DA8']]) },
@@ -292,7 +292,7 @@ const clock = new THREE.Clock();
 const ease = (a, b, t) => a + (b - a) * t;
 const smooth = (e0, e1, x) => { const t = Math.min(1, Math.max(0, (x - e0) / (e1 - e0))); return t * t * (3 - 2 * t); };
 function frame() {
-  const dt = Math.min(clock.getDelta(), .05);
+  const dt = Math.min(clock.getDelta(), .2);
   const S = window.FX_STATE || cur;
   const f = 1 - Math.exp(-dt * 5);
   for (const k in S) cur[k] = cur[k] === undefined ? S[k] : ease(cur[k], S[k], k === 'prod' ? 1 - Math.exp(-dt * 8) : f);
