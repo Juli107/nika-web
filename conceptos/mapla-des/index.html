@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Mapla Des · Mayoristas de plásticos y descartables en Santiago del Estero — Concepto NIKA</title>
-<meta name="description" content="Concepto de web hecho por NIKA para Mapla Des: descartables, envases, film, embalaje y cotillón por mayor y por menor en Av. Aguirre Sur 2387, Santiago del Estero.">
+<meta name="description" content="Concepto de web con tienda online hecho por NIKA para Mapla Des: descartables, envases, film, embalaje y cotillón por mayor y por menor en Av. Aguirre Sur 2387, Santiago del Estero.">
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#070914">
 <link rel="icon" href="isotipo.svg" type="image/svg+xml">
@@ -56,7 +56,7 @@ main,header,footer,.concept{position:relative;z-index:2}
 /* marca */
 .brand{display:flex;align-items:center;gap:12px;text-decoration:none}
 .brand img{width:46px;height:auto}
-.wm{font-family:'Lexend';font-weight:700;font-size:21px;letter-spacing:.02em;line-height:1;display:flex;align-items:flex-end}
+.wm{font-family:'Lexend',sans-serif;font-weight:700;font-size:21px;letter-spacing:.02em;line-height:1;display:flex;align-items:flex-end}
 .wm .a{color:var(--rojo)}.wm .p{color:#5C7CFF}.wm .d{color:var(--celeste)}
 .wm-fork{display:block;height:7px;margin-top:3px;width:100%}
 .brand small{display:block;font-family:'JetBrains Mono';font-size:8.5px;letter-spacing:.2em;color:var(--gris);margin-top:5px}
@@ -69,7 +69,7 @@ header.solid{background:rgba(7,9,20,.74);backdrop-filter:blur(14px);-webkit-back
 .links a{text-decoration:none;font-size:14px;font-weight:500;color:#D6DAE8;position:relative;padding:4px 0}
 .links a:after{content:'';position:absolute;left:0;right:0;bottom:-2px;height:2px;background:var(--rojo);transform:scaleX(0);transform-origin:right;transition:transform .4s}
 .links a:hover:after{transform:scaleX(1);transform-origin:left}
-.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 24px;border-radius:999px;font-weight:600;font-size:15px;text-decoration:none;border:0;cursor:pointer;font-family:'Lexend';transition:transform .3s cubic-bezier(.3,1.5,.5,1),background .3s,color .3s,box-shadow .3s;will-change:transform}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 24px;border-radius:999px;font-weight:600;font-size:15px;text-decoration:none;border:0;cursor:pointer;font-family:'Lexend',sans-serif;transition:transform .3s cubic-bezier(.3,1.5,.5,1),background .3s,color .3s,box-shadow .3s;will-change:transform}
 .btn:hover{transform:translateY(-2px)}
 .btn.pri{background:var(--rojo);color:#fff;box-shadow:0 10px 30px rgba(255,61,62,.35)}
 .btn.pri:hover{background:#ff5556;box-shadow:0 14px 40px rgba(255,61,62,.5)}
@@ -119,7 +119,7 @@ section{position:relative;padding:clamp(90px,14vh,160px) var(--pad)}
 
 /* marquee */
 .marq{padding:26px 0;border-block:1px solid var(--line);background:rgba(7,9,20,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);overflow:hidden;white-space:nowrap}
-.marq div{display:inline-flex;gap:40px;padding-right:40px;animation:mq 34s linear infinite;font-family:'Lexend';font-weight:700;font-size:clamp(26px,3.4vw,46px);letter-spacing:-.02em;text-transform:uppercase}
+.marq div{display:inline-flex;gap:40px;padding-right:40px;animation:mq 34s linear infinite;font-family:'Lexend',sans-serif;font-weight:700;font-size:clamp(26px,3.4vw,46px);letter-spacing:-.02em;text-transform:uppercase}
 .marq span:nth-child(3n+1){color:var(--rojo)}.marq span:nth-child(3n+2){color:transparent;-webkit-text-stroke:1px var(--blanco)}.marq span:nth-child(3n){color:#5C7CFF}
 @keyframes mq{to{transform:translateX(-100%)}}
 
@@ -128,7 +128,7 @@ section{position:relative;padding:clamp(90px,14vh,160px) var(--pad)}
 .stats{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .stat{padding:24px 24px 22px;border-radius:var(--r);background:var(--glass);border:1px solid var(--line);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);position:relative;overflow:hidden}
 .stat:before{content:'';position:absolute;left:0;top:0;width:100%;height:3px;background:var(--c,var(--rojo));transform:scaleX(var(--p,0));transform-origin:left}
-.stat b{display:block;font-family:'Lexend';font-weight:700;font-size:clamp(42px,4.4vw,64px);line-height:1;letter-spacing:-.03em}
+.stat b{display:block;font-family:'Lexend',sans-serif;font-weight:700;font-size:clamp(42px,4.4vw,64px);line-height:1;letter-spacing:-.03em}
 .stat span{display:block;color:var(--gris);font-size:14px;margin-top:8px}
 @media(max-width:900px){.why .wrap{grid-template-columns:1fr;gap:36px}}
 
@@ -138,7 +138,7 @@ section{position:relative;padding:clamp(90px,14vh,160px) var(--pad)}
 .prod-head{position:absolute;left:var(--pad);top:clamp(90px,13vh,130px);z-index:3;max-width:44vw}
 .prod-head .h2{font-size:clamp(38px,4.6vw,78px)}
 .prod-list{position:absolute;left:var(--pad);bottom:clamp(30px,7vh,70px);z-index:3;list-style:none;display:flex;flex-direction:column;gap:2px}
-.prod-list button{background:none;border:0;color:var(--gris2);font:500 15px 'Lexend';cursor:pointer;display:flex;align-items:center;gap:12px;padding:5px 0;transition:color .3s}
+.prod-list button{background:none;border:0;color:var(--gris2);font:500 15px 'Lexend',sans-serif;cursor:pointer;display:flex;align-items:center;gap:12px;padding:5px 0;transition:color .3s}
 .prod-list button i{width:22px;height:2px;background:currentColor;transition:width .4s,background .4s}
 .prod-list button.on{color:var(--blanco)}
 .prod-list button.on i{width:46px;background:var(--rojo)}
@@ -154,7 +154,7 @@ section{position:relative;padding:clamp(90px,14vh,160px) var(--pad)}
 .spec dt{font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:.18em;color:var(--gris2);text-transform:uppercase}
 .spec dd{font-size:14px;margin-top:3px;font-weight:500}
 .pc .btn{margin-top:20px;padding:11px 18px;font-size:14px}
-.pc-count{position:absolute;right:var(--pad);bottom:clamp(30px,7vh,70px);z-index:3;font-family:'Lexend';font-weight:300;font-size:15px;color:var(--gris)}
+.pc-count{position:absolute;right:var(--pad);bottom:clamp(30px,7vh,70px);z-index:3;font-family:'Lexend',sans-serif;font-weight:300;font-size:15px;color:var(--gris)}
 .pc-count b{font-size:46px;font-weight:700;color:var(--blanco);letter-spacing:-.03em}
 @media(max-width:900px){
   .prod-head{top:84px;max-width:none;right:var(--pad)}
@@ -199,41 +199,149 @@ section{position:relative;padding:clamp(90px,14vh,160px) var(--pad)}
 .md li{position:relative;padding-left:30px;color:#D6DAE8}
 .md li:before{content:'';position:absolute;left:0;top:4px;width:18px;height:18px;border-radius:6px;background:var(--rojo) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.5 8.5l3 3 6-7' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center/12px}
 .md.min li:before{background-color:var(--azul2)}
-.md .big{position:absolute;right:-10px;bottom:-40px;font-family:'Lexend';font-weight:800;font-size:200px;line-height:1;color:rgba(255,255,255,.04);letter-spacing:-.05em}
+.md .big{position:absolute;right:-10px;bottom:-40px;font-family:'Lexend',sans-serif;font-weight:800;font-size:200px;line-height:1;color:rgba(255,255,255,.04);letter-spacing:-.05em}
 @media(max-width:820px){.modo .grid{grid-template-columns:1fr}}
 
-/* pedido */
-.ped .wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:start}
-.form{padding:30px;border-radius:28px;background:rgba(7,9,20,.8);border:1px solid var(--line);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
-.seg{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:5px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid var(--line)}
-.seg button{border:0;border-radius:999px;padding:11px;font:600 14px 'Lexend';background:none;color:var(--gris);cursor:pointer;transition:background .3s,color .3s}
+/* tienda */
+.tienda{padding-bottom:clamp(70px,10vh,120px)}
+.demo{display:inline-flex;align-items:center;gap:8px;margin-top:22px;padding:8px 14px;border-radius:999px;border:1px dashed rgba(255,200,61,.5);color:#FFD66B;font-size:13px}
+.shop{display:grid;grid-template-columns:260px 1fr;gap:22px;margin-top:40px;align-items:start}
+.panel{position:sticky;top:96px;padding:22px;border-radius:24px;background:rgba(7,9,20,.82);border:1px solid var(--line);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);max-height:calc(100vh - 120px);overflow:auto}
+.panel h4{font-family:'JetBrains Mono';font-size:10.5px;letter-spacing:.18em;color:var(--gris2);font-weight:500;text-transform:uppercase;margin:20px 0 10px}
+.panel h4:first-child{margin-top:0}
+.ck{display:flex;align-items:center;gap:10px;padding:6px 0;font-size:14px;color:#D6DAE8;cursor:pointer;user-select:none}
+.ck input{appearance:none;-webkit-appearance:none;width:18px;height:18px;border-radius:6px;border:1px solid rgba(245,247,252,.3);display:grid;place-items:center;flex:none;cursor:pointer;transition:background .2s,border-color .2s}
+.ck input:checked{background:var(--rojo) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.5 8.5l3 3 6-7' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center/12px;border-color:var(--rojo)}
+.ck i{width:9px;height:9px;border-radius:3px;flex:none}
+.ck span{flex:1}
+.ck small{color:var(--gris2);font-size:12px}
+.range{width:100%;accent-color:var(--rojo);margin-top:4px}
+.rangev{display:flex;justify-content:space-between;font-size:12.5px;color:var(--gris)}
+.clear{margin-top:18px;width:100%;background:none;border:1px solid var(--line);color:var(--gris);border-radius:12px;padding:10px;font:500 13px 'Lexend',sans-serif;cursor:pointer}
+.clear:hover{color:#fff;border-color:rgba(245,247,252,.4)}
+.bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.search{flex:1 1 260px;position:relative}
+.search input{width:100%;padding:14px 16px 14px 44px;border-radius:14px;border:1px solid var(--line);background:rgba(7,9,20,.8);color:#fff;font:15px 'Inter',sans-serif}
+.search input:focus,.sel:focus,.fl2 input:focus,.fl2 select:focus{outline:2px solid rgba(59,99,240,.6);outline-offset:1px}
+.search svg{position:absolute;left:15px;top:50%;width:18px;height:18px;transform:translateY(-50%);stroke:var(--gris);fill:none;stroke-width:2}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:4px;border-radius:14px;background:rgba(7,9,20,.8);border:1px solid var(--line)}
+.seg button{border:0;border-radius:10px;padding:10px 14px;font:600 13.5px 'Lexend',sans-serif;background:none;color:var(--gris);cursor:pointer;transition:background .3s,color .3s;white-space:nowrap}
 .seg button.on{background:var(--rojo);color:#fff}
-.seg button.on[data-m="Minorista"]{background:var(--azul2)}
-.rows{margin-top:18px;display:grid;gap:8px}
-.row{display:grid;grid-template-columns:14px 1fr auto;gap:14px;align-items:center;padding:11px 14px;border-radius:16px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.06);transition:border-color .3s,background .3s}
-.row.has{border-color:rgba(255,61,62,.45);background:rgba(255,61,62,.07)}
-.sw{width:14px;height:14px;border-radius:4px;border:1px solid rgba(255,255,255,.25)}
-.row b{font-family:'Lexend';font-weight:600;font-size:15px}
-.row small{display:block;color:var(--gris2);font-size:12.5px}
-.step{display:flex;align-items:center;gap:4px}
-.step button{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:none;color:var(--blanco);font-size:18px;cursor:pointer;transition:background .2s}
-.step button:hover{background:rgba(255,255,255,.08)}
-.step output{min-width:30px;text-align:center;font-family:'Lexend';font-weight:600}
-.fl{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
-.fl label{display:block;font-size:12px;color:var(--gris);font-family:'JetBrains Mono';letter-spacing:.12em;text-transform:uppercase}
-.fl input,.fl select{width:100%;margin-top:6px;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--blanco);font:15px 'Inter'}
-.fl select option{background:var(--noche2)}
-.tot{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:18px;flex-wrap:wrap}
-.tot span{color:var(--gris);font-size:14px}
-.err{color:#FF8A8B;font-size:13.5px;margin-top:10px;min-height:1em}
-@media(max-width:960px){.ped .wrap{grid-template-columns:1fr}.fl{grid-template-columns:1fr}}
-
+.seg button.on[data-m="menor"]{background:var(--azul2)}
+.sel{padding:13px 14px;border-radius:14px;border:1px solid var(--line);background:rgba(7,9,20,.8);color:#fff;font:14px 'Inter',sans-serif}
+.sel option,.fl2 select option{background:var(--noche2)}
+.fbtn{display:none}
+.chipsr{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;min-height:8px}
+.chipsr button{display:inline-flex;align-items:center;gap:6px;padding:6px 10px 6px 12px;border-radius:999px;border:1px solid rgba(255,61,62,.45);background:rgba(255,61,62,.1);color:#fff;font:13px 'Inter',sans-serif;cursor:pointer}
+.res{display:flex;justify-content:space-between;align-items:center;margin-top:14px;color:var(--gris);font-size:13.5px}
+.list{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;margin-top:12px}
+.it{position:relative;display:flex;flex-direction:column;gap:10px;padding:18px 18px 16px;border-radius:20px;background:rgba(12,16,34,.78);border:1px solid var(--line);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:border-color .3s,transform .3s}
+.it:hover{border-color:rgba(92,124,255,.5);transform:translateY(-2px)}
+.it.out{opacity:.55}
+.it .cat{display:flex;align-items:center;gap:7px;font-family:'JetBrains Mono';font-size:10px;letter-spacing:.14em;color:var(--gris2);text-transform:uppercase}
+.it .cat i{width:8px;height:8px;border-radius:2px}
+.it h3{font-family:'Lexend',sans-serif;font-weight:600;font-size:17px;letter-spacing:-.01em;line-height:1.25}
+.it .pres{font-size:13px;color:var(--gris)}
+.it .rb2{display:flex;gap:5px;flex-wrap:wrap}
+.it .rb2 span{font-size:11px;padding:3px 8px;border-radius:999px;background:rgba(255,255,255,.05);color:var(--gris)}
+.it .row2{display:flex;justify-content:space-between;align-items:flex-end;gap:10px;margin-top:auto;padding-top:6px}
+.it .pr{font-family:'Lexend',sans-serif;font-weight:700;font-size:22px;letter-spacing:-.02em;line-height:1}
+.it .pr small{display:block;font-family:'Inter',sans-serif;font-weight:400;font-size:11.5px;color:var(--gris2);margin-top:4px;letter-spacing:0}
+.add{border:0;border-radius:12px;padding:10px 14px;font:600 13.5px 'Lexend',sans-serif;background:var(--rojo);color:#fff;cursor:pointer;transition:transform .2s,background .2s;white-space:nowrap}
+.add:hover{background:#ff5556}
+.add:active{transform:scale(.95)}
+.add[disabled]{background:rgba(255,255,255,.08);color:var(--gris2);cursor:not-allowed}
+.qty{display:flex;align-items:center;gap:2px;border:1px solid rgba(255,61,62,.5);border-radius:12px;padding:2px}
+.qty button{width:32px;height:32px;border:0;border-radius:9px;background:none;color:#fff;font-size:17px;cursor:pointer}
+.qty button:hover{background:rgba(255,255,255,.08)}
+.qty output{min-width:26px;text-align:center;font:600 14px 'Lexend',sans-serif}
+.empty{padding:50px 20px;text-align:center;color:var(--gris);border:1px dashed var(--line);border-radius:20px;grid-column:1/-1}
+.more{display:block;margin:18px auto 0}
+/* carrito flotante y lateral */
+.cartbtn{position:relative;display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:#fff;border-radius:999px;padding:11px 16px;font:600 14px 'Lexend',sans-serif;cursor:pointer}
+.cartbtn svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8}
+.cartbtn b{min-width:20px;height:20px;padding:0 6px;border-radius:999px;background:var(--rojo);font-size:11.5px;display:grid;place-items:center}
+.cartbtn.bump{animation:bump .4s}
+@keyframes bump{40%{transform:scale(1.12)}}
+.drawer{position:fixed;inset:0;z-index:90;visibility:hidden}
+.drawer.open{visibility:visible}
+.drawer .shade{position:absolute;inset:0;background:rgba(0,0,0,.55);opacity:0;transition:opacity .35s}
+.drawer.open .shade{opacity:1}
+.dpanel{position:absolute;right:0;top:0;bottom:0;width:min(440px,100%);background:#0A0D1C;border-left:1px solid var(--line);display:flex;flex-direction:column;transform:translateX(100%);transition:transform .45s cubic-bezier(.7,0,.2,1)}
+.drawer.open .dpanel{transform:none}
+.dhead{display:flex;justify-content:space-between;align-items:center;padding:20px 22px;border-bottom:1px solid var(--line)}
+.dhead h3{font-size:24px;letter-spacing:-.02em}
+.x{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:none;color:#fff;font-size:20px;cursor:pointer}
+.dbody{flex:1;overflow:auto;padding:8px 22px}
+.cl{display:grid;grid-template-columns:1fr auto;gap:6px 12px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.cl b{font:600 14.5px 'Lexend',sans-serif;line-height:1.3}
+.cl small{display:block;color:var(--gris2);font-size:12px;margin-top:2px}
+.cl .lp{font:600 15px 'Lexend',sans-serif;text-align:right}
+.cl .rm{background:none;border:0;color:var(--gris2);font-size:12px;cursor:pointer;text-decoration:underline;padding:0;text-align:right}
+.dfoot{padding:18px 22px 22px;border-top:1px solid var(--line);background:#080A16}
+.min{font-size:12.5px;color:var(--gris);margin-bottom:12px}
+.min .trk{height:6px;border-radius:6px;background:rgba(255,255,255,.08);margin-top:6px;overflow:hidden}
+.min .trk i{display:block;height:100%;background:linear-gradient(90deg,var(--rojo),#FFC83D);width:0;transition:width .4s}
+.tot2{display:flex;justify-content:space-between;align-items:baseline;margin:4px 0 14px}
+.tot2 span{color:var(--gris)}
+.tot2 b{font:700 26px 'Lexend',sans-serif;letter-spacing:-.02em}
+.dfoot .btn{width:100%;justify-content:center}
+.cempty{padding:60px 10px;text-align:center;color:var(--gris)}
+/* checkout */
+.modal{position:fixed;inset:0;z-index:95;display:grid;place-items:center;padding:16px;visibility:hidden}
+.modal.open{visibility:visible}
+.modal .shade{position:absolute;inset:0;background:rgba(0,0,0,.65);opacity:0;transition:opacity .3s}
+.modal.open .shade{opacity:1}
+.mbox{position:relative;width:min(560px,100%);max-height:calc(100vh - 32px);max-height:calc(100dvh - 32px);overflow:auto;overscroll-behavior:contain;border-radius:26px;background:#0A0D1C;border:1px solid var(--line);padding:26px;transform:translateY(20px) scale(.98);opacity:0;transition:transform .4s cubic-bezier(.3,1.3,.5,1),opacity .3s}
+.modal.open .mbox{transform:none;opacity:1}
+.steps{display:flex;gap:6px;margin-bottom:18px}
+.steps i{flex:1;height:4px;border-radius:4px;background:rgba(255,255,255,.08)}
+.steps i.on{background:var(--rojo)}
+.mbox h3{font-size:26px;letter-spacing:-.02em}
+.fl2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+.fl2 .w{grid-column:1/-1}
+.fl2 label{display:block;font-size:11px;color:var(--gris);font-family:'JetBrains Mono';letter-spacing:.12em;text-transform:uppercase}
+.fl2 input,.fl2 select{width:100%;margin-top:6px;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:#fff;font:15px 'Inter',sans-serif}
+.opts{display:grid;gap:10px;margin-top:16px}
+.opt{display:grid;grid-template-columns:22px 1fr auto;gap:12px;align-items:center;padding:14px 16px;border-radius:16px;border:1px solid var(--line);background:rgba(255,255,255,.03);cursor:pointer;transition:border-color .2s,background .2s}
+.opt input{appearance:none;-webkit-appearance:none;width:20px;height:20px;border-radius:50%;border:2px solid rgba(245,247,252,.35);margin:0}
+.opt input:checked{border:6px solid var(--rojo)}
+.opt:has(input:checked){border-color:rgba(255,61,62,.6);background:rgba(255,61,62,.07)}
+.opt b{font:600 15px 'Lexend',sans-serif}
+.opt small{display:block;color:var(--gris);font-size:12.5px;margin-top:2px}
+.opt em{font-style:normal;font:600 14px 'Lexend',sans-serif;color:var(--gris)}
+.mp{display:inline-block;padding:3px 8px;border-radius:6px;background:#00B1EA;color:#fff;font:700 11px 'Inter',sans-serif;margin-left:6px;vertical-align:middle}
+.sum{margin-top:16px;padding:14px 16px;border-radius:16px;background:rgba(255,255,255,.03);border:1px solid var(--line);font-size:14px}
+.sum div{display:flex;justify-content:space-between;padding:3px 0;color:var(--gris)}
+.sum div.t{color:#fff;font:700 18px 'Lexend',sans-serif;border-top:1px solid var(--line);margin-top:6px;padding-top:10px}
+.mact{display:flex;gap:10px;justify-content:space-between;margin-top:18px}
+.mact .btn{flex:1;justify-content:center}
+@media(max-width:520px){.modal{padding:10px}.mbox{padding:20px 18px;border-radius:22px;max-height:calc(100dvh - 20px)}.mbox h3{font-size:22px}.mact .btn{padding-left:12px;padding-right:12px;font-size:14px;white-space:nowrap}}
+.paying{display:none;text-align:center;padding:30px 0}
+.spin{width:46px;height:46px;border-radius:50%;border:3px solid rgba(255,255,255,.12);border-top-color:var(--rojo);margin:0 auto 16px;animation:sp 1s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.ok{display:none;text-align:center;padding:10px 0}
+.ok .tick{width:70px;height:70px;border-radius:50%;margin:0 auto 16px;display:grid;place-items:center;background:linear-gradient(135deg,#34D27B,#1E9E5A);box-shadow:0 14px 40px rgba(52,210,123,.35)}
+.ok .tick svg{width:34px;height:34px;stroke:#fff;fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.alias{margin-top:10px;padding:12px 14px;border-radius:12px;background:rgba(59,99,240,.12);border:1px solid rgba(92,124,255,.35);font-size:13.5px;color:#D6DAE8}
+.alias b{font-family:'JetBrains Mono';color:#fff}
+@media(max-width:1000px){
+  .shop{grid-template-columns:1fr}
+  .panel{position:fixed;left:0;right:0;bottom:0;top:auto;z-index:92;border-radius:24px 24px 0 0;max-height:78vh;transform:translateY(105%);transition:transform .45s cubic-bezier(.7,0,.2,1);background:#0A0D1C}
+  .panel.open{transform:none}
+  .fbtn{display:inline-flex}
+  .panel .pclose{display:flex}
+}
+.pclose{display:none;justify-content:space-between;align-items:center;margin-bottom:6px}
+@media(max-width:620px){.list{grid-template-columns:1fr}.fl2{grid-template-columns:1fr}.bar .sel{flex:1}.seg{flex:1 1 100%}}
+.cartfab{position:fixed;right:14px;bottom:78px;z-index:70;display:none;box-shadow:0 10px 26px rgba(0,0,0,.45)}
+@media(max-width:900px){.cartfab.show{display:inline-flex}}
 /* local */
 .local .wrap{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:stretch;margin-top:56px}
 .map{position:relative;border-radius:28px;overflow:hidden;border:1px solid var(--line);min-height:420px;background:#0B0F22}
 .map svg{position:absolute;inset:0;width:100%;height:100%}
 .map .pinm{position:absolute;left:54%;top:46%;transform:translate(-50%,-100%)}
-.map .pinm b{display:block;padding:10px 14px;border-radius:12px;background:var(--rojo);font-family:'Lexend';font-size:14px;white-space:nowrap;box-shadow:0 12px 30px rgba(255,61,62,.45)}
+.map .pinm b{display:block;padding:10px 14px;border-radius:12px;background:var(--rojo);font-family:'Lexend',sans-serif;font-size:14px;white-space:nowrap;box-shadow:0 12px 30px rgba(255,61,62,.45)}
 .map .pinm i{display:block;width:14px;height:14px;background:var(--rojo);transform:rotate(45deg);margin:-8px auto 0}
 .map .pulse{position:absolute;left:54%;top:46%;width:18px;height:18px;margin:-9px 0 0 -9px;border-radius:50%;background:var(--rojo);box-shadow:0 0 0 0 rgba(255,61,62,.6);animation:ring 2s infinite}
 @keyframes ring{to{box-shadow:0 0 0 40px rgba(255,61,62,0)}}
@@ -243,7 +351,7 @@ section{position:relative;padding:clamp(90px,14vh,160px) var(--pad)}
 .ic2 p{color:var(--gris);margin-top:6px;font-size:15px}
 .rev{border-color:rgba(255,200,61,.35)}
 .rev .st{color:#FFC83D;font-size:20px;letter-spacing:3px}
-.rev q{display:block;font-family:'Lexend';font-size:22px;line-height:1.3;margin-top:10px;color:#fff;quotes:"«" "»"}
+.rev q{display:block;font-family:'Lexend',sans-serif;font-size:22px;line-height:1.3;margin-top:10px;color:#fff;quotes:"«" "»"}
 @media(max-width:900px){.local .wrap{grid-template-columns:1fr}.map{min-height:320px}}
 
 /* cierre */
@@ -286,10 +394,10 @@ footer{border-top:1px solid var(--line);background:rgba(7,9,20,.88);padding:60px
       <li><a href="#productos">Productos</a></li>
       <li><a href="#rubros">Rubros</a></li>
       <li><a href="#cotillon">Cotillón</a></li>
-      <li><a href="#pedido">Pedido</a></li>
+      <li><a href="#tienda">Tienda</a></li>
       <li><a href="#local">El local</a></li>
     </ul>
-    <a class="btn pri" href="#pedido">Armá tu pedido</a>
+    <a class="btn pri" href="#tienda">Comprar online</a>
     <button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="links"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 8h16M4 16h16"/></svg></button>
   </nav>
 </header>
@@ -301,7 +409,7 @@ footer{border-top:1px solid var(--line);background:rgba(7,9,20,.88);padding:60px
       <h1 class="split" style="margin-top:22px">Todo lo <em>descartable,</em> en un <span class="b">solo lugar.</span></h1>
       <p class="lead rv">Vasos, platos, envases, film, embalaje y cotillón, por mayor y por menor. Para tu negocio, tu evento y tu casa, en Av. Aguirre Sur 2387, Santiago del Estero.</p>
       <div class="cta rv">
-        <a class="btn pri" href="#pedido">Armá tu pedido <svg viewBox="0 0 24 24"><path d="M5 12h12l-5-5 1.4-1.4L21 13l-7.6 7.4L12 19l5-5H5z"/></svg></a>
+        <a class="btn pri" href="#tienda">Comprar online <svg viewBox="0 0 24 24"><path d="M5 12h12l-5-5 1.4-1.4L21 13l-7.6 7.4L12 19l5-5H5z"/></svg></a>
         <a class="btn sec" href="#productos">Ver productos</a>
       </div>
       <div class="chips rv">
@@ -373,31 +481,48 @@ footer{border-top:1px solid var(--line);background:rgba(7,9,20,.88);padding:60px
       <p class="kick mono"><span class="tri"><i></i><i></i><i></i></span> Cómo comprar</p>
       <h2 class="h2 split">Por <em>mayor</em> o por menor.</h2>
       <div class="grid">
-        <div class="md may rv"><p class="mono r">Para comercios</p><h3>Mayorista</h3><ul><li>Precios por bulto cerrado</li><li>Lista de precios actualizada por WhatsApp</li><li>Armás el pedido acá y lo retirás o coordinás la entrega</li><li>Atención para revendedores y gastronomía</li></ul><span class="big">x1000</span></div>
+        <div class="md may rv"><p class="mono r">Para comercios</p><h3>Mayorista</h3><ul><li>Precios por bulto cerrado</li><li>Lista de precios actualizada por WhatsApp</li><li>Comprás online y retirás o te lo llevamos</li><li>Atención para revendedores y gastronomía</li></ul><span class="big">x1000</span></div>
         <div class="md min rv"><p class="mono c">Para todos</p><h3>Minorista</h3><ul><li>Comprás por paquete o por unidad</li><li>Vení al local hasta las 21 h</li><li>Te ayudamos a calcular cuánto necesitás</li><li>Descartables y cotillón en la misma compra</li></ul><span class="big">x50</span></div>
       </div>
     </div>
   </section>
 
-  <section class="ped" id="pedido" data-scene="pedido">
+  <section class="tienda" id="tienda" data-scene="tienda">
     <div class="wrap">
-      <div>
-        <p class="kick mono"><span class="tri"><i></i><i></i><i></i></span> Pedido</p>
-        <h2 class="h2 split">Armá tu pedido en <em>un minuto.</em></h2>
-        <p class="lead rv">Elegí si comprás por mayor o por menor, sumá productos y mandalo. Llega escrito a nuestro WhatsApp y te respondemos con precios y disponibilidad.</p>
-      </div>
-      <form class="form rv" id="pedidoForm" novalidate>
-        <div class="seg" id="modoSeg" role="group" aria-label="Tipo de compra"><button type="button" class="on" data-m="Mayorista">Por mayor (bultos)</button><button type="button" data-m="Minorista">Por menor (paquetes)</button></div>
-        <div class="rows" id="rows"></div>
-        <div class="fl">
-          <div><label for="fn">Tu nombre</label><input id="fn" name="nombre" autocomplete="name" placeholder="Ej.: Laura"></div>
-          <div><label for="fc">Negocio (opcional)</label><input id="fc" name="comercio" placeholder="Ej.: Heladería Sol"></div>
-          <div><label for="fr">Rubro</label><select id="fr" name="rubro"><option>Gastronomía o delivery</option><option>Heladería o cafetería</option><option>Kiosco o almacén</option><option>Revendedor</option><option>Evento o cumpleaños</option><option>Para mi casa</option></select></div>
-          <div><label for="fz">Zona</label><select id="fz" name="zona"><option>Santiago Capital</option><option>La Banda</option><option>Otra localidad</option></select></div>
+      <p class="kick mono"><span class="tri"><i></i><i></i><i></i></span> Tienda online</p>
+      <h2 class="h2 split">Comprá online, <em>retirá o recibí.</em></h2>
+      <p class="lead rv">Buscá por artículo, filtrá por rubro, elegí si comprás por bulto o por paquete y pagá con Mercado Pago, transferencia o en efectivo al retirar.</p>
+      <p class="demo rv">⚠ Concepto: los precios y el stock son de muestra.</p>
+
+      <div class="shop">
+        <aside class="panel" id="panel" aria-label="Filtros">
+          <div class="pclose"><h3 class="lx" style="font-size:22px">Filtros</h3><button class="x" type="button" id="pClose" aria-label="Cerrar filtros">×</button></div>
+          <h4>Categoría</h4>
+          <div id="fCats"></div>
+          <h4>Rubro</h4>
+          <div id="fRubros"></div>
+          <h4>Precio máximo</h4>
+          <input class="range" type="range" id="fPrecio" min="0" max="100" value="100" aria-label="Precio máximo">
+          <div class="rangev"><span>$0</span><span id="fPrecioV">Sin tope</span></div>
+          <h4>Disponibilidad</h4>
+          <label class="ck"><input type="checkbox" id="fStock"><span>Solo con stock</span></label>
+          <button class="clear" type="button" id="fClear">Limpiar filtros</button>
+        </aside>
+
+        <div>
+          <div class="bar">
+            <label class="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input type="search" id="q" placeholder="Buscá: vaso 220, bandeja, globos…" aria-label="Buscar artículos"></label>
+            <div class="seg" id="modoSeg" role="group" aria-label="Tipo de compra"><button type="button" class="on" data-m="mayor">Por mayor (bulto)</button><button type="button" data-m="menor">Por menor (paquete)</button></div>
+            <select class="sel" id="orden" aria-label="Ordenar"><option value="pop">Más vendidos</option><option value="pa">Menor precio</option><option value="pd">Mayor precio</option><option value="az">A–Z</option></select>
+            <button class="cartbtn fbtn" type="button" id="fOpen"><svg viewBox="0 0 24 24"><path d="M4 6h16M7 12h10M10 18h4"/></svg>Filtros</button>
+            <button class="cartbtn" type="button" data-cart><svg viewBox="0 0 24 24"><path d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.5L21 8H6"/><circle cx="10" cy="20" r="1.4"/><circle cx="17" cy="20" r="1.4"/></svg>Carrito <b data-n>0</b></button>
+          </div>
+          <div class="chipsr" id="chips"></div>
+          <div class="res"><span id="resN"></span><span id="resM"></span></div>
+          <div class="list" id="list"></div>
+          <button class="btn sec more" type="button" id="more" hidden>Ver más artículos</button>
         </div>
-        <div class="tot"><span id="tot">Sin productos todavía</span><button class="btn pri" type="submit"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/></svg>Enviar por WhatsApp</button></div>
-        <p class="err" id="err" role="alert"></p>
-      </form>
+      </div>
     </div>
   </section>
 
@@ -445,11 +570,67 @@ footer{border-top:1px solid var(--line);background:rgba(7,9,20,.88);padding:60px
   <div class="foot">
     <div><a class="brand" href="#inicio"><img src="isotipo.svg" alt=""><span><span class="wm"><span class="a">MA</span><span class="p">PLA</span><span class="d">DES</span></span><small>MAYORISTAS DE PLÁSTICOS Y DESCARTABLES</small></span></a><p style="color:var(--gris);margin-top:16px;max-width:320px">Descartables, envases, embalaje y cotillón por mayor y por menor en Santiago del Estero.</p></div>
     <div><h4>Productos</h4><a href="#productos">Vasos y platos</a><a href="#productos">Envases y bandejas</a><a href="#productos">Film y embalaje</a><a href="#cotillon">Cotillón</a></div>
-    <div><h4>Comprar</h4><a href="#mayor-menor">Por mayor</a><a href="#mayor-menor">Por menor</a><a href="#pedido">Armar pedido</a></div>
+    <div><h4>Comprar</h4><a href="#mayor-menor">Por mayor</a><a href="#mayor-menor">Por menor</a><a href="#tienda">Tienda online</a></div>
     <div><h4>Contacto</h4><a href="https://wa.me/5493854984294" target="_blank" rel="noopener">WhatsApp 0385 15-498-4294</a><a href="https://www.facebook.com/p/Mapla-Des-100088847951458/" target="_blank" rel="noopener">Facebook · Mapla Des</a><p>Av. Aguirre Sur 2387, Santiago del Estero</p></div>
   </div>
   <div class="legal"><span>© Mapla Des · Santiago del Estero</span><span>Concepto de web por <a href="https://digitalnika.com" target="_blank" rel="noopener">NIKA · Agencia digital</a></span></div>
 </footer>
+
+<div class="drawer" id="drawer" aria-hidden="true">
+  <div class="shade" data-close></div>
+  <aside class="dpanel" role="dialog" aria-modal="true" aria-labelledby="cartT">
+    <div class="dhead"><h3 id="cartT">Tu carrito</h3><button class="x" type="button" data-close aria-label="Cerrar carrito">×</button></div>
+    <div class="dbody" id="cartBody"></div>
+    <div class="dfoot" id="cartFoot">
+      <div class="min" id="minBox"></div>
+      <div class="tot2"><span>Subtotal</span><b id="cartSub">$0</b></div>
+      <button class="btn pri" type="button" id="toCheckout">Ir a pagar</button>
+    </div>
+  </aside>
+</div>
+
+<div class="modal" id="checkout" aria-hidden="true">
+  <div class="shade" data-mclose></div>
+  <div class="mbox" role="dialog" aria-modal="true" aria-labelledby="coT">
+    <div class="steps"><i class="on"></i><i></i><i></i></div>
+    <div id="st1">
+      <h3 id="coT">Tus datos y la entrega</h3>
+      <div class="fl2">
+        <div><label for="cN">Nombre</label><input id="cN" autocomplete="name" placeholder="Ej.: Laura Gómez"></div>
+        <div><label for="cT">WhatsApp</label><input id="cT" type="tel" autocomplete="tel" placeholder="385 …"></div>
+        <div class="w"><label for="cC">Negocio (opcional)</label><input id="cC" placeholder="Ej.: Heladería Sol"></div>
+      </div>
+      <div class="opts" id="envio">
+        <label class="opt"><input type="radio" name="env" value="retiro" checked><span><b>Retiro en el local</b><small>Av. Aguirre Sur 2387 · listo en 2 h</small></span><em>Gratis</em></label>
+        <label class="opt"><input type="radio" name="env" value="ciudad"><span><b>Envío a Capital o La Banda</b><small>En el día, si pedís antes de las 13 h</small></span><em id="envCosto">$4.500</em></label>
+        <label class="opt"><input type="radio" name="env" value="otra"><span><b>Otra localidad</b><small>Por transporte o comisionista: te pasamos el costo</small></span><em>A coordinar</em></label>
+      </div>
+      <div class="fl2" id="dirBox" hidden><div class="w"><label for="cD">Dirección de entrega</label><input id="cD" autocomplete="street-address" placeholder="Calle, número y barrio"></div></div>
+      <p class="err" id="e1" role="alert"></p>
+      <div class="mact"><button class="btn sec" type="button" data-mclose>Seguir comprando</button><button class="btn pri" type="button" id="go2">Continuar al pago</button></div>
+    </div>
+    <div id="st2" hidden>
+      <h3>¿Cómo querés pagar?</h3>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="pay" value="mp" checked><span><b>Mercado Pago <span class="mp">MP</span></b><small>Tarjeta de crédito, débito o dinero en cuenta</small></span><em></em></label>
+        <label class="opt"><input type="radio" name="pay" value="tr"><span><b>Transferencia bancaria</b><small>Te mostramos el alias al confirmar</small></span><em></em></label>
+        <label class="opt"><input type="radio" name="pay" value="ef"><span><b>Efectivo al retirar o recibir</b><small>Pagás cuando tenés el pedido</small></span><em></em></label>
+      </div>
+      <div class="sum" id="sum"></div>
+      <div class="mact"><button class="btn sec" type="button" id="back1">Volver</button><button class="btn pri" type="button" id="pay">Pagar</button></div>
+    </div>
+    <div class="paying" id="paying"><div class="spin"></div><p class="lx" style="font-size:18px">Conectando con Mercado Pago…</p><p class="muted" style="font-size:13px;margin-top:6px">En el concepto el pago es simulado.</p></div>
+    <div class="ok" id="ok">
+      <div class="tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></div>
+      <h3 id="okT">¡Pedido confirmado!</h3>
+      <p class="muted" id="okP" style="margin-top:8px"></p>
+      <div class="alias" id="okAlias" hidden>Transferí a <b>alias: MAPLADES.DESCARTABLES</b> (de muestra) y mandanos el comprobante por WhatsApp.</div>
+      <div class="mact" style="flex-direction:column"><a class="btn pri" id="okWa" href="#" target="_blank" rel="noopener">Mandar el detalle por WhatsApp</a><button class="btn sec" type="button" data-mclose>Volver a la tienda</button></div>
+    </div>
+  </div>
+</div>
+
+<button class="cartbtn cartfab" type="button" data-cart id="cartFab"><svg viewBox="0 0 24 24"><path d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.5L21 8H6"/><circle cx="10" cy="20" r="1.4"/><circle cx="17" cy="20" r="1.4"/></svg><b data-n>0</b></button>
 
 <a class="wa" href="https://wa.me/5493854984294?text=%C2%A1Hola%20Mapla%20Des!%20Quiero%20hacer%20una%20consulta." target="_blank" rel="noopener" aria-label="Escribinos por WhatsApp"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.3-.8-2.8-1.1-4.5-3.9-4.7-4.1-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.3.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.3z"/></svg></a>
 
@@ -457,6 +638,8 @@ footer{border-top:1px solid var(--line);background:rgba(7,9,20,.88);padding:60px
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
 <script src="productos.js" defer></script>
+<script src="catalogo.js" defer></script>
+<script src="tienda.js" defer></script>
 <script src="ui.js" defer></script>
 <script type="module" src="escena.js"></script>
 </body>

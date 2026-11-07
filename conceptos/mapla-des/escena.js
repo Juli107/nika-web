@@ -256,7 +256,7 @@ addEventListener('pointermove', e => { ptr.tx = e.clientX / innerWidth - .5; ptr
 const dummy = new THREE.Object3D();
 const clock = new THREE.Clock();
 const smooth = x => x * x * (3 - 2 * x);
-let running = true, t = 0;
+let running = true, t = 0, empty = false;
 document.addEventListener('visibilitychange', () => { running = !document.hidden; if (running) { clock.getDelta(); loop(); } });
 
 function frame(dt) {
@@ -325,7 +325,10 @@ function loop() {
   if (!running) return;
   requestAnimationFrame(loop);
   frame(Math.min(clock.getDelta(), .05));
-  renderer.render(scene, camera);
+  /* cuando no queda nada en pantalla (después del cotillón) no se dibuja: ahorra batería */
+  const any = logo.visible || party.visible || products.some(h => h.visible);
+  if (any || !empty) renderer.render(scene, camera);
+  empty = !any;
 }
 function resize() {
   camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix();
