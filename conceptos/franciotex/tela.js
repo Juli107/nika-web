@@ -248,7 +248,7 @@ function texFor(i) {
 /* ---------------- la tela: ondula en la placa de video ---------------- */
 const U = {
   uTime: { value: 0 }, uAmp: { value: 1 }, uFlag: { value: 0 }, uCurl: { value: .6 },
-  uSize: { value: new THREE.Vector2(.92, .92) }
+  uSize: { value: new THREE.Vector2(.92, .92) }, uWeave: { value: 1 }, uWarp: { value: 1 }
 };
 const CLOTH_GLSL = `
 uniform float uTime, uAmp, uFlag, uCurl; uniform vec2 uSize;
@@ -292,7 +292,29 @@ mat.onBeforeCompile = (sh) => {
   Object.assign(sh.uniforms, U);
   sh.vertexShader = CLOTH_GLSL + '\n' + sh.vertexShader
     .replace('#include <beginnormal_vertex>', 'vec3 objectNormal = clothNormal(uv);\n#ifdef USE_TANGENT\nvec3 objectTangent = vec3(1.,0.,0.);\n#endif')
-    .replace('#include <begin_vertex>', 'vec3 transformed = clothPos(uv);');
+    .replace('#include <begin_vertex>', 'vec3 transformed = clothPos(uv);\nvCUv = uv;')
+    .replace('void main() {', 'varying vec2 vCUv;\nvoid main() {');
+  /* el telar: arriba de la línea de tejido solo quedan los hilos de la urdimbre; en la línea brilla la pasada */
+  sh.fragmentShader = 'uniform float uWeave, uWarp, uTime;\nvarying vec2 vCUv;\n' + sh.fragmentShader
+    .replace('#include <map_fragment>', `#include <map_fragment>
+    float wl = uWeave * 1.08 - .04;
+    if (uWeave < .999 && vCUv.y > wl) {
+      float n = 30.;
+      float id = floor(vCUv.x * n), fx = fract(vCUv.x * n);
+      float d = abs((id + .5) / n - .5) * 2.;
+      float len = clamp(uWarp * 1.7 - d * .7, 0., 1.);
+      float th = smoothstep(.0, .08, fx) * (1. - smoothstep(.16, .26, fx));
+      if (th < .5 || 1. - vCUv.y > len) discard;
+      diffuseColor.rgb = vec3(.95, .92, .86) * (.72 + .28 * sin(vCUv.y * 700. + id));
+      diffuseColor.a = 1.;
+    }`)
+    .replace('#include <emissivemap_fragment>', `#include <emissivemap_fragment>
+    if (uWeave > .001 && uWeave < .999) {
+      float wl2 = uWeave * 1.08 - .04;
+      float sx = fract(uTime * .45); sx = abs(sx * 2. - 1.);
+      float band = 1. - smoothstep(0., .014, abs(vCUv.y - wl2));
+      totalEmissiveRadiance += vec3(1., .72, .28) * band * (.35 + 1.6 * exp(-pow((vCUv.x - sx) * 7., 2.)));
+    }`);
 };
 const SEG = isMobile ? 110 : 180;
 const cloth = new THREE.Mesh(new THREE.PlaneGeometry(1, 1, SEG, SEG), mat);
@@ -369,6 +391,7 @@ function frame() {
   ptr.x = ease(ptr.x, ptr.tx, f * .6); ptr.y = ease(ptr.y, ptr.ty, f * .6);
 
   U.uTime.value += reduce ? dt * .25 : dt;
+  U.uWeave.value = cur.weave === undefined ? 1 : cur.weave; U.uWarp.value = cur.warp === undefined ? 1 : cur.warp;
   U.uAmp.value = cur.amp; U.uFlag.value = cur.flag; U.uCurl.value = cur.curl;
 
   /* producto visible y giro al cambiar */

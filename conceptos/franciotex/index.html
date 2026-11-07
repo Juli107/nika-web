@@ -259,6 +259,39 @@ footer{border-top:1px solid var(--line);padding:40px var(--pad) 50px;background:
 .rv{opacity:0;transform:translateY(40px)}
 .nojs .rv,.reduce .rv{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){.noise,.seal{animation:none}}
+
+/* relato: de un hilo a la rejilla (sección fijada, el telar teje con el scroll) */
+.relato{position:relative}
+.rel-stage{position:relative;height:100vh;height:100svh;display:flex;align-items:center;overflow:hidden}
+.rel-wrap{position:relative;width:100%;max-width:1480px;margin:0 auto;padding:0 var(--pad);display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:40px;align-items:center}
+.rsteps{display:grid}
+.rstep{grid-area:1/1;max-width:30rem;opacity:0;transform:translateY(26px);transition:opacity .6s,transform .7s cubic-bezier(.2,.8,.2,1);pointer-events:none}
+.rstep.on{opacity:1;transform:none;pointer-events:auto}
+.rstep .mono{color:var(--oro)}
+.rstep h2{font-family:'Instrument Serif',Georgia,serif;font-size:clamp(44px,6.2vw,96px);margin:16px 0 18px}
+.rstep h2 em{color:var(--oro)}
+.rstep p{color:var(--crudo);max-width:26rem}
+.rstep .btn{margin-top:22px}
+.rnav{display:flex;gap:18px;margin-top:30px;flex-wrap:wrap}
+.rnav span{position:relative;padding-top:12px;color:var(--gris2);transition:color .4s}
+.rnav span::before{content:"";position:absolute;left:0;top:0;width:100%;height:2px;background:var(--line)}
+.rnav span::after{content:"";position:absolute;left:0;top:0;width:100%;height:2px;background:var(--oro);transform:scaleX(var(--p,0));transform-origin:left}
+.rnav span.on{color:var(--algodon)}
+.rtag{position:absolute;right:calc(var(--pad) + 4%);top:16%;width:190px;padding:20px 18px 18px;border-radius:14px 14px 14px 14px;background:var(--algodon);color:var(--noche);box-shadow:0 30px 60px rgba(0,0,0,.45);transform-origin:50% -40px;opacity:0;transform:translateY(-30px) rotate(-14deg);transition:opacity .6s,transform 1s cubic-bezier(.2,1.4,.3,1);pointer-events:none}
+.rtag::before{content:"";position:absolute;left:50%;top:12px;width:12px;height:12px;margin-left:-6px;border-radius:50%;background:var(--noche);box-shadow:inset 0 0 0 3px #cfc6b4}
+.rtag::after{content:"";position:absolute;left:50%;bottom:100%;width:1px;height:70px;background:linear-gradient(var(--oro),#cfc6b4)}
+.rtag.on{opacity:1;transform:rotate(-6deg)}
+.rtag small{display:block;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#6F695E;margin-top:22px}
+.rtag b{display:block;font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-size:44px;line-height:.95;margin:6px 0 10px}
+.rtag .tri{margin:4px 0 10px}
+.rtag span{display:block;font-size:12px;line-height:1.4;color:#3b3730;border-top:1px dashed #cfc6b4;padding-top:10px}
+@media(max-width:900px){
+  .rel-wrap{grid-template-columns:1fr;align-items:end;height:100%;padding-bottom:9vh}
+  .rsteps{min-height:0}.rnav{gap:10px;letter-spacing:.1em}.rnav span{font-size:10px}
+  .rstep h2{font-size:clamp(40px,11vw,60px);margin:10px 0 12px}
+  .rstep p{font-size:15px}
+  .rtag{top:12%;right:8%;width:150px;padding:16px 14px 14px}.rtag b{font-size:34px}
+}
 </style>
 </head>
 <body>
@@ -321,6 +354,25 @@ footer{border-top:1px solid var(--line);padding:40px var(--pad) 50px;background:
         <div class="pin" style="left:34%;top:50%"><i></i><em>Trama abierta: absorbe y seca rápido</em></div>
         <div class="pin" style="left:12%;top:80%"><i></i><em>La guarda de color de siempre</em></div>
       </div>
+    </div>
+  </section>
+
+  <!-- RELATO: de un hilo a la rejilla -->
+  <section class="relato" id="relato" data-scene="relato">
+    <div class="rel-stage" id="relStage">
+      <div class="rel-wrap">
+        <div>
+          <p class="kick mono"><span class="tri"><i></i><i></i><i></i></span> De un hilo a tu nombre</p>
+          <div class="rsteps">
+            <article class="rstep on"><span class="mono">01 / La materia</span><h2>Todo empieza <em>con un hilo.</em></h2><p>Antes de la rejilla, antes del paquete y antes de la etiqueta, hay un hilo de algodón grueso, elegido para absorber.</p></article>
+            <article class="rstep"><span class="mono">02 / El oficio</span><h2>La diferencia está en <em>cómo lo unimos.</em></h2><p>Pasada a pasada, el telar cruza la trama con la urdimbre. Más de 50 años de historia textil, un oficio que se transmite hilo a hilo.</p></article>
+            <article class="rstep"><span class="mono">03 / El producto</span><h2>Hecho para <em>trabajar.</em></h2><p>Trama abierta, guarda de color y flecos firmes. Una rejilla que pasa de nuestras manos a hornallas, parrillas y mostradores. Producción propia, venta en volumen.</p></article>
+            <article class="rstep"><span class="mono">04 / Tu marca</span><h2>El próximo nombre <em>puede ser el tuyo.</em></h2><p>Nosotros ponemos el oficio, vos lo que sigue. Fabricamos textiles de limpieza con la marca de tu comercio o distribuidora.</p><a class="btn pri" href="#mayoristas">Fabricación para tu marca</a></article>
+          </div>
+          <div class="rnav mono" aria-hidden="true"><span class="on">01 Hilo</span><span>02 Oficio</span><span>03 Producto</span><span>04 Tu marca</span></div>
+        </div>
+      </div>
+      <div class="rtag" aria-hidden="true"><small>Fabricado por Franciotex</small><b>Tu marca</b><span class="tri"><i></i><i></i><i></i></span><span>Rejilla 100% algodón · 40 × 40 cm · Industria argentina</span></div>
     </div>
   </section>
 

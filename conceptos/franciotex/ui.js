@@ -13,6 +13,7 @@
   var KF = {
     hero:      { x: .5,  y: .02, z: 0,    rx: -.26, ry: -.55, rz: .12, s: 1.12, amp: 1,   flag: 0,  curl: .95,  prod: 0,  threads: 0, m: { x: .08, y: .66, s: .36 } },
     macro:     { x: .42, y: 0,   z: 1.75, rx: -.04, ry: -.12, rz: .02, s: 1.15, amp: .3,  flag: 0,  curl: .15, prod: 0,  threads: 0, m: { x: 0, y: .5, z: .5, s: .75 } },
+    relato:    { x: .45, y: .02, z: .3,   rx: -.06, ry: -.2,  rz: .02, s: 1.05, amp: .22, flag: 0,  curl: .06, prod: 0,  threads: 0, weave: 0, warp: 0, m: { x: 0, y: .45, z: 0, s: .56 } },
     hilos:     { x: .78, y: -.25,z: -1.4, rx: -.1,  ry: .7,   rz: -.1, s: .75,  amp: .8,  flag: 0,  curl: .5,  prod: 0,  threads: 1, m: { x: .4, y: .55, s: .5 } },
     productos: { x: -.16,y: -.24,z: .1,   rx: -.12, ry: 0,    rz: 0,   s: .8,   amp: .55, flag: 0,  curl: .3,  prod: 0,  threads: 0, m: { x: 0, y: .24, s: .5 } },
     bandera: { x: .44, y: .3,  z: 0,    rx: 0,    ry: -.32, rz: 0,   s: 1.0,  amp: 1.15,flag: 1,  curl: 0,   prod: 8,  threads: 0, m: { x: 0, y: .5, s: .62 } },
@@ -21,10 +22,11 @@
     pedido: { x: .5,  y: .2,  z: -1.2, rx: -.1,  ry: .5,   rz: .15, s: .001,   amp: .8,  flag: 0,  curl: .5,  prod: 14, threads: 0, m: { x: -.5, y: .75, s: .001 } },
     cierre:    { x: 0,   y: .05, z: -.4,  rx: -.2,  ry: 0,    rz: 0,   s: .001,  amp: 1,   flag: .35,curl: .2,  prod: 15, threads: 0, m: { x: 0, y: .05, s: .001 } }
   };
-  var KEYS = ['x', 'y', 'z', 'rx', 'ry', 'rz', 's', 'amp', 'flag', 'curl', 'prod', 'threads', 'tx', 'ty', 'tr'];
+  var KEYS = ['x', 'y', 'z', 'rx', 'ry', 'rz', 's', 'amp', 'flag', 'curl', 'prod', 'threads', 'tx', 'ty', 'tr', 'weave', 'warp'];
+  var ONE = { weave: 1, warp: 1 }; /* por defecto la tela está tejida entera */
   function kf(name) {
     var k = KF[name], o = {};
-    KEYS.forEach(function (key) { o[key] = k[key] === undefined ? 0 : k[key]; });
+    KEYS.forEach(function (key) { o[key] = k[key] === undefined ? (ONE[key] || 0) : k[key]; });
     if (mobile.matches && k.m) for (var m in k.m) o[m] = k.m[m];
     return o;
   }
@@ -285,6 +287,24 @@
           scrollTrigger: { trigger: '#prodStage', start: 'top top', end: '+=' + (P.length * 70) + '%', pin: true, scrub: 1 } });
         built.push(tp);
         to = last;
+      }
+      if (name === 'relato') { /* el telar: urdimbre, pasadas de trama, la rejilla terminada y la etiqueta */
+        var steps = $$('.rstep'), navs = $$('.rnav span'), tag = $('.rtag');
+        var A = Object.assign({}, to), m = mobile.matches;
+        var bounds = [0, .24, .63, .8, 1];
+        var tl = gsap.timeline({ scrollTrigger: { trigger: '#relStage', start: 'top top', end: '+=340%', pin: true, scrub: 1,
+          onUpdate: function (st) {
+            var q = st.progress, i = q < .24 ? 0 : q < .63 ? 1 : q < .8 ? 2 : 3;
+            steps.forEach(function (e, j) { e.classList.toggle('on', j === i); });
+            navs.forEach(function (e, j) { e.classList.toggle('on', j <= i); e.style.setProperty('--p', Math.min(1, Math.max(0, (q - bounds[j]) / (bounds[j + 1] - bounds[j])))); });
+            tag.classList.toggle('on', i === 3);
+          } } });
+        tl.fromTo(ST, { warp: 0 }, { warp: 1, ease: 'none', duration: .22, immediateRender: false }, 0)
+          .fromTo(ST, { weave: 0 }, { weave: 1, ease: 'none', duration: .37, immediateRender: false }, .25)
+          .to(ST, { amp: .75, ry: m ? .25 : .3, curl: .3, rx: -.14, ease: 'power1.inOut', duration: .15 }, .65)
+          .to(ST, { x: m ? 0 : .36, s: m ? .5 : .92, amp: .5, ry: m ? -.1 : -.25, ease: 'power1.inOut', duration: .2 }, .8);
+        built.push(tl);
+        to = Object.assign(A, { warp: 1, weave: 1, amp: .5, curl: .3, rx: -.14, x: m ? 0 : .36, s: m ? .5 : .92, ry: m ? -.1 : -.25 });
       }
       prev = to;
     });
