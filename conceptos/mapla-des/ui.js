@@ -19,10 +19,10 @@
     productos: { x: .06, y: 0,   s: 1,   logo: 0,   explode: 1,   orbit: 0,  focus: 1, prod: 0, balloons: 0, tilt: 0,   m: { x: 0, y: .3, s: .62 } },
     rubros:    { x: .74, y: .52, s: .5,  logo: 0,   explode: 1,   orbit: .8, focus: 0, prod: 7, balloons: 0, tilt: .4,  m: { x: .5, y: .75, s: .35, orbit: 0 } },
     cotillon:  { x: .5,  y: 0,   s: .9,  logo: 0,   explode: 1,   orbit: 0,  focus: 0, prod: 7, balloons: 1, tilt: 0,   m: { x: .3, y: .3, s: .55 } },
-    modo:      { x: .62, y: .5,  s: .5,  logo: .35, explode: .6,  orbit: .5, focus: 0, prod: 7, balloons: 0, tilt: -.2, m: { x: .4, y: .75, s: .35, orbit: 0, logo: 0 } },
-    pedido:    { x: -.58,y: -.5, s: .5,  logo: 0,   explode: 1,   orbit: 1,  focus: 0, prod: 7, balloons: 0, tilt: .2,  m: { x: 0, y: .82, s: .3, orbit: 0 } },
-    local:     { x: .7,  y: .6,  s: .55, logo: .5,  explode: .2,  orbit: .4, focus: 0, prod: 7, balloons: 0, tilt: 0,   m: { x: .5, y: .82, s: .3, orbit: 0, logo: 0 } },
-    cierre:    { x: 0,   y: -.42,s: .78, logo: 1,   explode: 0,   orbit: 1,  focus: 0, prod: 7, balloons: .3, tilt: 0, m: { x: 0, y: -.45, s: .55 } }
+    modo:      { x: .5,  y: .3,  s: .9,  logo: 0,   explode: 1,   orbit: 0,  focus: 0, prod: 7, balloons: 0, tilt: 0, m: { x: .2, y: .5, s: .55 } },
+    tienda:    { x: .5,  y: .3,  s: .9,  logo: 0,   explode: 1,   orbit: 0,  focus: 0, prod: 7, balloons: 0, tilt: 0 },
+    local:     { x: .5,  y: .3,  s: .9,  logo: 0,   explode: 1,   orbit: 0,  focus: 0, prod: 7, balloons: 0, tilt: 0 },
+    cierre:    { x: .5,  y: .3,  s: .9,  logo: 0,   explode: 1,   orbit: 0,  focus: 0, prod: 7, balloons: 0, tilt: 0 }
   };
   var KEYS = ['x', 'y', 's', 'logo', 'explode', 'orbit', 'focus', 'prod', 'balloons', 'tilt'];
   function kf(name) {
@@ -55,7 +55,7 @@
     c.style.setProperty('--sw', p.sw);
     c.innerHTML = '<span class="tag"><i></i>' + p.tag + '</span><h3>' + p.nombre + '</h3><p>' + p.txt + '</p><dl class="spec">' +
       p.spec.map(function (s) { return '<div><dt>' + s[0] + '</dt><dd>' + s[1] + '</dd></div>'; }).join('') +
-      '</dl><a class="btn pri" href="#pedido" data-add="' + p.id + '">Sumar al pedido</a>';
+      '</dl><a class="btn pri" href="#tienda" data-cat="' + p.id + '">Ver en la tienda</a>';
     cards.appendChild(c);
   });
   $('#pcT').textContent = String(P.length).padStart(2, '0');
@@ -69,50 +69,6 @@
     if (window.gsap && !reduce) gsap.fromTo($$('.pc', cards)[i].children, { y: 18, opacity: 0 }, { y: 0, opacity: 1, stagger: .05, duration: .5, ease: 'power3.out', overwrite: true });
   }
   setProduct(0);
-
-  /* ---------- pedido ---------- */
-  var qty = {}, modo = 'Mayorista';
-  var rows = $('#rows');
-  P.forEach(function (p) {
-    qty[p.id] = 0;
-    var r = document.createElement('div');
-    r.className = 'row'; r.id = 'r-' + p.id;
-    r.innerHTML = '<span class="sw" style="background:' + p.sw + '"></span><div><b>' + p.nombre + '</b><small>' + p.spec[0][1] + '</small></div>' +
-      '<div class="step"><button type="button" data-d="-1" aria-label="Menos ' + p.nombre + '">−</button><output id="q-' + p.id + '">0</output><button type="button" data-d="1" aria-label="Más ' + p.nombre + '">+</button></div>';
-    r.querySelectorAll('button').forEach(function (b) {
-      b.addEventListener('click', function () { qty[p.id] = Math.max(0, qty[p.id] + (+b.dataset.d)); paint(); });
-    });
-    rows.appendChild(r);
-  });
-  function unidad(n) { return modo === 'Mayorista' ? (n === 1 ? ' bulto' : ' bultos') : (n === 1 ? ' paquete' : ' paquetes'); }
-  function paint() {
-    var n = 0, k = 0;
-    P.forEach(function (p) { $('#q-' + p.id).textContent = qty[p.id]; $('#r-' + p.id).classList.toggle('has', qty[p.id] > 0); n += qty[p.id]; if (qty[p.id]) k++; });
-    $('#tot').textContent = n ? n + unidad(n) + ' · ' + k + (k === 1 ? ' producto' : ' productos') : 'Sin productos todavía';
-  }
-  $$('#modoSeg button').forEach(function (b) {
-    b.addEventListener('click', function () {
-      modo = b.dataset.m;
-      $$('#modoSeg button').forEach(function (x) { x.classList.toggle('on', x === b); });
-      paint();
-    });
-  });
-  $$('[data-add]').forEach(function (a) {
-    a.addEventListener('click', function () { var id = a.dataset.add; if (qty[id] === 0) { qty[id] = 1; paint(); } });
-  });
-  $('#pedidoForm').addEventListener('submit', function (e) {
-    e.preventDefault();
-    var f = e.target, err = $('#err');
-    var items = P.filter(function (p) { return qty[p.id] > 0; });
-    if (!items.length) { err.textContent = 'Sumá al menos un producto con el botón +.'; return; }
-    if (!f.nombre.value.trim()) { err.textContent = 'Decinos tu nombre para responderte.'; return; }
-    err.textContent = '';
-    var msg = '¡Hola Mapla Des! Quiero hacer un pedido ' + (modo === 'Mayorista' ? 'por mayor' : 'por menor') + ':\n\n' +
-      items.map(function (p) { return '• ' + p.nombre + ': ' + qty[p.id] + unidad(qty[p.id]); }).join('\n') +
-      '\n\nNombre: ' + f.nombre.value.trim() + (f.comercio.value.trim() ? '\nNegocio: ' + f.comercio.value.trim() : '') +
-      '\nRubro: ' + f.rubro.value + '\nZona: ' + f.zona.value + '\n\n¿Me pasan precios y disponibilidad?';
-    window.open('https://wa.me/5493854984294?text=' + encodeURIComponent(msg), '_blank', 'noopener');
-  });
 
   /* ---------- brillo que sigue al mouse en los rubros ---------- */
   $$('.rb').forEach(function (u) {
