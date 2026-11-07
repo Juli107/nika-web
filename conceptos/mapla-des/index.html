@@ -230,7 +230,7 @@ section{position:relative;padding:clamp(90px,14vh,160px) var(--pad)}
 .seg button.on[data-m="menor"]{background:var(--azul2)}
 .sel{padding:13px 14px;border-radius:14px;border:1px solid var(--line);background:rgba(7,9,20,.8);color:#fff;font:14px 'Inter',sans-serif}
 .sel option,.fl2 select option{background:var(--noche2)}
-.fbtn{display:none}
+.bar .fbtn{display:none}
 .chipsr{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;min-height:8px}
 .chipsr button{display:inline-flex;align-items:center;gap:6px;padding:6px 10px 6px 12px;border-radius:999px;border:1px solid rgba(255,61,62,.45);background:rgba(255,61,62,.1);color:#fff;font:13px 'Inter',sans-serif;cursor:pointer}
 .res{display:flex;justify-content:space-between;align-items:center;margin-top:14px;color:var(--gris);font-size:13.5px}
@@ -329,13 +329,134 @@ section{position:relative;padding:clamp(90px,14vh,160px) var(--pad)}
   .shop{grid-template-columns:1fr}
   .panel{position:fixed;left:0;right:0;bottom:0;top:auto;z-index:92;border-radius:24px 24px 0 0;max-height:78vh;transform:translateY(105%);transition:transform .45s cubic-bezier(.7,0,.2,1);background:#0A0D1C}
   .panel.open{transform:none}
-  .fbtn{display:inline-flex}
+  .bar .fbtn{display:inline-flex}
   .panel .pclose{display:flex}
 }
 .pclose{display:none;justify-content:space-between;align-items:center;margin-bottom:6px}
 @media(max-width:620px){.list{grid-template-columns:1fr}.fl2{grid-template-columns:1fr}.bar .sel{flex:1}.seg{flex:1 1 100%}}
 .cartfab{position:fixed;right:14px;bottom:78px;z-index:70;display:none;box-shadow:0 10px 26px rgba(0,0,0,.45)}
-@media(max-width:900px){.cartfab.show{display:inline-flex}}
+/* motion al agregar y ventanas extra */
+.err{color:#FF7A7B;font-size:13px;margin-top:10px}
+.it{cursor:pointer}
+.it .cat .vd{margin-left:auto;letter-spacing:.08em;color:var(--celeste);opacity:0;transform:translateX(-6px);transition:opacity .25s,transform .25s}
+.it:hover .cat .vd{opacity:1;transform:none}
+.it h3 .nm{background:none;border:0;padding:0;color:#fff;font:inherit;text-align:left;cursor:pointer}
+.it:hover h3 .nm{text-decoration:underline;text-decoration-color:rgba(255,61,62,.7);text-underline-offset:4px}
+.it.flash{animation:flash .9s ease-out}
+@keyframes flash{0%{box-shadow:0 0 0 2px rgba(255,61,62,.9),0 0 50px rgba(255,61,62,.45);border-color:rgba(255,61,62,.9)}100%{box-shadow:0 0 0 0 rgba(255,61,62,0),0 0 0 rgba(255,61,62,0)}}
+.flyer{position:fixed;left:0;top:0;z-index:140;pointer-events:none}
+.flyer>div{position:absolute;left:0;top:0}
+.flyer i{display:flex;align-items:center;gap:5px;transform:translate(-50%,-50%);padding:7px 11px;border-radius:999px;background:var(--rojo);color:#fff;font:700 13px 'Lexend',sans-serif;font-style:normal;box-shadow:0 10px 30px rgba(255,61,62,.55);white-space:nowrap}
+.flyer svg{width:14px;height:14px;stroke:#fff;fill:none;stroke-width:2}
+.spk{position:fixed;left:-3px;top:-3px;width:7px;height:7px;z-index:139;pointer-events:none;border-radius:1px}
+.cartbtn.bump{animation:bump .5s cubic-bezier(.3,1.6,.5,1)}
+.pop{animation:pop .5s cubic-bezier(.3,1.6,.5,1)}
+@keyframes pop{35%{transform:scale(1.6)}}
+.cartfab{transition:opacity .3s,transform .3s}
+.cartfab.show{display:inline-flex}
+.cartfab.near{opacity:0;transform:scale(.85);pointer-events:none}
+.toast{position:fixed;left:50%;bottom:22px;z-index:130;display:flex;align-items:center;gap:12px;width:min(420px,calc(100% - 32px));padding:12px 12px 12px 14px;border-radius:18px;background:rgba(14,18,38,.95);border:1px solid rgba(255,61,62,.4);box-shadow:0 20px 50px rgba(0,0,0,.5);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transform:translate(-50%,160%);opacity:0;transition:transform .5s cubic-bezier(.3,1.4,.5,1),opacity .3s;pointer-events:none}
+.toast.show{transform:translate(-50%,0);opacity:1;pointer-events:auto}
+.toast .tk{flex:none;width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#34D27B,#1E9E5A);display:grid;place-items:center}
+.toast .tk svg{width:18px;height:18px;stroke:#fff;fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.toast .tx{flex:1;min-width:0}
+.toast b{display:block;font:600 14px 'Lexend',sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.toast small{display:block;color:var(--gris);font-size:12px;margin-top:2px}
+.toast button{flex:none;border:0;border-radius:12px;padding:9px 12px;background:var(--rojo);color:#fff;font:600 13px 'Lexend',sans-serif;cursor:pointer}
+@media(max-width:900px){.toast{bottom:14px}}
+/* ficha de artículo */
+.modal.art{z-index:97}
+.art .mbox{width:min(620px,100%)}
+.xa{position:absolute;right:16px;top:16px;z-index:2}
+#artBody .cat{display:flex;align-items:center;gap:7px;font-family:'JetBrains Mono';font-size:10.5px;letter-spacing:.14em;color:var(--gris2);text-transform:uppercase;padding-right:50px}
+#artBody .cat i{width:8px;height:8px;border-radius:2px}
+#artBody h3{margin-top:10px;font-size:28px;line-height:1.1;padding-right:30px}
+.stk{display:inline-flex;align-items:center;gap:8px;margin-top:10px;font-size:13px}
+.stk::before{content:'';width:8px;height:8px;border-radius:50%;background:currentColor;box-shadow:0 0 10px currentColor}
+.stk.si{color:#34D27B}.stk.no{color:#FFC83D}
+.pcmp{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
+.pbox{position:relative;text-align:left;padding:14px 16px;border-radius:16px;border:1px solid var(--line);background:rgba(255,255,255,.03);color:#fff;cursor:pointer;transition:border-color .2s,background .2s,transform .2s;display:flex;flex-direction:column;gap:2px;font:inherit}
+.pbox:hover{transform:translateY(-2px)}
+.pbox.on{border-color:rgba(255,61,62,.7);background:rgba(255,61,62,.08)}
+.pbox span{font:600 11px 'JetBrains Mono';letter-spacing:.1em;text-transform:uppercase;color:var(--gris)}
+.pbox.on span{color:var(--rojo)}
+.pbox b{font:700 24px 'Lexend',sans-serif;letter-spacing:-.02em;margin-top:6px}
+.pbox small{color:var(--gris);font-size:12.5px}
+.pbox em{font-style:normal;margin-top:6px;align-self:flex-start;font-size:11.5px;padding:3px 8px;border-radius:999px;background:rgba(52,210,123,.15);color:#34D27B}
+.spec{display:grid;grid-template-columns:1fr 1fr;gap:1px;margin:14px 0 0;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:var(--line)}
+.spec div{background:#0A0D1C;padding:10px 14px}
+.spec dt{font-size:10.5px;color:var(--gris2);font-family:'JetBrains Mono';letter-spacing:.08em;text-transform:uppercase}
+.spec dd{margin:3px 0 0;font-size:14px}
+.abuy{display:flex;align-items:center;gap:12px;margin-top:16px;padding:12px;border-radius:16px;background:rgba(255,255,255,.03);border:1px solid var(--line)}
+.abuy .atot{flex:1}.atot small{display:block;color:var(--gris2);font-size:11.5px}.atot b{font:700 20px 'Lexend',sans-serif}
+.incart{margin-top:10px;font-size:13px;color:var(--gris)}
+.lnk{background:none;border:0;color:var(--celeste);text-decoration:underline;cursor:pointer;font:inherit;padding:0}
+.relh,.sug h4{margin-top:20px;font:600 11px 'JetBrains Mono';letter-spacing:.14em;text-transform:uppercase;color:var(--gris2)}
+.rel,.sug .rws{display:grid;gap:8px;margin-top:10px}
+.rl{display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:12px;padding:10px 10px 10px 14px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.02)}
+.rl .rn{background:none;border:0;color:#fff;text-align:left;font:600 14px 'Lexend',sans-serif;cursor:pointer;padding:0}
+.rl .rn:hover{text-decoration:underline}
+.rl .rn small{display:block;font:400 12px 'Inter',sans-serif;color:var(--gris2);margin-top:2px}
+.rl b{font:600 14px 'Lexend',sans-serif}
+.radd{width:34px;height:34px;border-radius:10px;border:0;background:var(--rojo);color:#fff;font-size:20px;line-height:1;cursor:pointer;transition:transform .2s}
+.radd:active{transform:scale(.88)}
+@media(max-width:520px){.pcmp,.spec{grid-template-columns:1fr}.abuy{flex-wrap:wrap}.abuy .btn{width:100%;justify-content:center}#artBody h3{font-size:23px}}
+/* carrito */
+.dhead .cc{display:inline-grid;place-items:center;min-width:26px;height:26px;padding:0 7px;border-radius:999px;background:var(--rojo);font:700 13px 'Lexend',sans-serif;vertical-align:middle;margin-left:6px}
+.cl .ln{cursor:pointer}.cl .ln:hover{text-decoration:underline}
+.cl{transition:opacity .22s,transform .22s}
+.cl.bye{opacity:0;transform:translateX(40px)}
+.cl.new{animation:slin .55s cubic-bezier(.3,1.3,.5,1)}
+@keyframes slin{from{opacity:0;transform:translateX(30px)}}
+.sug{padding:6px 0 18px}
+.vac{display:block;margin:10px auto 0;background:none;border:0;color:var(--gris2);font-size:12.5px;text-decoration:underline;cursor:pointer}
+/* pasos y pago */
+.steps{margin-bottom:34px}
+.steps i{position:relative;transition:background .4s}
+.steps i span{position:absolute;left:0;top:10px;font:600 10px 'JetBrains Mono';letter-spacing:.12em;text-transform:uppercase;color:var(--gris2);font-style:normal}
+.steps i.on span{color:#fff}
+.mph{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:16px;background:linear-gradient(135deg,rgba(0,177,234,.18),rgba(0,177,234,.05));border:1px solid rgba(0,177,234,.35)}
+.mph .mp{margin:0;font-size:13px;padding:6px 9px}
+.mph div{flex:1}.mph b{font:600 16px 'Lexend',sans-serif;display:block}.mph small{color:var(--gris);font-size:12px}
+.mph .lock{font-size:10px;color:#7FD6F5;font-family:'JetBrains Mono';letter-spacing:.1em;text-transform:uppercase}
+.ccw{perspective:1000px;margin:18px auto 4px;width:min(320px,100%)}
+.ccard{position:relative;aspect-ratio:1.586;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.3,1.2,.5,1)}
+.ccard.flip{transform:rotateY(180deg)}
+.cf,.cb{position:absolute;inset:0;border-radius:18px;backface-visibility:hidden;-webkit-backface-visibility:hidden;overflow:hidden;background:linear-gradient(135deg,#1836B2,#3B63F0 55%,#86C7ED);box-shadow:0 20px 50px rgba(24,54,178,.45)}
+.cf{padding:18px 20px;display:flex;flex-direction:column;justify-content:space-between}
+.cf::after{content:'';position:absolute;right:-40px;top:-60px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.12);pointer-events:none}
+.ctop{display:flex;justify-content:space-between;align-items:center}
+.chip{width:40px;height:30px;border-radius:7px;background:linear-gradient(135deg,#F5D27A,#C9A13B)}
+.ctop em{font:italic 800 15px 'Lexend',sans-serif;letter-spacing:.04em}
+.cnum{font:500 19px 'JetBrains Mono';letter-spacing:.06em;white-space:nowrap}
+.crow{display:flex;justify-content:space-between;gap:10px}
+.crow small{display:block;font-size:9px;letter-spacing:.14em;text-transform:uppercase;opacity:.7}
+.crow b{font:600 12.5px 'JetBrains Mono';white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:180px;display:block}
+.cb{transform:rotateY(180deg)}
+.cb .band{position:absolute;left:0;right:0;top:22px;height:40px;background:#0A0D1C}
+.cvvb{position:absolute;right:20px;top:82px;left:20px;background:#fff;color:#111;border-radius:6px;padding:6px 12px;text-align:right}
+.cvvb small{font-size:9px;letter-spacing:.1em;color:#666;margin-right:8px}
+.cvvb b{font:600 14px 'JetBrains Mono'}
+.demofill{display:block;margin:12px 0 0;background:none;border:1px dashed rgba(0,177,234,.5);color:#7FD6F5;border-radius:10px;padding:9px 12px;font:600 12.5px 'Inter',sans-serif;cursor:pointer;width:100%}
+.fine{margin-top:12px;font-size:11.5px;color:var(--gris2);text-align:center}
+.bank{margin-top:16px;border-radius:16px;border:1px solid var(--line);overflow:hidden}
+.bank div{display:grid;grid-template-columns:64px 1fr auto;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--line)}
+.bank div:last-child{border-bottom:0}
+.bank span{font:600 10.5px 'JetBrains Mono';letter-spacing:.1em;text-transform:uppercase;color:var(--gris2)}
+.bank b{font:600 13.5px 'JetBrains Mono';word-break:break-all}
+.bank .t b{font:700 20px 'Lexend',sans-serif}
+.bank button{border:1px solid var(--line);background:rgba(255,255,255,.04);color:#fff;border-radius:9px;padding:6px 10px;font:600 12px 'Inter',sans-serif;cursor:pointer;white-space:nowrap}
+.rcpt{margin-top:16px;text-align:left;border-radius:16px;border:1px dashed rgba(245,247,252,.25);padding:14px 16px;font-size:13.5px;background:rgba(255,255,255,.02)}
+.rcpt div{display:flex;justify-content:space-between;gap:12px;padding:4px 0;color:var(--gris)}
+.rcpt div b{color:#fff;font-weight:600;text-align:right}
+.rcpt .rl2{color:#D6DAE8}
+.rcpt .rt{border-top:1px dashed rgba(245,247,252,.25);margin-top:6px;padding-top:10px;color:#fff;font:700 17px 'Lexend',sans-serif}
+.ok .tick{animation:tk .7s cubic-bezier(.3,1.6,.5,1)}
+@keyframes tk{from{transform:scale(0) rotate(-40deg)}}
+#st1,#st2,#stMp,#stTr,.ok{animation:vin .45s cubic-bezier(.3,1.2,.5,1)}
+@keyframes vin{from{opacity:0;transform:translateX(18px)}}
+@media print{body.printing>*:not(#checkout){display:none!important}body.printing #checkout{position:static;display:block;visibility:visible}body.printing #checkout .shade,body.printing .steps,body.printing .mact,body.printing .tick,body.printing .alias{display:none!important}body.printing .mbox{transform:none;opacity:1;max-height:none;border:0;background:#fff;color:#000;box-shadow:none}body.printing .ok *,body.printing .rcpt *{color:#000!important}}
+@media(prefers-reduced-motion:reduce){.it.flash,.pop,.cartbtn.bump,.cl.new,.ok .tick,#st1,#st2,#stMp,#stTr,.ok{animation:none}}
 /* local */
 .local .wrap{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:stretch;margin-top:56px}
 .map{position:relative;border-radius:28px;overflow:hidden;border:1px solid var(--line);min-height:420px;background:#0B0F22}
@@ -585,6 +706,7 @@ footer{border-top:1px solid var(--line);background:rgba(7,9,20,.88);padding:60px
       <div class="min" id="minBox"></div>
       <div class="tot2"><span>Subtotal</span><b id="cartSub">$0</b></div>
       <button class="btn pri" type="button" id="toCheckout">Ir a pagar</button>
+      <button class="vac" type="button" id="cartClear">Vaciar carrito</button>
     </div>
   </aside>
 </div>
@@ -592,7 +714,7 @@ footer{border-top:1px solid var(--line);background:rgba(7,9,20,.88);padding:60px
 <div class="modal" id="checkout" aria-hidden="true">
   <div class="shade" data-mclose></div>
   <div class="mbox" role="dialog" aria-modal="true" aria-labelledby="coT">
-    <div class="steps"><i class="on"></i><i></i><i></i></div>
+    <div class="steps"><i class="on"><span>Datos</span></i><i><span>Pago</span></i><i><span>Listo</span></i></div>
     <div id="st1">
       <h3 id="coT">Tus datos y la entrega</h3>
       <div class="fl2">
@@ -619,16 +741,57 @@ footer{border-top:1px solid var(--line);background:rgba(7,9,20,.88);padding:60px
       <div class="sum" id="sum"></div>
       <div class="mact"><button class="btn sec" type="button" id="back1">Volver</button><button class="btn pri" type="button" id="pay">Pagar</button></div>
     </div>
-    <div class="paying" id="paying"><div class="spin"></div><p class="lx" style="font-size:18px">Conectando con Mercado Pago…</p><p class="muted" style="font-size:13px;margin-top:6px">En el concepto el pago es simulado.</p></div>
+    <div id="stMp" hidden>
+      <div class="mph"><span class="mp">MP</span><div><b>Mercado Pago</b><small>Pagá con tarjeta de crédito o débito</small></div><span class="lock">Simulación</span></div>
+      <div class="ccw"><div class="ccard" id="ccard">
+        <div class="cf"><div class="ctop"><span class="chip"></span><em id="cvBrand">TARJETA</em></div><p class="cnum" id="cvNum">•••• •••• •••• ••••</p><div class="crow"><span><small>Titular</small><b id="cvName">NOMBRE Y APELLIDO</b></span><span><small>Vence</small><b id="cvExp">MM/AA</b></span></div></div>
+        <div class="cb"><i class="band"></i><div class="cvvb"><small>CVV</small><b id="cvCvv">•••</b></div></div>
+      </div></div>
+      <div class="fl2">
+        <div class="w"><label for="ccNum">Número de tarjeta</label><input id="ccNum" inputmode="numeric" autocomplete="off" placeholder="0000 0000 0000 0000"></div>
+        <div class="w"><label for="ccName">Nombre como figura en la tarjeta</label><input id="ccName" autocomplete="off" placeholder="Laura Gómez"></div>
+        <div><label for="ccExp">Vencimiento</label><input id="ccExp" inputmode="numeric" autocomplete="off" placeholder="MM/AA"></div>
+        <div><label for="ccCvv">Código de seguridad</label><input id="ccCvv" inputmode="numeric" autocomplete="off" placeholder="123"></div>
+        <div class="w"><label for="ccDni">DNI del titular</label><input id="ccDni" inputmode="numeric" autocomplete="off" placeholder="30123456"></div>
+        <div class="w"><label for="ccCuotas">Cuotas</label><select id="ccCuotas"></select></div>
+      </div>
+      <button class="demofill" type="button" id="ccDemo">Completar con una tarjeta de prueba</button>
+      <p class="err" id="e2" role="alert"></p>
+      <div class="mact"><button class="btn sec" type="button" id="back2">Volver</button><button class="btn pri" type="button" id="ccPay">Pagar</button></div>
+      <p class="fine">Es una simulación del concepto: no cargues datos reales. No se guarda ni se envía nada.</p>
+    </div>
+    <div id="stTr" hidden>
+      <h3>Transferí y listo</h3>
+      <p class="muted" style="margin-top:6px;font-size:14px">Te reservamos la mercadería por 48 h. Cuando transfieras, mandanos el comprobante por WhatsApp.</p>
+      <div class="bank">
+        <div><span>Titular</span><b>Mapla Des (dato de muestra)</b></div>
+        <div><span>CBU</span><b>0000003100098765432101</b><button type="button" data-copy="0000003100098765432101">Copiar</button></div>
+        <div><span>Alias</span><b>MAPLADES.DESCARTABLES</b><button type="button" data-copy="MAPLADES.DESCARTABLES">Copiar</button></div>
+        <div class="t"><span>Monto</span><b id="trMonto">$0</b><button type="button" data-copy="monto">Copiar</button></div>
+      </div>
+      <div class="mact"><button class="btn sec" type="button" id="back3">Volver</button><button class="btn pri" type="button" id="trDone">Ya transferí</button></div>
+    </div>
+    <div class="paying" id="paying"><div class="spin"></div><p class="lx" style="font-size:18px" id="payingT">Procesando el pago…</p><p class="muted" style="font-size:13px;margin-top:6px">En el concepto el pago es simulado.</p></div>
     <div class="ok" id="ok">
-      <div class="tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></div>
+      <div class="tick" id="okTick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></div>
       <h3 id="okT">¡Pedido confirmado!</h3>
       <p class="muted" id="okP" style="margin-top:8px"></p>
-      <div class="alias" id="okAlias" hidden>Transferí a <b>alias: MAPLADES.DESCARTABLES</b> (de muestra) y mandanos el comprobante por WhatsApp.</div>
-      <div class="mact" style="flex-direction:column"><a class="btn pri" id="okWa" href="#" target="_blank" rel="noopener">Mandar el detalle por WhatsApp</a><button class="btn sec" type="button" data-mclose>Volver a la tienda</button></div>
+      <div class="rcpt" id="rcpt"></div>
+      <div class="alias" id="okAlias" hidden>Recordá transferir a <b>MAPLADES.DESCARTABLES</b> (de muestra) y mandarnos el comprobante.</div>
+      <div class="mact" style="flex-direction:column"><a class="btn pri" id="okWa" href="#" target="_blank" rel="noopener">Mandar el detalle por WhatsApp</a><button class="btn sec" type="button" id="okPrint">Descargar comprobante</button><button class="btn sec" type="button" data-mclose>Volver a la tienda</button></div>
     </div>
   </div>
 </div>
+
+<div class="modal art" id="artModal" aria-hidden="true">
+  <div class="shade" data-aclose></div>
+  <div class="mbox" id="artBox" role="dialog" aria-modal="true" aria-labelledby="artT">
+    <button class="x xa" type="button" data-aclose aria-label="Cerrar">×</button>
+    <div id="artBody"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"><span class="tk"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span><div class="tx"><b data-tn></b><small data-tq></small></div><button type="button" id="toastCart">Ver carrito</button></div>
 
 <button class="cartbtn cartfab" type="button" data-cart id="cartFab"><svg viewBox="0 0 24 24"><path d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.5L21 8H6"/><circle cx="10" cy="20" r="1.4"/><circle cx="17" cy="20" r="1.4"/></svg><b data-n>0</b></button>
 
