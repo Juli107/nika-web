@@ -14,7 +14,7 @@
     hero:      { x: .5,  y: .02, z: 0,    rx: -.26, ry: -.55, rz: .12, s: 1.12, amp: 1,   flag: 0,  curl: .95,  prod: 0,  threads: 0, m: { x: .08, y: .66, s: .36 } },
     macro:     { x: .42, y: 0,   z: 1.75, rx: -.04, ry: -.12, rz: .02, s: 1.15, amp: .3,  flag: 0,  curl: .15, prod: 0,  threads: 0, m: { x: 0, y: .5, z: .5, s: .75 } },
     hilos:     { x: .78, y: -.25,z: -1.4, rx: -.1,  ry: .7,   rz: -.1, s: .75,  amp: .8,  flag: 0,  curl: .5,  prod: 0,  threads: 1, m: { x: .4, y: .55, s: .5 } },
-    productos: { x: -.16,y: -.03,z: .1,   rx: -.12, ry: 0,    rz: 0,   s: .9,   amp: .55, flag: 0,  curl: .3,  prod: 0,  threads: 0, m: { x: 0, y: .24, s: .5 } },
+    productos: { x: -.16,y: -.24,z: .1,   rx: -.12, ry: 0,    rz: 0,   s: .8,   amp: .55, flag: 0,  curl: .3,  prod: 0,  threads: 0, m: { x: 0, y: .24, s: .5 } },
     bandera: { x: .44, y: .3,  z: 0,    rx: 0,    ry: -.32, rz: 0,   s: 1.0,  amp: 1.15,flag: 1,  curl: 0,   prod: 8,  threads: 0, m: { x: 0, y: .5, s: .62 } },
     lateral: { x: .1,  y: -.62,z: -.8,  rx: -.2,  ry: .6,   rz: .25, s: .001,   amp: .7,  flag: 0,  curl: .9,  prod: 11, threads: 0, m: { x: -.6, y: .62, s: .001 } },
     lejos:     { x: .95, y: .55, z: -2.2, rx: -.3,  ry: -.6,  rz: -.2, s: .001,   amp: .9,  flag: 0,  curl: .6,  prod: 13, threads: 0, m: { x: .5, y: .7, s: .001 } },

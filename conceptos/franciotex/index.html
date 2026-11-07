@@ -59,6 +59,8 @@ header.solid{background:rgba(15,14,12,.72);backdrop-filter:blur(14px);-webkit-ba
 .nav{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:16px var(--pad);max-width:1480px;margin:0 auto}
 .brand{display:flex;align-items:center;gap:12px;text-decoration:none}
 .brand svg{width:34px;height:34px}
+.brand .logo{display:block;height:54px;width:auto}
+@media(max-width:760px){.brand .logo{height:38px}}
 .brand b{font-weight:800;letter-spacing:.32em;font-size:15px}
 .brand small{display:block;font-family:'JetBrains Mono';font-size:9px;letter-spacing:.24em;color:var(--gris);margin-top:2px}
 .links{display:flex;gap:30px;list-style:none}
@@ -270,8 +272,7 @@ footer{border-top:1px solid var(--line);padding:40px var(--pad) 50px;background:
 <header id="top">
   <nav class="nav">
     <a class="brand" href="#inicio" aria-label="Franciotex, inicio">
-      <svg viewBox="0 0 40 40" aria-hidden="true"><rect x="1" y="1" width="38" height="38" rx="10" fill="none" stroke="#F4EFE6" stroke-opacity=".35"/><g stroke-width="2.4" stroke-linecap="round"><path d="M9 12h22" stroke="#2E8B57"/><path d="M9 20h22" stroke="#F4EFE6"/><path d="M9 28h22" stroke="#D23A2E"/><path d="M13 8v24M20 8v24M27 8v24" stroke="#F4EFE6" stroke-opacity=".55" stroke-width="1.4"/></g></svg>
-      <span><b>FRANCIOTEX</b><small>CALIDAD Y TRADICIÓN</small></span>
+      <img class="logo" src="logo-franciotex.png" alt="Franciotex" width="66" height="46">
     </a>
     <ul class="links" id="links">
       <li><a href="#tejido">El tejido</a></li>
@@ -437,7 +438,7 @@ footer{border-top:1px solid var(--line);padding:40px var(--pad) 50px;background:
 
 <footer>
   <div class="foot">
-    <div><a class="brand" href="#inicio" style="margin:0"><span><b>FRANCIOTEX</b><small>CALIDAD Y TRADICIÓN</small></span></a><p class="muted" style="color:var(--gris);margin-top:14px;max-width:320px">Textiles de limpieza fabricados en Buenos Aires por la familia Franciosa desde hace más de 50 años.</p></div>
+    <div><a class="brand" href="#inicio" style="margin:0"><img class="logo" src="logo-franciotex.png" alt="Franciotex" width="80" height="56" style="height:56px"></a><p class="muted" style="color:var(--gris);margin-top:14px;max-width:320px">Textiles de limpieza fabricados en Buenos Aires por la familia Franciosa desde hace más de 50 años.</p></div>
     <div><h4>Productos</h4><a href="#productos">Rejillas</a><a href="#productos">Repasadores</a><a href="#productos">Trapos de piso</a><a href="#productos">Franelas</a></div>
     <div><h4>Empresa</h4><a href="#historia">Historia</a><a href="#tejido">El tejido</a><a href="#mayoristas">Mayoristas</a></div>
     <div><h4>Contacto</h4><a href="https://wa.me/5491122784412" target="_blank" rel="noopener">WhatsApp +54 9 11 2278-4412</a><a href="https://www.instagram.com/franciotex" target="_blank" rel="noopener">Instagram @franciotex</a><p>Tres de Febrero, Buenos Aires</p></div>

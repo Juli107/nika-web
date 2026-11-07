@@ -48,8 +48,9 @@ const LOOK = {
   repasador: { cm: [45, 64], pitch: 9, tw: .9, base: '#F7F4EE', fringe: 0, holes: false, hem: true,
                weft: (f) => band(f, [[.06, .1, '#2F5DA8'], [.115, .125, '#2F5DA8'], [.875, .885, '#2F5DA8'], [.9, .94, '#2F5DA8']]),
                warp: (f) => band(f, [[.06, .09, '#2F5DA8'], [.91, .94, '#2F5DA8']]) },
-  piso:      { cm: [50, 60], pitch: 15, tw: .95, base: '#DCC8A8', fringe: 0, holes: true, waffle: true,
-               weft: (f) => band(f, [[.05, .07, '#1F2D5C'], [.085, .105, '#C8433A'], [.12, .135, '#1F2D5C'], [.865, .88, '#1F2D5C'], [.895, .915, '#C8433A'], [.93, .95, '#1F2D5C']]) },
+  /* trapo de piso: textura de la foto real, franjas azul y roja a un costado y flecos abajo */
+  piso:      { cm: [50, 60], photo: 'fotos/piso-tex.jpg', avg: '#E3D5BF', rep: 3.4, holes: true, dim: .8, grain: 7, sheen: 0xFFF4E2,
+               vstripes: [[.035, .05, '#1C2440'], [.065, .085, '#C3242B'], [.1, .118, '#1C2440'], [.132, .15, '#C3242B'], [.955, .962, '#C3242B']], fringe: .05 },
   /* franela y ballerina: textura tomada de fotos reales del producto */
   franela:   { cm: [40, 50], photo: 'fotos/franela-tex.jpg', avg: '#E3202B', rep: 3.6, edge: '#9E0E17', felt: true, sheen: 0xFF2A2A },
   ballerina: { cm: [40, 40], photo: 'fotos/ballerina-tex.jpg', avg: '#E2CF14', rep: 2.4, felt: true, sheen: 0xFFE000 },
@@ -189,9 +190,31 @@ function paintPhoto(L, cm, cb, img) {
     bd.data[i] = 40 + (l - lo) / rg * 200; bd.data[i + 1] = 255; bd.data[i + 2] = 0; bd.data[i + 3] = 255;
   }
   b.putImageData(bd, 0, 0);
+  if (L.grain) { /* trama gruesa de algodón: hilos irregulares en las dos direcciones */
+    const g = L.grain * k;
+    m.globalCompositeOperation = 'multiply'; b.globalCompositeOperation = 'source-over';
+    for (let y = 0; y < H; y += g) { const a = rnd(.05, .2); m.fillStyle = `rgba(120,95,70,${a})`; m.fillRect(0, y + rnd(-1, 1) * k, W, g * rnd(.25, .45)); b.fillStyle = `rgba(30,255,0,${a * 1.6})`; b.fillRect(0, y, W, g * .35); }
+    for (let x = 0; x < W; x += g) { const a = rnd(.04, .16); m.fillStyle = `rgba(120,95,70,${a})`; m.fillRect(x + rnd(-1, 1) * k, 0, g * rnd(.25, .45), H); b.fillStyle = `rgba(30,255,0,${a * 1.6})`; b.fillRect(x, 0, g * .35, H); }
+    m.globalCompositeOperation = 'source-over';
+  }
+  if (L.vstripes) { /* franjas tejidas: se multiplican sobre la foto para conservar la trama */
+    m.globalCompositeOperation = 'multiply';
+    for (const [a, z, col] of L.vstripes) { m.fillStyle = col; m.fillRect(a * W, 0, (z - a) * W, H); }
+    m.globalCompositeOperation = 'source-over';
+  }
+  if (L.fringe) { /* flecos: hilos sueltos con huecos entre ellos */
+    const fh = L.fringe * H, y0 = H - fh, st = 6 * k;
+    m.fillStyle = '#0F0E0C'; m.fillRect(0, y0, W, fh);
+    b.fillStyle = 'rgb(0,0,0)'; b.fillRect(0, y0, W, fh);
+    for (let x = 0; x < W; x += st) {
+      const len = fh * rnd(.55, 1), w = st * rnd(.45, .7);
+      m.fillStyle = shade(L.avg, rnd(.86, 1)); m.fillRect(x, y0, w, len);
+      b.fillStyle = 'rgb(200,255,0)'; b.fillRect(x, y0, w, len);
+    }
+  }
   /* borde: un poco más oscuro y apretado */
   const e = 14 * k;
-  for (const [ctx, col] of [[m, 'rgba(0,0,0,.16)'], [b, 'rgba(255,255,0,.35)']]) { ctx.strokeStyle = col; ctx.lineWidth = e; ctx.strokeRect(e / 2, e / 2, W - e, H - e); }
+  for (const [ctx, col] of [[m, 'rgba(0,0,0,.16)'], [b, 'rgba(255,255,0,.35)']]) { ctx.strokeStyle = col; ctx.lineWidth = e; ctx.strokeRect(e / 2, e / 2, W - e, H - e - (L.fringe ? L.fringe * H : 0)); }
   if (L.edge) {
     const step = 7 * k;
     for (const [ctx, col] of [[m, L.edge], [b, 'rgb(255,255,0)']]) {
@@ -217,7 +240,7 @@ function texFor(i) {
     img.onload = () => { paintPhoto(L, cm, cb, img); map.needsUpdate = true; bump.needsUpdate = true; };
     img.src = L.photo;
   }
-  return (TEX[id] = { map, bump, holes: !!L.holes, size: new THREE.Vector2(L.cm[0] / 40 * .92, L.cm[1] / 40 * .92), heavy: !!L.heavy, felt: !!L.felt, sheen: L.sheen, photo: !!L.photo });
+  return (TEX[id] = { map, bump, holes: !!L.holes, size: new THREE.Vector2(L.cm[0] / 40 * .92, L.cm[1] / 40 * .92), heavy: !!L.heavy, felt: !!L.felt, sheen: L.sheen, photo: !!L.photo, dim: L.dim });
 }
 
 /* ---------------- la tela: ondula en la placa de video ---------------- */
@@ -284,7 +307,7 @@ function show(i) {
   mat.bumpScale = t.photo ? 1.8 : t.felt ? .8 : (t.heavy ? 3 : 2.2);
   mat.sheenRoughness = t.felt ? .35 : .55;
   mat.sheenColor.set(t.sheen || (t.felt ? 0xFF9A4A : 0xFFF4E2)); mat.sheen = t.photo ? .12 : t.felt ? .7 : 1;
-  mat.color.setScalar(t.photo ? .58 : 1); /* las fotos ya traen su luz: se bajan un poco para no lavar el color */
+  mat.color.setScalar(t.photo ? (t.dim || .58) : 1); /* las fotos ya traen su luz: se bajan un poco para no lavar el color */
   mat.needsUpdate = true;
 }
 /* tejer el resto en segundo plano para que el cambio de producto sea instantáneo */
