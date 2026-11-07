@@ -7,7 +7,7 @@ window.FX_PRODUCTOS = [
   { id: 'argentina', nombre: 'Rejilla Argentina', tag: 'NUEVA', sw: 'repeating-linear-gradient(90deg,#F4EFE6 0 5px,#7DB6E8 5px 10px,#F4EFE6 10px 13px,#E5B84B 13px 16px)',
     txt: 'El tejido de siempre, con las franjas celeste y oro de la bandera. Tan argentina como tu cocina.',
     spec: [['Material', '100% algodón'], ['Medida', '40 × 50 cm'], ['Trama', 'Celeste y oro'], ['Duración', 'Uso diario']] },
-  { id: 'repasador', nombre: 'Repasadores', tag: 'COCINA', sw: 'linear-gradient(90deg,#F7F4EE 0 60%,#2F5DA8 60% 72%,#F7F4EE 72%)',
+  { id: 'repasador', nombre: 'Repasadores', foto: 'fotos/repasador.jpg', fotoTxt: 'Referencia', tag: 'COCINA', sw: 'linear-gradient(90deg,#F7F4EE 0 60%,#2F5DA8 60% 72%,#F7F4EE 72%)',
     txt: 'Para secar platos, utensilios y mesadas. Absorción superior y el blanco clásico argentino, también en azul y violeta.',
     spec: [['Materiales', 'Algodón, microfibra, poliéster'], ['Colores', 'Blanco, azul, violeta'], ['Uso', 'Vajilla y mesada'], ['Medidas', 'A confirmar']] },
   { id: 'piso', nombre: 'Trapo de piso', foto: 'fotos/piso.jpg', tag: 'HOGAR', sw: 'linear-gradient(90deg,#E6D5BC 0 62%,#1F2D5C 62% 67%,#E6D5BC 67% 71%,#C8433A 71% 77%,#E6D5BC 77% 81%,#1F2D5C 81% 85%,#E6D5BC 85%)',

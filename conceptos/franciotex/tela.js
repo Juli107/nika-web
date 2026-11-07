@@ -41,21 +41,22 @@ const warm = new THREE.PointLight(0xE5B84B, 2.2, 6, 1.6); warm.position.set(1.6,
 /* ---------------- telar: genera las texturas de cada producto ---------------- */
 const BASE = isMobile ? 768 : 1280;
 const LOOK = {
-  rejilla:   { cm: [40, 40], pitch: 20, tw: .76, base: '#F3EEE3', fringe: .045, holes: true,
-               weft: (f) => band(f, [[.17, .2, '#2E8B57'], [.215, .245, '#D23A2E'], [.755, .785, '#D23A2E'], [.8, .83, '#2E8B57']]) },
-  argentina: { cm: [50, 40], pitch: 20, tw: .76, base: '#F5F1E8', fringe: .045, holes: true,
-               weft: (f) => band(f, [[.12, .2, '#4F96D8'], [.215, .24, '#E0A92E'], [.44, .56, '#4F96D8'], [.76, .785, '#E0A92E'], [.8, .88, '#4F96D8']]) },
-  repasador: { cm: [45, 64], pitch: 9, tw: .9, base: '#F7F4EE', fringe: 0, holes: false, hem: true,
-               weft: (f) => band(f, [[.06, .1, '#2F5DA8'], [.115, .125, '#2F5DA8'], [.875, .885, '#2F5DA8'], [.9, .94, '#2F5DA8']]),
-               warp: (f) => band(f, [[.06, .09, '#2F5DA8'], [.91, .94, '#2F5DA8']]) },
+  /* rejillas y repasador: trama de fotos reales de algodón (Pexels) con las franjas tejidas encima */
+  rejilla:   { cm: [40, 40], photo: 'fotos/rejilla-tex.jpg', avg: '#F1EBDD', rep: 3.2, holes: true, dim: .86, sheen: 0xFFF4E2, fringe: .045,
+               hstripes: [[.17, .2, '#2E8B57'], [.215, .245, '#D23A2E'], [.755, .785, '#D23A2E'], [.8, .83, '#2E8B57']] },
+  argentina: { cm: [50, 40], photo: 'fotos/rejilla-tex.jpg', avg: '#F3EEE2', rep: 3.6, holes: true, dim: .86, sheen: 0xFFF4E2, fringe: .045,
+               hstripes: [[.12, .2, '#4F96D8'], [.215, .24, '#E0A92E'], [.44, .56, '#4F96D8'], [.76, .785, '#E0A92E'], [.8, .88, '#4F96D8']] },
+  repasador: { cm: [45, 64], photo: 'fotos/repasador-tex.jpg', avg: '#F5F2EC', rep: 2.6, dim: .9, sheen: 0xFFF8EE,
+               hstripes: [[.06, .1, '#2F5DA8'], [.115, .125, '#2F5DA8'], [.875, .885, '#2F5DA8'], [.9, .94, '#2F5DA8']],
+               vstripes: [[.06, .09, '#2F5DA8'], [.91, .94, '#2F5DA8']] },
   /* trapo de piso: textura de la foto real, franjas azul y roja a un costado y flecos abajo */
   piso:      { cm: [50, 60], photo: 'fotos/piso-tex.jpg', avg: '#E3D5BF', rep: 3.4, holes: true, dim: .8, grain: 7, sheen: 0xFFF4E2,
                vstripes: [[.035, .05, '#1C2440'], [.065, .085, '#C3242B'], [.1, .118, '#1C2440'], [.132, .15, '#C3242B'], [.955, .962, '#C3242B']], fringe: .05 },
   /* franela y ballerina: textura tomada de fotos reales del producto */
   franela:   { cm: [40, 50], photo: 'fotos/franela-tex.jpg', avg: '#E3202B', rep: 3.6, edge: '#9E0E17', felt: true, sheen: 0xFF2A2A },
   ballerina: { cm: [40, 40], photo: 'fotos/ballerina-tex.jpg', avg: '#E2CF14', rep: 2.4, felt: true, sheen: 0xFFE000 },
-  auto:      { cm: [50, 60], pitch: 17, tw: .86, base: '#EADFC8', fringe: .04, holes: true, heavy: true,
-               weft: (f) => band(f, [[.42, .47, '#2F5DA8'], [.49, .5, '#EADFC8'], [.52, .57, '#C9362C']]) }
+  auto:      { cm: [50, 60], photo: 'fotos/auto-tex.jpg', avg: '#EADFC8', rep: 3, holes: true, heavy: true, dim: .84, sheen: 0xFFF4E2, fringe: .04,
+               hstripes: [[.42, .47, '#2F5DA8'], [.52, .57, '#C9362C']] }
 };
 function band(f, list) { for (const b of list) if (f >= b[0] && f < b[1]) return b[2]; return null; }
 function rnd(a, b) { return a + Math.random() * (b - a); }
@@ -187,7 +188,7 @@ function paintPhoto(L, cm, cb, img) {
   const rg = Math.max(1, hi - lo);
   for (let i = 0; i < d.data.length; i += 4) {
     const l = (d.data[i] * .3 + d.data[i + 1] * .59 + d.data[i + 2] * .11);
-    bd.data[i] = 40 + (l - lo) / rg * 200; bd.data[i + 1] = 255; bd.data[i + 2] = 0; bd.data[i + 3] = 255;
+    const n = (l - lo) / rg; bd.data[i] = 40 + n * 200; bd.data[i + 1] = L.open && n < L.open ? 0 : 255; /* huecos reales de la trama */ bd.data[i + 2] = 0; bd.data[i + 3] = 255;
   }
   b.putImageData(bd, 0, 0);
   if (L.grain) { /* trama gruesa de algodón: hilos irregulares en las dos direcciones */
@@ -197,9 +198,10 @@ function paintPhoto(L, cm, cb, img) {
     for (let x = 0; x < W; x += g) { const a = rnd(.04, .16); m.fillStyle = `rgba(120,95,70,${a})`; m.fillRect(x + rnd(-1, 1) * k, 0, g * rnd(.25, .45), H); b.fillStyle = `rgba(30,255,0,${a * 1.6})`; b.fillRect(x, 0, g * .35, H); }
     m.globalCompositeOperation = 'source-over';
   }
-  if (L.vstripes) { /* franjas tejidas: se multiplican sobre la foto para conservar la trama */
+  if (L.vstripes || L.hstripes) { /* franjas tejidas: se multiplican sobre la foto para conservar la trama */
     m.globalCompositeOperation = 'multiply';
-    for (const [a, z, col] of L.vstripes) { m.fillStyle = col; m.fillRect(a * W, 0, (z - a) * W, H); }
+    for (const [a, z, col] of L.vstripes || []) { m.fillStyle = col; m.fillRect(a * W, 0, (z - a) * W, H); }
+    for (const [a, z, col] of L.hstripes || []) { m.fillStyle = col; m.fillRect(0, a * H, W, (z - a) * H); }
     m.globalCompositeOperation = 'source-over';
   }
   if (L.fringe) { /* flecos: hilos sueltos con huecos entre ellos */

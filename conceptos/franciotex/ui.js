@@ -49,7 +49,7 @@
     list.appendChild(li);
     var c = document.createElement('article');
     c.className = 'pc';
-    c.innerHTML = (p.foto ? '<figure class="foto"><img src="' + p.foto + '" alt="' + p.nombre + ' Franciotex" loading="lazy"><figcaption>Foto real</figcaption></figure>' : '') + '<span class="tag">' + p.tag + '</span><h3>' + p.nombre + '</h3><p>' + p.txt + '</p><dl class="spec">' +
+    c.innerHTML = (p.foto ? '<figure class="foto"><img src="' + p.foto + '" alt="' + p.nombre + ' Franciotex" loading="lazy"><figcaption>' + (p.fotoTxt || 'Foto real') + '</figcaption></figure>' : '') + '<span class="tag">' + p.tag + '</span><h3>' + p.nombre + '</h3><p>' + p.txt + '</p><dl class="spec">' +
       p.spec.map(function (s) { return '<div><dt>' + s[0] + '</dt><dd>' + s[1] + '</dd></div>'; }).join('') +
       '</dl><a class="btn sec" href="#mayoristas" data-add="' + p.id + '">Sumar al pedido</a>';
     cards.appendChild(c);
