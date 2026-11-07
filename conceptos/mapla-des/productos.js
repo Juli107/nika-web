@@ -1,0 +1,27 @@
+/* Mapla Des · concepto NIKA — líneas de producto. Los datos son de muestra: en la versión final se cargan los del catálogo real. */
+window.MD_PRODUCTOS = [
+  { id: 'vasos', nombre: 'Vasos', tag: 'DESCARTABLES', sw: '#86C7ED',
+    txt: 'Transparentes, de colores y térmicos. Del vaso de 110 cc para el café al de 500 cc para la cerveza del finde.',
+    spec: [['Medidas', '110 a 500 cc'], ['Presentación', 'Por paquete o por bulto'], ['Material', 'PP, PS y polipapel'], ['Ideal para', 'Bares, eventos y kioscos']] },
+  { id: 'platos', nombre: 'Platos', tag: 'DESCARTABLES', sw: '#FFFFFF',
+    txt: 'Playos, hondos y de postre. Blancos para el día a día y de colores para que la mesa de la fiesta combine.',
+    spec: [['Medidas', '15, 18, 22 y 26 cm'], ['Presentación', 'Por paquete o por bulto'], ['Material', 'Plástico y cartón'], ['Ideal para', 'Catering, cumpleaños y escuelas']] },
+  { id: 'envases', nombre: 'Envases y bandejas', tag: 'DELIVERY', sw: '#CFE7F7',
+    txt: 'Envases con tapa, bandejas y potes que cierran bien y viajan sin derramar. Lo que pide cualquier rotisería.',
+    spec: [['Medidas', '250 a 1.000 cc'], ['Presentación', 'Por bulto cerrado'], ['Material', 'PET, PP y aluminio'], ['Ideal para', 'Rotiserías y delivery']] },
+  { id: 'cubiertos', nombre: 'Cubiertos', tag: 'DESCARTABLES', sw: '#1836B2',
+    txt: 'Tenedores, cuchillos, cucharas y cucharitas para helado. Blancos, transparentes y en colores.',
+    spec: [['Tipos', 'Tenedor, cuchillo y cuchara'], ['Presentación', 'Paquete x 50 o bulto'], ['Material', 'PS y madera'], ['Ideal para', 'Gastronomía y heladerías']] },
+  { id: 'helado', nombre: 'Potes y cucuruchos', tag: 'HELADERÍAS', sw: '#FF3D3E',
+    txt: 'Potes de cuarto, medio y kilo, cucuruchos y cucharitas. Todo lo que una heladería necesita para la temporada.',
+    spec: [['Medidas', '¼, ½ y 1 kg'], ['Presentación', 'Por bulto'], ['Material', 'Telgopor y cartón'], ['Ideal para', 'Heladerías y cafeterías']] },
+  { id: 'film', nombre: 'Film y aluminio', tag: 'COCINA', sw: '#E9EEF5',
+    txt: 'Rollos de film y de papel aluminio de uso doméstico y profesional, para envolver, conservar y cocinar.',
+    spec: [['Anchos', '28, 38 y 45 cm'], ['Presentación', 'Rollo o caja'], ['Material', 'PVC y aluminio'], ['Ideal para', 'Cocinas y fiambrerías']] },
+  { id: 'embalaje', nombre: 'Embalaje', tag: 'EMBALAJE', sw: '#C9A06A',
+    txt: 'Cajas, cinta de embalar, bolsas camiseta y de arranque. Para mandar, guardar y entregar bien presentado.',
+    spec: [['Tipos', 'Cajas, cintas y bolsas'], ['Presentación', 'Por unidad o por bulto'], ['Material', 'Cartón y polietileno'], ['Ideal para', 'Comercios y envíos']] },
+  { id: 'cotillon', nombre: 'Cotillón', tag: 'FIESTAS', sw: '#FF3D3E',
+    txt: 'Globos, velas, guirnaldas y todo para la fiesta. Lo que se ve en las fotos del cumple sale de acá.',
+    spec: [['Tipos', 'Globos, velas y deco'], ['Presentación', 'Por unidad o por mayor'], ['Colores', 'Toda la paleta'], ['Ideal para', 'Cumpleaños y eventos']] }
+];
