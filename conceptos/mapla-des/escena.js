@@ -293,7 +293,7 @@ addEventListener('pointerdown', e => {
 /* click o toque sobre el logo: giro rápido (cada click suma velocidad) */
 function whirl(p, cx) {
   const dir = cx < innerWidth * (.5 + ST().x / 2) ? -1 : 1;
-  spin.vy = Math.max(-1.3, Math.min(1.3, spin.vy + .75 * dir));
+  spin.vy = Math.max(-.8, Math.min(.8, spin.vy + .4 * dir));
   pieces.forEach(q => { q.userData.hov = 1; });
 }
 const endDrag = e => {
