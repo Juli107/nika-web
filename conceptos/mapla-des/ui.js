@@ -174,7 +174,7 @@
     var dist = function () { return Math.max(0, track.scrollWidth - track.parentNode.clientWidth); };
     hzTw = gsap.to(track, { x: function () { return -dist(); }, ease: 'none',
       scrollTrigger: { trigger: sec, start: 'top top', end: function () { return '+=' + Math.round(dist() * 1.5); }, pin: true, scrub: 1, invalidateOnRefresh: true, anticipatePin: 1,
-        onUpdate: function (s) { var b = $('#hzBar'); if (b) b.style.transform = 'scaleX(' + s.progress + ')'; } } });
+        onUpdate: function (s) { var b = $('#hzBar'), n = $('#hzN'); if (b) b.style.transform = 'scaleX(' + s.progress + ')'; if (n) n.textContent = '0' + (1 + Math.round(s.progress * 5)) + ' / 06'; } } });
     Array.prototype.forEach.call(track.querySelectorAll('.rb'), function (c) {
       var ic = c.querySelector('.ic');
       if (ic) hzSub.push(gsap.fromTo(ic, { rotate: -90 }, { rotate: 0, ease: 'none', scrollTrigger: { trigger: c, containerAnimation: hzTw, start: 'left 100%', end: 'left 40%', scrub: true } }));
