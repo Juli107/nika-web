@@ -14,7 +14,7 @@
      explode: piezas del isotipo separadas · orbit: productos girando alrededor · focus: un producto al frente
      prod: producto al frente · balloons: globos del cotillón · tilt: inclinación de la cámara */
   var KF = {
-    hero:      { x: .5, y: .04, s: .78,   logo: 1,   explode: 0,   orbit: 1,  focus: 0, prod: 0, balloons: 0, tilt: 0,   m: { x: 0, y: .4, s: .42 } },
+    hero:      { x: .5, y: .04, s: .9,    logo: 1,   explode: 0,   orbit: 0,  focus: 0, prod: 0, balloons: 0, tilt: 0,   m: { x: 0, y: .4, s: .42 } },
     why:       { x: .02, y: -.62, s: .55, logo: .45, explode: 1,   orbit: .55, focus: 0, prod: 0, balloons: 0, tilt: .25, m: { x: 0, y: .5, s: .5, logo: .3 } },
     productos: { x: .06, y: 0,   s: 1,   logo: 0,   explode: 1,   orbit: 0,  focus: 1, prod: 0, balloons: 0, tilt: 0,   m: { x: 0, y: .3, s: .62 } },
     rubros:    { x: .74, y: .52, s: .5,  logo: 0,   explode: 1,   orbit: .8, focus: 0, prod: 7, balloons: 0, tilt: .4,  m: { x: .5, y: .75, s: .35, orbit: 0 } },
@@ -40,6 +40,23 @@
     burger.setAttribute('aria-expanded', o);
   });
   $$('#links a').forEach(function (a) { a.addEventListener('click', function () { links.classList.remove('open'); burger.setAttribute('aria-expanded', false); }); });
+  /* ---------- tema: claro para todos al entrar, oscuro solo si el visitante lo elige ---------- */
+  var themeBtn = $('#theme'), meta = document.querySelector('meta[name="theme-color"]');
+  function paintTheme() {
+    var dark = root.classList.contains('dark');
+    themeBtn.setAttribute('aria-pressed', dark);
+    themeBtn.setAttribute('aria-label', dark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro');
+    themeBtn.querySelector('.tl').textContent = dark ? 'Modo claro' : 'Modo oscuro';
+    if (meta) meta.setAttribute('content', dark ? '#070914' : '#F5F7FC');
+  }
+  themeBtn.addEventListener('click', function () {
+    root.classList.add('theme-anim');
+    var dark = root.classList.toggle('dark');
+    try { localStorage.setItem('md-tema', dark ? 'oscuro' : 'claro'); } catch (e) {}
+    paintTheme();
+    setTimeout(function () { root.classList.remove('theme-anim'); }, 600);
+  });
+  paintTheme();
   var header = $('#top');
   function onScrollHeader() { header.classList.toggle('solid', window.scrollY > 40); }
   window.addEventListener('scroll', onScrollHeader, { passive: true }); onScrollHeader();

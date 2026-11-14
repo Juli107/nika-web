@@ -23,6 +23,7 @@ renderer.toneMappingExposure = 1.05;
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(35, innerWidth / innerHeight, .1, 100);
 camera.position.set(0, 0, 9);
+camera.updateMatrixWorld();
 const pmrem = new THREE.PMREMGenerator(renderer);
 scene.environment = pmrem.fromScene(new RoomEnvironment(), .04).texture;
 
@@ -230,7 +231,10 @@ const pieces = [
   prism([[356, 38], [446, 38], [556, 248], [532, 295], [446, 295], [334, 82]], M.azul)
 ];
 const dirs = [new THREE.Vector3(-1.6, -.6, .6), new THREE.Vector3(-.3, 1.2, -.8), new THREE.Vector3(1.6, -.3, .4)];
-pieces.forEach(p => logo.add(p));
+/* el isotipo cuelga de un grupo que el usuario puede girar con el mouse */
+const spinG = new THREE.Group(); logo.add(spinG);
+pieces.forEach(p => spinG.add(p));
+pieces.forEach(p => { p.userData.off = new THREE.Vector3(); p.userData.hov = 0; });
 logo.scale.setScalar(.95);
 
 /* ---------- globos del cotillón ---------- */
@@ -252,7 +256,43 @@ party.add(conf);
 /* ---------- animación ---------- */
 const ST = () => window.MD_STATE || { x: .5, y: 0, s: 1, logo: 1, explode: 0, orbit: 1, focus: 0, prod: 0, balloons: 0, tilt: 0 };
 const ptr = { x: 0, y: 0, tx: 0, ty: 0 };
-addEventListener('pointermove', e => { ptr.tx = e.clientX / innerWidth - .5; ptr.ty = e.clientY / innerHeight - .5; }, { passive: true });
+/* interacción con el isotipo: el cursor lo empuja al pasar, se lo puede agarrar y girar, y sigue girando por inercia */
+const ray = new THREE.Raycaster(), ndc = new THREE.Vector2(-9, -9), spin = { vx: 0, vy: 0, rx: 0, ry: 0 };
+let drag = null, hoverOn = false, lastMove = { x: 0, y: 0, t: 0 }, interactive = true;
+function hitLogo(cx, cy) {
+  if (!interactive) return null;
+  ndc.set(cx / innerWidth * 2 - 1, -(cy / innerHeight) * 2 + 1);
+  ray.setFromCamera(ndc, camera);
+  const h = ray.intersectObjects(pieces, true)[0];
+  return h ? pieces.find(p => p === h.object.parent) || null : null;
+}
+let hovered = null;
+addEventListener('pointermove', e => {
+  ptr.tx = e.clientX / innerWidth - .5; ptr.ty = e.clientY / innerHeight - .5;
+  ndc.set(e.clientX / innerWidth * 2 - 1, -(e.clientY / innerHeight) * 2 + 1);
+  const now = performance.now(), dx = e.clientX - lastMove.x, dy = e.clientY - lastMove.y;
+  lastMove = { x: e.clientX, y: e.clientY, t: now };
+  if (drag) {
+    spin.vy = dx * .012; spin.vx = dy * .008;
+    spin.ry += spin.vy; spin.rx = Math.max(-.9, Math.min(.9, spin.rx + spin.vx));
+    return;
+  }
+  if (e.pointerType !== 'mouse') return;
+  hovered = hitLogo(e.clientX, e.clientY);
+  if (hovered) { spin.vy += dx * .0016; spin.vx += dy * .0009; }
+  if (!!hovered !== hoverOn) { hoverOn = !!hovered; document.documentElement.classList.toggle('logo-hover', hoverOn); }
+}, { passive: true });
+addEventListener('pointerdown', e => {
+  if (e.button > 0) return;
+  const p = hitLogo(e.clientX, e.clientY); if (!p) return;
+  if (e.pointerType === 'mouse') {
+    e.preventDefault(); drag = { id: e.pointerId };
+    document.documentElement.classList.add('logo-drag');
+  } else { spin.vy += .22 * (e.clientX > innerWidth * .6 ? 1 : -1); p.userData.hov = 1; }
+});
+const endDrag = () => { if (!drag) return; drag = null; document.documentElement.classList.remove('logo-drag'); };
+addEventListener('pointerup', endDrag); addEventListener('pointercancel', endDrag); addEventListener('blur', endDrag);
+const tmpV = new THREE.Vector3(), tmpW = new THREE.Vector3();
 const dummy = new THREE.Object3D();
 const clock = new THREE.Clock();
 const smooth = x => x * x * (3 - 2 * x);
@@ -274,11 +314,34 @@ function frame(dt) {
   const L = smooth(Math.max(0, Math.min(1, s.logo)));
   logo.visible = L > .01;
   logo.scale.setScalar(.95 * L);
-  logo.rotation.y = Math.sin(t * .35) * .35 + s.explode * .6;
+  logo.rotation.y = Math.sin(t * .35) * .3 + s.explode * .6;
   logo.rotation.x = Math.sin(t * .27) * .1;
+  logo.position.y = Math.sin(t * .8) * .09;
+  /* solo se puede tocar mientras está armado */
+  const act = Math.max(0, 1 - s.explode * 2.5) * L;
+  interactive = act > .3 && logo.visible;
+  if (!interactive && hoverOn) { hoverOn = false; hovered = null; document.documentElement.classList.remove('logo-hover'); }
+  if (!drag) {
+    spin.ry += spin.vy; spin.rx += spin.vx;
+    spin.vy *= .95; spin.vx *= .92;
+    spin.rx += (0 - spin.rx) * .04; /* vuelve a quedar derecho */
+    spin.ry += (Math.round(spin.ry / (Math.PI * 2)) * Math.PI * 2 - spin.ry) * .012 * (Math.abs(spin.vy) < .004 ? 1 : 0);
+  }
+  spinG.rotation.set(spin.rx * act, spin.ry * act + (1 - act) * 0, 0);
   pieces.forEach((p, i) => {
-    p.position.copy(p.userData.home).addScaledVector(dirs[i], s.explode * 1.2);
-    p.rotation.set(s.explode * (i - 1) * 1.1 + Math.sin(t + i) * .05 * s.explode, s.explode * (i + 1) * .8, s.explode * (1 - i) * .5);
+    const u = p.userData;
+    /* cada pieza se corre un poco cuando el cursor le pasa cerca */
+    p.getWorldPosition(tmpW); tmpV.copy(tmpW).project(camera);
+    const ddx = tmpV.x - ndc.x, ddy = tmpV.y - ndc.y, dd = Math.hypot(ddx, ddy * .8), R = .32;
+    const push = interactive && isFinite(dd) && dd < R ? (1 - dd / R) : 0;
+    u.hov += ((hovered === p ? 1 : 0) - u.hov) * .12;
+    const nx = push ? ddx / (dd || 1) : 0, ny = push ? ddy / (dd || 1) : 0;
+    u.off.x += (nx * push * .35 - u.off.x) * .1;
+    u.off.y += (ny * push * .35 - u.off.y) * .1;
+    u.off.z += ((push * .25 + u.hov * .45) - u.off.z) * .1;
+    p.position.copy(u.home).addScaledVector(dirs[i], s.explode * 1.2).addScaledVector(u.off, act);
+    p.rotation.set(s.explode * (i - 1) * 1.1 + Math.sin(t + i) * .05 * s.explode - u.off.y * .6 * act, s.explode * (i + 1) * .8 + u.off.x * .6 * act, s.explode * (1 - i) * .5);
+    p.scale.setScalar(1 + u.hov * .06 * act);
   });
 
   /* productos: órbita alrededor del isotipo o uno al frente */

@@ -184,13 +184,13 @@
       return '<div class="cl' + (l.a.id === fresh ? ' new' : '') + '"><div><b class="ln" data-art="' + l.a.id + '">' + l.a.n + '</b><small>' + pres(l.a) + ' · ' + money(price(l.a)) + ' c/' + per(l.a) + '</small></div><p class="lp">' + money(price(l.a) * l.q) + '</p>' +
         qtyBox(l.a.id, l.q).replace('class="qty"', 'class="qty" style="justify-self:start"') + '<button class="rm" type="button" data-rm="' + l.a.id + '">Quitar</button></div>';
     }).join('') + (sug.length ? '<div class="sug"><h4>Te puede servir</h4><div class="rws">' + sug.map(relRow).join('') + '</div></div>' : '')
-      : '<div class="cempty"><p class="lx" style="font-size:20px;color:#fff">Tu carrito está vacío</p><p style="margin-top:8px">Sumá artículos desde la tienda.</p></div>';
+      : '<div class="cempty"><p class="lx" style="font-size:20px;color:var(--blanco)">Tu carrito está vacío</p><p style="margin-top:8px">Sumá artículos desde la tienda.</p></div>';
     $('#cartFoot').hidden = !L.length;
     $('#cartSub').textContent = money(sub);
     var mb = $('#minBox');
     if (st.modo === 'mayor') {
       var pc = Math.min(100, sub / MINIMO * 100);
-      mb.innerHTML = sub >= MINIMO ? '✓ Llegaste a la compra mínima mayorista.' : 'Te faltan <b style="color:#fff">' + money(MINIMO - sub) + '</b> para la compra mínima mayorista (' + money(MINIMO) + ').' + '<div class="trk"><i style="width:' + pc + '%"></i></div>';
+      mb.innerHTML = sub >= MINIMO ? '✓ Llegaste a la compra mínima mayorista.' : 'Te faltan <b style="color:var(--blanco)">' + money(MINIMO - sub) + '</b> para la compra mínima mayorista (' + money(MINIMO) + ').' + '<div class="trk"><i style="width:' + pc + '%"></i></div>';
     } else mb.innerHTML = 'Compra por menor: sin mínimo.';
     $('#toCheckout').disabled = st.modo === 'mayor' && sub < MINIMO;
     $('#toCheckout').style.opacity = $('#toCheckout').disabled ? .5 : 1;
