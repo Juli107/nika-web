@@ -570,21 +570,26 @@ html:not(.dark) .ck i,html:not(.dark) .it .cat i,html:not(.dark) #artBody .cat i
 @media(max-width:980px){.hcart{padding:0 6px 0 12px}.hcart .hl{display:none}}
 @media(max-width:430px){.navr{gap:6px}.theme,.hcart{height:40px}.theme .tt{width:30px;height:30px}.hcart{padding:0 5px 0 10px}.nav{gap:10px}.wm{font-size:17px}}
 /* ---------- scroll horizontal ---------- */
-.rubros.hz{height:100vh;min-height:560px;padding-top:clamp(84px,12vh,120px);padding-bottom:0;overflow:hidden}
-.rubros.hz .wrap{max-width:none;margin:0;width:100%;position:relative}
-.rubros.hz .h2{font-size:clamp(38px,5vw,84px);max-width:13ch}
-.rubros.hz .grid{display:flex;gap:20px;width:max-content;margin-top:clamp(26px,5vh,56px);will-change:transform}
-.rubros.hz .rb{width:min(400px,78vw);min-height:clamp(250px,40vh,360px);flex:none;display:flex;flex-direction:column}
-.rubros.hz .rb h3{font-size:clamp(26px,2.4vw,34px);margin-top:auto;padding-top:30px}
-.rubros.hz .rb .ic{width:64px;height:64px;border-radius:18px}
-.rubros.hz .rb .ic svg{width:32px;height:32px}
+.rubros.hz{height:100vh;height:100svh;padding:clamp(84px,13vh,104px) 0 clamp(18px,4vh,40px);overflow:hidden;display:flex}
+.rubros.hz .wrap{max-width:none;margin:0;width:100%;display:flex;flex-direction:column;min-height:0;padding:0 var(--pad)}
+.rubros.hz .kick{flex:none}
+.rubros.hz .h2{flex:none;font-size:clamp(30px,min(4.4vw,7.4vh),76px);max-width:none;margin-top:clamp(8px,1.6vh,18px)}
+.rubros.hz .hzbox{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;padding:clamp(14px,3vh,34px) 0 0}
+.rubros.hz .grid{display:flex;gap:clamp(14px,1.6vw,22px);width:max-content;margin:0;height:min(100%,400px);min-height:min(100%,220px);will-change:transform}
+.rubros.hz .rb{width:clamp(260px,30vw,400px);height:100%;min-height:0;flex:none;display:flex;flex-direction:column;padding:clamp(18px,2.6vh,28px) clamp(18px,1.8vw,26px)}
+.rubros.hz .rb h3{font-size:clamp(22px,min(2.3vw,4.2vh),34px);margin-top:auto;padding-top:14px}
+.rubros.hz .rb p{font-size:clamp(14px,min(1.15vw,2.3vh),16px);margin-top:8px}
+.rubros.hz .rb .ic{width:clamp(48px,7vh,64px);height:clamp(48px,7vh,64px);border-radius:16px;flex:none}
+.rubros.hz .rb .ic svg{width:50%;height:50%}
 .rubros.hz .rb .n{font-size:13px}
-.rubros.hz .rb{backdrop-filter:none;-webkit-backdrop-filter:none}
+.rubros.hz .rb{backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:0 18px 40px rgba(14,19,48,.08)}
 .rubros.hz .rb:nth-child(odd){background:linear-gradient(160deg,rgba(59,99,240,.14),transparent 60%),var(--noche2)}
 .rubros.hz .rb:nth-child(even){background:linear-gradient(160deg,rgba(255,61,62,.12),transparent 60%),var(--noche2)}
 .hzp{display:none}
-.rubros.hz .hzp{display:block;position:absolute;left:0;bottom:-34px;width:min(420px,60vw);height:2px;background:var(--line);border-radius:2px}
+.rubros.hz .hzp{display:flex;align-items:center;gap:14px;flex:none;margin-top:clamp(14px,2.6vh,26px);font:500 12px 'JetBrains Mono',monospace;letter-spacing:.12em;color:var(--gris)}
+.hzp .ln{position:relative;display:block;width:min(320px,45vw);height:2px;background:var(--line);border-radius:2px;overflow:hidden}
 .hzp i{display:block;height:100%;width:100%;transform:scaleX(0);transform-origin:left;background:linear-gradient(90deg,var(--celeste),var(--rojo),var(--azul2))}
+@media(max-width:700px){.rubros.hz .rb{width:78vw}.rubros.hz .h2{font-size:clamp(30px,8.6vw,44px)}}
 .hband{position:relative;z-index:2;padding:clamp(40px,8vh,90px) 0;overflow:hidden;white-space:nowrap;display:flex;flex-direction:column;gap:6px}
 .hb-row{display:inline-flex;align-items:center;gap:clamp(18px,2.4vw,40px);width:max-content;font-family:'Lexend',sans-serif;font-weight:800;font-size:clamp(46px,9vw,150px);letter-spacing:-.04em;line-height:1.02;text-transform:uppercase;will-change:transform}
 .hb-row .o{color:transparent;-webkit-text-stroke:1.5px var(--blanco)}
@@ -679,7 +684,7 @@ html:not(.dark) .ck i,html:not(.dark) .it .cat i,html:not(.dark) #artBody .cat i
     <div class="wrap">
       <p class="kick mono"><span class="tri"><i></i><i></i><i></i></span> Para cada rubro</p>
       <h2 class="h2 split">Sabemos lo que <em>pide</em> tu mostrador.</h2>
-      <div class="hzp" aria-hidden="true"><i id="hzBar"></i></div>
+      <div class="hzbox">
       <div class="grid" id="hzTrack">
         <article class="rb"><span class="n">01</span><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 11h16l-1.5 8.5a1.5 1.5 0 0 1-1.5 1.2H7a1.5 1.5 0 0 1-1.5-1.2zM8 11V8a4 4 0 0 1 8 0v3"/></svg></span><h3>Rotiserías y delivery</h3><p>Envases con tapa, bandejas de aluminio, bolsas y film para que el pedido llegue como salió.</p></article>
         <article class="rb"><span class="n">02</span><span class="ic"><svg viewBox="0 0 24 24"><path d="M8 10a4 4 0 0 1 8 0M7 10h10l-5 11zM10 6a2 2 0 1 1 4 0"/></svg></span><h3>Heladerías y cafeterías</h3><p>Potes, cucuruchos, cucharitas, vasos térmicos y tapas para la temporada alta.</p></article>
@@ -687,6 +692,8 @@ html:not(.dark) .ck i,html:not(.dark) .it .cat i,html:not(.dark) #artBody .cat i
         <article class="rb"><span class="n">04</span><span class="ic"><svg viewBox="0 0 24 24"><path d="M3 9l1.5-5h15L21 9M3 9h18v11H3zM9 20v-6h6v6"/></svg></span><h3>Kioscos y almacenes</h3><p>Bolsas camiseta, de arranque y descartables de alta rotación, siempre a mano.</p></article>
         <article class="rb"><span class="n">05</span><span class="ic"><svg viewBox="0 0 24 24"><path d="M3 7l9-4 9 4-9 4zM3 7v10l9 4 9-4V7M12 11v10"/></svg></span><h3>Revendedores</h3><p>Precios por bulto cerrado para que tu margen cierre. Pedí la lista por WhatsApp.</p></article>
         <article class="rb"><span class="n">06</span><span class="ic"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7M5 10v10h14V10M10 20v-5h4v5"/></svg></span><h3>Tu casa</h3><p>Para el asado del domingo, la vianda o la mudanza: comprás lo justo, por paquete.</p></article>
+      </div>
+      <div class="hzp" aria-hidden="true"><span id="hzN">01 / 06</span><span class="ln"><i id="hzBar"></i></span><span>DESLIZÁ</span></div>
       </div>
     </div>
   </section>
@@ -908,10 +915,10 @@ html:not(.dark) .ck i,html:not(.dark) .it .cat i,html:not(.dark) #artBody .cat i
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
-<script src="productos.js?v=20261114f" defer></script>
-<script src="catalogo.js?v=20261114f" defer></script>
-<script src="tienda.js?v=20261114f" defer></script>
-<script src="ui.js?v=20261114f" defer></script>
-<script type="module" src="escena.js?v=20261114f"></script>
+<script src="productos.js?v=20261114g" defer></script>
+<script src="catalogo.js?v=20261114g" defer></script>
+<script src="tienda.js?v=20261114g" defer></script>
+<script src="ui.js?v=20261114g" defer></script>
+<script type="module" src="escena.js?v=20261114g"></script>
 </body>
 </html>
