@@ -17,7 +17,7 @@
     hero:      { x: .5, y: .04, s: .9,    logo: 1,   explode: 0,   orbit: 0,  focus: 0, prod: 0, balloons: 0, tilt: 0,   m: { x: 0, y: .4, s: .42 } },
     why:       { x: .02, y: -.62, s: .55, logo: .45, explode: 1,   orbit: .55, focus: 0, prod: 0, balloons: 0, tilt: .25, m: { x: 0, y: .5, s: .5, logo: .3 } },
     productos: { x: .06, y: 0,   s: 1,   logo: 0,   explode: 1,   orbit: 0,  focus: 1, prod: 0, balloons: 0, tilt: 0,   m: { x: 0, y: .3, s: .62 } },
-    rubros:    { x: .76, y: .66, s: .42,  logo: 0,   explode: 1,   orbit: .8, focus: 0, prod: 7, balloons: 0, tilt: .4,  m: { x: .5, y: .75, s: .35, orbit: 0 } },
+    rubros:    { x: .6,  y: -.74, s: .3,   logo: 1,   explode: 0,   orbit: 0,  focus: 0, prod: 7, balloons: 0, tilt: 0,   m: { x: 0, y: -.64, s: .34 } },
     cotillon:  { x: .5,  y: 0,   s: .9,  logo: 0,   explode: 1,   orbit: 0,  focus: 0, prod: 7, balloons: 1, tilt: 0,   m: { x: .3, y: .3, s: .55 } },
     modo:      { x: .5,  y: .3,  s: .9,  logo: 0,   explode: 1,   orbit: 0,  focus: 0, prod: 7, balloons: 0, tilt: 0, m: { x: .2, y: .5, s: .55 } },
     tienda:    { x: .5,  y: .3,  s: .9,  logo: 0,   explode: 1,   orbit: 0,  focus: 0, prod: 7, balloons: 0, tilt: 0 },
@@ -225,7 +225,7 @@
   });
   gsap.ticker.add(function (time, dt) {
     target = aim();
-    var f = reduce ? 1 : 1 - Math.pow(1 - .09, Math.min(dt, 100) / 16.7);
+    var f = reduce ? 1 : 1 - Math.pow(1 - .055, Math.min(dt, 100) / 16.7);
     KEYS.forEach(function (k) { ST[k] += (target[k] - ST[k]) * f; });
     if (pinST && pinST.isActive) setProduct(Math.round(ST.prod));
   });
