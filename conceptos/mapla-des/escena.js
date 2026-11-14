@@ -36,12 +36,9 @@ const rimB = new THREE.PointLight(0x3b63f0, 46, 30, 1.6); rimB.position.set(5, -
 /* ---------- materiales ---------- */
 const C = { rojo: 0xff3d3e, azul: 0x1836b2, azul2: 0x3b63f0, celeste: 0x86c7ed, blanco: 0xf4f6fa };
 const plastic = (color, o = {}) => new THREE.MeshPhysicalMaterial(Object.assign({ color, roughness: .32, metalness: 0, clearcoat: .9, clearcoatRoughness: .15 }, o));
-const clear = small
-  ? new THREE.MeshPhysicalMaterial({ color: 0xdfeeff, roughness: .06, transparent: true, opacity: .32, clearcoat: 1, side: THREE.DoubleSide, depthWrite: false })
-  : new THREE.MeshPhysicalMaterial({ color: 0xffffff, roughness: .05, transmission: 1, thickness: .35, ior: 1.46, clearcoat: 1, side: THREE.DoubleSide });
-const clearTint = small
-  ? new THREE.MeshPhysicalMaterial({ color: 0x86c7ed, roughness: .08, transparent: true, opacity: .42, clearcoat: 1, side: THREE.DoubleSide, depthWrite: false })
-  : new THREE.MeshPhysicalMaterial({ color: 0xa8d8f5, roughness: .08, transmission: .92, thickness: .4, ior: 1.46, clearcoat: 1, side: THREE.DoubleSide });
+/* los blancos y celestes son sólidos (sin transparencia) */
+const clear = plastic(0xf3f6fb, { roughness: .22, clearcoat: 1, clearcoatRoughness: .08, side: THREE.DoubleSide });
+const clearTint = plastic(0xa8d8f5, { roughness: .2, clearcoat: 1, clearcoatRoughness: .08, side: THREE.DoubleSide });
 const M = {
   rojo: plastic(C.rojo), azul: plastic(C.azul), azul2: plastic(C.azul2), celeste: plastic(C.celeste), blanco: plastic(C.blanco, { roughness: .4 }),
   negro: plastic(0x16181f, { roughness: .45 }), alu: new THREE.MeshStandardMaterial({ color: 0xdfe3ea, metalness: 1, roughness: .22 }),
@@ -99,7 +96,7 @@ function vasos() {
   const v1 = mesh(shell(prof, .018), clear); g.add(v1);
   const rim = mesh(new THREE.TorusGeometry(.465, .018, 10, 64), clear); rim.rotation.x = Math.PI / 2; rim.position.y = 1.3; g.add(rim);
   /* gaseosa adentro */
-  const liq = mesh(lathe([[0, .03], [.29, .03], [.4, 1.0], [0, 1.0]]), new THREE.MeshPhysicalMaterial({ color: 0xff3d3e, roughness: .1, transmission: small ? 0 : .5, transparent: small, opacity: small ? .85 : 1, thickness: .6 }));
+  const liq = mesh(lathe([[0, .03], [.29, .03], [.4, 1.0], [0, 1.0]]), new THREE.MeshPhysicalMaterial({ color: 0xff3d3e, roughness: .1, clearcoat: .8 }));
   g.add(liq);
   const v2 = mesh(shell([[0, 0], [.26, 0], [.27, .02], [.37, 1.0], [.39, 1.02]], .02), M.azul2); v2.position.set(.95, 0, -.35); g.add(v2);
   const v3 = mesh(shell([[0, 0], [.22, 0], [.23, .02], [.3, .72], [.32, .74]], .02), M.blanco); v3.position.set(-.85, 0, -.2); g.add(v3);
@@ -179,7 +176,7 @@ function embalaje() {
   [[0, D / 2, 1, .5], [0, -D / 2, -1, .5]].forEach(([x, z, s]) => { const pv = new THREE.Group(); pv.position.set(x, H / 2, z); const f = mesh(new THREE.PlaneGeometry(W, D / 2), mi); f.position.z = s * D / 4; f.rotation.x = -Math.PI / 2; pv.add(f); pv.rotation.x = s * .9; caja.add(pv); });
   [[W / 2, 1], [-W / 2, -1]].forEach(([x, s]) => { const pv = new THREE.Group(); pv.position.set(x, H / 2, 0); const f = mesh(new THREE.PlaneGeometry(W / 2.4, D), mi); f.position.x = s * W / 4.8; f.rotation.x = -Math.PI / 2; pv.add(f); pv.rotation.z = -s * 1.1; caja.add(pv); });
   g.add(caja);
-  const cinta = mesh(new THREE.TorusGeometry(.32, .12, 16, 48), new THREE.MeshPhysicalMaterial({ color: 0xc89b5a, roughness: .25, transmission: small ? 0 : .5, thickness: .3, clearcoat: 1 }));
+  const cinta = mesh(new THREE.TorusGeometry(.32, .12, 16, 48), new THREE.MeshPhysicalMaterial({ color: 0xc89b5a, roughness: .25, clearcoat: 1 }));
   cinta.position.set(1.05, -.35, .55); cinta.rotation.set(.3, .6, 0); g.add(cinta);
   return g;
 }
@@ -286,11 +283,21 @@ addEventListener('pointerdown', e => {
   if (e.button > 0) return;
   const p = hitLogo(e.clientX, e.clientY); if (!p) return;
   if (e.pointerType === 'mouse') {
-    e.preventDefault(); drag = { id: e.pointerId };
+    e.preventDefault(); drag = { id: e.pointerId, x: e.clientX, y: e.clientY, t: performance.now(), p };
     document.documentElement.classList.add('logo-drag');
-  } else { spin.vy += .22 * (e.clientX > innerWidth * .6 ? 1 : -1); p.userData.hov = 1; }
+  } else whirl(p, e.clientX);
 });
-const endDrag = () => { if (!drag) return; drag = null; document.documentElement.classList.remove('logo-drag'); };
+/* click o toque sobre el logo: giro rápido (cada click suma velocidad) */
+function whirl(p, cx) {
+  const dir = cx < innerWidth * (.5 + ST().x / 2) ? -1 : 1;
+  spin.vy = Math.max(-.8, Math.min(.8, spin.vy + .4 * dir));
+  pieces.forEach(q => { q.userData.hov = 1; });
+}
+const endDrag = e => {
+  if (!drag) return;
+  const d = drag; drag = null; document.documentElement.classList.remove('logo-drag');
+  if (e && e.type === 'pointerup' && Math.hypot(e.clientX - d.x, e.clientY - d.y) < 6 && performance.now() - d.t < 400) whirl(d.p, e.clientX);
+};
 addEventListener('pointerup', endDrag); addEventListener('pointercancel', endDrag); addEventListener('blur', endDrag);
 const tmpV = new THREE.Vector3(), tmpW = new THREE.Vector3();
 const dummy = new THREE.Object3D();
@@ -314,7 +321,7 @@ function frame(dt) {
   const L = smooth(Math.max(0, Math.min(1, s.logo)));
   logo.visible = L > .01;
   logo.scale.setScalar(.95 * L);
-  logo.rotation.y = Math.sin(t * .35) * .3 + s.explode * .6;
+  logo.rotation.y = Math.sin(t * .35) * .3 + s.explode * .3;
   logo.rotation.x = Math.sin(t * .27) * .1;
   logo.position.y = Math.sin(t * .8) * .09;
   /* solo se puede tocar mientras está armado */
@@ -340,14 +347,14 @@ function frame(dt) {
     u.off.y += (ny * push * .35 - u.off.y) * .1;
     u.off.z += ((push * .25 + u.hov * .45) - u.off.z) * .1;
     p.position.copy(u.home).addScaledVector(dirs[i], s.explode * 1.2).addScaledVector(u.off, act);
-    p.rotation.set(s.explode * (i - 1) * 1.1 + Math.sin(t + i) * .05 * s.explode - u.off.y * .6 * act, s.explode * (i + 1) * .8 + u.off.x * .6 * act, s.explode * (1 - i) * .5);
+    p.rotation.set(s.explode * (i - 1) * .55 + Math.sin(t * .6 + i) * .04 * s.explode - u.off.y * .6 * act, s.explode * (i + 1) * .4 + u.off.x * .6 * act, s.explode * (1 - i) * .25);
     p.scale.setScalar(1 + u.hov * .06 * act);
   });
 
   /* productos: órbita alrededor del isotipo o uno al frente */
   const N = products.length, vis = Math.max(s.orbit, s.focus);
   products.forEach((h, i) => {
-    const a = i / N * Math.PI * 2 + t * .18;
+    const a = i / N * Math.PI * 2 + t * .1;
     const R = 2.75;
     const ox = Math.cos(a) * R, oz = Math.sin(a) * R * .55 - .3, oy = Math.sin(a * 2 + t * .5) * .25 + Math.sin(a) * .5;
     const d = i - s.prod, ad = Math.abs(d);
@@ -359,7 +366,7 @@ function frame(dt) {
     if (f > .5 && ad > .55) sc *= Math.max(0, 1 - (ad - .55) * 1.6);
     h.scale.setScalar(Math.max(.0001, sc));
     h.visible = sc > .002;
-    h.rotation.y = h.userData.spin + t * (.45 - .25 * f) + d * 1.4;
+    h.rotation.y = h.userData.spin + t * (.28 - .16 * f) + d * .55;
     h.rotation.x = Math.sin(t * .6 + i) * .12 * (1 - f) + .12 * f;
     h.rotation.z = Math.sin(t * .4 + i * 2) * .08;
   });

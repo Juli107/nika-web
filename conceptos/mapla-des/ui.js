@@ -17,7 +17,8 @@
     hero:      { x: .5, y: .04, s: .9,    logo: 1,   explode: 0,   orbit: 0,  focus: 0, prod: 0, balloons: 0, tilt: 0,   m: { x: 0, y: .4, s: .42 } },
     why:       { x: .02, y: -.62, s: .55, logo: .45, explode: 1,   orbit: .55, focus: 0, prod: 0, balloons: 0, tilt: .25, m: { x: 0, y: .5, s: .5, logo: .3 } },
     productos: { x: .06, y: 0,   s: 1,   logo: 0,   explode: 1,   orbit: 0,  focus: 1, prod: 0, balloons: 0, tilt: 0,   m: { x: 0, y: .3, s: .62 } },
-    rubros:    { x: .74, y: .52, s: .5,  logo: 0,   explode: 1,   orbit: .8, focus: 0, prod: 7, balloons: 0, tilt: .4,  m: { x: .5, y: .75, s: .35, orbit: 0 } },
+    rubros:    { x: .55, y: 0,   s: .3,   logo: 0,   explode: 0,   orbit: 0,  focus: 0, prod: 7, balloons: 0, tilt: 0,   m: { x: .2, y: 0, s: .3 } },
+    prefiesta: { x: .5,  y: .05, s: .75,  logo: 1,   explode: 0,   orbit: 0,  focus: 0, prod: 7, balloons: 0, tilt: 0,   m: { x: .25, y: .2, s: .5 } },
     cotillon:  { x: .5,  y: 0,   s: .9,  logo: 0,   explode: 1,   orbit: 0,  focus: 0, prod: 7, balloons: 1, tilt: 0,   m: { x: .3, y: .3, s: .55 } },
     modo:      { x: .5,  y: .3,  s: .9,  logo: 0,   explode: 1,   orbit: 0,  focus: 0, prod: 7, balloons: 0, tilt: 0, m: { x: .2, y: .5, s: .55 } },
     tienda:    { x: .5,  y: .3,  s: .9,  logo: 0,   explode: 1,   orbit: 0,  focus: 0, prod: 7, balloons: 0, tilt: 0 },
@@ -161,6 +162,24 @@
      Un solo cálculo por cuadro: según el scroll se interpola entre las escenas de cada sección
      y el 3D se acerca suavemente a ese objetivo (así ningún tween pisa a otro al saltar con el menú). */
   var segs = [], pinST = null, target = kf('hero');
+  /* rubros en scroll horizontal: la sección queda fija y las tarjetas pasan de derecha a izquierda */
+  var hzTw = null, hzSub = [];
+  function makeHz(sec) {
+    var track = $('#hzTrack'); if (!track) return;
+    if (hzTw) { hzTw.scrollTrigger && hzTw.scrollTrigger.kill(); hzTw.kill(); hzTw = null; }
+    hzSub.forEach(function (t) { t.scrollTrigger && t.scrollTrigger.kill(); t.kill(); }); hzSub = [];
+    gsap.set(track, { x: 0 });
+    if (reduce) { sec.classList.remove('hz'); return; }
+    sec.classList.add('hz');
+    var dist = function () { return Math.max(0, track.scrollWidth - track.parentNode.clientWidth); };
+    hzTw = gsap.to(track, { x: function () { return -dist(); }, ease: 'none',
+      scrollTrigger: { trigger: sec, start: 'top top', end: function () { return '+=' + Math.round(dist() * 1.5); }, pin: true, scrub: 1, invalidateOnRefresh: true, anticipatePin: 1,
+        onUpdate: function (s) { var b = $('#hzBar'); if (b) b.style.transform = 'scaleX(' + s.progress + ')'; } } });
+    Array.prototype.forEach.call(track.querySelectorAll('.rb'), function (c) {
+      var ic = c.querySelector('.ic');
+      if (ic) hzSub.push(gsap.fromTo(ic, { rotate: -90 }, { rotate: 0, ease: 'none', scrollTrigger: { trigger: c, containerAnimation: hzTw, start: 'left 100%', end: 'left 40%', scrub: true } }));
+    });
+  }
   function build() {
     segs.forEach(function (s) { s.st.kill(); });
     segs = []; pinST = null;
@@ -177,8 +196,16 @@
         segs.push({ st: pinST, from: to, to: last });
         prev = last; return;
       }
+      if (name === 'cotillon') {
+        /* antes de los globos el isotipo se vuelve a armar en el centro y después estalla en globos */
+        var pre = kf('prefiesta');
+        segs.push({ st: ScrollTrigger.create({ trigger: sec, start: 'top bottom', end: 'top 55%' }), from: prev, to: pre });
+        segs.push({ st: ScrollTrigger.create({ trigger: sec, start: 'top 55%', end: 'top 5%' }), from: pre, to: to });
+        prev = to; return;
+      }
       segs.push({ st: ScrollTrigger.create({ trigger: sec, start: 'top bottom', end: 'top 30%' }), from: prev, to: to });
       prev = to;
+      if (name === 'rubros') makeHz(sec);
     });
     ScrollTrigger.refresh();
   }
@@ -197,9 +224,14 @@
   }
   build();
   mobile.addEventListener('change', build);
+  if (!reduce) Array.prototype.forEach.call(document.querySelectorAll('.hb-row'), function (r) {
+    var d = +r.dataset.dir || -1;
+    gsap.fromTo(r, { xPercent: d < 0 ? 0 : -35 }, { xPercent: d < 0 ? -35 : 0, ease: 'none',
+      scrollTrigger: { trigger: r.parentNode, start: 'top bottom', end: 'bottom top', scrub: .5 } });
+  });
   gsap.ticker.add(function (time, dt) {
     target = aim();
-    var f = reduce ? 1 : 1 - Math.pow(1 - .09, Math.min(dt, 100) / 16.7);
+    var f = reduce ? 1 : 1 - Math.pow(1 - .055, Math.min(dt, 100) / 16.7);
     KEYS.forEach(function (k) { ST[k] += (target[k] - ST[k]) * f; });
     if (pinST && pinST.isActive) setProduct(Math.round(ST.prod));
   });
