@@ -1,0 +1,27 @@
+/* Descartables Clemente · concepto NIKA — líneas de producto. Los datos son de muestra: en la versión final se cargan los del catálogo real. */
+window.MD_PRODUCTOS = [
+  { id: 'vasos', nombre: 'Vasos', tag: 'DESCARTABLES', sw: '#F3E4D3',
+    txt: 'Transparentes, térmicos y con pico vertedor. Del vaso de 110 cc para el café al de 500 cc para la cerveza del finde.',
+    spec: [['Medidas', '110 a 500 cc'], ['Presentación', 'Paquete × 50 o caja × 1.000'], ['Material', 'PP, PS y polipapel'], ['Ideal para', 'Cafeterías, bares y eventos']] },
+  { id: 'platos', nombre: 'Platos', tag: 'DESCARTABLES', sw: '#FFFFFF',
+    txt: 'Playos, hondos y de postre. Blancos para el día a día y rígidos en colores para la mesa del cumple.',
+    spec: [['Medidas', '15, 18, 22 y 26 cm'], ['Presentación', 'Por paquete o por caja'], ['Material', 'Plástico y cartón'], ['Ideal para', 'Catering, cumpleaños y escuelas']] },
+  { id: 'envases', nombre: 'Bandejas y envases', tag: 'DELIVERY', sw: '#DADDE3',
+    txt: 'Bandejas de aluminio con tapa, de telgopor y aptas microondas. Lo que pide cualquier rotisería para que el pedido viaje bien.',
+    spec: [['Modelos', 'F70, F75, F100, 103, 105 y 618'], ['Presentación', 'Paquete × 50 o × 100'], ['Material', 'Aluminio, PP y telgopor'], ['Ideal para', 'Rotiserías y delivery']] },
+  { id: 'cubiertos', nombre: 'Cubiertos', tag: 'DESCARTABLES', sw: '#E8282E',
+    txt: 'Tenedores, cuchillos, cucharas y cucharitas sundae. Blancos, transparentes y de madera.',
+    spec: [['Tipos', 'Tenedor, cuchillo y cuchara'], ['Presentación', 'Paquete × 50 o × 100'], ['Material', 'PS y madera'], ['Ideal para', 'Gastronomía y eventos']] },
+  { id: 'postres', nombre: 'Potes y postres', tag: 'REPOSTERÍA', sw: '#FFC23D',
+    txt: 'Potes de telgopor, vasitos shot de 110 cc, vasos octogonales para postre y cucharitas. Para heladerías y para la mesa dulce.',
+    spec: [['Medidas', '110 cc a 1 kg'], ['Presentación', 'Paquete × 50 o × 100'], ['Material', 'Telgopor y plástico cristal'], ['Ideal para', 'Heladerías y repostería']] },
+  { id: 'film', nombre: 'Film, aluminio y manteca', tag: 'COCINA', sw: '#E9EEF5',
+    txt: 'Rollos de 38 cm de film, papel aluminio y papel manteca, sueltos o en kit. Lo que no puede faltar en ninguna cocina profesional.',
+    spec: [['Anchos', '28, 38 y 45 cm'], ['Presentación', 'Rollo, kit o caja × 8'], ['Material', 'PVC, aluminio y papel'], ['Ideal para', 'Cocinas, panaderías y fiambrerías']] },
+  { id: 'embalaje', nombre: 'Cajas y embalaje', tag: 'EMBALAJE', sw: '#C9A06A',
+    txt: 'Cajas de pizza, media pizza y empanadas en microcorrugado, cajas blancas con visor y cinta de embalar.',
+    spec: [['Tipos', 'Pizza, empanadas, visor y cinta'], ['Presentación', 'Pack × 10 o × 100'], ['Material', 'Cartón microcorrugado'], ['Ideal para', 'Pizzerías, panaderías y envíos']] },
+  { id: 'combos', nombre: 'Combos de cumple', tag: 'FIESTAS', sw: '#E8282E',
+    txt: 'Platos, vasos, tenedores y servilletas para 50 o 100 personas, armados y listos para llevar. Los más vendidos de nuestra tienda.',
+    spec: [['Combos', '50 y 100 personas'], ['Presentación', 'Caja armada'], ['Colores', 'Blanco y pastel'], ['Ideal para', 'Cumpleaños y eventos']] }
+];
