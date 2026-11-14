@@ -286,11 +286,21 @@ addEventListener('pointerdown', e => {
   if (e.button > 0) return;
   const p = hitLogo(e.clientX, e.clientY); if (!p) return;
   if (e.pointerType === 'mouse') {
-    e.preventDefault(); drag = { id: e.pointerId };
+    e.preventDefault(); drag = { id: e.pointerId, x: e.clientX, y: e.clientY, t: performance.now(), p };
     document.documentElement.classList.add('logo-drag');
-  } else { spin.vy += .22 * (e.clientX > innerWidth * .6 ? 1 : -1); p.userData.hov = 1; }
+  } else whirl(p, e.clientX);
 });
-const endDrag = () => { if (!drag) return; drag = null; document.documentElement.classList.remove('logo-drag'); };
+/* click o toque sobre el logo: giro rápido (cada click suma velocidad) */
+function whirl(p, cx) {
+  const dir = cx < innerWidth * (.5 + ST().x / 2) ? -1 : 1;
+  spin.vy = Math.max(-1.3, Math.min(1.3, spin.vy + .75 * dir));
+  pieces.forEach(q => { q.userData.hov = 1; });
+}
+const endDrag = e => {
+  if (!drag) return;
+  const d = drag; drag = null; document.documentElement.classList.remove('logo-drag');
+  if (e && e.type === 'pointerup' && Math.hypot(e.clientX - d.x, e.clientY - d.y) < 6 && performance.now() - d.t < 400) whirl(d.p, e.clientX);
+};
 addEventListener('pointerup', endDrag); addEventListener('pointercancel', endDrag); addEventListener('blur', endDrag);
 const tmpV = new THREE.Vector3(), tmpW = new THREE.Vector3();
 const dummy = new THREE.Object3D();

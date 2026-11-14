@@ -15,3 +15,4 @@ https://:version.nika-web-2t0.pages.dev/*
 # Conceptos para clientes: se comparten por link, no se indexan
 /conceptos/*
   X-Robots-Tag: noindex, nofollow
+  Cache-Control: no-cache
